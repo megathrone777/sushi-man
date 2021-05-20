@@ -1,6 +1,7 @@
 import React from "react";
 import fetch from "isomorphic-unfetch";
 
+import { TProduct } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   About,
@@ -10,7 +11,6 @@ import {
   Layout,
   Products,
   Reviews,
-  TProduct,
 } from "~/components";
 
 interface TProps {

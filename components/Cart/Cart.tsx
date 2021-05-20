@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import {
   AppContext,
@@ -26,6 +26,7 @@ import {
 } from "./styled";
 
 const Cart: React.FC = () => {
+  const [cutlery, setCutlery] = useState<string>("0");
   const { dispatch, state } = useContext(AppContext);
   const { cart } = state;
 
@@ -61,6 +62,16 @@ const Cart: React.FC = () => {
     id: number
   ): void => {
     dispatch(addAdditional(id, +currentTarget.value));
+  };
+
+  const handleCutleryQuantityChange = ({
+    currentTarget,
+  }: React.SyntheticEvent<HTMLInputElement>): void => {
+    if (+currentTarget.value > 15) {
+      setCutlery("15");
+      return;
+    }
+    setCutlery(currentTarget.value);
   };
 
   return (
@@ -157,6 +168,16 @@ const Cart: React.FC = () => {
                 </StyledTable>
               )}
             </StyledLayout>
+
+            <p>
+              Количество человек:{" "}
+              <input
+                type="number"
+                value={cutlery}
+                onChange={handleCutleryQuantityChange}
+                max="15"
+              />
+            </p>
 
             <StyledTotal>Общая цена: {totalPrice}</StyledTotal>
             <StyledButtons>

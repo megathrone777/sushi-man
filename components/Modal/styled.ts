@@ -1,34 +1,57 @@
 import { css, styled } from "~/theme";
 
-export const StyledWrapper = styled.section`
+export const StyledWrapper = styled.div``;
+
+export const StyledLayout = styled.div<{
+  isOpened: boolean;
+}>`
   background: url("/images/contact_bg.jpg") center center/cover no-repeat;
+  border-radius: ${({ theme }) => theme.rem(15)};
+  left: 0;
+  margin: auto;
+  max-width: ${({ theme }) => theme.rem(600)};
+  min-width: ${({ theme }) => theme.rem(600)};
+  min-height: ${({ theme }) => theme.rem(300)};
+  opacity: 0;
   padding: ${({ theme }) => theme.rem(60)} 0;
-  height: ${({ theme }) => theme.rem(280)};
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.2s ease-in;
+  visibility: hidden;
+  z-index: 800;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    height: auto;
-    padding: ${({ theme }) => theme.rem(30)} 0;
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    max-width: calc(100% - ${({ theme }) => theme.rem(20)});
+    min-width: 0;
   }
-`;
 
-export const StyledLayout = styled.div`
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  ${({ isOpened }) =>
+    isOpened &&
+    css`
+      opacity: 1;
+      visibility: visible;
+    `}
 `;
 
 export const StyledTitle = styled.h2`
   color: white;
-  font: ${({ theme }) => theme.rem(34)} ${({ theme }) => theme.fonts.fontSemiBold};
+  font: ${({ theme }) => theme.rem(30)} ${({ theme }) => theme.fonts.fontSemiBold};
   text-align: center;
-  margin-bottom: ${({ theme }) => theme.rem(25)};
+  margin-bottom: ${({ theme }) => theme.rem(13)};
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: ${({ theme }) => theme.rem(24)};
-    margin-bottom: ${({ theme }) => theme.rem(25)};
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: ${({ theme }) => theme.rem(26)};
+    padding: 0 ${({ theme }) => theme.rem(10)};
   }
+`;
+
+export const StyledTime = styled.p`
+  color: white;
+  font: ${({ theme }) => theme.rem(20)} ${({ theme }) => theme.fonts.fontSemiBold};
+  margin-bottom: ${({ theme }) => theme.rem(25)};
+  text-align: center;
 `;
 
 export const StyledLinks = styled.div``;
@@ -39,6 +62,7 @@ export const StyledList = styled.ul`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     justify-content: space-around;
+    margin: 0 auto;
     max-width: ${({ theme }) => theme.rem(300)};
   }
 `;
@@ -113,9 +137,33 @@ export const StyledLink = styled.a`
   height: 100%;
 `;
 
-export const StyledTime = styled.p`
+export const StyledClose = styled.button`
+  background: none;
+  border: none;
   color: white;
-  font: ${({ theme }) => theme.rem(20)} ${({ theme }) => theme.fonts.fontSemiBold};
-  margin-bottom: ${({ theme }) => theme.rem(25)};
-  text-align: center;
+  cursor: pointer;
+  height: ${({ theme }) => theme.rem(30)};
+  padding: 0;
+  position: absolute;
+  right: ${({ theme }) => theme.rem(15)};
+  top: ${({ theme }) => theme.rem(15)};
+  width: ${({ theme }) => theme.rem(30)};
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const StyledBackground = styled.div<{ isOpened: boolean }>`
+  background: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  height: 100%;
+  left: 0;
+  opacity: ${({ isOpened }) => (isOpened ? "1" : "0")};
+  position: fixed;
+  right: 0;
+  top: 0;
+  visibility: ${({ isOpened }) => (isOpened ? "visible" : "hidden")};
+  width: 100%;
+  z-index: 20;
 `;

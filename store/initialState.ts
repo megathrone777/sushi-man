@@ -18,6 +18,7 @@ export interface TAdditional {
 }
 
 export interface TCartProduct extends TProduct {
+  cutleryAmount: number;
   quantity: number;
   totalPrice: number;
 }

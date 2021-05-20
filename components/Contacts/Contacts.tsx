@@ -9,6 +9,7 @@ import {
   StyledList,
   StyledItem,
   StyledLink,
+  StyledTime
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
@@ -21,12 +22,14 @@ const Contacts: React.FC = () => {
   const { t } = useTranslation();
   const contactsTitle = t("contactsTitle");
   const contactsLinks = t("contactsLinks");
+  const contactsTime = t("contactsTime");
 
   return (
     <StyledWrapper id="contacts-section">
       <StyledContainer>
         <StyledLayout>
           <StyledTitle>{contactsTitle}</StyledTitle>
+          <StyledTime dangerouslySetInnerHTML={{ __html: contactsTime }} />
           {contactsLinks && (
             <StyledLinks>
               <StyledList>

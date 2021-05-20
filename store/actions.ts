@@ -6,6 +6,7 @@ export enum TActionTypes {
   CHANGE_QUANTITY = "CHANGE_QUANTITY",
   SET_ADDITIONALS = "SET_ADDITIONALS",
   ADD_ADDITIONAL = "ADD_ADDITIONAL",
+  ADD_CUTLERY = "ADD_CUTLERY",
 }
 
 export interface TAction {
@@ -42,4 +43,9 @@ export const addAdditional = (id: number, quantity: number): TAction => ({
     quantity,
   },
   type: TActionTypes.ADD_ADDITIONAL,
+});
+
+export const addCutlery = (amount: number) => ({
+  payload: amount,
+  type: TActionTypes.ADD_CUTLERY,
 });

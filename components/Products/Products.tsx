@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import Slider, { Settings } from "react-slick";
-import { useNotifications } from "reapop";
+// import { useNotifications } from "reapop";
 
-import { AppContext, TProduct, addToCart, TCartProduct } from "~/store";
+import { Modal } from "~/components";
+import { TProduct } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
@@ -32,8 +33,9 @@ interface TProps {
 
 const Products: React.FC<TProps> = ({ productsList }) => {
   const { t } = useTranslation();
-  const { notify } = useNotifications();
-  const { dispatch } = useContext(AppContext);
+  const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
+  // const { notify } = useNotifications();
+  // const { dispatch } = useContext(AppContext);
   const productsTitle = t("productsTitle");
 
   const settings: Settings = {
@@ -51,6 +53,14 @@ const Products: React.FC<TProps> = ({ productsList }) => {
     ],
   };
 
+  const handleModal = (): void => {
+    toggleModalOpened(!modalIsOpened);
+  };
+
+  const handleModalClose = (): void => {
+    toggleModalOpened(false);
+  };
+
   const handleScrollTo = (): void => {
     const deliverySection = document.getElementById("delivery-section");
 
@@ -60,45 +70,47 @@ const Products: React.FC<TProps> = ({ productsList }) => {
       });
   };
 
-  const handleBuy = ({
-    id,
-    image,
-    title,
-    weight,
-    ingredients,
-    allergeny,
-    price,
-    totalPrice,
-    quantity,
-  }: TCartProduct): void => {
-    dispatch(
-      addToCart({
-        id,
-        image,
-        title,
-        weight,
-        ingredients,
-        allergeny,
-        price,
-        totalPrice,
-        quantity,
-      })
-    );
-    notify({
-      dismissAfter: 5000,
-      dismissible: true,
-      position: "bottom-center",
-      showDismissButton: true,
-      status: "success",
-      title: `Product ${title} добавлен`,
-    });
-  };
+  // const handleBuy = ({
+  //   cutleryAmount,
+  //   id,
+  //   image,
+  //   title,
+  //   weight,
+  //   ingredients,
+  //   allergeny,
+  //   price,
+  //   totalPrice,
+  //   quantity,
+  // }: TCartProduct): void => {
+  //   dispatch(
+  //     addToCart({
+  //       cutleryAmount,
+  //       id,
+  //       image,
+  //       title,
+  //       weight,
+  //       ingredients,
+  //       allergeny,
+  //       price,
+  //       totalPrice,
+  //       quantity,
+  //     })
+  //   );
+  //   notify({
+  //     dismissAfter: 5000,
+  //     dismissible: true,
+  //     position: "bottom-center",
+  //     showDismissButton: true,
+  //     status: "success",
+  //     title: `Product ${title} добавлен`,
+  //   });
+  // };
 
   const productsItems =
     productsList &&
     productsList.map(
       (
-        { id, image, title, weight, ingredients, allergeny, price }: TProduct,
+        { image, title, weight, ingredients, allergeny, price }: TProduct,
         index: number
       ): React.ReactElement => (
         <StyledItem key={index}>
@@ -126,24 +138,10 @@ const Products: React.FC<TProps> = ({ productsList }) => {
 
           <StyledItemFooter>
             <StyledItemPrice>
-              <StyledItemText>{price}{" "}Kč</StyledItemText>
+              <StyledItemText>{price} Kč</StyledItemText>
             </StyledItemPrice>
 
-            <StyledItemButton
-              onClick={() =>
-                handleBuy({
-                  id,
-                  image,
-                  title,
-                  weight,
-                  ingredients,
-                  allergeny,
-                  price,
-                  quantity: 1,
-                  totalPrice: parseInt(price),
-                })
-              }
-            >
+            <StyledItemButton onClick={handleModal}>
               <StyledSVGSymbol
                 xmlns="http://www.w3.org/2000/svg"
                 height="24"
@@ -183,6 +181,8 @@ const Products: React.FC<TProps> = ({ productsList }) => {
 
         <StyledScroller onClick={handleScrollTo} type="button" />
       </StyledContainer>
+
+      <Modal isOpened={modalIsOpened} close={handleModalClose} />
     </StyledWrapper>
   );
 };
