@@ -1,5 +1,6 @@
 import React from "react";
 import fetch from "isomorphic-unfetch";
+import { NextPage } from "next";
 
 import { TProduct } from "~/store";
 import { TReview } from "~/components/Reviews";
@@ -19,7 +20,7 @@ interface TProps {
   reviewsList: TReview[];
 }
 
-const IndexPage: React.FC<TProps> = ({ productsList, reviewsList }) => {
+const IndexPage: NextPage<TProps> = ({ productsList, reviewsList }) => {
   const { t } = useTranslation();
   const mainTitle = t("mainTitle");
 
@@ -35,7 +36,7 @@ const IndexPage: React.FC<TProps> = ({ productsList, reviewsList }) => {
   );
 };
 
-export const getStaticProps = async () => {
+IndexPage.getInitialProps = async () => {
   const products = await fetch(
     "https://sushi-admin.herokuapp.com/products?_sort=published_at:ASC"
   );
@@ -44,7 +45,8 @@ export const getStaticProps = async () => {
   const reviewsList = await reviews.json();
 
   return {
-    props: { productsList, reviewsList, revalidate: 10 },
+    productsList,
+    reviewsList,
   };
 };
 
