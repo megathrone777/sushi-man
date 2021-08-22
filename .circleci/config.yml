@@ -64,13 +64,13 @@ workflows:
           filters:
             branches:
               ignore:
-                - master
+                - main
           requires:
             - install-deps
       - deploy-prod:
           filters:
             branches:
               only:
-                - master
+                - main
           requires:
             - install-deps
