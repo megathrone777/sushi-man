@@ -42,6 +42,11 @@ export const StyledMenu = styled.div`
 export const StyledMenuList = styled.ul`
   display: flex;
   justify-content: center;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    align-items: center;
+    flex-direction: column;
+  }
 `;
 
 export const StyledMenuItem = styled.li`
@@ -52,7 +57,8 @@ export const StyledMenuItem = styled.li`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-    margin-right: ${({ theme }) => theme.rem(18)};
+    margin-bottom: ${({ theme }) => theme.rem(15)};
+    margin-right: 0;
   }
 
   &:last-of-type {
@@ -126,4 +132,20 @@ export const StyledCopyText = styled.p`
 export const StyledCopyLink = styled.a`
   color: #44d18e;
   text-decoration: none;
+`;
+
+export const StyledScrollButton = styled.button`
+  border: none;
+  border-radius: ${({ theme }) => theme.rem(4)};
+  bottom: ${({ theme }) => theme.rem(40)};
+  cursor: pointer;
+  height: ${({ theme }) => theme.rem(45)};
+  opacity: 0.7;
+  position: fixed;
+  right: ${({ theme }) => theme.rem(40)};
+  width: ${({ theme }) => theme.rem(45)};
+
+  &:hover {
+    opacity: 1;
+  }
 `;

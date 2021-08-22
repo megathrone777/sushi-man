@@ -34,10 +34,6 @@ export const StyledList = styled.div`
     margin-left: ${({ theme }) => theme.rem(-5)};
     margin-right: ${({ theme }) => theme.rem(-5)};
   }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-    display: none;
-  }
 `;
 
 export const StyledItem = styled.div`
@@ -76,8 +72,7 @@ export const StyledItem = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-    flex: 0 1 auto;
-    margin-bottom: 0;
+    flex: 0 1 100%;
     margin-left: 0;
     margin-right: 0;
     max-width: 100%;
@@ -92,7 +87,7 @@ export const StyledItemImage = styled.img`
 `;
 
 export const StyledItemImageHolder = styled.div`
-  height: ${({ theme }) => theme.rem(280)};
+  height: ${({ theme }) => theme.rem(340)};
   margin-bottom: ${({ theme }) => theme.rem(20)};
   overflow: hidden;
   text-align: center;
@@ -100,10 +95,6 @@ export const StyledItemImageHolder = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-bottom: ${({ theme }) => theme.rem(10)};
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    height: ${({ theme }) => theme.rem(320)};
   }
 
   &:hover ${StyledItemImage} {

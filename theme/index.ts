@@ -23,6 +23,7 @@ const theme: ThemeInterface = {
   fonts,
   rem: (px) => {
     const baseFontSize = fonts.initialFontSize;
+    
     return `${px / baseFontSize}rem`;
   },
 };

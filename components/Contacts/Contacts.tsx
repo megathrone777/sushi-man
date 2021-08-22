@@ -9,7 +9,8 @@ import {
   StyledList,
   StyledItem,
   StyledLink,
-  StyledTime
+  StyledTime,
+  StyledText,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
@@ -23,6 +24,7 @@ const Contacts: React.FC = () => {
   const contactsTitle = t("contactsTitle");
   const contactsLinks = t("contactsLinks");
   const contactsTime = t("contactsTime");
+  const contactsText = t("contactsText");
 
   return (
     <StyledWrapper id="contacts-section">
@@ -30,6 +32,7 @@ const Contacts: React.FC = () => {
         <StyledLayout>
           <StyledTitle>{contactsTitle}</StyledTitle>
           <StyledTime dangerouslySetInnerHTML={{ __html: contactsTime }} />
+          <StyledText>{contactsText}</StyledText>
           {contactsLinks && (
             <StyledLinks>
               <StyledList>

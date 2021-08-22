@@ -12,6 +12,7 @@ import {
   StyledClose,
   StyledBackground,
   StyledTime,
+  StyledText,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
@@ -30,6 +31,7 @@ const Modal: React.FC<TProps> = ({ close, isOpened }) => {
   const modalTitle = t("modalTitle");
   const contactsLinks = t("contactsLinks");
   const contactsTime = t("contactsTime");
+  const contactsText = t("contactsText");
 
   const handleClose = (): void => {
     close();
@@ -46,6 +48,7 @@ const Modal: React.FC<TProps> = ({ close, isOpened }) => {
           {contactsTime && (
             <StyledTime dangerouslySetInnerHTML={{ __html: contactsTime }} />
           )}
+          {contactsText && <StyledText>{contactsText}</StyledText>}
 
           {contactsLinks && (
             <StyledLinks>

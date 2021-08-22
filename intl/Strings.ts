@@ -1,5 +1,7 @@
 export const LangStrings = {
   cz: {
+    metaDescription: `Každý set je tvořen s láskou, z čerstvých ingrediencí a ve správné kombinaci. Na doručení používáme 
+      EKO boxy, abychom aspoň trochu odlehčili přírodě.`,
     mainTitle: "Sushi Man | Rozvoz sushi po Praze",
     cartTitle: "Sushi Man | Košik",
     menu: [
@@ -30,8 +32,9 @@ export const LangStrings = {
     aboutText: `<p>Ahoj! Jsme malá partička kamarádu , kteří vědí, jak mají vypadat nejchutnější sushi sety vyrobené po domácku. 
       Každý set je tvořen s láskou, z čerstvých ingrediencí a ve správné kombinaci, což zaručuje vynikající chuť. Na doručení používáme 
       EKO boxy, abychom aspoň trochu odlehčili přírodě. Naším hlavním cílem je vaše spokojenost!</p>`,
-    contactsTitle: "Pro objednávku, napište nám zde.. Stačí jen kliknout!",
+    contactsTitle: "Rozvážíme",
     contactsTime: "11:00 - 21:00 Pn. - Čt.<br />11:00 - 22:00 Pt. - Ne.",
+    contactsText: "Pro objednávku, napište nám zde.. Stačí jen kliknout!",
     contactsLinks: [
       {
         url: "https://instagram.com/sushiman_prague",
@@ -57,6 +60,7 @@ export const LangStrings = {
     productsTitle: "Menu",
     deliveryTitle: "Otevírací doba",
     deliverySubtitle: "od 11:00 do 21:00",
+    deliveryText: "Pro objednávku, napište nám zde.. Stačí jen kliknout!",
     deliveryItems: [
       {
         title: "Rychlé objednání",
@@ -98,11 +102,15 @@ export const LangStrings = {
       "reviews_img23.png",
       "reviews_img24.png",
     ],
+    reviewsButton: "Objednat",
     modalTitle: "Rozvážíme<br />",
     allergeny: "Seznam alergenů",
     allergenyImage: "allergeny_cz_img.jpg",
+    mediaImage: "discount_img.jpg",
   },
   ru: {
+    metaDescription: `По-настоящему вкусные и сочные сеты, которые Вас вдоволь накормят и насладят 
+      сбалансированным вкусом всех ингредиентов! Готовим с душой и любовью для Вас.`,
     mainTitle: "Sushi Man | Доставка суши по Праге",
     cartTitle: "Sushi Man | Корзина",
     menu: [
@@ -137,8 +145,9 @@ export const LangStrings = {
     <p>Так же мы заботимся о природе и поэтому используем только 
     ЭКО транспортировочную посуду, и заботимся о Вашем здоровье, поэтому на нашей кухне каждый 
     день исключительно свежие ингредиенты. Для нас в первую очередь важно угодить и полюбиться Вам!</p>`,
-    contactsTitle: "Для заказа, кликните по удобной для Вас соц.сети!",
+    contactsTitle: "Доставляем",
     contactsTime: "11:00 - 21:00 Пн. - Чт.<br />11:00 - 22:00 Пт. - Вс.",
+    contactsText: "Для заказа, кликните по удобной для Вас соц.сети!",
     contactsLinks: [
       {
         url: "https://instagram.com/sushiman_prague",
@@ -164,6 +173,7 @@ export const LangStrings = {
     productsTitle: "Меню",
     deliveryTitle: "Часы работы доставки",
     deliverySubtitle: "с 11:00 до 21:00",
+    deliveryText: "Для заказа, кликните по удобной для Вас соц.сети!",
     deliveryItems: [
       {
         title: "Быстрый заказ",
@@ -205,8 +215,10 @@ export const LangStrings = {
       "reviews_img23.png",
       "reviews_img24.png",
     ],
+    reviewsButton: "Заказать",
     modalTitle: "Доставляем<br />",
     allergeny: "Список аллергенов",
     allergenyImage: "allergeny_ru_img.jpg",
+    mediaImage: "discount_img2.jpg",
   },
 };

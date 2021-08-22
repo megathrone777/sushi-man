@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-// import { Cart } from "./Cart";
 import { Menu } from "./Menu";
-import Logo from "./Logo";
+import { Logo } from "./Logo";
 import { Contact } from "./Contact";
 import {
   StyledHeader,

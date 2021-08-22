@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider, { Settings } from "react-slick";
 
+import { Modal } from "~/components";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
@@ -9,11 +10,28 @@ import {
   StyledItem,
   StyledItemLink,
   StyledItemImage,
+  StyledButton,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
-const Reviews: React.FC = () => {
+export interface TReview {
+  id: number;
+  image: [
+    {
+      url: string;
+    }
+  ];
+}
+
+interface TProps {
+  reviewsList: TReview[];
+}
+
+const Reviews: React.FC<TProps> = ({ reviewsList }) => {
   const { t } = useTranslation();
+  const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
+  const reviewsTitle = t("reviewsTitle");
+  const reviewsButton = t("reviewsButton");
 
   const settings: Settings = {
     autoplay: true,
@@ -49,35 +67,47 @@ const Reviews: React.FC = () => {
       },
     ],
   };
-  const reviewsTitle = t("reviewsTitle");
-  const reviewsImages = t("reviewsImages");
+
+  const handleModal = (): void => {
+    toggleModalOpened(!modalIsOpened);
+  };
+
+  const handleModalClose = (): void => {
+    toggleModalOpened(false);
+  };
 
   return (
     <StyledWrapper id="reviews-section">
       <StyledContainer>
         <StyledLayout>
           <StyledTitle>{reviewsTitle}</StyledTitle>
-          {reviewsImages && (
+          {reviewsList && (
             <Slider {...settings}>
-              {!!reviewsImages.length &&
-                reviewsImages.map(
-                  (image: string, index: number): React.ReactElement => (
-                    <StyledItem key={index}>
+              {!!reviewsList.length &&
+                reviewsList.map(
+                  (
+                    { id, image }: TReview,
+                    index: number
+                  ): React.ReactElement => (
+                    <StyledItem key={`${id}-${index}-review`}>
                       <StyledItemLink
                         href="https://www.instagram.com/sushiman_prague"
                         target="_blank"
                       >
-                        <StyledItemImage
-                          src={`/images/reviews/${image}`}
-                          alt="Review"
-                        />
+                        <StyledItemImage src={image[0].url} alt="Review" />
                       </StyledItemLink>
                     </StyledItem>
                   )
                 )}
             </Slider>
           )}
+
+          <StyledButton onClick={handleModal} type="button">
+            {reviewsButton}
+          </StyledButton>
         </StyledLayout>
+
+        <Modal isOpened={modalIsOpened} close={handleModalClose} />
       </StyledContainer>
     </StyledWrapper>
   );

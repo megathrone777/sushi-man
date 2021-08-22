@@ -8,6 +8,7 @@ const MenuPage: React.FC = () => {
   useEffect((): void => {
     router.push("https://sushi-man.cz/?utm_source=instagram&utm_medium=head");
   }, []);
+
   return (
     <Head>
       <meta name="robots" content="noindex, nofollow" />

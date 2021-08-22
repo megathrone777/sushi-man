@@ -5,7 +5,10 @@ const base = css`
     box-sizing: border-box;
   }
 
-  html, body {
+  #__next,
+  html,
+  body {
+    height: 100%;
     width: 100%;
   }
 
@@ -19,6 +22,7 @@ const base = css`
 
   img {
     max-width: 100%;
+    vertical-align: middle;
   }
 
   svg {

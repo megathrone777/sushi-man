@@ -31,6 +31,13 @@ export const StyledTitle = styled.h2`
   }
 `;
 
+export const StyledText = styled.p`
+  color: white;
+  font: ${({ theme }) => theme.rem(18)} ${({ theme }) => theme.fonts.fontSemiBold};
+  text-align: center;
+  margin-bottom: ${({ theme }) => theme.rem(20)};
+`;
+
 export const StyledLinks = styled.div``;
 
 export const StyledList = styled.ul`

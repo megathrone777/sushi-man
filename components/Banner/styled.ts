@@ -88,8 +88,7 @@ export const StyledButton = styled.a`
   background-color: #da2628;
   color: white;
   display: inline-block;
-  font: ${({ theme }) => theme.rem(22)}
-    ${({ theme }) => theme.fonts.fontSemiBold};
+  font: ${({ theme }) => theme.rem(22)} ${({ theme }) => theme.fonts.fontSemiBold};
   height: ${({ theme }) => theme.rem(55)};
   line-height: ${({ theme }) => theme.rem(55)};
   min-width: ${({ theme }) => theme.rem(190)};
