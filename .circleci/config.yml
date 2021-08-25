@@ -1,0 +1,76 @@
+version: 2.1
+
+jobs:
+  install-deps:
+    docker:
+      - image: circleci/node:14.17.0
+    working_directory: ~/project
+    steps:
+      - checkout
+      ## FRONTEND CACHE
+      - restore_cache:
+          keys:
+            - frontend_deps-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/project/node_modules
+      - run: 
+          command: yarn
+      - save_cache:
+          key: frontend_deps-{{ checksum ".yarn.lock" }}
+          paths:
+            - ~/project/node_modules
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+  deploy-feature-branch:
+    docker:
+      - image: circleci/node:14.17.0
+    working_directory: ~/project
+    steps:
+      - attach_workspace:
+          at: ~/project
+      ## FRONTEND
+      - run: yarn run build
+  
+  deploy-prod:
+    docker:
+      - image: circleci/node:14.17.0
+
+    working_directory: ~/project
+  
+    steps:
+      - attach_workspace:
+          at: ~/project
+
+      ## FRONTEND
+      - run: yarn run build
+
+      # PUSH TO SERVER
+      - run: sudo apt install rsync sshpass -y
+      - run: mkdir ~/.ssh && ssh-keyscan -H 206.189.48.231 >> ~/.ssh/known_hosts
+      - run: sshpass -e rsync -azuP --delete-before . root@206.189.48.231:/var/www/html
+
+      # restart pm2
+      # - run: sshpass -e ssh root@206.189.48.231 /usr/bin/make -C /var/www
+      - run: sshpass -e -v ssh root@206.189.48.231 /usr/bin/pm2 restart all
+
+
+workflows:
+  build-and-sync:
+    jobs:
+      - install-deps
+      - deploy-feature-branch:
+          filters:
+            branches:
+              ignore:
+                - main
+          requires:
+            - install-deps
+      - deploy-prod:
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+            - install-deps
