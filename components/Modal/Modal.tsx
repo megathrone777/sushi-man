@@ -16,7 +16,7 @@ import {
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
-interface TContactsLink {
+export interface TContactsLink {
   url: string;
   type: string;
 }
