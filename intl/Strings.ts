@@ -1,5 +1,5 @@
 export const LangStrings = {
-  cz: {
+  cs: {
     metaDescription: `Každý set je tvořen s láskou, z čerstvých ingrediencí a ve správné kombinaci. Na doručení používáme 
       EKO boxy, abychom aspoň trochu odlehčili přírodě.`,
     mainTitle: "Sushi Man | Rozvoz sushi po Praze",

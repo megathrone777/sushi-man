@@ -1,10 +1,10 @@
 import { createContext, useEffect, useState } from "react";
 
-export const locales = ["cz", "ru"];
+export const locales = ["cs", "ru"];
 export const LanguageContext = createContext([]);
 
 export const LanguageProvider: React.FC = ({ children }) => {
-  const [locale, setLocale] = useState("cz");
+  const [locale, setLocale] = useState("cs");
 
   const checkCookie = (): void => {
     if (

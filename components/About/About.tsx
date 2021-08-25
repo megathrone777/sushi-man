@@ -4,16 +4,25 @@ import useTranslation from "~/intl/useTranslation";
 import { StyledWrapper, StyledTitle, StyledText } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
-const About: React.FC = () => {
-  const { t } = useTranslation();
-  const aboutTitle = t("aboutTitle");
-  const aboutText = t("aboutText");
+export interface TAbout {
+  locale: string;
+  text: string;
+  title: string;
+}
+
+interface TProps {
+  about: TAbout[];
+}
+
+const About: React.FC<TProps> = ({ about }) => {
+  const { locale } = useTranslation();
+  const content: TAbout = about.find((item: TAbout) => item.locale === locale);
 
   return (
     <StyledWrapper id="about-section">
       <StyledContainer>
-        <StyledTitle>{aboutTitle}</StyledTitle>
-        <StyledText dangerouslySetInnerHTML={{ __html: aboutText }} />
+        <StyledTitle>{content.title}</StyledTitle>
+        <StyledText dangerouslySetInnerHTML={{ __html: content.text }} />
       </StyledContainer>
     </StyledWrapper>
   );

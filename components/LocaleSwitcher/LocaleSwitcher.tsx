@@ -16,8 +16,8 @@ const LocaleSwitcher: React.FC = () => {
       <StyledList>
         <StyledItem>
           <StyledLink
-            isActive={locale === "cz"}
-            onClick={() => handleClick("cz")}
+            isActive={locale === "cs"}
+            onClick={() => handleClick("cs")}
           >
             cz
           </StyledLink>
