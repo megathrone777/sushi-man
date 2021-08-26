@@ -12,4 +12,5 @@ export { Reviews } from "./Reviews";
 export type { TAbout } from "./About";
 export type { TBanner } from "./Banner";
 export type { TDelivery } from "./Delivery";
+export type { TMedia } from "./Media";
 export type { TReview } from "./Reviews";

@@ -30,7 +30,6 @@ export const StyledLayout = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     background-color: #da2629;
     position: static;
-    padding: ${({ theme }) => theme.rem(10)} 0 0;
   }
 `;
 

@@ -10,16 +10,19 @@ import {
   Contacts,
   Delivery,
   Layout,
+  Media,
   Products,
   Reviews,
   TReview,
   TAbout,
   TDelivery,
   TBanner,
+  TMedia,
 } from "~/components";
 
 interface TProps {
   about: TAbout[];
+  banner: TMedia[];
   delivery: TDelivery;
   hero: TBanner[];
   productsList: TProduct[];
@@ -29,6 +32,7 @@ interface TProps {
 
 const IndexPage: NextPage<TProps> = ({
   about,
+  banner,
   delivery,
   hero,
   productsList,
@@ -41,6 +45,7 @@ const IndexPage: NextPage<TProps> = ({
   return (
     <Layout title={mainTitle}>
       <Banner hero={hero} />
+      <Media banner={banner} />
       <About about={about} />
       <Contacts schedule={schedule} />
       <Products productsList={productsList} />
@@ -108,9 +113,21 @@ IndexPage.getInitialProps = async () => {
       return [heroCZ, heroRU];
     })
     .then((responseText) => responseText);
+  const banner = await Promise.all([
+    fetch("https://sushi-admin.herokuapp.com/banner?_locale=cs"),
+    fetch("https://sushi-admin.herokuapp.com/banner?_locale=ru"),
+  ])
+    .then(async ([cz, ru]) => {
+      const bannerCZ = await cz.json();
+      const bannerRU = await ru.json();
+
+      return [bannerCZ, bannerRU];
+    })
+    .then((responseText) => responseText);
 
   return {
     about,
+    banner,
     delivery: {
       deliveryTitle,
       deliveryItems,
