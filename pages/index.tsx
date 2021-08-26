@@ -3,8 +3,6 @@ import fetch from "isomorphic-unfetch";
 import { NextPage } from "next";
 
 import { TProduct } from "~/store";
-import { TReview } from "~/components/Reviews";
-import { TAbout } from "~/components/About";
 import useTranslation from "~/intl/useTranslation";
 import {
   About,
@@ -14,15 +12,24 @@ import {
   Layout,
   Products,
   Reviews,
+  TReview,
+  TAbout,
+  TDelivery,
 } from "~/components";
 
 interface TProps {
   about: TAbout[];
+  delivery: TDelivery;
   productsList: TProduct[];
   reviewsList: TReview[];
 }
 
-const IndexPage: NextPage<TProps> = ({ about, productsList, reviewsList }) => {
+const IndexPage: NextPage<TProps> = ({
+  about,
+  delivery,
+  productsList,
+  reviewsList,
+}) => {
   const { t } = useTranslation();
   const mainTitle = t("mainTitle");
 
@@ -32,7 +39,10 @@ const IndexPage: NextPage<TProps> = ({ about, productsList, reviewsList }) => {
       <About about={about} />
       <Contacts />
       <Products productsList={productsList} />
-      <Delivery />
+      <Delivery
+        deliveryTitle={delivery.deliveryTitle}
+        deliveryItems={delivery.deliveryItems}
+      />
       <Reviews reviewsList={reviewsList} />
     </Layout>
   );
@@ -43,9 +53,12 @@ IndexPage.getInitialProps = async () => {
     "https://sushi-admin.herokuapp.com/products?_sort=published_at:ASC"
   );
   const reviews = await fetch("https://sushi-admin.herokuapp.com/reviews");
+  const delivery = await fetch(
+    "https://sushi-admin.herokuapp.com/delivery-items?_locale=all"
+  );
   const productsList = await products.json();
   const reviewsList = await reviews.json();
-
+  const deliveryItems = await delivery.json();
   const about = await Promise.all([
     fetch("https://sushi-admin.herokuapp.com/about?_locale=cs"),
     fetch("https://sushi-admin.herokuapp.com/about?_locale=ru"),
@@ -57,9 +70,24 @@ IndexPage.getInitialProps = async () => {
       return [aboutCZ, aboutRU];
     })
     .then((responseText) => responseText);
+  const deliveryTitle = await Promise.all([
+    fetch("https://sushi-admin.herokuapp.com/delivery-title?_locale=cs"),
+    fetch("https://sushi-admin.herokuapp.com/delivery-title?_locale=ru"),
+  ])
+    .then(async ([cz, ru]) => {
+      const deliveryCZ = await cz.json();
+      const deliveryRU = await ru.json();
+
+      return [deliveryCZ, deliveryRU];
+    })
+    .then((responseText) => responseText);
 
   return {
     about,
+    delivery: {
+      deliveryTitle,
+      deliveryItems,
+    },
     productsList,
     reviewsList,
   };

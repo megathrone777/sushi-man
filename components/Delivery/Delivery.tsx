@@ -13,30 +13,43 @@ import {
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
-interface TDeliveryItem {
+interface TDeliveryTitle {
+  locale: string;
   title: string;
-  text: string;
 }
 
-const Delivery: React.FC = () => {
-  const { t } = useTranslation();
-  const deliveryTitle = t("deliveryTitle");
-  const deliverySubtitle = t("deliverySubtitle");
-  const deliveryItems = t("deliveryItems");
+interface TDeliveryItem {
+  locale: string;
+  text: string;
+  title: string;
+}
+
+export interface TDelivery {
+  deliveryTitle: TDeliveryTitle[];
+  deliveryItems: TDeliveryItem[];
+}
+
+interface TProps extends TDelivery {}
+
+const Delivery: React.FC<TProps> = ({ deliveryItems, deliveryTitle }) => {
+  const { locale, t } = useTranslation();
+  const items = deliveryItems.filter(
+    (item: TDeliveryItem) => item.locale === locale
+  );
+  const { title }: TDeliveryTitle = deliveryTitle.find(
+    (item: TDeliveryTitle) => item.locale === locale
+  );
 
   return (
     <StyledWrapper id="delivery-section">
       <StyledContainer>
         <StyledLayout>
-          <StyledTitle>
-            {deliveryTitle}
-            <br />
-            <StyledSubtitle>{deliverySubtitle}</StyledSubtitle>
-          </StyledTitle>
-          {deliveryItems && (
+          <StyledTitle dangerouslySetInnerHTML={{ __html: title }} />
+
+          {items && (
             <StyledList>
-              {!!deliveryItems.length &&
-                deliveryItems.map(
+              {!!items.length &&
+                items.map(
                   (
                     { title, text }: TDeliveryItem,
                     index: number
