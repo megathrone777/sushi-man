@@ -12,6 +12,9 @@ import {
 import { StyledContainer } from "~/components/Layout/styled";
 
 export interface TBanner {
+  image: {
+    url: string;
+  };
   locale: string;
   text: string;
   title: string;
@@ -41,7 +44,7 @@ const Banner: React.FC<TProps> = ({ hero, inner }) => {
 
   return (
     <StyledWrapper inner={inner}>
-      <StyledImage src="/images/media_img.jpg" alt="Media" />
+      <StyledImage src={content.image.url} alt="Media" />
 
       <StyledLayout>
         <StyledContainer>
