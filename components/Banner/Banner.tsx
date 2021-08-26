@@ -18,8 +18,8 @@ export interface TBanner {
 }
 
 interface TProps {
-  inner?: boolean;
   hero: TBanner[];
+  inner?: boolean;
 }
 
 const Banner: React.FC<TProps> = ({ hero, inner }) => {

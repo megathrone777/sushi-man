@@ -19,7 +19,7 @@ const CartPage: React.FC<TProps> = ({ additionals }) => {
 
   return (
     <Layout title={cartTitle}>
-      <Banner inner />
+      <Banner hero={[]} inner />
       <Cart />
     </Layout>
   );
