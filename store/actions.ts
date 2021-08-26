@@ -1,4 +1,4 @@
-import { TAdditional, TCartProduct } from "./initialState";
+import { TAdditional, TCartProduct, TSchedule } from "./initialState";
 
 export enum TActionTypes {
   ADD_PRODUCT = "ADD_PRODUCT",
@@ -7,6 +7,7 @@ export enum TActionTypes {
   SET_ADDITIONALS = "SET_ADDITIONALS",
   ADD_ADDITIONAL = "ADD_ADDITIONAL",
   ADD_CUTLERY = "ADD_CUTLERY",
+  SET_SCHEDULE = "SET_SCHEDULE",
 }
 
 export interface TAction {
@@ -48,4 +49,9 @@ export const addAdditional = (id: number, quantity: number): TAction => ({
 export const addCutlery = (amount: number) => ({
   payload: amount,
   type: TActionTypes.ADD_CUTLERY,
+});
+
+export const setSchedule = (schedule: TSchedule[]) => ({
+  payload: schedule,
+  type: TActionTypes.SET_SCHEDULE,
 });

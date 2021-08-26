@@ -11,14 +11,20 @@ import {
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
-interface TProps {
-  inner?: boolean;
+export interface TBanner {
+  locale: string;
+  text: string;
+  title: string;
 }
 
-const Banner: React.FC<TProps> = ({ inner }) => {
-  const { t } = useTranslation();
-  const welcomeTitle = t("welcomeTitle");
-  const welcomeSubTitle = t("welcomeSubTitle");
+interface TProps {
+  inner?: boolean;
+  hero: TBanner[];
+}
+
+const Banner: React.FC<TProps> = ({ hero, inner }) => {
+  const { locale, t } = useTranslation();
+  const content: TBanner = hero.find((item: TBanner) => item.locale === locale);
   const welcomeButton = t("welcomeButton");
 
   const handleClick = (
@@ -39,8 +45,8 @@ const Banner: React.FC<TProps> = ({ inner }) => {
 
       <StyledLayout>
         <StyledContainer>
-          <StyledTitle dangerouslySetInnerHTML={{ __html: welcomeTitle }} />
-          <StyledText dangerouslySetInnerHTML={{ __html: welcomeSubTitle }} />
+          <StyledTitle dangerouslySetInnerHTML={{ __html: content.title }} />
+          <StyledText dangerouslySetInnerHTML={{ __html: content.text }} />
           {!inner && (
             <StyledButton href="#" onClick={handleClick}>
               {welcomeButton}

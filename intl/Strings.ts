@@ -28,13 +28,6 @@ export const LangStrings = {
     welcomeSubTitle:
       "Při každou 5 objednávce, roll “tempura maki” <br />nebo “obyčejné maki”, dle výběru - ZDARMA",
     welcomeButton: "Menu",
-    aboutTitle: "O nás",
-    aboutText: `<p>Ahoj! Jsme malá partička kamarádu , kteří vědí, jak mají vypadat nejchutnější sushi sety vyrobené po domácku. 
-      Každý set je tvořen s láskou, z čerstvých ingrediencí a ve správné kombinaci, což zaručuje vynikající chuť. Na doručení používáme 
-      EKO boxy, abychom aspoň trochu odlehčili přírodě. Naším hlavním cílem je vaše spokojenost!</p>`,
-    contactsTitle: "Rozvážíme",
-    contactsTime: "11:00 - 21:00 Pn. - Čt.<br />11:00 - 22:00 Pt. - Ne.",
-    contactsText: "Pro objednávku, napište nám zde.. Stačí jen kliknout!",
     contactsLinks: [
       {
         url: "https://instagram.com/sushiman_prague",
@@ -58,23 +51,6 @@ export const LangStrings = {
       },
     ],
     productsTitle: "Menu",
-    deliveryTitle: "Otevírací doba",
-    deliverySubtitle: "od 11:00 do 21:00",
-    deliveryText: "Pro objednávku, napište nám zde.. Stačí jen kliknout!",
-    deliveryItems: [
-      {
-        title: "Rychlé objednání",
-        text: "Stačí napsat nám<br />v jakýkoliv messenger<br/>na naše číslo: +420 792 745 116<br />Min. Objednávka - 300 Kč",
-      },
-      {
-        title: "Doprava",
-        text: "Vzdálenost dopravy 10 km.<br />od Husitská 187/60<br />Doprava do 3 km. - 0 Kč<br />Doprava od 3 km. - 50 Kč<br />Doprava od 7 km. - 100 Kč",
-      },
-      {
-        title: "Pohodlné placení",
-        text: "Platba kartou při<br /> vytvoření objednávky<br />nebo hotové při doručení",
-      },
-    ],
     reviewsTitle: "Recenze",
     reviewsImages: [
       "reviews_img.png",
@@ -137,17 +113,6 @@ export const LangStrings = {
     welcomeSubTitle:
       "При каждом пятом заказе сета, ролл “tempura maki” <br />или “обычный maki”, на Ваш выбор - БЕСПЛАТНО",
     welcomeButton: "Меню",
-    aboutTitle: "О нас",
-    aboutText: `<p>Здравствуй, дорогой Гость, Мы - небольшая команда друзей которые знают как сделать 
-    по-настоящему вкусные и сочные сеты, которые Вас вдоволь накормят и насладят сбалансированным 
-    вкусом всех ингредиентов! Мы не пускаем пыль в глаза красивыми картинками взятыми в сети, 
-    мы готовим с душой и любовью для Вас.<p/>
-    <p>Так же мы заботимся о природе и поэтому используем только 
-    ЭКО транспортировочную посуду, и заботимся о Вашем здоровье, поэтому на нашей кухне каждый 
-    день исключительно свежие ингредиенты. Для нас в первую очередь важно угодить и полюбиться Вам!</p>`,
-    contactsTitle: "Доставляем",
-    contactsTime: "11:00 - 21:00 Пн. - Чт.<br />11:00 - 22:00 Пт. - Вс.",
-    contactsText: "Для заказа, кликните по удобной для Вас соц.сети!",
     contactsLinks: [
       {
         url: "https://instagram.com/sushiman_prague",
@@ -171,23 +136,6 @@ export const LangStrings = {
       },
     ],
     productsTitle: "Меню",
-    deliveryTitle: "Часы работы доставки",
-    deliverySubtitle: "с 11:00 до 21:00",
-    deliveryText: "Для заказа, кликните по удобной для Вас соц.сети!",
-    deliveryItems: [
-      {
-        title: "Быстрый заказ",
-        text: "Просто напишите нам<br />в любой мессенджер<br />на наш номер:<br />+420 792 745 116<br />Мин. заказ - 300 Kč",
-      },
-      {
-        title: "Доставка",
-        text: "Диапазон доставки 10 км.<br />от Husitská 187/60<br />Доставка до 3 км. - 0 Kč<br />Доставка от 3 км. - 50 Kč<br />Доставка от 7 км. - 100 Kč",
-      },
-      {
-        title: "Удобная оплата",
-        text: "Оплата картой при<br />оформлении заказа<br />или наличными<br />курьеру",
-      },
-    ],
     reviewsTitle: "Отзывы",
     reviewsImages: [
       "reviews_img.png",

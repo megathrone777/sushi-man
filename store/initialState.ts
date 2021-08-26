@@ -17,6 +17,13 @@ export interface TAdditional {
   title: string;
 }
 
+export interface TSchedule {
+  locale: string;
+  schedule: string;
+  text: string;
+  title: string;
+}
+
 export interface TCartProduct extends TProduct {
   cutleryAmount: number;
   quantity: number;
@@ -28,6 +35,7 @@ export interface TState {
     products: TCartProduct[];
     additionals: TAdditional[];
   };
+  schedule: TSchedule[];
 }
 
 const initialState: TState = {
@@ -35,6 +43,7 @@ const initialState: TState = {
     products: [],
     additionals: [],
   },
+  schedule: [],
 };
 
 export { initialState };

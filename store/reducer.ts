@@ -63,6 +63,10 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
         },
       };
     },
+    [TActionTypes.SET_SCHEDULE]: (): TState => ({
+      ...state,
+      schedule: payload,
+    }),
     DEFAULT: (): TState => {
       return state;
     },

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 
+import { AppContext, TSchedule } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
@@ -27,11 +28,12 @@ interface TProps {
 }
 
 const Modal: React.FC<TProps> = ({ close, isOpened }) => {
-  const { t } = useTranslation();
-  const modalTitle = t("modalTitle");
+  const { locale, t } = useTranslation();
+  const { state } = useContext(AppContext);
   const contactsLinks = t("contactsLinks");
-  const contactsTime = t("contactsTime");
-  const contactsText = t("contactsText");
+  const content: TSchedule =
+    !!state.schedule.length &&
+    state.schedule.find((item: TSchedule) => item.locale === locale);
 
   const handleClose = (): void => {
     close();
@@ -42,13 +44,9 @@ const Modal: React.FC<TProps> = ({ close, isOpened }) => {
       <StyledBackground onClick={handleClose} isOpened={isOpened} />
       <StyledLayout isOpened={isOpened}>
         <StyledContainer>
-          {modalTitle && (
-            <StyledTitle dangerouslySetInnerHTML={{ __html: modalTitle }} />
-          )}
-          {contactsTime && (
-            <StyledTime dangerouslySetInnerHTML={{ __html: contactsTime }} />
-          )}
-          {contactsText && <StyledText>{contactsText}</StyledText>}
+          <StyledTitle dangerouslySetInnerHTML={{ __html: content.title }} />
+          <StyledTime dangerouslySetInnerHTML={{ __html: content.schedule }} />
+          <StyledText>{content.text}</StyledText>
 
           {contactsLinks && (
             <StyledLinks>

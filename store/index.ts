@@ -5,5 +5,11 @@ export {
   changeQuantity,
   addAdditional,
   setAdditionals,
+  setSchedule,
 } from "./actions";
-export type { TCartProduct, TProduct, TAdditional } from "./initialState";
+export type {
+  TCartProduct,
+  TProduct,
+  TAdditional,
+  TSchedule,
+} from "./initialState";

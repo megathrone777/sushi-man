@@ -2,7 +2,7 @@ import React from "react";
 import fetch from "isomorphic-unfetch";
 import { NextPage } from "next";
 
-import { TProduct } from "~/store";
+import { TProduct, TSchedule } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   About,
@@ -15,29 +15,34 @@ import {
   TReview,
   TAbout,
   TDelivery,
+  TBanner,
 } from "~/components";
 
 interface TProps {
   about: TAbout[];
   delivery: TDelivery;
+  hero: TBanner[];
   productsList: TProduct[];
   reviewsList: TReview[];
+  schedule: TSchedule[];
 }
 
 const IndexPage: NextPage<TProps> = ({
   about,
   delivery,
+  hero,
   productsList,
   reviewsList,
+  schedule,
 }) => {
   const { t } = useTranslation();
   const mainTitle = t("mainTitle");
 
   return (
     <Layout title={mainTitle}>
-      <Banner />
+      <Banner hero={hero} />
       <About about={about} />
-      <Contacts />
+      <Contacts schedule={schedule} />
       <Products productsList={productsList} />
       <Delivery
         deliveryTitle={delivery.deliveryTitle}
@@ -81,6 +86,28 @@ IndexPage.getInitialProps = async () => {
       return [deliveryCZ, deliveryRU];
     })
     .then((responseText) => responseText);
+  const schedule = await Promise.all([
+    fetch("https://sushi-admin.herokuapp.com/schedule?_locale=cs"),
+    fetch("https://sushi-admin.herokuapp.com/schedule?_locale=ru"),
+  ])
+    .then(async ([cz, ru]) => {
+      const scheuleCZ = await cz.json();
+      const scheuleRU = await ru.json();
+
+      return [scheuleCZ, scheuleRU];
+    })
+    .then((responseText) => responseText);
+  const hero = await Promise.all([
+    fetch("https://sushi-admin.herokuapp.com/hero?_locale=cs"),
+    fetch("https://sushi-admin.herokuapp.com/hero?_locale=ru"),
+  ])
+    .then(async ([cz, ru]) => {
+      const heroCZ = await cz.json();
+      const heroRU = await ru.json();
+
+      return [heroCZ, heroRU];
+    })
+    .then((responseText) => responseText);
 
   return {
     about,
@@ -88,8 +115,10 @@ IndexPage.getInitialProps = async () => {
       deliveryTitle,
       deliveryItems,
     },
+    hero,
     productsList,
     reviewsList,
+    schedule,
   };
 };
 
