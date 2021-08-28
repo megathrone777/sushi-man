@@ -57,8 +57,9 @@ export const StyledItem = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    flex: 0 1 calc(33.3333% - ${({ theme }) => theme.rem(10)});
-    max-width: calc(33.3333% - ${({ theme }) => theme.rem(10)});
+    display: flex;
+    flex: 0 1 100%;
+    max-width: 100%;
     margin-bottom: ${({ theme }) => theme.rem(10)};
     margin-left: ${({ theme }) => theme.rem(5)};
     margin-right: ${({ theme }) => theme.rem(5)};
