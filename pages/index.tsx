@@ -74,7 +74,7 @@ const IndexPage: NextPage<TProps> = ({
 
 IndexPage.getInitialProps = async () => {
   const products = await fetch(
-    "https://sushi-admin.herokuapp.com/products?_sort=published_at:ASC"
+    "https://sushi-admin.herokuapp.com/products?_sort=priority:ASC"
   );
   const reviews = await fetch("https://sushi-admin.herokuapp.com/reviews");
   const delivery = await fetch(
