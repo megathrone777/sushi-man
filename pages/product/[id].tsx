@@ -54,6 +54,10 @@ ProductPage.getInitialProps = async ({ query: { id } }) => {
             price
             name
             id
+            submodifiers {
+              id
+              name
+            }
           }
           title
           slug

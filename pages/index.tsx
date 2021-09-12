@@ -175,8 +175,6 @@ IndexPage.getInitialProps = async () => {
     `,
   });
 
-  console.log(additionals);
-
   return {
     additionals,
     about,

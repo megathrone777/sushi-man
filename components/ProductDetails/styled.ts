@@ -79,9 +79,9 @@ export const StyledMofifiersCheckbox = styled.input`
   border: ${({ theme }) => theme.rem(2)} solid #da2628;
   cursor: pointer;
   display: inline-block;
-  height: ${({ theme }) => theme.rem(30)};
+  height: ${({ theme }) => theme.rem(25)};
   overflow: hidden;
-  width: ${({ theme }) => theme.rem(30)};
+  width: ${({ theme }) => theme.rem(25)};
   vertical-align: middle;
   margin-right: ${({ theme }) => theme.rem(10)};
   margin-left: 0;
@@ -89,6 +89,10 @@ export const StyledMofifiersCheckbox = styled.input`
   &:checked {
     background-position: center center;
   }
+`;
+
+export const StyledSubmodifiersList = styled.ul`
+  margin-left: ${({ theme }) => theme.rem(20)};
 `;
 
 export const StyledButton = styled.button`

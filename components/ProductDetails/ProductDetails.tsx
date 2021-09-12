@@ -20,12 +20,19 @@ import {
   StyledModifierLabel,
   StyledModifiersList,
   StyledModifiersItem,
+  StyledSubmodifiersList,
 } from "./styled";
+
+interface TProductSubmodifier {
+  id: number;
+  name: string;
+}
 
 export interface TProductModifier {
   id: number;
   name: string;
   price: string;
+  submodifiers: TProductSubmodifier[];
 }
 
 export interface TProduct {
@@ -60,6 +67,7 @@ const ProductDetails: React.FC<TProps> = ({
   const { t } = useTranslation();
   const [totalPrice, setTotalPrice] = useState<number>(parseInt(price));
   const [modifierIds, setModifierIds] = useState<number[]>([]);
+  const [submodifiersIds, setSubmodifiersIds] = useState<number[]>([]);
 
   const handleAddToCart = (product: TCartProduct): void => {
     dispatch(addToCart(product));
@@ -91,6 +99,21 @@ const ProductDetails: React.FC<TProps> = ({
       setTotalPrice((prevTotalPrice: number): number => {
         return prevTotalPrice + parseInt(price);
       });
+    }
+  };
+
+  const handleSubModifierChange = (id: number): void => {
+    if (submodifiersIds.includes(id)) {
+      const newSubModifierIds = submodifiersIds.filter(
+        (subModifierId: number) => subModifierId !== id
+      );
+
+      setSubmodifiersIds(newSubModifierIds);
+    } else {
+      const newSubModifierIds = [...submodifiersIds];
+
+      newSubModifierIds.push(id);
+      setSubmodifiersIds(newSubModifierIds);
     }
   };
 
@@ -129,19 +152,66 @@ const ProductDetails: React.FC<TProps> = ({
                   <StyledModifiersList>
                     {product_modifiers.map(
                       (
-                        { id, name, price }: TProductModifier,
+                        {
+                          id: modifierId,
+                          name,
+                          price,
+                          submodifiers,
+                        }: TProductModifier,
                         index: number
                       ): React.ReactElement => (
                         <StyledModifiersItem key={`${index}-${name}`}>
                           <StyledMofifiersCheckbox
-                            id={id}
-                            onChange={() => handleModifierChange(id, price)}
-                            checked={modifierIds.includes(id) ? true : false}
+                            id={modifierId}
+                            onChange={() =>
+                              handleModifierChange(modifierId, price)
+                            }
+                            checked={
+                              modifierIds.includes(modifierId) ? true : false
+                            }
                             type="checkbox"
                           />
-                          <StyledModifierLabel htmlFor={id}>
+                          <StyledModifierLabel htmlFor={modifierId}>
                             {name} - {price}
                           </StyledModifierLabel>
+
+                          {modifierIds.includes(modifierId) &&
+                            submodifiers &&
+                            !!submodifiers.length && (
+                              <StyledSubmodifiersList>
+                                {submodifiers.map(
+                                  (
+                                    {
+                                      id: subModifierId,
+                                      name,
+                                    }: TProductSubmodifier,
+                                    index: number
+                                  ): React.ReactElement => (
+                                    <li key={`${index}-${subModifierId}`}>
+                                      <StyledMofifiersCheckbox
+                                        id={`subModifier-${subModifierId}-${modifierId}`}
+                                        checked={
+                                          submodifiersIds.includes(
+                                            subModifierId
+                                          )
+                                            ? true
+                                            : false
+                                        }
+                                        onChange={() =>
+                                          handleSubModifierChange(subModifierId)
+                                        }
+                                        type="checkbox"
+                                      />
+                                      <StyledModifierLabel
+                                        htmlFor={`subModifier-${subModifierId}-${modifierId}`}
+                                      >
+                                        {name}
+                                      </StyledModifierLabel>
+                                    </li>
+                                  )
+                                )}
+                              </StyledSubmodifiersList>
+                            )}
                         </StyledModifiersItem>
                       )
                     )}

@@ -59,6 +59,7 @@ const Cart: React.FC = () => {
   };
 
   const handleQuantityDecrease = (id: number, quantity: number): void => {
+    if (quantity === 1) return;
     dispatch(changeQuantity(id, quantity - 1));
   };
 
@@ -177,7 +178,7 @@ const Cart: React.FC = () => {
                             onClick={() => handleProductRemove(id)}
                             type="button"
                           >
-                            x
+                            Удалить
                           </StyledRemove>
                         </StyledTableCell>
                       </StyledTableRow>
