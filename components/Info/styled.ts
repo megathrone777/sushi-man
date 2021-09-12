@@ -46,6 +46,7 @@ export const StyledContent = styled.div`
 export const StyledText = styled.p`
   color: white;
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontSemiBold}`};
+  line-height: ${({ theme }) => theme.rem(32)};
   text-align: center;
 `;
 
