@@ -21,13 +21,16 @@ export interface TBanner {
 }
 
 interface TProps {
-  hero: TBanner[];
+  hero: {
+    hero_cs: TBanner;
+    hero_ru: TBanner;
+  };
   inner?: boolean;
 }
 
 const Banner: React.FC<TProps> = ({ hero, inner }) => {
   const { locale, t } = useTranslation();
-  const content: TBanner = hero.find((item: TBanner) => item.locale === locale);
+  const content = hero[`hero_${locale}`];
   const welcomeButton = t("welcomeButton");
 
   const handleClick = (
@@ -44,9 +47,9 @@ const Banner: React.FC<TProps> = ({ hero, inner }) => {
 
   return (
     <StyledWrapper inner={inner}>
-      <StyledImage src={content.image.url} alt="Media" />
+      <StyledImage inner={inner} src={content.image.url} alt="Media" />
 
-      <StyledLayout>
+      <StyledLayout inner={inner}>
         <StyledContainer>
           <StyledTitle dangerouslySetInnerHTML={{ __html: content.title }} />
           <StyledText dangerouslySetInnerHTML={{ __html: content.text }} />

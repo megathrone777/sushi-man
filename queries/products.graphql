@@ -1,0 +1,14 @@
+query ProductsQuery {
+  products(sort: "created_at") {
+    allergeny
+    id
+    image {
+      url
+    }
+    ingredients
+    price
+    slug
+    title
+    weight
+  }
+}

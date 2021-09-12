@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import { Menu } from "./Menu";
+import { Menu, TMenuItem } from "./Menu";
 import { Logo } from "./Logo";
 import { Contact } from "./Contact";
+import { Cart } from "./Cart";
 import {
   StyledHeader,
   StyledLayout,
@@ -13,7 +14,13 @@ import {
 import { LocaleSwitcher } from "~/components/LocaleSwitcher";
 import { StyledContainer } from "~/components/Layout/styled";
 
-const Header = (): JSX.Element => {
+interface TProps {
+  inner?: boolean;
+  mainMenuItems: TMenuItem[];
+  innerMenuItems: TMenuItem[];
+}
+
+const Header: React.FC<TProps> = ({ mainMenuItems, innerMenuItems, inner }) => {
   const [menuIsOpened, toggleMenuIsOpened] = useState<boolean>(false);
 
   const handleMenu = (): void => {
@@ -35,9 +42,15 @@ const Header = (): JSX.Element => {
         <StyledLayout>
           <Logo />
           <StyledContent isOpened={menuIsOpened}>
-            <Menu closeMenu={() => toggleMenuIsOpened(false)} />
+            <Menu
+              inner={inner}
+              mainMenuItems={mainMenuItems}
+              innerMenuItems={innerMenuItems}
+              closeMenu={() => toggleMenuIsOpened(false)}
+            />
             <Contact />
             <LocaleSwitcher />
+            <Cart />
           </StyledContent>
           <StyledButton
             isOpened={menuIsOpened}

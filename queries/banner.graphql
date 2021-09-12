@@ -1,0 +1,15 @@
+query BannerQuery {
+  banner_cs: banner(locale: "cs") {
+    image {
+      url
+    }
+    locale
+  }
+
+  banner_ru: banner(locale: "ru") {
+    image {
+      url
+    }
+    locale
+  }
+}

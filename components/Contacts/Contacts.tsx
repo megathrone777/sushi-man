@@ -22,19 +22,25 @@ interface TContactsLink {
 }
 
 interface TProps {
-  schedule: TSchedule[];
+  schedule: {
+    schedule_cs: TSchedule;
+    schedule_ru: TSchedule;
+  };
 }
 
 const Contacts: React.FC<TProps> = ({ schedule }) => {
   const { locale, t } = useTranslation();
   const { dispatch } = useContext(AppContext);
-  const content: TSchedule = schedule.find(
-    (item: TSchedule) => item.locale === locale
-  );
+  const content = schedule[`schedule_${locale}`];
   const contactsLinks = t("contactsLinks");
 
   useEffect((): void => {
-    dispatch(setSchedule(schedule));
+    dispatch(
+      setSchedule({
+        schedule_cs: schedule["schedule_cs"],
+        schedule_ru: schedule["schedule_ru"],
+      })
+    );
   }, [schedule]);
 
   return (

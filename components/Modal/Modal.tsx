@@ -18,8 +18,8 @@ import {
 import { StyledContainer } from "~/components/Layout/styled";
 
 export interface TContactsLink {
-  url: string;
   type: string;
+  url: string;
 }
 
 interface TProps {
@@ -31,9 +31,8 @@ const Modal: React.FC<TProps> = ({ close, isOpened }) => {
   const { locale, t } = useTranslation();
   const { state } = useContext(AppContext);
   const contactsLinks = t("contactsLinks");
-  const content: TSchedule =
-    !!state.schedule.length &&
-    state.schedule.find((item: TSchedule) => item.locale === locale);
+  const content: Record<string, TSchedule> =
+    state.schedule[`schedule_${locale}`];
 
   const handleClose = (): void => {
     close();
@@ -45,6 +44,7 @@ const Modal: React.FC<TProps> = ({ close, isOpened }) => {
       <StyledLayout isOpened={isOpened}>
         <StyledContainer>
           <StyledTitle dangerouslySetInnerHTML={{ __html: content.title }} />
+
           <StyledTime dangerouslySetInnerHTML={{ __html: content.schedule }} />
           <StyledText>{content.text}</StyledText>
 

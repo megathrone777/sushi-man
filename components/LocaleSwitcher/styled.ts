@@ -2,6 +2,7 @@ import { styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
   flex-grow: 1;
+  margin-right: ${({ theme }) => theme.rem(30)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex-grow: 0;

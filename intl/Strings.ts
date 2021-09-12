@@ -4,7 +4,7 @@ export const LangStrings = {
       EKO boxy, abychom aspoň trochu odlehčili přírodě.`,
     mainTitle: "Sushi Man | Rozvoz sushi po Praze",
     cartTitle: "Sushi Man | Košik",
-    menu: [
+    mainMenu: [
       {
         anchor: "about-section",
         text: "O nas",
@@ -20,6 +20,12 @@ export const LangStrings = {
       {
         anchor: "reviews-section",
         text: "Recenze",
+      },
+    ],
+    innerMenu: [
+      {
+        anchor: "/",
+        text: "Hlavni",
       },
     ],
     phoneNumber: "+420 792 745 116",
@@ -83,13 +89,14 @@ export const LangStrings = {
     allergeny: "Seznam alergenů",
     allergenyImage: "allergeny_cz_img.jpg",
     mediaImage: "discount_img.jpg",
+    recommendedTitle: "Chcete ještě něco přidat?"
   },
   ru: {
     metaDescription: `По-настоящему вкусные и сочные сеты, которые Вас вдоволь накормят и насладят 
       сбалансированным вкусом всех ингредиентов! Готовим с душой и любовью для Вас.`,
     mainTitle: "Sushi Man | Доставка суши по Праге",
     cartTitle: "Sushi Man | Корзина",
-    menu: [
+    mainMenu: [
       {
         anchor: "about-section",
         text: "О нас",
@@ -105,6 +112,12 @@ export const LangStrings = {
       {
         anchor: "reviews-section",
         text: "Отзывы",
+      },
+    ],
+    innerMenu: [
+      {
+        anchor: "/",
+        text: "Главная",
       },
     ],
     phoneNumber: "+420 792 745 116",
@@ -168,5 +181,6 @@ export const LangStrings = {
     allergeny: "Список аллергенов",
     allergenyImage: "allergeny_ru_img.jpg",
     mediaImage: "discount_img2.jpg",
+    recommendedTitle: "Хотите ещё что-то добавить?"
   },
 };

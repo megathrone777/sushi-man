@@ -2,12 +2,14 @@ import { TAdditional, TCartProduct, TSchedule } from "./initialState";
 
 export enum TActionTypes {
   ADD_PRODUCT = "ADD_PRODUCT",
+  REMOVE_PRODUCT = "REMOVE_PRODUCT",
   CLEAR_CART = "CLEAR_CART",
   CHANGE_QUANTITY = "CHANGE_QUANTITY",
   SET_ADDITIONALS = "SET_ADDITIONALS",
   ADD_ADDITIONAL = "ADD_ADDITIONAL",
   ADD_CUTLERY = "ADD_CUTLERY",
   SET_SCHEDULE = "SET_SCHEDULE",
+  SET_PRODUCTS = "SET_PRODUCTS",
 }
 
 export interface TAction {
@@ -18,6 +20,11 @@ export interface TAction {
 export const addToCart = (product: TCartProduct): TAction => ({
   payload: product,
   type: TActionTypes.ADD_PRODUCT,
+});
+
+export const removeFromCart = (id: number): TAction => ({
+  payload: id,
+  type: TActionTypes.REMOVE_PRODUCT,
 });
 
 export const clearCart = (): TAction => ({
@@ -51,7 +58,13 @@ export const addCutlery = (amount: number) => ({
   type: TActionTypes.ADD_CUTLERY,
 });
 
-export const setSchedule = (schedule: TSchedule[]) => ({
-  payload: schedule,
+export const setSchedule = ({
+  schedule_cs,
+  schedule_ru,
+}: Record<string, TSchedule>) => ({
+  payload: {
+    schedule_cs,
+    schedule_ru,
+  },
   type: TActionTypes.SET_SCHEDULE,
 });

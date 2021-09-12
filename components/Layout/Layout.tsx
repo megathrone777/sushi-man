@@ -10,13 +10,16 @@ import { theme, ThemeProvider } from "~/theme";
 import { StyledWrapper, StyledContent } from "./styled";
 
 interface TLayout {
+  inner?: boolean;
   title: string;
 }
 
-const Layout: React.FC<TLayout> = ({ children, title }) => {
+const Layout: React.FC<TLayout> = ({ children, title, inner }) => {
   const { notifications, dismissNotification } = useNotifications();
   const { t } = useTranslation();
   const metaDescription = t("metaDescription");
+  const mainMenu = t("mainMenu");
+  const innerMenu = t("innerMenu");
 
   return (
     <>
@@ -28,7 +31,10 @@ const Layout: React.FC<TLayout> = ({ children, title }) => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://sushi-man.cz" />
         <meta property="og:title" content="Sushi man | Rozvoz sushi po Praze" />
-        <meta property="og:image" content="https://sushi-man.cz/images/logo_img.png" />
+        <meta
+          property="og:image"
+          content="https://sushi-man.cz/images/logo_img.png"
+        />
         <meta name="yandex-verification" content="2d640540016895e1" />
         {/* Global site tag (gtag.js) - Google Analytics  */}
         <script
@@ -99,7 +105,11 @@ const Layout: React.FC<TLayout> = ({ children, title }) => {
         <GlobalStyle />
 
         <StyledWrapper>
-          <Header />
+          <Header
+            inner={inner}
+            mainMenuItems={mainMenu}
+            innerMenuItems={innerMenu}
+          />
           <StyledContent>{children}</StyledContent>
           <Footer />
         </StyledWrapper>

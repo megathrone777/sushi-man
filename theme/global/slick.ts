@@ -2,30 +2,21 @@ import { css } from "~/theme";
 
 const slick = css`
   .slick-slider {
-    position: relative;
-
-    display: block;
     box-sizing: border-box;
-
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-
-    -webkit-touch-callout: none;
-    -khtml-user-select: none;
-    -ms-touch-action: pan-y;
+    display: block;
+    position: relative;
     touch-action: pan-y;
+    user-select: none;
     -webkit-tap-highlight-color: transparent;
   }
 
   .slick-list {
-    position: relative;
     display: block;
-    overflow: hidden;
     margin-left: -10px;
     margin-right: -10px;
+    overflow: hidden;
     padding: 0;
+    position: relative;
   }
 
   .slick-list:focus {
@@ -39,31 +30,28 @@ const slick = css`
 
   .slick-slider .slick-track,
   .slick-slider .slick-list {
-    -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform: translate3d(0, 0, 0);
-    -ms-transform: translate3d(0, 0, 0);
-    -o-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
   }
 
   .slick-track {
-    position: relative;
-    top: 0;
-    left: 0;
-
     display: block;
+    left: 0;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    top: 0;
   }
+
   .slick-track:before,
   .slick-track:after {
     display: table;
-
     content: "";
   }
+
   .slick-track:after {
     clear: both;
   }
+
   .slick-loading .slick-track {
     visibility: hidden;
   }
@@ -82,13 +70,16 @@ const slick = css`
       outline: none;
     }
   }
+
   [dir="rtl"] .slick-slide {
     float: right;
   }
+
   .slick-slide img {
     display: block;
     width: 100%;
   }
+
   .slick-slide.slick-loading img {
     display: none;
   }
@@ -155,7 +146,6 @@ const slick = css`
   }
 
   .slick-center {
-    transitiontransform: 0.3s ease-in;
     transform: scale(1.2);
     transform-origin: center 415px;
 

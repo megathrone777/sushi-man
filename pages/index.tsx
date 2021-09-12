@@ -1,8 +1,9 @@
 import React from "react";
-import fetch from "isomorphic-unfetch";
 import { NextPage } from "next";
+import { gql } from "@apollo/client";
 
-import { TProduct, TSchedule } from "~/store";
+import client from "~/apollo-client";
+import { TSchedule } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   About,
@@ -18,16 +19,37 @@ import {
   TDelivery,
   TBanner,
   TMedia,
+  TProduct,
 } from "~/components";
+import ProductsQuery from "~/queries/products.graphql";
+import ReviewsQuery from "~/queries/reviews.graphql";
+import DeliveryQuery from "~/queries/delivery.graphql";
+import AboutQuery from "~/queries/about.graphql";
+import DeliveryTitleQuery from "~/queries/delivery-title.graphql";
+import ScheduleQuery from "~/queries/schedule.graphql";
+import HeroQuery from "~/queries/hero.graphql";
+import BannerQuery from "~/queries/banner.graphql";
 
 interface TProps {
-  about: TAbout[];
-  banner: TMedia[];
+  about: {
+    about_cs: TAbout;
+    about_ru: TAbout;
+  };
+  banner: {
+    banner_cs: TMedia;
+    banner_ru: TMedia;
+  };
   delivery: TDelivery;
-  hero: TBanner[];
-  productsList: TProduct[];
-  reviewsList: TReview[];
-  schedule: TSchedule[];
+  hero: {
+    hero_cs: TBanner;
+    hero_ru: TBanner;
+  };
+  products: TProduct[];
+  reviews: TReview[];
+  schedule: {
+    schedule_cs: TSchedule;
+    schedule_ru: TSchedule;
+  };
 }
 
 const IndexPage: NextPage<TProps> = ({
@@ -35,8 +57,8 @@ const IndexPage: NextPage<TProps> = ({
   banner,
   delivery,
   hero,
-  productsList,
-  reviewsList,
+  products,
+  reviews,
   schedule,
 }) => {
   const { t } = useTranslation();
@@ -44,86 +66,97 @@ const IndexPage: NextPage<TProps> = ({
 
   return (
     <Layout title={mainTitle}>
-      <Banner hero={hero} />
-      <Media banner={banner} />
-      <About about={about} />
-      <Contacts schedule={schedule} />
-      <Products productsList={productsList} />
+      <Banner
+        hero={{
+          hero_cs: hero["hero_cs"],
+          hero_ru: hero["hero_ru"],
+        }}
+      />
+      <Media
+        banner={{
+          banner_cs: banner["banner_cs"],
+          banner_ru: banner["banner_ru"],
+        }}
+      />
+      <About
+        about={{
+          about_cs: about["about_cs"],
+          about_ru: about["about_ru"],
+        }}
+      />
+      <Contacts
+        schedule={{
+          schedule_cs: schedule["schedule_cs"],
+          schedule_ru: schedule["schedule_ru"],
+        }}
+      />
+      <Products products={products} />
       <Delivery
-        deliveryTitle={delivery.deliveryTitle}
+        deliveryTitle={{
+          deliveryTitle_cs: delivery.deliveryTitle["deliveryTitle_cs"],
+          deliveryTitle_ru: delivery.deliveryTitle["deliveryTitle_ru"],
+        }}
         deliveryItems={delivery.deliveryItems}
       />
-      <Reviews reviewsList={reviewsList} />
+      <Reviews reviews={reviews} />
     </Layout>
   );
 };
 
 IndexPage.getInitialProps = async () => {
-  const products = await fetch(
-    "https://sushi-admin.herokuapp.com/products?_sort=published_at:ASC"
-  );
-  const reviews = await fetch("https://sushi-admin.herokuapp.com/reviews");
-  const delivery = await fetch(
-    "https://sushi-admin.herokuapp.com/delivery-items?_locale=all"
-  );
-  const productsList = await products.json();
-  const reviewsList = await reviews.json();
-  const deliveryItems = await delivery.json();
-  const about = await Promise.all([
-    fetch("https://sushi-admin.herokuapp.com/about?_locale=cs"),
-    fetch("https://sushi-admin.herokuapp.com/about?_locale=ru"),
-  ])
-    .then(async ([cz, ru]) => {
-      const aboutCZ = await cz.json();
-      const aboutRU = await ru.json();
+  const {
+    data: { products },
+  } = await client.query({
+    query: gql`
+      ${ProductsQuery}
+    `,
+  });
 
-      return [aboutCZ, aboutRU];
-    })
-    .then((responseText) => responseText);
-  const deliveryTitle = await Promise.all([
-    fetch("https://sushi-admin.herokuapp.com/delivery-title?_locale=cs"),
-    fetch("https://sushi-admin.herokuapp.com/delivery-title?_locale=ru"),
-  ])
-    .then(async ([cz, ru]) => {
-      const deliveryCZ = await cz.json();
-      const deliveryRU = await ru.json();
+  const {
+    data: { reviews },
+  } = await client.query({
+    query: gql`
+      ${ReviewsQuery}
+    `,
+  });
 
-      return [deliveryCZ, deliveryRU];
-    })
-    .then((responseText) => responseText);
-  const schedule = await Promise.all([
-    fetch("https://sushi-admin.herokuapp.com/schedule?_locale=cs"),
-    fetch("https://sushi-admin.herokuapp.com/schedule?_locale=ru"),
-  ])
-    .then(async ([cz, ru]) => {
-      const scheuleCZ = await cz.json();
-      const scheuleRU = await ru.json();
+  const {
+    data: { deliveryItems },
+  } = await client.query({
+    query: gql`
+      ${DeliveryQuery}
+    `,
+  });
 
-      return [scheuleCZ, scheuleRU];
-    })
-    .then((responseText) => responseText);
-  const hero = await Promise.all([
-    fetch("https://sushi-admin.herokuapp.com/hero?_locale=cs"),
-    fetch("https://sushi-admin.herokuapp.com/hero?_locale=ru"),
-  ])
-    .then(async ([cz, ru]) => {
-      const heroCZ = await cz.json();
-      const heroRU = await ru.json();
+  const { data: about } = await client.query({
+    query: gql`
+      ${AboutQuery}
+    `,
+  });
 
-      return [heroCZ, heroRU];
-    })
-    .then((responseText) => responseText);
-  const banner = await Promise.all([
-    fetch("https://sushi-admin.herokuapp.com/banner?_locale=cs"),
-    fetch("https://sushi-admin.herokuapp.com/banner?_locale=ru"),
-  ])
-    .then(async ([cz, ru]) => {
-      const bannerCZ = await cz.json();
-      const bannerRU = await ru.json();
+  const { data: deliveryTitle } = await client.query({
+    query: gql`
+      ${DeliveryTitleQuery}
+    `,
+  });
 
-      return [bannerCZ, bannerRU];
-    })
-    .then((responseText) => responseText);
+  const { data: schedule } = await client.query({
+    query: gql`
+      ${ScheduleQuery}
+    `,
+  });
+
+  const { data: hero } = await client.query({
+    query: gql`
+      ${HeroQuery}
+    `,
+  });
+
+  const { data: banner } = await client.query({
+    query: gql`
+      ${BannerQuery}
+    `,
+  });
 
   return {
     about,
@@ -133,8 +166,8 @@ IndexPage.getInitialProps = async () => {
       deliveryItems,
     },
     hero,
-    productsList,
-    reviewsList,
+    products,
+    reviews,
     schedule,
   };
 };

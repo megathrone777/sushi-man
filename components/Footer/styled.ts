@@ -134,7 +134,7 @@ export const StyledCopyLink = styled.a`
   text-decoration: none;
 `;
 
-export const StyledScrollButton = styled.button`
+export const StyledScrollButton = styled.button<{ isHidden: boolean }>`
   border: none;
   border-radius: ${({ theme }) => theme.rem(4)};
   bottom: ${({ theme }) => theme.rem(110)};
@@ -144,6 +144,7 @@ export const StyledScrollButton = styled.button`
   position: fixed;
   right: ${({ theme }) => theme.rem(40)};
   width: ${({ theme }) => theme.rem(45)};
+  z-index: 200;
 
   &:hover {
     opacity: 1;
@@ -160,6 +161,7 @@ export const StyledChatButton = styled.button`
   position: fixed;
   right: ${({ theme }) => theme.rem(40)};
   width: ${({ theme }) => theme.rem(45)};
+  z-index: 200;
 
   &:hover {
     opacity: 1;

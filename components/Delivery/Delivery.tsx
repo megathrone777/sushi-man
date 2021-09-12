@@ -25,7 +25,10 @@ interface TDeliveryItem {
 }
 
 export interface TDelivery {
-  deliveryTitle: TDeliveryTitle[];
+  deliveryTitle: {
+    deliveryTitle_cs: TDeliveryTitle;
+    deliveryTitle_ru: TDeliveryTitle;
+  };
   deliveryItems: TDeliveryItem[];
 }
 
@@ -36,9 +39,7 @@ const Delivery: React.FC<TProps> = ({ deliveryItems, deliveryTitle }) => {
   const items = deliveryItems.filter(
     (item: TDeliveryItem) => item.locale === locale
   );
-  const { title }: TDeliveryTitle = deliveryTitle.find(
-    (item: TDeliveryTitle) => item.locale === locale
-  );
+  const { title } = deliveryTitle[`deliveryTitle_${locale}`];
 
   return (
     <StyledWrapper id="delivery-section">

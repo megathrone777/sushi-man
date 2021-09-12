@@ -37,7 +37,7 @@ interface TMenuItem {
 const Footer: React.FC = () => {
   const { t } = useTranslation();
   const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
-  const menu = t("menu");
+  const menu = t("mainMenu");
   const allergeny = t("allergeny");
   const allergenyImage = t("allergenyImage");
   const contactsLinks = t("contactsLinks");

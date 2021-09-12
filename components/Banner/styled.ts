@@ -7,21 +7,35 @@ export const StyledWrapper = styled.section<{ inner?: boolean }>`
   ${({ inner }) =>
     inner &&
     css`
+      border-bottom: ${({ theme }) => theme.rem(10)} solid #da2628;
       height: ${({ theme }) => theme.rem(400)};
       overflow: hidden;
     `}
 `;
 
-export const StyledImage = styled.img`
+export const StyledImage = styled.img<{ inner?: boolean }>`
   display: block;
   width: 100%;
+
+  ${({ inner }) =>
+    inner &&
+    css`
+      position: relative;
+      top: ${({ theme }) => theme.rem(-60)};
+    `}
 `;
 
-export const StyledLayout = styled.div`
+export const StyledLayout = styled.div<{ inner?: boolean }>`
   left: 0;
   position: absolute;
   right: 0;
   top: ${({ theme }) => theme.rem(170)};
+  
+  ${({ inner }) =>
+    inner &&
+    css`
+      top: ${({ theme }) => theme.rem(140)};
+    `}
 
   @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
     top: 30%;
@@ -87,7 +101,7 @@ export const StyledButton = styled.a`
   background-color: #da2628;
   color: white;
   display: inline-block;
-  font: ${({ theme }) => theme.rem(22)} ${({ theme }) => theme.fonts.fontSemiBold};
+  font: ${({ theme }) => `${theme.rem(22)} ${theme.fonts.fontSemiBold}`};
   height: ${({ theme }) => theme.rem(55)};
   line-height: ${({ theme }) => theme.rem(55)};
   min-width: ${({ theme }) => theme.rem(190)};

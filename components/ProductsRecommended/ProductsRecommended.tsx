@@ -1,29 +1,28 @@
 import React, { useContext } from "react";
-import Link from "next/link";
 import { useNotifications } from "reapop";
+import Slider from "react-slick";
+import Link from "next/link";
 
-import { TProduct } from "~/components";
-import { addToCart, AppContext, TCartProduct } from "~/store";
 import useTranslation from "~/intl/useTranslation";
+import { addToCart, AppContext, TCartProduct } from "~/store";
+import { TProduct } from "~/components";
 import {
   StyledWrapper,
   StyledTitle,
-  StyledList,
-  StyledItem,
-  StyledItemLayout,
-  StyledItemImageHolder,
   StyledItemContent,
-  StyledItemFooter,
-  StyledItemPrice,
-  StyledItemLink,
-  StyledItemTitle,
   StyledItemDesc,
+  StyledItemFooter,
   StyledItemImage,
+  StyledItemImageHolder,
+  StyledItemLayout,
+  StyledItemLink,
+  StyledItemPrice,
   StyledItemText,
-  StyledSVGSymbol,
-  StyledPathSymbol,
+  StyledItemTitle,
+  StyledItem,
   StyledItemButton,
-  StyledScroller,
+  StyledPathSymbol,
+  StyledSVGSymbol,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
@@ -31,19 +30,17 @@ interface TProps {
   products: TProduct[];
 }
 
-const Products: React.FC<TProps> = ({ products }) => {
+const ProductsRecommended: React.FC<TProps> = ({ products }) => {
+  const { dispatch } = useContext(AppContext);
   const { t } = useTranslation();
   const { notify } = useNotifications();
-  const { dispatch } = useContext(AppContext);
-  const productsTitle = t("productsTitle");
-
-  const handleScrollTo = (): void => {
-    const deliverySection = document.getElementById("delivery-section");
-
-    deliverySection &&
-      deliverySection.scrollIntoView({
-        behavior: "smooth",
-      });
+  const productsTitle = t("recommendedTitle");
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
   };
 
   const handleAddToCart = (product: TCartProduct): void => {
@@ -59,11 +56,11 @@ const Products: React.FC<TProps> = ({ products }) => {
   };
 
   return (
-    <StyledWrapper id="products-section">
+    <StyledWrapper>
       <StyledContainer>
         <StyledTitle>{productsTitle}</StyledTitle>
         {products && !!products.length && (
-          <StyledList>
+          <Slider {...settings}>
             {products.map(
               (
                 {
@@ -157,13 +154,11 @@ const Products: React.FC<TProps> = ({ products }) => {
                 </StyledItem>
               )
             )}
-          </StyledList>
+          </Slider>
         )}
-
-        <StyledScroller onClick={handleScrollTo} type="button" />
       </StyledContainer>
     </StyledWrapper>
   );
 };
 
-export { Products };
+export { ProductsRecommended };

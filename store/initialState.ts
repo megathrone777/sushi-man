@@ -1,14 +1,4 @@
-export interface TProduct {
-  id: number;
-  image: {
-    url: string;
-  };
-  allergeny: string;
-  ingredients: string;
-  price: string;
-  title: string;
-  weight: string;
-}
+import { TProduct } from "~/components";
 
 export interface TAdditional {
   id: number;
@@ -35,7 +25,10 @@ export interface TState {
     products: TCartProduct[];
     additionals: TAdditional[];
   };
-  schedule: TSchedule[];
+  schedule: {
+    schedule_cs: TSchedule;
+    schedule_ru: TSchedule;
+  };
 }
 
 const initialState: TState = {
@@ -43,7 +36,20 @@ const initialState: TState = {
     products: [],
     additionals: [],
   },
-  schedule: [],
+  schedule: {
+    schedule_cs: {
+      locale: "",
+      schedule: "",
+      title: "",
+      text: "",
+    },
+    schedule_ru: {
+      locale: "",
+      schedule: "",
+      title: "",
+      text: "",
+    },
+  },
 };
 
 export { initialState };

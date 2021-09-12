@@ -11,12 +11,15 @@ export interface TMedia {
 }
 
 interface TProps {
-  banner: TMedia[];
+  banner: {
+    banner_cs: TMedia;
+    banner_ru: TMedia;
+  };
 }
 
 const Media: React.FC<TProps> = ({ banner }) => {
   const { locale } = useTranslation();
-  const content: TMedia = banner.find((item: TMedia) => item.locale === locale);
+  const content = banner[`banner_${locale}`];
 
   return (
     <StyledWrapper>

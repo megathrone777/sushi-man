@@ -24,10 +24,10 @@ export interface TReview {
 }
 
 interface TProps {
-  reviewsList: TReview[];
+  reviews: TReview[];
 }
 
-const Reviews: React.FC<TProps> = ({ reviewsList }) => {
+const Reviews: React.FC<TProps> = ({ reviews }) => {
   const { t } = useTranslation();
   const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
   const reviewsTitle = t("reviewsTitle");
@@ -81,10 +81,10 @@ const Reviews: React.FC<TProps> = ({ reviewsList }) => {
       <StyledContainer>
         <StyledLayout>
           <StyledTitle>{reviewsTitle}</StyledTitle>
-          {reviewsList && (
+          {reviews && (
             <Slider {...settings}>
-              {!!reviewsList.length &&
-                reviewsList.map(
+              {!!reviews.length &&
+                reviews.map(
                   (
                     { id, image }: TReview,
                     index: number

@@ -15,10 +15,33 @@ const App = ({ Component, pageProps, router }: AppPropsType) => (
 
       <style jsx global>{`
         @font-face {
-          font-family: "Roboto";
-          src: url("/fonts/Roboto-Regular.ttf");
-          font-weight: bold;
+          font-family: "Montserrat";
           font-style: normal;
+          src: url("/fonts/Montserrat-Regular.ttf");
+        }
+
+        @font-face {
+          font-family: "MontserratSemiBold";
+          font-style: normal;
+          src: url("/fonts/Montserrat-SemiBold.ttf");
+        }
+
+        @font-face {
+          font-family: "MontserratBold";
+          font-style: normal;
+          src: url("/fonts/Montserrat-Bold.ttf");
+        }
+
+        @font-face {
+          font-family: "MontserratExtraBold";
+          font-style: normal;
+          src: url("/fonts/Montserrat-ExtraBold.ttf");
+        }
+
+        @font-face {
+          font-family: "MontserratBlack";
+          font-style: normal;
+          src: url("/fonts/Montserrat-Black.ttf");
         }
       `}</style>
     </AppProvider>

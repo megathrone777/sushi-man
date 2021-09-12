@@ -2,79 +2,25 @@ import { styled } from "~/theme";
 
 export const StyledWrapper = styled.section`
   background: url("/images/products_bg.jpg") center center repeat-y;
-  padding: ${({ theme }) => theme.rem(60)} 0;
+  padding: ${({ theme }) => theme.rem(30)} 0 ${({ theme }) => theme.rem(50)};
 `;
 
 export const StyledTitle = styled.h2`
-  font: ${({ theme }) => theme.rem(48)} ${({ theme }) => theme.fonts.fontBold};
-  margin-bottom: ${({ theme }) => theme.rem(15)};
+  margin-bottom: ${({ theme }) => theme.rem(20)};
+  font: ${({ theme }) => theme.rem(40)} ${({ theme }) => theme.fonts.fontBlack};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: ${({ theme }) => theme.rem(25)};
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding-left: ${({ theme }) => theme.rem(10)};
-    padding-right: ${({ theme }) => theme.rem(10)};
-  }
-`;
-
-export const StyledLayout = styled.div`
-  margin: 0 auto ${({ theme }) => theme.rem(40)};
-  max-width: ${({ theme }) => theme.rem(1200)};
-`;
-
-export const StyledList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: ${({ theme }) => theme.rem(-10)};
-  margin-right: ${({ theme }) => theme.rem(-10)};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    margin-left: ${({ theme }) => theme.rem(-5)};
-    margin-right: ${({ theme }) => theme.rem(-5)};
+    margin-bottom: ${({ theme }) => theme.rem(20)};
   }
 `;
 
 export const StyledItem = styled.div`
   background-color: white;
   border-radius: ${({ theme }) => theme.rem(15)};
-  flex: 0 1 calc(25% - ${({ theme }) => theme.rem(20)});
-  margin-bottom: ${({ theme }) => theme.rem(20)};
-  margin-left: ${({ theme }) => theme.rem(10)};
-  margin-right: ${({ theme }) => theme.rem(10)};
-  max-width: calc(25% - ${({ theme }) => theme.rem(20)});
   overflow: hidden;
   padding: 0 0 ${({ theme }) => theme.rem(10)} 0;
   position: relative;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    flex: 0 1 calc(25% - ${({ theme }) => theme.rem(10)});
-    max-width: calc(25% - ${({ theme }) => theme.rem(10)});
-    margin-bottom: ${({ theme }) => theme.rem(10)};
-    margin-left: ${({ theme }) => theme.rem(5)};
-    margin-right: ${({ theme }) => theme.rem(5)};
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: flex;
-    flex: 0 1 100%;
-    max-width: 100%;
-    margin-bottom: ${({ theme }) => theme.rem(10)};
-    margin-left: ${({ theme }) => theme.rem(5)};
-    margin-right: ${({ theme }) => theme.rem(5)};
-    padding-bottom: 0;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-bottom: ${({ theme }) => theme.rem(10)};
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-    margin-left: 0;
-    margin-right: 0;
-    max-width: 100%;
-  }
 `;
 
 export const StyledItemLayout = styled.div`
@@ -121,7 +67,7 @@ export const StyledItemLink = styled.a`
 `;
 
 export const StyledItemContent = styled.div`
-  min-height: ${({ theme }) => theme.rem(115)};
+  min-height: ${({ theme }) => theme.rem(180)};
 `;
 
 export const StyledItemTitle = styled.div`
@@ -138,9 +84,14 @@ export const StyledItemTitle = styled.div`
 
 export const StyledItemFooter = styled.div`
   align-items: center;
+  bottom: 0;
   display: flex;
   height: ${({ theme }) => theme.rem(47)};
   justify-content: space-between;
+  left: 0;
+  position: absolute;
+  right: 0;
+  width: 100%;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     justify-content: flex-start;
@@ -186,26 +137,6 @@ export const StyledItemDesc = styled.div`
 `;
 
 export const StyledItemText = styled.p``;
-
-export const StyledScroller = styled.button`
-  background: url("/images/products_scroller_bg.png") center center/100%
-    no-repeat;
-  border: none;
-  cursor: pointer;
-  display: block;
-  height: ${({ theme }) => theme.rem(45)};
-  margin-left: auto;
-  margin-right: auto;
-  width: ${({ theme }) => theme.rem(55)};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    display: none;
-  }
-
-  &:focus {
-    outline: none;
-  }
-`;
 
 export const StyledSVGSymbol = styled.svg``;
 export const StyledPathSymbol = styled.path``;

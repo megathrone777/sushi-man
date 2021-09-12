@@ -1,16 +1,31 @@
 import React, { useContext, useEffect } from "react";
 import { NextPage } from "next";
+import { gql } from "@apollo/client";
 
+import client from "~/apollo-client";
 import { TAdditional, AppContext, setAdditionals } from "~/store";
 import useTranslation from "~/intl/useTranslation";
-import { Banner, Cart, Layout, TBanner } from "~/components";
+import {
+  Banner,
+  Cart,
+  Layout,
+  TBanner,
+  TProduct,
+  ProductsRecommended,
+} from "~/components";
+import HeroQuery from "~/queries/hero.graphql";
+import ProductsQuery from "~/queries/products.graphql";
 
 interface TProps {
   additionals: TAdditional[];
-  hero: TBanner[];
+  hero: {
+    hero_cs: TBanner;
+    hero_ru: TBanner;
+  };
+  products: TProduct[];
 }
 
-const CartPage: NextPage<TProps> = ({ additionals, hero }) => {
+const CartPage: NextPage<TProps> = ({ additionals, hero, products }) => {
   const { dispatch } = useContext(AppContext);
   const { t } = useTranslation();
   const cartTitle = t("cartTitle");
@@ -20,32 +35,38 @@ const CartPage: NextPage<TProps> = ({ additionals, hero }) => {
   }, [additionals]);
 
   return (
-    <Layout title={cartTitle}>
-      <Banner hero={hero} inner />
+    <Layout inner title={cartTitle}>
+      <Banner
+        hero={{
+          hero_cs: hero["hero_cs"],
+          hero_ru: hero["hero_ru"],
+        }}
+        inner
+      />
       <Cart />
+      <ProductsRecommended products={products} />
     </Layout>
   );
 };
 
 CartPage.getInitialProps = async () => {
-  const response = await fetch(
-    "https://sushi-admin.herokuapp.com/additionals?_sort=published_at:ASC"
-  );
-  const additionals = await response.json();
-  const hero = await Promise.all([
-    fetch("https://sushi-admin.herokuapp.com/hero?_locale=cs"),
-    fetch("https://sushi-admin.herokuapp.com/hero?_locale=ru"),
-  ])
-    .then(async ([cz, ru]) => {
-      const heroCZ = await cz.json();
-      const heroRU = await ru.json();
+  const { data: hero } = await client.query({
+    query: gql`
+      ${HeroQuery}
+    `,
+  });
 
-      return [heroCZ, heroRU];
-    })
-    .then((responseText) => responseText);
+  const {
+    data: { products },
+  } = await client.query({
+    query: gql`
+      ${ProductsQuery}
+    `,
+  });
 
   return {
-    additionals,
+    additionals: [],
+    products,
     hero,
   };
 };

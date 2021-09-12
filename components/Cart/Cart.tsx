@@ -6,6 +6,7 @@ import {
   changeQuantity,
   TAdditional,
   addAdditional,
+  removeFromCart,
 } from "~/store";
 import { StyledContainer } from "~/components/Layout/styled";
 import {
@@ -74,6 +75,10 @@ const Cart: React.FC = () => {
     setCutlery(currentTarget.value);
   };
 
+  const handleProductRemove = (id: number): void => {
+    dispatch(removeFromCart(id));
+  };
+
   return (
     <StyledWrapper>
       <StyledContainer>
@@ -120,6 +125,14 @@ const Cart: React.FC = () => {
                           <StyledBold>
                             {totalPrice ? `${totalPrice} Kč` : price}
                           </StyledBold>
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          <button
+                            onClick={() => handleProductRemove(id)}
+                            type="button"
+                          >
+                            Remove
+                          </button>
                         </StyledTableCell>
                       </StyledTableRow>
                     )

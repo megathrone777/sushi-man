@@ -11,18 +11,23 @@ export interface TAbout {
 }
 
 interface TProps {
-  about: TAbout[];
+  about: {
+    about_cs: TAbout;
+    about_ru: TAbout;
+  };
 }
 
 const About: React.FC<TProps> = ({ about }) => {
   const { locale } = useTranslation();
-  const content: TAbout = about.find((item: TAbout) => item.locale === locale);
+  const content = about[`about_${locale}`];
 
   return (
     <StyledWrapper id="about-section">
       <StyledContainer>
-        <StyledTitle>{content.title}</StyledTitle>
-        <StyledText dangerouslySetInnerHTML={{ __html: content.text }} />
+        {content.title && <StyledTitle>{content.title}</StyledTitle>}
+        {content.text && (
+          <StyledText dangerouslySetInnerHTML={{ __html: content.text }} />
+        )}
       </StyledContainer>
     </StyledWrapper>
   );
