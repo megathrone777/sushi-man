@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import fetch from "isomorphic-unfetch";
 import { NextPage } from "next";
 
@@ -9,6 +9,7 @@ import {
   Banner,
   Contacts,
   Delivery,
+  Info,
   Layout,
   Media,
   Products,
@@ -16,6 +17,7 @@ import {
   TReview,
   TAbout,
   TDelivery,
+  TInfo,
   TBanner,
   TMedia,
 } from "~/components";
@@ -25,6 +27,7 @@ interface TProps {
   banner: TMedia[];
   delivery: TDelivery;
   hero: TBanner[];
+  info: TInfo[];
   productsList: TProduct[];
   reviewsList: TReview[];
   schedule: TSchedule[];
@@ -35,12 +38,18 @@ const IndexPage: NextPage<TProps> = ({
   banner,
   delivery,
   hero,
+  info,
   productsList,
   reviewsList,
   schedule,
 }) => {
   const { t } = useTranslation();
   const mainTitle = t("mainTitle");
+  const [infoIsOpened, toggleInfoOpened] = useState<boolean>(info[0].isActive);
+
+  const handleInfoClose = (): void => {
+    toggleInfoOpened(false);
+  };
 
   return (
     <Layout title={mainTitle}>
@@ -54,6 +63,11 @@ const IndexPage: NextPage<TProps> = ({
         deliveryItems={delivery.deliveryItems}
       />
       <Reviews reviewsList={reviewsList} />
+      <Info
+        close={handleInfoClose}
+        isOpened={infoIsOpened}
+        modalContent={info}
+      />
     </Layout>
   );
 };
@@ -124,6 +138,17 @@ IndexPage.getInitialProps = async () => {
       return [bannerCZ, bannerRU];
     })
     .then((responseText) => responseText);
+  const info = await Promise.all([
+    fetch("https://sushi-admin.herokuapp.com/modal?_locale=cs"),
+    fetch("https://sushi-admin.herokuapp.com/modal?_locale=ru"),
+  ])
+    .then(async ([cz, ru]) => {
+      const infoCZ = await cz.json();
+      const infoRU = await ru.json();
+
+      return [infoCZ, infoRU];
+    })
+    .then((responseText) => responseText);
 
   return {
     about,
@@ -133,6 +158,7 @@ IndexPage.getInitialProps = async () => {
       deliveryItems,
     },
     hero,
+    info,
     productsList,
     reviewsList,
     schedule,
