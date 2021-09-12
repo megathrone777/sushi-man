@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNotifications } from "reapop";
 
+import useTranslation from "~/intl/useTranslation";
 import { AppContext, addToCart, TCartProduct } from "~/store";
 import {
   StyledWrapper,
@@ -56,6 +57,7 @@ const ProductDetails: React.FC<TProps> = ({
 }) => {
   const { dispatch } = useContext(AppContext);
   const { notify } = useNotifications();
+  const { t } = useTranslation();
   const [totalPrice, setTotalPrice] = useState<number>(parseInt(price));
   const [modifierIds, setModifierIds] = useState<number[]>([]);
 
@@ -104,23 +106,23 @@ const ProductDetails: React.FC<TProps> = ({
 
           <StyledContent>
             <StyledItem>
-              <StyledItemTitle>Состав: </StyledItemTitle>
+              <StyledItemTitle>{t("ingredients")}: </StyledItemTitle>
               {ingredients}
             </StyledItem>
             <StyledItemSecondary>{allergeny}</StyledItemSecondary>
             <StyledItem>
-              <StyledItemTitle>Количество / Вес: </StyledItemTitle>
+              <StyledItemTitle>{t("quantity")}: </StyledItemTitle>
               {weight}
             </StyledItem>
             <StyledItemPrice>
-              <StyledItemTitle>Цена: </StyledItemTitle>
+              <StyledItemTitle>{t("price")}: </StyledItemTitle>
               {price} Kč
             </StyledItemPrice>
 
             {product_modifiers && !!product_modifiers.length && (
               <>
                 <StyledItem>
-                  <StyledItemTitle>Модификаторы:</StyledItemTitle>
+                  <StyledItemTitle>{t("modifiers")}:</StyledItemTitle>
                 </StyledItem>
 
                 <StyledModifiers>
@@ -148,7 +150,7 @@ const ProductDetails: React.FC<TProps> = ({
               </>
             )}
             <StyledItemPrice>
-              <StyledItemTitle>Итоговая цена:</StyledItemTitle>
+              <StyledItemTitle>{t("priceTotal")}:</StyledItemTitle>
               {totalPrice} Kč
             </StyledItemPrice>
           </StyledContent>
@@ -174,7 +176,7 @@ const ProductDetails: React.FC<TProps> = ({
             }
             type="button"
           >
-            Добавить в корзину
+            {t("addToCart")}
           </StyledButton>
         </StyledContentRight>
       </StyledLayout>

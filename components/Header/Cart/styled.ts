@@ -1,17 +1,27 @@
-import { styled } from "~/theme";
+import { css, styled } from "~/theme";
 
-export const StyledWrapper = styled.div`
+export const StyledWrapper = styled.div<{ isFixed: boolean }>`
   background-color: #da2628;
   border-radius: 50%;
   border: ${({ theme }) => theme.rem(3)} solid white;
   height: ${({ theme }) => theme.rem(70)};
   padding: ${({ theme }) => theme.rem(5)};
-  position: fixed;
-  right: ${({ theme }) => theme.rem(30)};
+  position: relative;
   text-align: center;
-  top: ${({ theme }) => theme.rem(25)};
+  transition: all 0.2s ease-in;
+  left: 0;
+  top: 0;
   width: ${({ theme }) => theme.rem(70)};
   z-index: 101;
+
+  ${({ isFixed }) =>
+    isFixed &&
+    css`
+      left: inherit;
+      position: fixed;
+      right: ${({ theme }) => theme.rem(30)};
+      top: ${({ theme }) => theme.rem(25)};
+    `}
 `;
 
 export const StyledLink = styled.a`

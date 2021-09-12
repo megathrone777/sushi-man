@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 
 import { AppContext } from "~/store";
@@ -10,11 +10,30 @@ import {
 } from "./styled";
 
 const Cart: React.FC = () => {
+  const [isFixed, toggleFixed] = useState<boolean>(false);
   const { state } = useContext(AppContext);
   const totalAmount = state.cart.products.length;
 
+  const checkCartPosition = (): void => {
+    if (window.pageYOffset > 125) {
+      toggleFixed(true);
+      return;
+    }
+
+    toggleFixed(false);
+  };
+
+  useEffect(() => {
+    checkCartPosition();
+    window.addEventListener("scroll", checkCartPosition, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", checkCartPosition);
+    };
+  }, []);
+
   return (
-    <StyledWrapper>
+    <StyledWrapper isFixed={isFixed}>
       <Link href="/cart">
         <StyledLink>
           <StyledSvgSymbol

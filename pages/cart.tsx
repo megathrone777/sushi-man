@@ -15,6 +15,7 @@ import {
 } from "~/components";
 import HeroQuery from "~/queries/hero.graphql";
 import ProductsQuery from "~/queries/products.graphql";
+import AdditionalsQuery from "~/queries/additionals.graphql";
 
 interface TProps {
   additionals: TAdditional[];
@@ -64,8 +65,16 @@ CartPage.getInitialProps = async () => {
     `,
   });
 
+  const {
+    data: { additionals },
+  } = await client.query({
+    query: gql`
+      ${AdditionalsQuery}
+    `,
+  });
+
   return {
-    additionals: [],
+    additionals,
     products,
     hero,
   };

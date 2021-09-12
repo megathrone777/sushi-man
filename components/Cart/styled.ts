@@ -1,4 +1,4 @@
-import { styled } from "~/theme";
+import { css, styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
   padding: ${({ theme }) => theme.rem(30)};
@@ -10,6 +10,8 @@ export const StyledLayout = styled.div`
 `;
 
 export const StyledTable = styled.table<{ isSmall?: boolean }>`
+  border-bottom: 4px solid #da2628;
+  border-top: 4px solid #da2628;
   table-layout: fixed;
   width: ${({ isSmall }) => (isSmall ? "40%" : "50%")};
 `;
@@ -22,7 +24,7 @@ export const StyledTableCaption = styled.caption`
 export const StyledTableRow = styled.tr``;
 
 export const StyledTableCell = styled.td`
-  padding: ${({ theme }) => theme.rem(5)};
+  padding: ${({ theme }) => theme.rem(10)};
   vertical-align: middle;
 `;
 
@@ -45,23 +47,56 @@ export const StyledImage = styled.img`
   width: ${({ theme }) => theme.rem(85)};
 `;
 
-export const StyledQuantity = styled.input`
-  appearance: none;
+export const StyledQuantityWrapper = styled.div`
+  align-items: center;
+  display: inline-flex;
+  position: relative;
+`;
+
+export const StyledQuantityInput = styled.input`
+  appearance: textfield;
   border-radius: ${({ theme }) => theme.rem(2)};
   border: ${({ theme }) => theme.rem(2)} solid #da2628;
   font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontBold}`};
   height: ${({ theme }) => theme.rem(30)};
+  margin: 0 ${({ theme }) => theme.rem(10)};
   padding-left: ${({ theme }) => theme.rem(5)};
   width: ${({ theme }) => theme.rem(52)};
 
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
-    opacity: 1;
+    appearance: none;
   }
 
   &:focus {
     outline: none;
   }
+`;
+
+export const StyledQuantityButton = styled.button<{
+  isIncrease?: boolean;
+  isDecrease?: boolean;
+}>`
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  font-weight: bold;
+  font-size: 20px;
+
+  ${({ isIncrease }) =>
+    isIncrease &&
+    css`
+      color: green;
+    `}
+
+  ${({ isDecrease }) =>
+    isDecrease &&
+    css`
+      color: #da2628;
+    `}
 `;
 
 export const StyledTotal = styled.p`
@@ -83,3 +118,12 @@ export const StyledButtons = styled.div`
 `;
 
 export const StyledBuy = styled.button``;
+
+export const StyledRemove = styled.button`
+  border: none;
+  background: none;
+  color: #da2628;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: ${({ theme }) => theme.rem(40)};
+`;

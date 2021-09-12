@@ -18,12 +18,15 @@ import {
   StyledBold,
   StyledTableCaption,
   StyledImage,
-  StyledQuantity,
+  StyledQuantityInput,
+  StyledQuantityButton,
   StyledTotal,
   StyledSushiMan,
   StyledEmpty,
   StyledButtons,
   StyledBuy,
+  StyledRemove,
+  StyledQuantityWrapper,
 } from "./styled";
 
 const Cart: React.FC = () => {
@@ -51,11 +54,12 @@ const Cart: React.FC = () => {
 
   const totalPrice = totalProductsPrice + totalAdditionalsPrice;
 
-  const handleQuantityChange = (
-    { currentTarget }: React.SyntheticEvent<HTMLInputElement>,
-    id: number
-  ): void => {
-    dispatch(changeQuantity(id, +currentTarget.value));
+  const handleQuantityIncrease = (id: number, quantity: number): void => {
+    dispatch(changeQuantity(id, quantity + 1));
+  };
+
+  const handleQuantityDecrease = (id: number, quantity: number): void => {
+    dispatch(changeQuantity(id, quantity - 1));
   };
 
   const handleAdditionalQuantityChange = (
@@ -111,15 +115,57 @@ const Cart: React.FC = () => {
                           {weight}
                         </StyledTableCell>
                         <StyledTableCell>
-                          <StyledQuantity
-                            min="1"
-                            max="50"
-                            onChange={(
-                              event: React.SyntheticEvent<HTMLInputElement>
-                            ) => handleQuantityChange(event, id)}
-                            type="number"
-                            value={quantity ? quantity : 1}
-                          />
+                          <StyledQuantityWrapper>
+                            <StyledQuantityButton
+                              isIncrease
+                              onClick={() =>
+                                handleQuantityIncrease(id, quantity)
+                              }
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                focusable="false"
+                                role="img"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"
+                              >
+                                <path
+                                  fill="currentColor"
+                                  d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 
+                                  0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 
+                                  0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                                />
+                              </svg>
+                            </StyledQuantityButton>
+                            <StyledQuantityInput
+                              min="1"
+                              max="50"
+                              type="number"
+                              value={quantity ? quantity : 1}
+                            />
+                            <StyledQuantityButton
+                              isDecrease
+                              onClick={() =>
+                                handleQuantityDecrease(id, quantity)
+                              }
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                focusable="false"
+                                role="img"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"
+                              >
+                                <path
+                                  fill="currentColor"
+                                  d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 
+                                  32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                                />
+                              </svg>
+                            </StyledQuantityButton>
+                          </StyledQuantityWrapper>
                         </StyledTableCell>
                         <StyledTableCell>
                           <StyledBold>
@@ -127,12 +173,12 @@ const Cart: React.FC = () => {
                           </StyledBold>
                         </StyledTableCell>
                         <StyledTableCell>
-                          <button
+                          <StyledRemove
                             onClick={() => handleProductRemove(id)}
                             type="button"
                           >
-                            Remove
-                          </button>
+                            x
+                          </StyledRemove>
                         </StyledTableCell>
                       </StyledTableRow>
                     )
@@ -159,7 +205,7 @@ const Cart: React.FC = () => {
                             <StyledBold>{title}</StyledBold>
                           </StyledTableCell>
                           <StyledTableCell>
-                            <StyledQuantity
+                            <StyledQuantityInput
                               min="1"
                               max="50"
                               onChange={(

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { NextPage } from "next";
 import { gql } from "@apollo/client";
 
 import client from "~/apollo-client";
+import { AppContext, TAdditional, setAdditionals } from "~/store";
 import { TSchedule } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -29,8 +30,10 @@ import DeliveryTitleQuery from "~/queries/delivery-title.graphql";
 import ScheduleQuery from "~/queries/schedule.graphql";
 import HeroQuery from "~/queries/hero.graphql";
 import BannerQuery from "~/queries/banner.graphql";
+import AdditionalsQuery from "~/queries/additionals.graphql";
 
 interface TProps {
+  additionals: TAdditional[];
   about: {
     about_cs: TAbout;
     about_ru: TAbout;
@@ -53,6 +56,7 @@ interface TProps {
 }
 
 const IndexPage: NextPage<TProps> = ({
+  additionals,
   about,
   banner,
   delivery,
@@ -61,8 +65,13 @@ const IndexPage: NextPage<TProps> = ({
   reviews,
   schedule,
 }) => {
+  const { dispatch } = useContext(AppContext);
   const { t } = useTranslation();
   const mainTitle = t("mainTitle");
+
+  useEffect((): void => {
+    dispatch(setAdditionals(additionals));
+  }, []);
 
   return (
     <Layout title={mainTitle}>
@@ -113,6 +122,14 @@ IndexPage.getInitialProps = async () => {
   });
 
   const {
+    data: { additionals },
+  } = await client.query({
+    query: gql`
+      ${AdditionalsQuery}
+    `,
+  });
+
+  const {
     data: { reviews },
   } = await client.query({
     query: gql`
@@ -158,7 +175,10 @@ IndexPage.getInitialProps = async () => {
     `,
   });
 
+  console.log(additionals);
+
   return {
+    additionals,
     about,
     banner,
     delivery: {

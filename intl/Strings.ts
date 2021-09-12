@@ -89,7 +89,13 @@ export const LangStrings = {
     allergeny: "Seznam alergenů",
     allergenyImage: "allergeny_cz_img.jpg",
     mediaImage: "discount_img.jpg",
-    recommendedTitle: "Chcete ještě něco přidat?"
+    recommendedTitle: "Chcete ještě něco přidat?",
+    addToCart: "Přidat do košíku",
+    quantity: "Množství / Váha",
+    price: "Cena",
+    priceTotal: "Konečná cena",
+    modifiers: "Modifikátory",
+    ingredients: "Složení",
   },
   ru: {
     metaDescription: `По-настоящему вкусные и сочные сеты, которые Вас вдоволь накормят и насладят 
@@ -181,6 +187,12 @@ export const LangStrings = {
     allergeny: "Список аллергенов",
     allergenyImage: "allergeny_ru_img.jpg",
     mediaImage: "discount_img2.jpg",
-    recommendedTitle: "Хотите ещё что-то добавить?"
+    recommendedTitle: "Хотите ещё что-то добавить?",
+    addToCart: "Добавить в корзину",
+    quantity: "Количество / Вес",
+    price: "Цена",
+    priceTotal: "Итоговая цена",
+    modifiers: "Модификаторы",
+    ingredients: "Состав",
   },
 };

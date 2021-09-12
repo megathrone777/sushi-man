@@ -11,7 +11,7 @@ import {
   StyledButton,
   StyledButtonHelper,
 } from "./styled";
-import { LocaleSwitcher } from "~/components/LocaleSwitcher";
+import { LocaleSwitcher } from "./LocaleSwitcher";
 import { StyledContainer } from "~/components/Layout/styled";
 
 interface TProps {
