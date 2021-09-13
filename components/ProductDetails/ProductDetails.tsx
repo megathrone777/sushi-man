@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNotifications } from "reapop";
 
+import { TProps, TProductModifier, TProductSubmodifier } from "./types";
 import useTranslation from "~/intl/useTranslation";
 import { AppContext, addToCart, TCartProduct } from "~/store";
 import {
@@ -23,34 +24,6 @@ import {
   StyledSubmodifiersList,
 } from "./styled";
 
-interface TProductSubmodifier {
-  id: number;
-  name: string;
-}
-
-export interface TProductModifier {
-  id: number;
-  name: string;
-  price: string;
-  submodifiers: TProductSubmodifier[];
-}
-
-export interface TProduct {
-  id: number;
-  image: {
-    url: string;
-  };
-  allergeny: string;
-  ingredients: string;
-  price: string;
-  product_modifiers: TProductModifier[];
-  slug: string;
-  title: string;
-  weight: string;
-}
-
-interface TProps extends TProduct {}
-
 const ProductDetails: React.FC<TProps> = ({
   allergeny,
   id,
@@ -67,7 +40,7 @@ const ProductDetails: React.FC<TProps> = ({
   const { t } = useTranslation();
   const [totalPrice, setTotalPrice] = useState<number>(parseInt(price));
   const [modifierIds, setModifierIds] = useState<number[]>([]);
-  const [submodifiersIds, setSubmodifiersIds] = useState<number[]>([]);
+  const [submodifiersIds, setSubmodifiersIds] = useState<string[]>([]);
 
   const handleAddToCart = (product: TCartProduct): void => {
     dispatch(addToCart(product));
@@ -102,19 +75,20 @@ const ProductDetails: React.FC<TProps> = ({
     }
   };
 
-  const handleSubModifierChange = (id: number): void => {
+  const handleSubModifierChange = (id: string): void => {
     if (submodifiersIds.includes(id)) {
       const newSubModifierIds = submodifiersIds.filter(
-        (subModifierId: number) => subModifierId !== id
+        (subModifierId: string) => subModifierId !== id
       );
 
       setSubmodifiersIds(newSubModifierIds);
-    } else {
-      const newSubModifierIds = [...submodifiersIds];
-
-      newSubModifierIds.push(id);
-      setSubmodifiersIds(newSubModifierIds);
+      return;
     }
+
+    const newSubModifierIds = [...submodifiersIds];
+
+    newSubModifierIds.push(id);
+    setSubmodifiersIds(newSubModifierIds);
   };
 
   return (
@@ -166,9 +140,7 @@ const ProductDetails: React.FC<TProps> = ({
                             onChange={() =>
                               handleModifierChange(modifierId, price)
                             }
-                            checked={
-                              modifierIds.includes(modifierId) ? true : false
-                            }
+                            checked={modifierIds.includes(modifierId)}
                             type="checkbox"
                           />
                           <StyledModifierLabel htmlFor={modifierId}>
@@ -180,30 +152,26 @@ const ProductDetails: React.FC<TProps> = ({
                             !!submodifiers.length && (
                               <StyledSubmodifiersList>
                                 {submodifiers.map(
-                                  (
-                                    {
-                                      id: subModifierId,
-                                      name,
-                                    }: TProductSubmodifier,
-                                    index: number
-                                  ): React.ReactElement => (
+                                  ({
+                                    id: subModifierId,
+                                    name,
+                                  }: TProductSubmodifier): React.ReactElement => (
                                     <li key={`${index}-${subModifierId}`}>
                                       <StyledMofifiersCheckbox
-                                        id={`subModifier-${subModifierId}-${modifierId}`}
-                                        checked={
-                                          submodifiersIds.includes(
-                                            subModifierId
-                                          )
-                                            ? true
-                                            : false
-                                        }
+                                        checked={submodifiersIds.includes(
+                                          `${index}-${subModifierId}`
+                                        )}
+                                        id={`${index}-${subModifierId}`}
+                                        isSecondary
                                         onChange={() =>
-                                          handleSubModifierChange(subModifierId)
+                                          handleSubModifierChange(
+                                            `${index}-${subModifierId}`
+                                          )
                                         }
                                         type="checkbox"
                                       />
                                       <StyledModifierLabel
-                                        htmlFor={`subModifier-${subModifierId}-${modifierId}`}
+                                        htmlFor={`${index}-${subModifierId}`}
                                       >
                                         {name}
                                       </StyledModifierLabel>

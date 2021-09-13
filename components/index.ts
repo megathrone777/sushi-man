@@ -1,4 +1,4 @@
-export { About } from "./About";
+export { About } from "./About"
 export { Banner } from "./Banner";
 export { Cart } from "./Cart";
 export { Contacts } from "./Contacts";
@@ -11,9 +11,9 @@ export { Products } from "./Products";
 export { ProductsRecommended } from "./ProductsRecommended";
 export { Reviews } from "./Reviews";
 
-export type { TAbout } from "./About";
-export type { TBanner } from "./Banner";
-export type { TDelivery } from "./Delivery";
+export type { TAbout } from "./About/types";
+export type { TBanner } from "./Banner/types";
+export type { TDelivery } from "./Delivery/types";
 export type { TMedia } from "./Media";
 export type { TReview } from "./Reviews";
-export type { TProduct, TProductModifier } from "./ProductDetails";
+export type { TProduct, TProductModifier } from "./ProductDetails/types";

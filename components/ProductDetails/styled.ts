@@ -1,4 +1,4 @@
-import { styled } from "~/theme";
+import { css, styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
   background: url("/images/products_bg.jpg") center center repeat-y;
@@ -70,21 +70,30 @@ export const StyledModifierLabel = styled.label`
   cursor: pointer;
 `;
 
-export const StyledMofifiersCheckbox = styled.input`
+export const StyledMofifiersCheckbox = styled.input<{ isSecondary?: boolean }>`
   appearance: none;
   background-image: url("data:image/svg+xml,%0A%3Csvg aria-hidden='true' focusable='false' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23da2628' d='M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z'%3E%3C/path%3E%3C/svg%3E%0A");
-  background-size: ${({ theme }) => `${theme.rem(20)} ${theme.rem(20)}`};
   background-position: ${({ theme }) => `${theme.rem(-50)} center`};
   background-repeat: no-repeat;
+  background-size: ${({ theme }) => `${theme.rem(17)} ${theme.rem(17)}`};
+  border-radius: 50%;
   border: ${({ theme }) => theme.rem(2)} solid #da2628;
   cursor: pointer;
   display: inline-block;
   height: ${({ theme }) => theme.rem(25)};
-  overflow: hidden;
-  width: ${({ theme }) => theme.rem(25)};
-  vertical-align: middle;
-  margin-right: ${({ theme }) => theme.rem(10)};
   margin-left: 0;
+  margin-right: ${({ theme }) => theme.rem(10)};
+  overflow: hidden;
+  vertical-align: middle;
+  width: ${({ theme }) => theme.rem(25)};
+
+  ${({ isSecondary }) =>
+    isSecondary &&
+    css`
+      height: ${({ theme }) => theme.rem(20)};
+      background-size: ${({ theme }) => `${theme.rem(13)} ${theme.rem(13)}`};
+      width: ${({ theme }) => theme.rem(20)};
+    `}
 
   &:checked {
     background-position: center center;

@@ -1,6 +1,7 @@
 import React from "react";
 
-import useTranslation from "~/intl/useTranslation";
+import { TProps } from "./types";
+import useTranslation from "~/intl/useTranslation"
 import {
   StyledWrapper,
   StyledLayout,
@@ -10,23 +11,6 @@ import {
   StyledButton,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
-
-export interface TBanner {
-  image: {
-    url: string;
-  };
-  locale: string;
-  text: string;
-  title: string;
-}
-
-interface TProps {
-  hero: {
-    hero_cs: TBanner;
-    hero_ru: TBanner;
-  };
-  inner?: boolean;
-}
 
 const Banner: React.FC<TProps> = ({ hero, inner }) => {
   const { locale, t } = useTranslation();
@@ -44,6 +28,8 @@ const Banner: React.FC<TProps> = ({ hero, inner }) => {
         behavior: "smooth",
       });
   };
+
+  console.log(true);
 
   return (
     <StyledWrapper inner={inner}>

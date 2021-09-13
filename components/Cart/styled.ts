@@ -1,22 +1,31 @@
-import { css, styled } from "~/theme";
+import { styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
-  padding: ${({ theme }) => theme.rem(30)};
+  border-bottom: ${({ theme }) => theme.rem(10)} solid #da2628;
+  padding: ${({ theme }) =>
+    `${theme.rem(30)} ${theme.rem(30)} ${theme.rem(50)}`};
+  overflow: hidden;
 `;
 
 export const StyledLayout = styled.div``;
 
+export const StyledFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const StyledTable = styled.table<{ isSmall?: boolean }>`
-  border-bottom: 2px solid #da2628;
-  border-top: 2px solid #da2628;
+  border-bottom: 3px solid #da2628;
+  border-top: 3px solid #da2628;
   margin-bottom: ${({ theme }) => theme.rem(40)};
   table-layout: fixed;
-  width: 100%;
+  width: ${({ isSmall }) => (isSmall ? "45%" : "100%")};
 `;
 
 export const StyledTableCaption = styled.caption`
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
   padding: ${({ theme }) => theme.rem(10)};
+  text-align: left;
 `;
 
 export const StyledTableRow = styled.tr``;
@@ -37,13 +46,20 @@ export const StyledBold = styled.span`
   font-family: ${({ theme }) => theme.fonts.fontBold};
 `;
 
+export const StyledLink = styled.a``;
+
 export const StyledImage = styled.img`
-  border-radius: 50%;
+  border-radius: ${({ theme }) => theme.rem(10)};
   display: block;
-  height: ${({ theme }) => theme.rem(85)};
+  height: auto;
   margin: 0 auto;
   overflow: hidden;
-  width: ${({ theme }) => theme.rem(85)};
+  width: ${({ theme }) => theme.rem(75)};
+`;
+
+export const StyledQuantityLabel = styled.p`
+  font-family: ${({ theme }) => theme.fonts.fontBold};
+  margin-right: ${({ theme }) => theme.rem(10)};
 `;
 
 export const StyledQuantityWrapper = styled.div`
@@ -76,18 +92,24 @@ export const StyledQuantityButton = styled.button<{
   isIncrease?: boolean;
   isDecrease?: boolean;
 }>`
+  align-items: center;
   background: none;
-  border: none;
+  border: 2px solid black;
+  border-radius: 50%;
   cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
-  height: 18px;
-  padding: 0;
-  width: 18px;
+  display: flex;
+  height: ${({ theme }) => theme.rem(22)};
+  padding: 2px;
+  width: ${({ theme }) => theme.rem(22)};
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 export const StyledTotal = styled.p`
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
+  margin-bottom: ${({ theme }) => theme.rem(22)};
   text-align: right;
 `;
 
@@ -139,15 +161,18 @@ export const StyledBuy = styled.button`
   }
 
   &:hover {
-    box-shadow: 0px 0px ${({ theme }) => theme.rem(14)} 0px
-      rgba(218, 38, 40, 0.75);
+    box-shadow: 0 0 ${({ theme }) => theme.rem(14)} 0 rgba(218, 38, 40, 0.75);
   }
 `;
 
 export const StyledRemove = styled.button`
-  border: none;
   background: none;
+  border: none;
   color: #da2628;
   cursor: pointer;
   font-size: ${({ theme }) => theme.rem(20)};
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;

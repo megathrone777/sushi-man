@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { useNotifications } from "reapop";
 
+import { TProps } from "./types";
 import { TProduct } from "~/components";
 import { addToCart, AppContext, TCartProduct } from "~/store";
 import useTranslation from "~/intl/useTranslation";
@@ -26,10 +27,6 @@ import {
   StyledScroller,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
-
-interface TProps {
-  products: TProduct[];
-}
 
 const Products: React.FC<TProps> = ({ products }) => {
   const { t } = useTranslation();

@@ -1,38 +1,17 @@
 import React from "react";
 
+import { TProps, TDeliveryItem } from "./types";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
   StyledLayout,
   StyledTitle,
-  StyledSubtitle,
   StyledList,
   StyledItem,
   StyledItemTitle,
   StyledItemText,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
-
-interface TDeliveryTitle {
-  locale: string;
-  title: string;
-}
-
-interface TDeliveryItem {
-  locale: string;
-  text: string;
-  title: string;
-}
-
-export interface TDelivery {
-  deliveryTitle: {
-    deliveryTitle_cs: TDeliveryTitle;
-    deliveryTitle_ru: TDeliveryTitle;
-  };
-  deliveryItems: TDeliveryItem[];
-}
-
-interface TProps extends TDelivery {}
 
 const Delivery: React.FC<TProps> = ({ deliveryItems, deliveryTitle }) => {
   const { locale, t } = useTranslation();

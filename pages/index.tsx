@@ -22,6 +22,7 @@ import {
   TMedia,
   TProduct,
 } from "~/components";
+
 import ProductsQuery from "~/queries/products.graphql";
 import ReviewsQuery from "~/queries/reviews.graphql";
 import DeliveryQuery from "~/queries/delivery.graphql";

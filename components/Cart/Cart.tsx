@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import Link from "next/link";
 
 import {
   AppContext,
@@ -18,6 +19,7 @@ import {
   StyledBold,
   StyledTableCaption,
   StyledImage,
+  StyledLink,
   StyledQuantityInput,
   StyledQuantityButton,
   StyledTotal,
@@ -27,6 +29,8 @@ import {
   StyledBuy,
   StyledRemove,
   StyledQuantityWrapper,
+  StyledQuantityLabel,
+  StyledFooter,
 } from "./styled";
 
 const Cart: React.FC = () => {
@@ -63,11 +67,12 @@ const Cart: React.FC = () => {
     dispatch(changeQuantity(id, quantity - 1));
   };
 
-  const handleAdditionalQuantityChange = (
-    { currentTarget }: React.SyntheticEvent<HTMLInputElement>,
-    id: number
-  ): void => {
-    dispatch(addAdditional(id, +currentTarget.value));
+  const handleAdditionalQuantityIncrease = (id: number): void => {
+    // dispatch(addAdditional(id, +currentTarget.value));
+  };
+
+  const handleAdditionalQuantityDecrease = (id: number): void => {
+    // dispatch(addAdditional(id, +currentTarget.value));
   };
 
   const handleCutleryQuantityChange = ({
@@ -108,7 +113,15 @@ const Cart: React.FC = () => {
                     ): React.ReactElement => (
                       <StyledTableRow key={`${index}-${title}`}>
                         <StyledTableCell>
-                          <StyledImage alt={title} src={image.url} />
+                          <Link
+                            as={`/product/${id}`}
+                            href={`/product/[${id}]`}
+                            passHref
+                          >
+                            <StyledLink>
+                              <StyledImage alt={title} src={image.url} />
+                            </StyledLink>
+                          </Link>
                         </StyledTableCell>
                         <StyledTableCell>
                           <StyledBold>{title}</StyledBold>
@@ -187,57 +200,149 @@ const Cart: React.FC = () => {
                 </tbody>
               </StyledTable>
 
-              {cart.additionals && !!cart.additionals.length && (
+              <StyledFooter>
                 <StyledTable isSmall>
-                  <StyledTableCaption>Дополнительно</StyledTableCaption>
+                  <StyledTableCaption>Доставка</StyledTableCaption>
+
                   <tbody>
-                    {cart.additionals.map(
-                      (
-                        {
-                          id,
-                          title,
-                          quantity: additionalQuantity = 0,
-                          price,
-                        }: TAdditional,
-                        index: number
-                      ): React.ReactElement => (
-                        <StyledTableRow key={`${index}-${title}`}>
-                          <StyledTableCell>
-                            <StyledBold>{title}</StyledBold>
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            <StyledQuantityInput
-                              min="1"
-                              max="50"
-                              onChange={(
-                                event: React.SyntheticEvent<HTMLInputElement>
-                              ) => handleAdditionalQuantityChange(event, id)}
-                              type="number"
-                              value={additionalQuantity}
-                            />
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            <StyledBold>
-                              {price * additionalQuantity} Kč
-                            </StyledBold>
-                          </StyledTableCell>
-                        </StyledTableRow>
-                      )
-                    )}
+                    <StyledTableRow>
+                      <StyledTableCell>1</StyledTableCell>
+                      <StyledTableCell>1</StyledTableCell>
+                      <StyledTableCell>1</StyledTableCell>
+                    </StyledTableRow>
                   </tbody>
                 </StyledTable>
-              )}
+
+                {cart.additionals && !!cart.additionals.length && (
+                  <StyledTable isSmall>
+                    <StyledTableCaption>Дополнительно</StyledTableCaption>
+                    <tbody>
+                      {cart.additionals.map(
+                        (
+                          {
+                            id: additionalId,
+                            title,
+                            quantity: additionalQuantity = 0,
+                            price,
+                          }: TAdditional,
+                          index: number
+                        ): React.ReactElement => (
+                          <StyledTableRow key={`${index}-${title}`}>
+                            <StyledTableCell>
+                              <StyledBold>{title}</StyledBold>
+                            </StyledTableCell>
+                            <StyledTableCell>
+                              <StyledQuantityWrapper>
+                                <StyledQuantityButton
+                                  isIncrease
+                                  onClick={() =>
+                                    handleAdditionalQuantityIncrease(
+                                      additionalId
+                                    )
+                                  }
+                                  type="button"
+                                >
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="img"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 448 512"
+                                  >
+                                    <path
+                                      fill="currentColor"
+                                      d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 
+                                  0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 
+                                  0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                                    />
+                                  </svg>
+                                </StyledQuantityButton>
+                                <StyledQuantityInput
+                                  min="1"
+                                  max="50"
+                                  onChange={() => {}}
+                                  type="number"
+                                  value={additionalQuantity}
+                                />
+                                <StyledQuantityButton
+                                  isDecrease
+                                  onClick={() =>
+                                    handleAdditionalQuantityDecrease(
+                                      additionalId
+                                    )
+                                  }
+                                  type="button"
+                                >
+                                  <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    role="img"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 448 512"
+                                  >
+                                    <path
+                                      fill="currentColor"
+                                      d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 
+                                  32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                                    />
+                                  </svg>
+                                </StyledQuantityButton>
+                              </StyledQuantityWrapper>
+                            </StyledTableCell>
+                            <StyledTableCell>
+                              <StyledBold>
+                                {price * additionalQuantity} Kč
+                              </StyledBold>
+                            </StyledTableCell>
+                          </StyledTableRow>
+                        )
+                      )}
+                    </tbody>
+                  </StyledTable>
+                )}
+              </StyledFooter>
             </StyledLayout>
 
-            <p>
-              Количество человек:{" "}
-              <input
+            <StyledQuantityWrapper>
+              <StyledQuantityLabel>Количество человек:*</StyledQuantityLabel>
+              <StyledQuantityButton isIncrease onClick={() => {}} type="button">
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  role="img"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 448 512"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 
+                                  0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 
+                                  0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                  />
+                </svg>
+              </StyledQuantityButton>
+              <StyledQuantityInput
+                max="15"
+                onChange={handleCutleryQuantityChange}
                 type="number"
                 value={cutlery}
-                onChange={handleCutleryQuantityChange}
-                max="15"
               />
-            </p>
+              <StyledQuantityButton isDecrease onClick={() => {}} type="button">
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  role="img"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 448 512"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 
+                                  32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+                  />
+                </svg>
+              </StyledQuantityButton>
+            </StyledQuantityWrapper>
 
             <StyledTotal>Общая цена: {totalPrice}</StyledTotal>
             <StyledButtons>

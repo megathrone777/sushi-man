@@ -3,9 +3,10 @@ import { useNotifications } from "reapop";
 import Slider from "react-slick";
 import Link from "next/link";
 
+import { TProps } from "./types";
 import useTranslation from "~/intl/useTranslation";
 import { addToCart, AppContext, TCartProduct } from "~/store";
-import { TProduct } from "~/components";
+import { TProduct } from "~/components"
 import {
   StyledWrapper,
   StyledTitle,
@@ -25,10 +26,6 @@ import {
   StyledSVGSymbol,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
-
-interface TProps {
-  products: TProduct[];
-}
 
 const ProductsRecommended: React.FC<TProps> = ({ products }) => {
   const { dispatch } = useContext(AppContext);
