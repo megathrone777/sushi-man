@@ -31,7 +31,7 @@ export const StyledContent = styled.div`
 `;
 
 export const StyledTitle = styled.h2`
-  font: ${({ theme }) => `${theme.rem(40)} ${theme.fonts.fontSemiBold}`};
+  font: ${({ theme }) => `${theme.rem(40)} ${theme.fonts.fontMedium}`};
   margin-bottom: ${({ theme }) => theme.rem(20)};
 `;
 
@@ -42,7 +42,7 @@ export const StyledItem = styled.p`
 
 export const StyledItemPrice = styled.p`
   color: #da2629;
-  font: ${({ theme }) => `${theme.rem(23)} ${theme.fonts.fontSemiBold}`};
+  font: ${({ theme }) => `${theme.rem(23)} ${theme.fonts.fontMedium}`};
   margin-bottom: ${({ theme }) => theme.rem(20)};
 `;
 
@@ -53,7 +53,7 @@ export const StyledItemSecondary = styled.p`
 
 export const StyledItemTitle = styled.span`
   color: black;
-  font: ${({ theme }) => `${theme.rem(17)} ${theme.fonts.fontSemiBold}`};
+  font: ${({ theme }) => `${theme.rem(17)} ${theme.fonts.fontMedium}`};
   margin-right: ${({ theme }) => theme.rem(10)};
 `;
 
@@ -68,7 +68,7 @@ export const StyledModifiersItem = styled.li`
 
 export const StyledModifierLabel = styled.label`
   cursor: pointer;
-  font-family: ${({ theme }) => theme.fonts.fontSemiBold};
+  font-family: ${({ theme }) => theme.fonts.fontMedium};
 `;
 
 export const StyledMofifiersCheckbox = styled.input<{ isSecondary?: boolean }>`
@@ -111,7 +111,7 @@ export const StyledButton = styled.button`
   color: white;
   cursor: pointer;
   display: inline-block;
-  font: ${({ theme }) => `${theme.rem(22)} ${theme.fonts.fontSemiBold}`};
+  font: ${({ theme }) => `${theme.rem(22)} ${theme.fonts.fontMedium}`};
   height: ${({ theme }) => theme.rem(55)};
   line-height: ${({ theme }) => theme.rem(55)};
   min-width: ${({ theme }) => theme.rem(190)};

@@ -49,7 +49,6 @@ const Contacts: React.FC<TProps> = ({ schedule }) => {
         <StyledLayout>
           <StyledTitle>{content.title}</StyledTitle>
           <StyledTime dangerouslySetInnerHTML={{ __html: content.schedule }} />
-          <StyledText>{content.text}</StyledText>
           {contactsLinks && (
             <StyledLinks>
               <StyledList>

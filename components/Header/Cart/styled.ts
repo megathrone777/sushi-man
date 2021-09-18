@@ -37,7 +37,7 @@ export const StyledAmount = styled.p`
   border-radius: 50%;
   bottom: ${({ theme }) => theme.rem(-5)};
   color: black;
-  font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontSemiBold}`};
+  font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontBold}`};
   min-width: ${({ theme }) => theme.rem(25)};
   padding: ${({ theme }) => theme.rem(3)};
   position: absolute;

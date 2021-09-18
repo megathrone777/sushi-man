@@ -48,7 +48,7 @@ export const StyledLayout = styled.div<{ inner?: boolean }>`
 `;
 
 export const StyledTitle = styled.h1`
-  font: ${({ theme }) => `${theme.rem(42)} ${theme.fonts.fontExtraBold}`};
+  font: ${({ theme }) => `${theme.rem(42)} ${theme.fonts.fontBold}`};
   line-height: 1.4;
   margin-bottom: ${({ theme }) => theme.rem(15)};
 
@@ -101,7 +101,7 @@ export const StyledButton = styled.a`
   background-color: #da2628;
   color: white;
   display: inline-block;
-  font: ${({ theme }) => `${theme.rem(22)} ${theme.fonts.fontSemiBold}`};
+  font: ${({ theme }) => `${theme.rem(22)} ${theme.fonts.fontMedium}`};
   height: ${({ theme }) => theme.rem(55)};
   line-height: ${({ theme }) => theme.rem(55)};
   min-width: ${({ theme }) => theme.rem(190)};

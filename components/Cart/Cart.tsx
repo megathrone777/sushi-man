@@ -9,7 +9,7 @@ import {
   removeFromCart,
 } from "~/store";
 import { StyledContainer } from "~/components/Layout/styled";
-import { SvgPlusIcon } from "~/icons";
+import { SvgPlusIcon, SvgMinusIcon } from "~/icons";
 import {
   StyledWrapper,
   StyledTable,
@@ -24,26 +24,49 @@ import {
   StyledQuantityButton,
   StyledTotal,
   StyledSushiMan,
+  StyledPrice,
   StyledEmpty,
   StyledButtons,
   StyledBuy,
   StyledRemove,
   StyledQuantityWrapper,
   StyledQuantityLabel,
+  StyledQuantityPrice,
   StyledFooter,
+  StyledDelivery,
+  StyledDeliveryTitle,
+  StyledDeliveryHeader,
+  StyledDeliveryContent,
+  StyledDeliveryLayout,
+  StyledDeliveryInputWrapper,
+  StyledPhoneInput,
+  StyledNameInput,
   StyledDeliveryInput,
   StyledRadio,
   StyledRadioWrapper,
   StyledRadioLabel,
+  StyledPayment,
+  StyledPaymentColumn,
+  StyledPaymentHeader,
+  StyledPaymentImage,
+  StyledPaymentTitle,
+  StyledPersons,
+  StyledPersonsColumn,
+  StyledPersonsText,
+  StyledPersonsTextLabel,
+  StyledAdditionalName,
+  StyledDeliveryPickup,
+  StyledDeliveryPickupLabel,
 } from "./styled";
-import { SvgMinusIcon } from "~/icons/SvgMinusIcon";
 
 type TDeliveryPickup = "delivery" | "pickup";
+type TPayment = "card" | "cash";
 
 const Cart: React.FC = () => {
   const [cutlery, setCutlery] = useState<string>("0");
   const [deliveryPickup, setDeliveryPickup] =
     useState<TDeliveryPickup>("delivery");
+  const [payment, setPayment] = useState("card");
   const { dispatch, state } = useContext(AppContext);
   const { cart } = state;
 
@@ -100,6 +123,14 @@ const Cart: React.FC = () => {
     const name = currentTarget.value;
 
     setDeliveryPickup(name as TDeliveryPickup);
+  };
+
+  const handlePaymentChange = ({
+    currentTarget,
+  }: React.SyntheticEvent<HTMLInputElement>): void => {
+    const name = currentTarget.value;
+
+    setPayment(name as TPayment);
   };
 
   const handleProductRemove = (id: number): void => {
@@ -174,9 +205,9 @@ const Cart: React.FC = () => {
                           </StyledQuantityWrapper>
                         </StyledTableCell>
                         <StyledTableCell>
-                          <StyledBold>
+                          <StyledPrice>
                             {totalPrice ? `${totalPrice} Kč` : price}
-                          </StyledBold>
+                          </StyledPrice>
                         </StyledTableCell>
                         <StyledTableCell>
                           <StyledRemove
@@ -192,54 +223,128 @@ const Cart: React.FC = () => {
                 </tbody>
               </StyledTable>
 
+              <StyledPersons>
+                <StyledPersonsColumn>
+                  <StyledQuantityWrapper>
+                    <StyledQuantityLabel>
+                      Количество человек:*
+                    </StyledQuantityLabel>
+                    <StyledQuantityButton
+                      isIncrease
+                      onClick={() => {}}
+                      type="button"
+                    >
+                      <SvgPlusIcon />
+                    </StyledQuantityButton>
+                    <StyledQuantityInput
+                      max="15"
+                      onChange={handleCutleryQuantityChange}
+                      type="number"
+                      value={cutlery}
+                    />
+                    <StyledQuantityButton
+                      isDecrease
+                      onClick={() => {}}
+                      type="button"
+                    >
+                      <SvgMinusIcon />
+                    </StyledQuantityButton>
+                  </StyledQuantityWrapper>
+                  <StyledQuantityPrice>0 Kc</StyledQuantityPrice>
+                  <StyledPersonsText>
+                    До 3-х человек уже в цене
+                  </StyledPersonsText>
+                </StyledPersonsColumn>
+
+                <StyledPersonsColumn>
+                  <StyledPersonsText>
+                    Добавьте ещё 1,2 ролла и получите{" "}
+                    <StyledPersonsTextLabel>-50Kč</StyledPersonsTextLabel>
+                  </StyledPersonsText>
+                </StyledPersonsColumn>
+              </StyledPersons>
+
               <StyledFooter>
-                <StyledTable isSmall>
-                  <StyledTableCaption>Доставка</StyledTableCaption>
+                <StyledDelivery>
+                  <StyledDeliveryTitle>Доставка</StyledDeliveryTitle>
+                  <StyledDeliveryHeader>
+                    <StyledRadioWrapper>
+                      <StyledRadio
+                        checked={deliveryPickup === "delivery"}
+                        id="input-delivery"
+                        name="delivery-pickup"
+                        onChange={handleDeliveryPickupChange}
+                        type="radio"
+                        value="delivery"
+                      />
+                      <StyledRadioLabel htmlFor="input-delivery">
+                        Доставка курьером
+                      </StyledRadioLabel>
+                    </StyledRadioWrapper>
 
-                  <tbody>
-                    <StyledTableRow>
-                      <StyledTableCell>
-                        <StyledRadioWrapper>
-                          <StyledRadio
-                            id="input-delivery"
-                            name="delivery-pickup"
-                            onChange={handleDeliveryPickupChange}
-                            type="radio"
-                            value="delivery"
-                          />
-                          <StyledRadioLabel htmlFor="input-delivery">
-                            Доставка курьером
-                          </StyledRadioLabel>
-                        </StyledRadioWrapper>
-                      </StyledTableCell>
-                      <StyledTableCell>
-                        <StyledRadioWrapper>
-                          <StyledRadio
-                            id="input-pickup"
-                            name="delivery-pickup"
-                            onChange={handleDeliveryPickupChange}
-                            type="radio"
-                            value="pickup"
-                          />
-                          <StyledRadioLabel htmlFor="input-pickup">
-                            Самовывоз
-                          </StyledRadioLabel>
-                        </StyledRadioWrapper>
-                      </StyledTableCell>
-                    </StyledTableRow>
+                    <StyledRadioWrapper>
+                      <StyledRadio
+                        id="input-pickup"
+                        name="delivery-pickup"
+                        onChange={handleDeliveryPickupChange}
+                        type="radio"
+                        value="pickup"
+                      />
+                      <StyledRadioLabel htmlFor="input-pickup">
+                        Самовывоз
+                      </StyledRadioLabel>
+                    </StyledRadioWrapper>
+                  </StyledDeliveryHeader>
 
+                  <StyledDeliveryLayout>
                     {deliveryPickup === "delivery" && (
-                      <StyledTableRow>
-                        <StyledTableCell colSpan={2}>
+                      <StyledDeliveryContent
+                        isVisible={deliveryPickup === "delivery"}
+                      >
+                        <StyledDeliveryInputWrapper>
+                          <StyledNameInput placeholder="Имя" type="text" />
+                        </StyledDeliveryInputWrapper>
+
+                        <StyledDeliveryInputWrapper>
+                          <StyledPhoneInput placeholder="Телефон" type="tel" />
+                        </StyledDeliveryInputWrapper>
+
+                        <StyledDeliveryInputWrapper>
                           <StyledDeliveryInput
                             placeholder="Введите адрес"
                             type="text"
                           />
-                        </StyledTableCell>
-                      </StyledTableRow>
+                        </StyledDeliveryInputWrapper>
+                      </StyledDeliveryContent>
                     )}
-                  </tbody>
-                </StyledTable>
+
+                    {deliveryPickup === "pickup" && (
+                      <StyledDeliveryContent
+                        isVisible={deliveryPickup === "pickup"}
+                      >
+                        <StyledDeliveryInputWrapper>
+                          <StyledNameInput placeholder="Имя" type="text" />
+                        </StyledDeliveryInputWrapper>
+
+                        <StyledDeliveryInputWrapper>
+                          <StyledPhoneInput placeholder="Телефон" type="tel" />
+                        </StyledDeliveryInputWrapper>
+
+                        <StyledDeliveryPickup>
+                          <StyledDeliveryPickupLabel>
+                            Адрес для самовывоза:
+                          </StyledDeliveryPickupLabel>
+                          <StyledLink
+                            href="https://goo.gl/maps/r6Tf6xHVnu59bD9J9"
+                            target="_blank"
+                          >
+                            Husitská 187/60, Praha 3
+                          </StyledLink>
+                        </StyledDeliveryPickup>
+                      </StyledDeliveryContent>
+                    )}
+                  </StyledDeliveryLayout>
+                </StyledDelivery>
 
                 {cart.additionals && !!cart.additionals.length && (
                   <StyledTable isSmall>
@@ -257,7 +362,9 @@ const Cart: React.FC = () => {
                         ): React.ReactElement => (
                           <StyledTableRow key={`${index}-${title}`}>
                             <StyledTableCell>
-                              <StyledBold>{title}</StyledBold>
+                              <StyledAdditionalName>
+                                {title}
+                              </StyledAdditionalName>
                             </StyledTableCell>
                             <StyledTableCell>
                               <StyledQuantityWrapper>
@@ -293,9 +400,9 @@ const Cart: React.FC = () => {
                               </StyledQuantityWrapper>
                             </StyledTableCell>
                             <StyledTableCell>
-                              <StyledBold>
+                              <StyledPrice>
                                 {price * additionalQuantity} Kč
-                              </StyledBold>
+                              </StyledPrice>
                             </StyledTableCell>
                           </StyledTableRow>
                         )
@@ -306,25 +413,53 @@ const Cart: React.FC = () => {
               </StyledFooter>
             </StyledLayout>
 
-            <StyledQuantityWrapper>
-              <StyledQuantityLabel>Количество человек:*</StyledQuantityLabel>
-              <StyledQuantityButton isIncrease onClick={() => {}} type="button">
-                <SvgPlusIcon />
-              </StyledQuantityButton>
-              <StyledQuantityInput
-                max="15"
-                onChange={handleCutleryQuantityChange}
-                type="number"
-                value={cutlery}
-              />
-              <StyledQuantityButton isDecrease onClick={() => {}} type="button">
-                <SvgMinusIcon />
-              </StyledQuantityButton>
-            </StyledQuantityWrapper>
+            <StyledPayment>
+              <StyledPaymentTitle>Оплата</StyledPaymentTitle>
 
-            <StyledTotal>Общая цена: {totalPrice}</StyledTotal>
+              <StyledPaymentHeader>
+                <StyledPaymentColumn>
+                  <StyledRadioWrapper>
+                    <StyledRadio
+                      checked={payment === "card"}
+                      id="input-card"
+                      name="input-payment"
+                      onChange={handlePaymentChange}
+                      type="radio"
+                      value="card"
+                    />
+                    <StyledRadioLabel htmlFor="input-card">
+                      Картой на месте или онлайн
+                    </StyledRadioLabel>
+                  </StyledRadioWrapper>
+
+                  <StyledPaymentImage
+                    alt="Card"
+                    src="/images/payments_img.png"
+                  />
+                </StyledPaymentColumn>
+
+                <StyledPaymentColumn>
+                  <StyledRadioWrapper>
+                    <StyledRadio
+                      id="input-cash"
+                      name="input-payment"
+                      onChange={handlePaymentChange}
+                      type="radio"
+                      value="cash"
+                    />
+                    <StyledRadioLabel htmlFor="input-cash">
+                      Наличными
+                    </StyledRadioLabel>
+                  </StyledRadioWrapper>
+
+                  <StyledPaymentImage alt="Card" src="/images/cash_img.jpg" />
+                </StyledPaymentColumn>
+              </StyledPaymentHeader>
+            </StyledPayment>
+
+            <StyledTotal>Общая цена: {totalPrice} Kč</StyledTotal>
             <StyledButtons>
-              <StyledBuy type="button">Купить</StyledBuy>
+              <StyledBuy type="button">Перейти к оплате</StyledBuy>
             </StyledButtons>
           </>
         ) : (

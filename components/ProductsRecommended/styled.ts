@@ -99,7 +99,7 @@ export const StyledItemFooter = styled.div`
 `;
 
 export const StyledItemPrice = styled.div`
-  font: ${({ theme }) => `${theme.rem(25)} ${theme.fonts.fontSemiBold}`};
+  font: ${({ theme }) => `${theme.rem(25)} ${theme.fonts.fontMedium}`};
   padding-left: ${({ theme }) => theme.rem(20)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {

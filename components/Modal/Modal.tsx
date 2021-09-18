@@ -46,7 +46,6 @@ const Modal: React.FC<TProps> = ({ close, isOpened }) => {
           <StyledTitle dangerouslySetInnerHTML={{ __html: content.title }} />
 
           <StyledTime dangerouslySetInnerHTML={{ __html: content.schedule }} />
-          <StyledText>{content.text}</StyledText>
 
           {contactsLinks && (
             <StyledLinks>

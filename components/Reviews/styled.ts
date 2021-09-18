@@ -29,7 +29,7 @@ export const StyledLayout = styled.div`
 `;
 
 export const StyledTitle = styled.h2`
-  font: ${({ theme }) => theme.rem(40)} ${({ theme }) => theme.fonts.fontBlack};
+  font: ${({ theme }) => theme.rem(40)} ${({ theme }) => theme.fonts.fontBold};
   letter-spacing: ${({ theme }) => theme.rem(1)};
   margin-bottom: ${({ theme }) => theme.rem(20)};
   text-align: center;
@@ -64,7 +64,7 @@ export const StyledButton = styled.button`
   color: white;
   cursor: pointer;
   display: inline-block;
-  font: ${({ theme }) => theme.rem(22)} ${({ theme }) => theme.fonts.fontSemiBold};
+  font: ${({ theme }) => theme.rem(22)} ${({ theme }) => theme.fonts.fontMedium};
   height: ${({ theme }) => theme.rem(55)};
   line-height: ${({ theme }) => theme.rem(55)};
   min-width: ${({ theme }) => theme.rem(190)};

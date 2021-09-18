@@ -125,7 +125,7 @@ export const StyledItemContent = styled.div`
 `;
 
 export const StyledItemTitle = styled.div`
-  font: ${({ theme }) => theme.rem(20)} ${({ theme }) => theme.fonts.fontBold};
+  font: ${({ theme }) => theme.rem(22)} ${({ theme }) => theme.fonts.fontBold};
   margin-bottom: ${({ theme }) => theme.rem(7)};
   min-height: ${({ theme }) => theme.rem(48)};
   padding: 0 ${({ theme }) => theme.rem(20)};
@@ -148,7 +148,7 @@ export const StyledItemFooter = styled.div`
 `;
 
 export const StyledItemPrice = styled.div`
-  font: ${({ theme }) => `${theme.rem(25)} ${theme.fonts.fontSemiBold}`};
+  font: ${({ theme }) => `${theme.rem(25)} ${theme.fonts.fontMedium}`};
   padding-left: ${({ theme }) => theme.rem(20)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {

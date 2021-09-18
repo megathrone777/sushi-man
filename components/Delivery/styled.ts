@@ -30,7 +30,7 @@ export const StyledTitle = styled.h2`
 `;
 
 export const StyledSubtitle = styled.span`
-  font-family: ${({ theme }) => theme.fonts.fontSemiBold};
+  font-family: ${({ theme }) => theme.fonts.fontMedium};
 `;
 
 export const StyledList = styled.div`

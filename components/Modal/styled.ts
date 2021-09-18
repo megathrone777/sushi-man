@@ -37,7 +37,7 @@ export const StyledLayout = styled.div<{
 
 export const StyledTitle = styled.h2`
   color: white;
-  font: ${({ theme }) => theme.rem(30)} ${({ theme }) => theme.fonts.fontSemiBold};
+  font: ${({ theme }) => theme.rem(30)} ${({ theme }) => theme.fonts.fontMedium};
   text-align: center;
   margin-bottom: ${({ theme }) => theme.rem(13)};
 
@@ -49,14 +49,14 @@ export const StyledTitle = styled.h2`
 
 export const StyledTime = styled.p`
   color: white;
-  font: ${({ theme }) => theme.rem(20)} ${({ theme }) => theme.fonts.fontSemiBold};
+  font: ${({ theme }) => theme.rem(20)} ${({ theme }) => theme.fonts.fontMedium};
   margin-bottom: ${({ theme }) => theme.rem(25)};
   text-align: center;
 `;
 
 export const StyledText = styled.p`
   color: white;
-  font: ${({ theme }) => theme.rem(18)} ${({ theme }) => theme.fonts.fontSemiBold};
+  font: ${({ theme }) => theme.rem(18)} ${({ theme }) => theme.fonts.fontMedium};
   text-align: center;
   margin-bottom: ${({ theme }) => theme.rem(20)};
 `;

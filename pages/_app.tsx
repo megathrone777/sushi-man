@@ -81,33 +81,19 @@ const App = ({ Component, pageProps, router }: AppProps) => (
 
         <style jsx global>{`
           @font-face {
-            font-family: "Montserrat";
+            font-family: "Avenir";
             font-style: normal;
-            src: url("/fonts/Montserrat-Regular.ttf");
+            src: url("/fonts/AvenirNext-Regular.woff");
           }
-
           @font-face {
-            font-family: "MontserratSemiBold";
+            font-family: "AvenirBold";
             font-style: normal;
-            src: url("/fonts/Montserrat-SemiBold.ttf");
+            src: url("/fonts/AvenirNext-Bold.woff");
           }
-
           @font-face {
-            font-family: "MontserratBold";
+            font-family: "AvenirMedium";
             font-style: normal;
-            src: url("/fonts/Montserrat-Bold.ttf");
-          }
-
-          @font-face {
-            font-family: "MontserratExtraBold";
-            font-style: normal;
-            src: url("/fonts/Montserrat-ExtraBold.ttf");
-          }
-
-          @font-face {
-            font-family: "MontserratBlack";
-            font-style: normal;
-            src: url("/fonts/Montserrat-Black.ttf");
+            src: url("/fonts/AvenirNext-Medium.woff");
           }
         `}</style>
       </AppProvider>

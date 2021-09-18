@@ -15,7 +15,7 @@ export const StyledWrapper = styled.section`
 
 export const StyledTitle = styled.h2`
   margin-bottom: ${({ theme }) => theme.rem(30)};
-  font: ${({ theme }) => theme.rem(40)} ${({ theme }) => theme.fonts.fontBlack};
+  font: ${({ theme }) => theme.rem(40)} ${({ theme }) => theme.fonts.fontBold};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: ${({ theme }) => theme.rem(25)};
