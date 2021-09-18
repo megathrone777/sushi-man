@@ -6,10 +6,10 @@ import {
   TCartProduct,
   changeQuantity,
   TAdditional,
-  addAdditional,
   removeFromCart,
 } from "~/store";
 import { StyledContainer } from "~/components/Layout/styled";
+import { SvgPlusIcon } from "~/icons";
 import {
   StyledWrapper,
   StyledTable,
@@ -31,10 +31,19 @@ import {
   StyledQuantityWrapper,
   StyledQuantityLabel,
   StyledFooter,
+  StyledDeliveryInput,
+  StyledRadio,
+  StyledRadioWrapper,
+  StyledRadioLabel,
 } from "./styled";
+import { SvgMinusIcon } from "~/icons/SvgMinusIcon";
+
+type TDeliveryPickup = "delivery" | "pickup";
 
 const Cart: React.FC = () => {
   const [cutlery, setCutlery] = useState<string>("0");
+  const [deliveryPickup, setDeliveryPickup] =
+    useState<TDeliveryPickup>("delivery");
   const { dispatch, state } = useContext(AppContext);
   const { cart } = state;
 
@@ -83,6 +92,14 @@ const Cart: React.FC = () => {
       return;
     }
     setCutlery(currentTarget.value);
+  };
+
+  const handleDeliveryPickupChange = ({
+    currentTarget,
+  }: React.SyntheticEvent<HTMLInputElement>): void => {
+    const name = currentTarget.value;
+
+    setDeliveryPickup(name as TDeliveryPickup);
   };
 
   const handleProductRemove = (id: number): void => {
@@ -137,20 +154,7 @@ const Cart: React.FC = () => {
                               }
                               type="button"
                             >
-                              <svg
-                                aria-hidden="true"
-                                focusable="false"
-                                role="img"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 448 512"
-                              >
-                                <path
-                                  fill="currentColor"
-                                  d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 
-                                  0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 
-                                  0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                                />
-                              </svg>
+                              <SvgPlusIcon />
                             </StyledQuantityButton>
                             <StyledQuantityInput
                               min="1"
@@ -165,19 +169,7 @@ const Cart: React.FC = () => {
                               }
                               type="button"
                             >
-                              <svg
-                                aria-hidden="true"
-                                focusable="false"
-                                role="img"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 448 512"
-                              >
-                                <path
-                                  fill="currentColor"
-                                  d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 
-                                  32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                                />
-                              </svg>
+                              <SvgMinusIcon />
                             </StyledQuantityButton>
                           </StyledQuantityWrapper>
                         </StyledTableCell>
@@ -206,10 +198,46 @@ const Cart: React.FC = () => {
 
                   <tbody>
                     <StyledTableRow>
-                      <StyledTableCell>1</StyledTableCell>
-                      <StyledTableCell>1</StyledTableCell>
-                      <StyledTableCell>1</StyledTableCell>
+                      <StyledTableCell>
+                        <StyledRadioWrapper>
+                          <StyledRadio
+                            id="input-delivery"
+                            name="delivery-pickup"
+                            onChange={handleDeliveryPickupChange}
+                            type="radio"
+                            value="delivery"
+                          />
+                          <StyledRadioLabel htmlFor="input-delivery">
+                            Доставка курьером
+                          </StyledRadioLabel>
+                        </StyledRadioWrapper>
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <StyledRadioWrapper>
+                          <StyledRadio
+                            id="input-pickup"
+                            name="delivery-pickup"
+                            onChange={handleDeliveryPickupChange}
+                            type="radio"
+                            value="pickup"
+                          />
+                          <StyledRadioLabel htmlFor="input-pickup">
+                            Самовывоз
+                          </StyledRadioLabel>
+                        </StyledRadioWrapper>
+                      </StyledTableCell>
                     </StyledTableRow>
+
+                    {deliveryPickup === "delivery" && (
+                      <StyledTableRow>
+                        <StyledTableCell colSpan={2}>
+                          <StyledDeliveryInput
+                            placeholder="Введите адрес"
+                            type="text"
+                          />
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    )}
                   </tbody>
                 </StyledTable>
 
@@ -242,20 +270,7 @@ const Cart: React.FC = () => {
                                   }
                                   type="button"
                                 >
-                                  <svg
-                                    aria-hidden="true"
-                                    focusable="false"
-                                    role="img"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 448 512"
-                                  >
-                                    <path
-                                      fill="currentColor"
-                                      d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 
-                                  0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 
-                                  0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                                    />
-                                  </svg>
+                                  <SvgPlusIcon />
                                 </StyledQuantityButton>
                                 <StyledQuantityInput
                                   min="1"
@@ -273,19 +288,7 @@ const Cart: React.FC = () => {
                                   }
                                   type="button"
                                 >
-                                  <svg
-                                    aria-hidden="true"
-                                    focusable="false"
-                                    role="img"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 448 512"
-                                  >
-                                    <path
-                                      fill="currentColor"
-                                      d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 
-                                  32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                                    />
-                                  </svg>
+                                  <SvgMinusIcon />
                                 </StyledQuantityButton>
                               </StyledQuantityWrapper>
                             </StyledTableCell>
@@ -306,20 +309,7 @@ const Cart: React.FC = () => {
             <StyledQuantityWrapper>
               <StyledQuantityLabel>Количество человек:*</StyledQuantityLabel>
               <StyledQuantityButton isIncrease onClick={() => {}} type="button">
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 
-                                  0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 
-                                  0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                  />
-                </svg>
+                <SvgPlusIcon />
               </StyledQuantityButton>
               <StyledQuantityInput
                 max="15"
@@ -328,19 +318,7 @@ const Cart: React.FC = () => {
                 value={cutlery}
               />
               <StyledQuantityButton isDecrease onClick={() => {}} type="button">
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 
-                                  32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
-                  />
-                </svg>
+                <SvgMinusIcon />
               </StyledQuantityButton>
             </StyledQuantityWrapper>
 

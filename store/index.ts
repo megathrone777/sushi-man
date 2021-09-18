@@ -4,6 +4,7 @@ export {
   removeFromCart,
   clearCart,
   changeQuantity,
+  changeAdditionalQuantity,
   addAdditional,
   setAdditionals,
   setSchedule,

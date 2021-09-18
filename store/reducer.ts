@@ -69,6 +69,22 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
         },
       };
     },
+    [TActionTypes.CHANGE_ADDITIONAL_QUANTITY]: (): TState => {
+      const additionals = [...state.cart.additionals];
+      const foundIndex = additionals.findIndex(
+        (additional: TAdditional) => additional.id === payload.id
+      );
+
+      additionals[foundIndex].quantity = payload.quantity;
+
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          additionals,
+        },
+      };
+    },
     [TActionTypes.SET_ADDITIONALS]: (): TState => ({
       ...state,
       cart: {

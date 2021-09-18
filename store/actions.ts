@@ -5,6 +5,7 @@ export enum TActionTypes {
   REMOVE_PRODUCT = "REMOVE_PRODUCT",
   CLEAR_CART = "CLEAR_CART",
   CHANGE_QUANTITY = "CHANGE_QUANTITY",
+  CHANGE_ADDITIONAL_QUANTITY = "CHANGE_ADDITIONAL_QUANTITY",
   SET_ADDITIONALS = "SET_ADDITIONALS",
   ADD_ADDITIONAL = "ADD_ADDITIONAL",
   ADD_CUTLERY = "ADD_CUTLERY",
@@ -38,6 +39,17 @@ export const changeQuantity = (id: number, quantity: number): TAction => ({
     quantity,
   },
   type: TActionTypes.CHANGE_QUANTITY,
+});
+
+export const changeAdditionalQuantity = (
+  id: number,
+  quantity: number
+): TAction => ({
+  payload: {
+    id,
+    quantity,
+  },
+  type: TActionTypes.CHANGE_ADDITIONAL_QUANTITY,
 });
 
 export const setAdditionals = (additionals: TAdditional[]): TAction => ({

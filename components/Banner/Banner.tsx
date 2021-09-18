@@ -29,8 +29,6 @@ const Banner: React.FC<TProps> = ({ hero, inner }) => {
       });
   };
 
-  console.log(true);
-
   return (
     <StyledWrapper inner={inner}>
       <StyledImage inner={inner} src={content.image.url} alt="Media" />

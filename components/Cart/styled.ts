@@ -99,7 +99,7 @@ export const StyledQuantityButton = styled.button<{
   cursor: pointer;
   display: flex;
   height: ${({ theme }) => theme.rem(22)};
-  padding: 2px;
+  padding: ${({ theme }) => theme.rem(2)};
   width: ${({ theme }) => theme.rem(22)};
 
   &:hover {
@@ -165,6 +165,22 @@ export const StyledBuy = styled.button`
   }
 `;
 
+export const StyledDeliveryInput = styled.input`
+  background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath fill='%23da2628' d='M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: auto ${({ theme }) => theme.rem(20)};
+  background-position: 5px center;
+  border-radius: ${({ theme }) => theme.rem(2)};
+  border: ${({ theme }) => theme.rem(2)} solid #da2628;
+  font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontBold}`};
+  height: ${({ theme }) => theme.rem(35)};
+  padding: 0 ${({ theme }) => theme.rem(25)};
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 export const StyledRemove = styled.button`
   background: none;
   border: none;
@@ -174,5 +190,34 @@ export const StyledRemove = styled.button`
 
   &:hover {
     opacity: 0.8;
+  }
+`;
+
+export const StyledRadioWrapper = styled.div`
+  align-items: center;
+  display: flex;
+`;
+
+export const StyledRadioLabel = styled.label`
+  cursor: pointer;
+  font-family: ${({ theme }) => theme.fonts.fontSemiBold};
+`;
+
+export const StyledRadio = styled.input`
+  appearance: none;
+  background-image: url("data:image/svg+xml,%0A%3Csvg aria-hidden='true' focusable='false' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23da2628' d='M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z'%3E%3C/path%3E%3C/svg%3E%0A");
+  background-position: ${({ theme }) => `${theme.rem(-50)} center`};
+  background-repeat: no-repeat;
+  background-size: ${({ theme }) => `${theme.rem(17)} ${theme.rem(17)}`};
+  border-radius: 50%;
+  border: ${({ theme }) => theme.rem(2)} solid #da2628;
+  cursor: pointer;
+  display: inline-block;
+  height: ${({ theme }) => theme.rem(25)};
+  margin-right: ${({ theme }) => theme.rem(10)};
+  width: ${({ theme }) => theme.rem(25)};
+
+  &:checked {
+    background-position: center center;
   }
 `;

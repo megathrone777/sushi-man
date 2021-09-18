@@ -68,6 +68,7 @@ export const StyledModifiersItem = styled.li`
 
 export const StyledModifierLabel = styled.label`
   cursor: pointer;
+  font-family: ${({ theme }) => theme.fonts.fontSemiBold};
 `;
 
 export const StyledMofifiersCheckbox = styled.input<{ isSecondary?: boolean }>`
@@ -79,7 +80,7 @@ export const StyledMofifiersCheckbox = styled.input<{ isSecondary?: boolean }>`
   border-radius: 50%;
   border: ${({ theme }) => theme.rem(2)} solid #da2628;
   cursor: pointer;
-  display: inline-block;
+  display: inline-block;  
   height: ${({ theme }) => theme.rem(25)};
   margin-left: 0;
   margin-right: ${({ theme }) => theme.rem(10)};
