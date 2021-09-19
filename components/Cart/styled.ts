@@ -59,6 +59,10 @@ export const StyledLink = styled.a`
   color: black;
   font-family: ${({ theme }) => theme.fonts.fontMedium};
   text-decoration: none;
+
+  &:hover {
+    color: #da2628;
+  }
 `;
 
 export const StyledImage = styled.img`

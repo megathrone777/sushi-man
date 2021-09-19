@@ -6,12 +6,11 @@ const notification = css`
       bottom: ${({ theme }) => theme.rem(20)};
       position: fixed;
       right: ${({ theme }) => theme.rem(20)};
-      z-index: 999999;
+      z-index: 999;
     }
 
     &__notification {
       align-items: center;
-
       border-radius: ${({ theme }) => theme.rem(2)};
       box-shadow: 0 ${({ theme }) => theme.rem(3)}
         ${({ theme }) => theme.rem(6)} 0 rgba(0, 0, 0, 0.16);
@@ -22,7 +21,7 @@ const notification = css`
       width: ${({ theme }) => theme.rem(460)};
 
       &--success {
-        background-color: green;
+        background-color: white;
       }
 
       &--error {
@@ -34,7 +33,7 @@ const notification = css`
       }
 
       &-title {
-        color: white;
+        color: green;
         font-size: ${({ theme }) => theme.rem(18)};
         text-shadow: 0 0 ${({ theme }) => theme.rem(1)} rgba(0, 0, 0, 0.16);
         text-transform: lowercase;
@@ -49,7 +48,7 @@ const notification = css`
       }
 
       &-dismiss-icon {
-        color: white;
+        color: green;
         height: ${({ theme }) => theme.rem(15)};
         margin-right: ${({ theme }) => theme.rem(15)};
         width: ${({ theme }) => theme.rem(15)};

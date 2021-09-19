@@ -27,6 +27,18 @@ export const LangStrings = {
         anchor: "/",
         text: "Hlavni",
       },
+      {
+        anchor: "/#contacts-section",
+        text: "Menu",
+      },
+      {
+        anchor: "/#delivery-section",
+        text: "Doprava a platba",
+      },
+      {
+        anchor: "/#reviews-section",
+        text: "Recenze",
+      },
     ],
     phoneNumber: "+420 792 745 116",
     langs: ["cz", "ru"],

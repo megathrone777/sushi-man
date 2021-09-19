@@ -117,7 +117,7 @@ const slick = css`
     top: 50%;
     width: 40px;
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    @media (max-width: 600px) {
       display: none !important;
     }
 
@@ -130,7 +130,7 @@ const slick = css`
     left: -80px;
     transform: translateY(-50%);
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    @media (max-width: 600px) {
       left: -38px;
     }
   }
@@ -140,7 +140,7 @@ const slick = css`
     transform-origin: center top;
     transform: rotate(180deg) translateY(-50%);
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    @media (max-width: 600px) {
       right: -38px;
     }
   }
@@ -149,7 +149,7 @@ const slick = css`
     transform: scale(1.2);
     transform-origin: center 415px;
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    @media (max-width: 600px) {
       transform-origin: center center;
       transform: none;
     }

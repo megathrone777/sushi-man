@@ -1,6 +1,5 @@
 import React from "react";
 import Script from "next/script";
-
 import { AppProps } from "next/app";
 import { NotificationsProvider } from "reapop";
 

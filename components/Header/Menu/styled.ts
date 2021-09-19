@@ -50,7 +50,7 @@ export const StyledLink = styled.span`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    color: white;
+    color: black;
     font-size: ${({ theme }) => theme.rem(28)};
   }
 
@@ -58,7 +58,7 @@ export const StyledLink = styled.span`
     color: #da2628;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-      color: white;
+      color: black;
     }
   }
 `;

@@ -11,7 +11,6 @@ import {
   StyledItem,
   StyledLink,
   StyledTime,
-  StyledText,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 import { useEffect } from "react";
@@ -41,7 +40,7 @@ const Contacts: React.FC<TProps> = ({ schedule }) => {
         schedule_ru: schedule["schedule_ru"],
       })
     );
-  }, [schedule]);
+  }, []);
 
   return (
     <StyledWrapper id="contacts-section">

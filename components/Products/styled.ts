@@ -3,6 +3,10 @@ import { styled } from "~/theme";
 export const StyledWrapper = styled.section`
   background: url("/images/products_bg.jpg") center center repeat-y;
   padding: ${({ theme }) => theme.rem(60)} 0;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding-top: ${({ theme }) => theme.rem(30)};
+  }
 `;
 
 export const StyledTitle = styled.h2`
@@ -106,6 +110,13 @@ export const StyledItemImageHolder = styled.div`
     min-width: ${({ theme }) => theme.rem(230)};
   }
 
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    flex: 0 1 ${({ theme }) => theme.rem(180)};
+    height: ${({ theme }) => theme.rem(250)};
+    margin-bottom: 0;
+    min-width: ${({ theme }) => theme.rem(180)};
+  }
+
   &:hover ${StyledItemImage} {
     transform: scale(1.05);
 
@@ -127,12 +138,17 @@ export const StyledItemContent = styled.div`
 export const StyledItemTitle = styled.div`
   font: ${({ theme }) => theme.rem(22)} ${({ theme }) => theme.fonts.fontBold};
   margin-bottom: ${({ theme }) => theme.rem(7)};
-  min-height: ${({ theme }) => theme.rem(48)};
   padding: 0 ${({ theme }) => theme.rem(20)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 0 ${({ theme }) => theme.rem(10)};
     line-height: ${({ theme }) => theme.rem(50)};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    line-height: 1.2;
+    margin-bottom: ${({ theme }) => theme.rem(9)};
+    margin-top: ${({ theme }) => theme.rem(9)};
   }
 `;
 
@@ -144,6 +160,15 @@ export const StyledItemFooter = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     justify-content: flex-start;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    justify-content: space-between;
+    margin-top: ${({ theme }) => theme.rem(5)};
   }
 `;
 
@@ -213,6 +238,8 @@ export const StyledPathSymbol = styled.path``;
 export const StyledItemButton = styled.button`
   background-color: #da2628;
   border: none;
+  border-bottom-left-radius: ${({ theme }) => theme.rem(5)};
+  border-top-left-radius: ${({ theme }) => theme.rem(5)};
   color: white;
   cursor: pointer;
   display: inline-block;
@@ -225,10 +252,13 @@ export const StyledItemButton = styled.button`
   width: ${({ theme }) => theme.rem(64)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    border-radius: ${({ theme }) => theme.rem(5)};
     margin-left: ${({ theme }) => theme.rem(20)};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
     height: ${({ theme }) => theme.rem(50)};
     min-width: ${({ theme }) => theme.rem(80)};
   }

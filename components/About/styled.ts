@@ -2,7 +2,7 @@ import { styled } from "~/theme";
 
 export const StyledWrapper = styled.section`
   background: url("/images/about_bg.jpg") center center/cover no-repeat;
-  border-top: ${({ theme }) => theme.rem(10)} solid #da2628;
+  border-top: ${({ theme }) => theme.rem(4)} solid #da2628;
   padding: ${({ theme }) => theme.rem(50)} 0;
   min-height: ${({ theme }) => theme.rem(400)};
   text-align: center;
@@ -20,6 +20,10 @@ export const StyledTitle = styled.h2`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: ${({ theme }) => theme.rem(25)};
     margin-bottom: ${({ theme }) => theme.rem(20)};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    margin-bottom: ${({ theme }) => theme.rem(10)};
   }
 `;
 

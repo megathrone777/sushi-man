@@ -11,7 +11,6 @@ import {
   StyledButton,
   StyledButtonHelper,
 } from "./styled";
-import { LocaleSwitcher } from "./LocaleSwitcher";
 import { StyledContainer } from "~/components/Layout/styled";
 
 interface TProps {
@@ -49,7 +48,6 @@ const Header: React.FC<TProps> = ({ mainMenuItems, innerMenuItems, inner }) => {
               closeMenu={() => toggleMenuIsOpened(false)}
             />
             <Contact />
-            <LocaleSwitcher />
             <Cart />
           </StyledContent>
           <StyledButton
@@ -57,7 +55,9 @@ const Header: React.FC<TProps> = ({ mainMenuItems, innerMenuItems, inner }) => {
             onClick={handleMenu}
             type="button"
           >
-            <StyledButtonHelper />
+            <StyledButtonHelper isLeft isHalf isOpened={menuIsOpened} />
+            <StyledButtonHelper isOpened={menuIsOpened} />
+            <StyledButtonHelper isRight isHalf isOpened={menuIsOpened} />
           </StyledButton>
         </StyledLayout>
       </StyledContainer>

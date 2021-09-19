@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
+import { Cart } from "./Cart";
 import { Modal } from "~/components";
 import { TContactsLink } from "~/components/Modal";
 import useTranslation from "~/intl/useTranslation";
@@ -46,14 +47,11 @@ const Footer: React.FC = () => {
     const scrolledSection = document.getElementById(anchor);
 
     scrolledSection &&
-      scrolledSection.scrollIntoView({
-        behavior: "smooth",
-      });
+      scrolledSection.scrollIntoView();
   };
 
   const handleScrollTop = (): void => {
     window.scrollTo({
-      behavior: "smooth",
       top: 0,
     });
   };
@@ -142,7 +140,13 @@ const Footer: React.FC = () => {
         </StyledCopyText>
       </StyledCopy>
 
-      <StyledScrollButton onClick={handleScrollTop} type="button">
+      <Cart />
+
+      <StyledScrollButton
+        isHidden={false}
+        onClick={handleScrollTop}
+        type="button"
+      >
         <svg
           focusable="false"
           role="img"

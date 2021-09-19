@@ -5,6 +5,10 @@ export const StyledWrapper = styled.section`
   background-color: #eaeaed;
   padding: ${({ theme }) => theme.rem(60)} 0;
 
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    padding-top: ${({ theme }) => theme.rem(40)};
+  }
+
   ${StyledContainer} {
     @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
       padding-left: ${({ theme }) => theme.rem(20)};

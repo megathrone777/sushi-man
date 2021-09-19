@@ -13,6 +13,12 @@ export const StyledWrapper = styled.div`
     position: relative;
     z-index: 40;
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    margin-left: ${({ theme }) => theme.rem(10)};
+    max-width: ${({ theme }) => theme.rem(100)};
+    min-width: ${({ theme }) => theme.rem(100)};
+  }
 `;
 
 export const StyledLink = styled.a`

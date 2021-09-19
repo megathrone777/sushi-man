@@ -50,7 +50,7 @@ const ProductDetails: React.FC<TProps> = ({
       position: "bottom-center",
       showDismissButton: true,
       status: "success",
-      title: `${product.title} добавлен в корзину`,
+      title: `${product.title} přidáno do košíku`,
     });
   };
 
@@ -136,14 +136,14 @@ const ProductDetails: React.FC<TProps> = ({
                       ): React.ReactElement => (
                         <StyledModifiersItem key={`${index}-${name}`}>
                           <StyledMofifiersCheckbox
-                            id={modifierId}
+                            id={modifierId.toString()}
                             onChange={() =>
                               handleModifierChange(modifierId, price)
                             }
                             checked={modifierIds.includes(modifierId)}
                             type="checkbox"
                           />
-                          <StyledModifierLabel htmlFor={modifierId}>
+                          <StyledModifierLabel htmlFor={modifierId.toString()}>
                             {name} - {price}
                           </StyledModifierLabel>
 

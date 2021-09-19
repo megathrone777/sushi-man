@@ -11,6 +11,10 @@ export const StyledHeader = styled.header`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     height: ${({ theme }) => theme.rem(100)};
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    height: ${({ theme }) => theme.rem(120)};
+  }
 `;
 
 export const StyledLayout = styled.div`
@@ -29,7 +33,7 @@ export const StyledContent = styled(StyledLayout)<{
   flex-grow: 1;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    background: #da2629;
+    background: url("/images/products_bg.jpg") center center/cover no-repeat;
     bottom: 0;
     flex-direction: column-reverse;
     left: 0;
@@ -51,91 +55,47 @@ export const StyledContent = styled(StyledLayout)<{
   }
 `;
 
-export const StyledButtonHelper = styled.span`
-  background-color: #e6e6e6;
-  border-radius: ${({ theme }) => theme.rem(4)};
-  height: ${({ theme }) => theme.rem(4)};
-  left: 0;
+export const StyledButton = styled.button<{ isOpened: boolean }>`
+  background-color: transparent;
+  border: none;
+  height: ${({ theme }) => theme.rem(35)};
+  width: ${({ theme }) => theme.rem(35)};
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0;
   position: absolute;
-  right: 0;
-  top: 0;
-  transition-duration: 0.15s;
-  transition-property: transform;
-  transition-timing-function: ease;
-  width: ${({ theme }) => theme.rem(40)};
+  right: ${({ theme }) => theme.rem(20)};
+  top: ${({ theme }) => theme.rem(20)};
+  transition: transform 330ms ease-out;
+  transform: ${({ isOpened }) =>
+    isOpened ? "rotate(-45deg)" : "rotate(0deg)"};
+  z-index: 100;
 
-  &:focus {
-    outline: none;
-  }
-
-  &::before,
-  &::after {
-    background-color: #e6e6e6;
-    border-radius: ${({ theme }) => theme.rem(4)};
-    content: "";
-    height: ${({ theme }) => theme.rem(4)};
-    left: 0;
-    position: absolute;
-    transition-duration: 0.15s;
-    transition-property: transform;
-    transition-timing-function: ease;
-    width: ${({ theme }) => theme.rem(40)};
-  }
-
-  &::before {
-    top: ${({ theme }) => theme.rem(10)};
-  }
-
-  &::after {
-    top: ${({ theme }) => theme.rem(20)};
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: flex;
   }
 `;
 
-export const StyledButton = styled.button<{
+export const StyledButtonHelper = styled.span<{
   isOpened: boolean;
+  isLeft?: boolean;
+  isRight?: boolean;
+  isHalf?: boolean;
 }>`
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: none;
-  height: ${({ theme }) => theme.rem(24)};
-  margin-right: ${({ theme }) => theme.rem(10)};
-  padding: 0;
-  position: relative;
-  width: ${({ theme }) => theme.rem(40)};
-  z-index: 40;
-
-  ${StyledButtonHelper} {
-    ${({ isOpened }) =>
-      isOpened &&
-      css`
-        top: 0;
-        transform: translate3d(0, 10px, 0) rotate(135deg);
-        transition-delay: 75ms;
-
-        &::before {
-          opacity: 0;
-          transition-delay: 0s;
-        }
-
-        &::after {
-          top: ${({ theme }) => theme.rem(20)};
-          transform: translate3d(0, -20px, 0) rotate(-270deg);
-          transition-delay: 75ms;
-        }
-      `}
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: block;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-right: ${({ theme }) => theme.rem(5)};
-    top: ${({ theme }) => theme.rem(-20)};
-  }
+  align-self: ${({ isRight }) => (isRight ? "flex-end" : "auto")};
+  background-color: ${({ isOpened }) => (isOpened ? "#da2628" : "white")};
+  border-radius: ${({ theme }) => theme.rem(5)};
+  width: ${({ isHalf }) => (isHalf ? "50%" : "100%")};
+  height: ${({ theme }) => theme.rem(4)};
+  transform: ${({ isOpened, isRight, isLeft }) =>
+    isOpened && isLeft
+      ? "rotate(-90deg) translateX(3px)"
+      : isOpened && isRight
+      ? "rotate(-90deg) translateX(-3px)"
+      : "none"};
+  transition: transform 330ms cubic-bezier(0.54, -0.81, 0.57, 0.57);
+  transform-origin: ${({ isLeft, isRight }) =>
+    isLeft ? "right" : isRight ? "left" : "none"};
 `;

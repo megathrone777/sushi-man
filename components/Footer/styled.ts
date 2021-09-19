@@ -135,6 +135,7 @@ export const StyledCopyLink = styled.a`
 `;
 
 export const StyledScrollButton = styled.button<{ isHidden: boolean }>`
+  background-color: rgb(239, 239, 239);
   border: none;
   border-radius: ${({ theme }) => theme.rem(4)};
   bottom: ${({ theme }) => theme.rem(110)};
@@ -146,12 +147,18 @@ export const StyledScrollButton = styled.button<{ isHidden: boolean }>`
   width: ${({ theme }) => theme.rem(45)};
   z-index: 200;
 
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    bottom: ${({ theme }) => theme.rem(80)};
+    right: ${({ theme }) => theme.rem(20)};
+  }
+
   &:hover {
     opacity: 1;
   }
 `;
 
 export const StyledChatButton = styled.button`
+  background-color: rgb(239, 239, 239);
   border: none;
   border-radius: ${({ theme }) => theme.rem(4)};
   bottom: ${({ theme }) => theme.rem(40)};
@@ -162,6 +169,11 @@ export const StyledChatButton = styled.button`
   right: ${({ theme }) => theme.rem(40)};
   width: ${({ theme }) => theme.rem(45)};
   z-index: 200;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    bottom: ${({ theme }) => theme.rem(15)};
+    right: ${({ theme }) => theme.rem(20)};
+  }
 
   &:hover {
     opacity: 1;

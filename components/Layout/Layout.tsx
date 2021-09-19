@@ -27,14 +27,8 @@ const Layout: React.FC<TLayout> = ({ children, title, inner }) => {
         <title>{title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="format-detection" content="telephone=no" />
         <meta name="description" content={metaDescription} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://sushi-man.cz" />
-        <meta property="og:title" content="Sushi man | Rozvoz sushi po Praze" />
-        <meta
-          property="og:image"
-          content="https://sushi-man.cz/images/logo_img.png"
-        />
         <meta name="yandex-verification" content="2d640540016895e1" />
       </Head>
 

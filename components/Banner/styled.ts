@@ -7,9 +7,13 @@ export const StyledWrapper = styled.section<{ inner?: boolean }>`
   ${({ inner }) =>
     inner &&
     css`
-      border-bottom: ${({ theme }) => theme.rem(10)} solid #da2628;
+      border-bottom: ${({ theme }) => theme.rem(4)} solid #da2628;
       height: ${({ theme }) => theme.rem(400)};
       overflow: hidden;
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        height: auto;
+      }
     `}
 `;
 
@@ -22,6 +26,10 @@ export const StyledImage = styled.img<{ inner?: boolean }>`
     css`
       position: relative;
       top: ${({ theme }) => theme.rem(-60)};
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        top: 0;
+      }
     `}
 `;
 
@@ -30,7 +38,7 @@ export const StyledLayout = styled.div<{ inner?: boolean }>`
   position: absolute;
   right: 0;
   top: ${({ theme }) => theme.rem(170)};
-  
+
   ${({ inner }) =>
     inner &&
     css`
@@ -99,6 +107,7 @@ export const StyledText = styled.p`
 
 export const StyledButton = styled.a`
   background-color: #da2628;
+  border-radius: ${({ theme }) => theme.rem(5)};
   color: white;
   display: inline-block;
   font: ${({ theme }) => `${theme.rem(22)} ${theme.fonts.fontMedium}`};
@@ -126,7 +135,8 @@ export const StyledButton = styled.a`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-    top: ${({ theme }) => theme.rem(100)};
+    bottom: ${({ theme }) => theme.rem(20)};
+    top: inherit;
   }
 
   &:hover {

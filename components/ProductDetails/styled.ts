@@ -11,6 +11,10 @@ export const StyledLayout = styled.div`
   display: flex;
   margin: 0 auto;
   max-width: ${({ theme }) => theme.rem(1200)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    flex-direction: column;
+  }
 `;
 
 const StyledContentColumn = styled.div`
@@ -20,10 +24,26 @@ const StyledContentColumn = styled.div`
 export const StyledContentLeft = styled(StyledContentColumn)`
   flex: 0 1 35%;
   max-width: 35%;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    flex: 0 1 auto;
+    max-width: 50%;
+    margin-bottom: ${({ theme }) => theme.rem(30)};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    max-width: 100%;
+  }
 `;
+
 export const StyledContentRight = styled(StyledContentColumn)`
   flex: 0 1 65%;
   max-width: 65%;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    flex: 0 1 auto;
+    max-width: 100%;
+  }
 `;
 
 export const StyledContent = styled.div`
@@ -80,7 +100,7 @@ export const StyledMofifiersCheckbox = styled.input<{ isSecondary?: boolean }>`
   border-radius: 50%;
   border: ${({ theme }) => theme.rem(2)} solid #da2628;
   cursor: pointer;
-  display: inline-block;  
+  display: inline-block;
   height: ${({ theme }) => theme.rem(25)};
   margin-left: 0;
   margin-right: ${({ theme }) => theme.rem(10)};
@@ -128,15 +148,7 @@ export const StyledButton = styled.button`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    height: ${({ theme }) => theme.rem(37)};
-    line-height: ${({ theme }) => theme.rem(37)};
-    min-width: ${({ theme }) => theme.rem(110)};
-    position: absolute;
-    top: 40%;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-    top: ${({ theme }) => theme.rem(100)};
+    position: static;
   }
 
   &:hover {

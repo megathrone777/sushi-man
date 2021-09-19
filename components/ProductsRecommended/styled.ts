@@ -96,6 +96,10 @@ export const StyledItemFooter = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     justify-content: flex-start;
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    justify-content: space-between;
+  }
 `;
 
 export const StyledItemPrice = styled.div`
@@ -138,12 +142,11 @@ export const StyledItemDesc = styled.div`
 
 export const StyledItemText = styled.p``;
 
-export const StyledSVGSymbol = styled.svg``;
-export const StyledPathSymbol = styled.path``;
-
 export const StyledItemButton = styled.button`
   background-color: #da2628;
   border: none;
+  border-bottom-left-radius: ${({ theme }) => theme.rem(5)};
+  border-top-left-radius: ${({ theme }) => theme.rem(5)};
   color: white;
   cursor: pointer;
   display: inline-block;
@@ -156,20 +159,18 @@ export const StyledItemButton = styled.button`
   width: ${({ theme }) => theme.rem(64)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    border-radius: ${({ theme }) => theme.rem(5)};
     margin-left: ${({ theme }) => theme.rem(20)};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    border-top-right-radius: 0;
     height: ${({ theme }) => theme.rem(50)};
     min-width: ${({ theme }) => theme.rem(80)};
   }
 
   &:focus {
     outline: none;
-  }
-
-  ${StyledSVGSymbol} {
-    max-width: ${({ theme }) => theme.rem(24)};
   }
 
   &:hover {
