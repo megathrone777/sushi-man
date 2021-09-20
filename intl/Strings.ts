@@ -10,7 +10,7 @@ export const LangStrings = {
         text: "O nas",
       },
       {
-        anchor: "contacts-section",
+        anchor: "products-section",
         text: "Menu",
       },
       {
@@ -28,7 +28,7 @@ export const LangStrings = {
         text: "Hlavni",
       },
       {
-        anchor: "/#contacts-section",
+        anchor: "/#products-section",
         text: "Menu",
       },
       {
@@ -120,7 +120,7 @@ export const LangStrings = {
         text: "О нас",
       },
       {
-        anchor: "contacts-section",
+        anchor: "products-section",
         text: "Меню",
       },
       {

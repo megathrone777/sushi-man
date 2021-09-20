@@ -1,7 +1,7 @@
 import React from "react";
 
 import { TProps } from "./types";
-import useTranslation from "~/intl/useTranslation"
+import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
   StyledLayout,
@@ -17,11 +17,8 @@ const Banner: React.FC<TProps> = ({ hero, inner }) => {
   const content = hero[`hero_${locale}`];
   const welcomeButton = t("welcomeButton");
 
-  const handleClick = (
-    event: React.SyntheticEvent<HTMLAnchorElement>
-  ): void => {
-    event.preventDefault();
-    const productsSection = document.getElementById("contacts-section");
+  const handleClick = (): void => {
+    const productsSection = document.getElementById("products-section");
 
     productsSection &&
       productsSection.scrollIntoView({
@@ -37,11 +34,9 @@ const Banner: React.FC<TProps> = ({ hero, inner }) => {
         <StyledContainer>
           <StyledTitle dangerouslySetInnerHTML={{ __html: content.title }} />
           <StyledText dangerouslySetInnerHTML={{ __html: content.text }} />
-          {!inner && (
-            <StyledButton href="#" onClick={handleClick}>
-              {welcomeButton}
-            </StyledButton>
-          )}
+          <StyledButton onClick={handleClick} inner={inner} type="button">
+            {welcomeButton}
+          </StyledButton>
         </StyledContainer>
       </StyledLayout>
     </StyledWrapper>

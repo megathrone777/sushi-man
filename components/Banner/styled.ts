@@ -14,6 +14,10 @@ export const StyledWrapper = styled.section<{ inner?: boolean }>`
       @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         height: auto;
       }
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+        height: ${({ theme }) => theme.rem(200)};
+      }
     `}
 `;
 
@@ -29,6 +33,12 @@ export const StyledImage = styled.img<{ inner?: boolean }>`
 
       @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         top: 0;
+      }
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+        height: ${({ theme }) => theme.rem(350)};
+        width: 100%;
+        object-fit: cover;
       }
     `}
 `;
@@ -105,11 +115,13 @@ export const StyledText = styled.p`
   }
 `;
 
-export const StyledButton = styled.a`
+export const StyledButton = styled.button<{ inner: boolean }>`
   background-color: #da2628;
+  border: none;
   border-radius: ${({ theme }) => theme.rem(5)};
   color: white;
-  display: inline-block;
+  cursor: pointer;
+  display: ${({ inner }) => (inner ? "none" : "inline-block")};
   font: ${({ theme }) => `${theme.rem(22)} ${theme.fonts.fontMedium}`};
   height: ${({ theme }) => theme.rem(55)};
   line-height: ${({ theme }) => theme.rem(55)};
@@ -120,6 +132,7 @@ export const StyledButton = styled.a`
   transition: 0.2s ease-in;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: block;
     height: ${({ theme }) => theme.rem(45)};
     line-height: ${({ theme }) => theme.rem(45)};
     font-size: ${({ theme }) => theme.rem(16)};

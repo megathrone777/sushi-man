@@ -9,6 +9,14 @@ import {
   StyledInputWrapper,
   StyledLayout,
   StyledTitle,
+  StyledRadioWrapper,
+  StyledRadioLabel,
+  StyledRadioLabelInfo,
+  StyledRadio,
+  StyledNameInput,
+  StyledDeliveryInput,
+  StyledPhoneInput,
+  StyledLink,
 } from "./styled";
 
 type TDelivery = "delivery" | "pickup";
@@ -46,55 +54,55 @@ const Delivery: React.FC = () => {
           <StyledRadio
             id="input-pickup"
             name="delivery-pickup"
-            onChange={handleDeliveryPickupChange}
+            onChange={handleDeliveryChange}
             type="radio"
             value="pickup"
           />
-          <StyledRadioLabel htmlFor="input-pickup">Самовывоз</StyledRadioLabel>
+          <StyledRadioLabel htmlFor="input-pickup">
+            Самовывоз <StyledRadioLabelInfo>-50Kč</StyledRadioLabelInfo>
+          </StyledRadioLabel>
         </StyledRadioWrapper>
-      </StyledDeliveryHeader>
+      </StyledHeader>
 
-      <StyledDeliveryLayout>
-        {deliveryPickup === "delivery" && (
-          <StyledDeliveryContent isVisible={deliveryPickup === "delivery"}>
-            <StyledDeliveryInputWrapper>
+      <StyledLayout>
+        {delivery === "delivery" && (
+          <StyledContent isVisible={delivery === "delivery"}>
+            <StyledInputWrapper>
               <StyledNameInput placeholder="Имя" type="text" />
-            </StyledDeliveryInputWrapper>
+            </StyledInputWrapper>
 
-            <StyledDeliveryInputWrapper>
+            <StyledInputWrapper>
               <StyledPhoneInput placeholder="Телефон" type="tel" />
-            </StyledDeliveryInputWrapper>
+            </StyledInputWrapper>
 
-            <StyledDeliveryInputWrapper>
+            <StyledInputWrapper data-info="Cena dopravy: 500Kč">
               <StyledDeliveryInput placeholder="Введите адрес" type="text" />
-            </StyledDeliveryInputWrapper>
-          </StyledDeliveryContent>
+            </StyledInputWrapper>
+          </StyledContent>
         )}
 
-        {deliveryPickup === "pickup" && (
-          <StyledDeliveryContent isVisible={deliveryPickup === "pickup"}>
-            <StyledDeliveryInputWrapper>
+        {delivery === "pickup" && (
+          <StyledContent isVisible={delivery === "pickup"}>
+            <StyledInputWrapper>
               <StyledNameInput placeholder="Имя" type="text" />
-            </StyledDeliveryInputWrapper>
+            </StyledInputWrapper>
 
-            <StyledDeliveryInputWrapper>
+            <StyledInputWrapper>
               <StyledPhoneInput placeholder="Телефон" type="tel" />
-            </StyledDeliveryInputWrapper>
+            </StyledInputWrapper>
 
-            <StyledDeliveryPickup>
-              <StyledDeliveryPickupLabel>
-                Адрес для самовывоза:
-              </StyledDeliveryPickupLabel>
+            <StyledInfo>
+              <StyledInfoLabel>Адрес для самовывоза:</StyledInfoLabel>
               <StyledLink
                 href="https://goo.gl/maps/r6Tf6xHVnu59bD9J9"
                 target="_blank"
               >
                 Husitská 187/60, Praha 3
               </StyledLink>
-            </StyledDeliveryPickup>
-          </StyledDeliveryContent>
+            </StyledInfo>
+          </StyledContent>
         )}
-      </StyledDeliveryLayout>
+      </StyledLayout>
     </StyledWrapper>
   );
 };

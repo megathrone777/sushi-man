@@ -9,7 +9,7 @@ export const StyledWrapper = styled.section`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     min-height: 0;
-    padding: ${({ theme }) => theme.rem(25)} 0 ${({ theme }) => theme.rem(15)};
+    padding: ${({ theme }) => theme.rem(25)} 0;
   }
 `;
 

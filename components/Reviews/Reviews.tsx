@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Slider, { Settings } from "react-slick";
 
-import { Modal } from "~/components";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
@@ -29,7 +28,6 @@ interface TProps {
 
 const Reviews: React.FC<TProps> = ({ reviews }) => {
   const { t } = useTranslation();
-  const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
   const reviewsTitle = t("reviewsTitle");
   const reviewsButton = t("reviewsButton");
 
@@ -68,12 +66,13 @@ const Reviews: React.FC<TProps> = ({ reviews }) => {
     ],
   };
 
-  const handleModal = (): void => {
-    toggleModalOpened(!modalIsOpened);
-  };
+  const handleClick = (): void => {
+    const productsSection = document.getElementById("products-section");
 
-  const handleModalClose = (): void => {
-    toggleModalOpened(false);
+    productsSection &&
+      productsSection.scrollIntoView({
+        behavior: "smooth",
+      });
   };
 
   return (
@@ -102,12 +101,8 @@ const Reviews: React.FC<TProps> = ({ reviews }) => {
             </Slider>
           )}
 
-          <StyledButton onClick={handleModal} type="button">
-            {reviewsButton}
-          </StyledButton>
+          <StyledButton onClick={handleClick}>{reviewsButton}</StyledButton>
         </StyledLayout>
-
-        <Modal isOpened={modalIsOpened} close={handleModalClose} />
       </StyledContainer>
     </StyledWrapper>
   );

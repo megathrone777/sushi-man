@@ -58,17 +58,17 @@ export const StyledContent = styled(StyledLayout)<{
 export const StyledButton = styled.button<{ isOpened: boolean }>`
   background-color: transparent;
   border: none;
-  height: ${({ theme }) => theme.rem(35)};
-  width: ${({ theme }) => theme.rem(35)};
+  cursor: pointer;
   display: none;
   flex-direction: column;
+  height: ${({ theme }) => theme.rem(35)};
   justify-content: space-between;
-  cursor: pointer;
   padding: 0;
   position: absolute;
   right: ${({ theme }) => theme.rem(20)};
   top: ${({ theme }) => theme.rem(20)};
   transition: transform 330ms ease-out;
+  width: ${({ theme }) => theme.rem(35)};
   transform: ${({ isOpened }) =>
     isOpened ? "rotate(-45deg)" : "rotate(0deg)"};
   z-index: 100;
@@ -85,10 +85,11 @@ export const StyledButtonHelper = styled.span<{
   isHalf?: boolean;
 }>`
   align-self: ${({ isRight }) => (isRight ? "flex-end" : "auto")};
-  background-color: ${({ isOpened }) => (isOpened ? "#da2628" : "white")};
+  background-color: ${({ isOpened }) => (isOpened ? "#da2628" : "black")};
   border-radius: ${({ theme }) => theme.rem(5)};
-  width: ${({ isHalf }) => (isHalf ? "50%" : "100%")};
   height: ${({ theme }) => theme.rem(4)};
+  opacity: .7;
+  width: ${({ isHalf }) => (isHalf ? "50%" : "100%")};
   transform: ${({ isOpened, isRight, isLeft }) =>
     isOpened && isLeft
       ? "rotate(-90deg) translateX(3px)"

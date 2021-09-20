@@ -65,6 +65,7 @@ export const StyledItemLink = styled.a`
 export const StyledButton = styled.button`
   background-color: #da2628;
   border: none;
+  border-radius: ${({ theme }) => theme.rem(5)};
   color: white;
   cursor: pointer;
   display: inline-block;

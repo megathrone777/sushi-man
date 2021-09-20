@@ -1,70 +1,38 @@
 import React, { useContext, useState } from "react";
-import Link from "next/link";
 
-import {
-  AppContext,
-  TCartProduct,
-  changeQuantity,
-  TAdditional,
-  removeFromCart,
-} from "~/store";
+import { AppContext, TCartProduct, TAdditional } from "~/store";
 import { Delivery } from "./Delivery";
+import { Payment } from "./Payment";
+import { Products } from "./Products";
 import { StyledContainer } from "~/components/Layout/styled";
 import { SvgPlusIcon, SvgMinusIcon } from "~/icons";
 import {
   StyledWrapper,
   StyledTable,
-  StyledLayout,
   StyledTableCell,
   StyledTableRow,
-  StyledBold,
   StyledTableCaption,
-  StyledImage,
-  StyledLink,
-  StyledQuantityInput,
-  StyledQuantityButton,
   StyledTotal,
   StyledSushiMan,
-  StyledPrice,
   StyledEmpty,
   StyledButtons,
   StyledBuy,
-  StyledRemove,
-  StyledQuantityWrapper,
   StyledQuantityLabel,
   StyledQuantityPrice,
   StyledFooter,
-  StyledDelivery,
-  StyledDeliveryTitle,
-  StyledDeliveryHeader,
-  StyledDeliveryContent,
-  StyledDeliveryLayout,
-  StyledDeliveryInputWrapper,
-  StyledPhoneInput,
-  StyledNameInput,
-  StyledDeliveryInput,
-  StyledRadio,
-  StyledRadioWrapper,
-  StyledRadioLabel,
-  StyledPayment,
-  StyledPaymentColumn,
-  StyledPaymentHeader,
-  StyledPaymentImage,
-  StyledPaymentTitle,
   StyledPersons,
   StyledPersonsColumn,
   StyledPersonsText,
   StyledPersonsTextLabel,
   StyledAdditionalName,
-  StyledDeliveryPickup,
-  StyledDeliveryPickupLabel,
+  StyledQuantityWrapper,
+  StyledQuantityInput,
+  StyledQuantityButton,
+  StyledPrice,
 } from "./styled";
-
-type TPayment = "card" | "cash";
 
 const Cart: React.FC = () => {
   const [cutlery, setCutlery] = useState<string>("0");
-  const [payment, setPayment] = useState("card");
   const { dispatch, state } = useContext(AppContext);
   const { cart } = state;
 
@@ -88,15 +56,6 @@ const Cart: React.FC = () => {
 
   const totalPrice = totalProductsPrice + totalAdditionalsPrice;
 
-  const handleQuantityIncrease = (id: number, quantity: number): void => {
-    dispatch(changeQuantity(id, quantity + 1));
-  };
-
-  const handleQuantityDecrease = (id: number, quantity: number): void => {
-    if (quantity === 1) return;
-    dispatch(changeQuantity(id, quantity - 1));
-  };
-
   const handleAdditionalQuantityIncrease = (id: number): void => {
     // dispatch(addAdditional(id, +currentTarget.value));
   };
@@ -115,258 +74,121 @@ const Cart: React.FC = () => {
     setCutlery(currentTarget.value);
   };
 
-  const handlePaymentChange = ({
-    currentTarget,
-  }: React.SyntheticEvent<HTMLInputElement>): void => {
-    const name = currentTarget.value;
-
-    setPayment(name as TPayment);
-  };
-
-  const handleProductRemove = (id: number): void => {
-    dispatch(removeFromCart(id));
-  };
-
   return (
     <StyledWrapper>
       <StyledContainer>
         {cart && !!cart.products.length ? (
           <>
-            <StyledLayout>
-              <StyledTable>
-                <StyledTableCaption>Заказ</StyledTableCaption>
-                <tbody>
-                  {cart.products.map(
-                    (
-                      {
-                        id,
-                        title,
-                        image,
-                        weight,
-                        price,
-                        quantity,
-                        totalPrice,
-                      }: TCartProduct,
-                      index: number
-                    ): React.ReactElement => (
-                      <StyledTableRow key={`${index}-${title}`}>
-                        <StyledTableCell>
-                          <Link
-                            as={`/product/${id}`}
-                            href={`/product/[${id}]`}
-                            passHref
-                          >
-                            <StyledLink>
-                              <StyledImage alt={title} src={image.url} />
-                            </StyledLink>
-                          </Link>
-                        </StyledTableCell>
-                        <StyledTableCell>
-                          <StyledBold>{title}</StyledBold>
-                          <br />
-                          {weight}
-                        </StyledTableCell>
-                        <StyledTableCell>
-                          <StyledQuantityWrapper>
-                            <StyledQuantityButton
-                              isIncrease
-                              onClick={() =>
-                                handleQuantityIncrease(id, quantity)
-                              }
-                              type="button"
-                            >
-                              <SvgPlusIcon />
-                            </StyledQuantityButton>
-                            <StyledQuantityInput
-                              min="1"
-                              max="50"
-                              type="number"
-                              value={quantity ? quantity : 1}
-                            />
-                            <StyledQuantityButton
-                              isDecrease
-                              onClick={() =>
-                                handleQuantityDecrease(id, quantity)
-                              }
-                              type="button"
-                            >
-                              <SvgMinusIcon />
-                            </StyledQuantityButton>
-                          </StyledQuantityWrapper>
-                        </StyledTableCell>
-                        <StyledTableCell>
-                          <StyledPrice>
-                            {totalPrice ? `${totalPrice} Kč` : price}
-                          </StyledPrice>
-                        </StyledTableCell>
-                        <StyledTableCell>
-                          <StyledRemove
-                            onClick={() => handleProductRemove(id)}
-                            type="button"
-                          >
-                            Удалить
-                          </StyledRemove>
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    )
-                  )}
-                </tbody>
-              </StyledTable>
+            <Products />
 
-              <StyledPersons>
-                <StyledPersonsColumn>
-                  <StyledQuantityWrapper>
-                    <StyledQuantityLabel>
-                      Количество человек:*
-                    </StyledQuantityLabel>
-                    <StyledQuantityButton
-                      isIncrease
-                      onClick={() => {}}
-                      type="button"
-                    >
-                      <SvgPlusIcon />
-                    </StyledQuantityButton>
-                    <StyledQuantityInput
-                      max="15"
-                      onChange={handleCutleryQuantityChange}
-                      type="number"
-                      value={cutlery}
-                    />
-                    <StyledQuantityButton
-                      isDecrease
-                      onClick={() => {}}
-                      type="button"
-                    >
-                      <SvgMinusIcon />
-                    </StyledQuantityButton>
-                  </StyledQuantityWrapper>
-                  <StyledQuantityPrice>0 Kc</StyledQuantityPrice>
-                  <StyledPersonsText>
-                    До 3-х человек уже в цене
-                  </StyledPersonsText>
-                </StyledPersonsColumn>
-
-                <StyledPersonsColumn>
-                  <StyledPersonsText>
-                    Добавьте ещё 1,2 ролла и получите{" "}
-                    <StyledPersonsTextLabel>-50Kč</StyledPersonsTextLabel>
-                  </StyledPersonsText>
-                </StyledPersonsColumn>
-              </StyledPersons>
-
-              <StyledFooter>
-                <Delivery />
-
-                {cart.additionals && !!cart.additionals.length && (
-                  <StyledTable isSmall>
-                    <StyledTableCaption>Дополнительно</StyledTableCaption>
-                    <tbody>
-                      {cart.additionals.map(
-                        (
-                          {
-                            id: additionalId,
-                            title,
-                            quantity: additionalQuantity = 0,
-                            price,
-                          }: TAdditional,
-                          index: number
-                        ): React.ReactElement => (
-                          <StyledTableRow key={`${index}-${title}`}>
-                            <StyledTableCell>
-                              <StyledAdditionalName>
-                                {title}
-                              </StyledAdditionalName>
-                            </StyledTableCell>
-                            <StyledTableCell>
-                              <StyledQuantityWrapper>
-                                <StyledQuantityButton
-                                  isIncrease
-                                  onClick={() =>
-                                    handleAdditionalQuantityIncrease(
-                                      additionalId
-                                    )
-                                  }
-                                  type="button"
-                                >
-                                  <SvgPlusIcon />
-                                </StyledQuantityButton>
-                                <StyledQuantityInput
-                                  min="1"
-                                  max="50"
-                                  onChange={() => {}}
-                                  type="number"
-                                  value={additionalQuantity}
-                                />
-                                <StyledQuantityButton
-                                  isDecrease
-                                  onClick={() =>
-                                    handleAdditionalQuantityDecrease(
-                                      additionalId
-                                    )
-                                  }
-                                  type="button"
-                                >
-                                  <SvgMinusIcon />
-                                </StyledQuantityButton>
-                              </StyledQuantityWrapper>
-                            </StyledTableCell>
-                            <StyledTableCell>
-                              <StyledPrice>
-                                {price * additionalQuantity} Kč
-                              </StyledPrice>
-                            </StyledTableCell>
-                          </StyledTableRow>
-                        )
-                      )}
-                    </tbody>
-                  </StyledTable>
-                )}
-              </StyledFooter>
-            </StyledLayout>
-
-            <StyledPayment>
-              <StyledPaymentTitle>Оплата</StyledPaymentTitle>
-
-              <StyledPaymentHeader>
-                <StyledPaymentColumn>
-                  <StyledRadioWrapper>
-                    <StyledRadio
-                      checked={payment === "card"}
-                      id="input-card"
-                      name="input-payment"
-                      onChange={handlePaymentChange}
-                      type="radio"
-                      value="card"
-                    />
-                    <StyledRadioLabel htmlFor="input-card">
-                      Картой на месте или онлайн
-                    </StyledRadioLabel>
-                  </StyledRadioWrapper>
-
-                  <StyledPaymentImage
-                    alt="Card"
-                    src="/images/payments_img.png"
+            <StyledPersons>
+              <StyledPersonsColumn>
+                <StyledQuantityWrapper>
+                  <StyledQuantityLabel>
+                    Количество человек:*
+                  </StyledQuantityLabel>
+                  <StyledQuantityButton
+                    isIncrease
+                    onClick={() => {}}
+                    type="button"
+                  >
+                    <SvgPlusIcon />
+                  </StyledQuantityButton>
+                  <StyledQuantityInput
+                    max="15"
+                    onChange={handleCutleryQuantityChange}
+                    type="number"
+                    value={cutlery}
                   />
-                </StyledPaymentColumn>
+                  <StyledQuantityButton
+                    isDecrease
+                    onClick={() => {}}
+                    type="button"
+                  >
+                    <SvgMinusIcon />
+                  </StyledQuantityButton>
+                </StyledQuantityWrapper>
+                <StyledQuantityPrice>0 Kc</StyledQuantityPrice>
+                <StyledPersonsText>До 3-х человек уже в цене</StyledPersonsText>
+              </StyledPersonsColumn>
 
-                <StyledPaymentColumn>
-                  <StyledRadioWrapper>
-                    <StyledRadio
-                      id="input-cash"
-                      name="input-payment"
-                      onChange={handlePaymentChange}
-                      type="radio"
-                      value="cash"
-                    />
-                    <StyledRadioLabel htmlFor="input-cash">
-                      Наличными
-                    </StyledRadioLabel>
-                  </StyledRadioWrapper>
+              <StyledPersonsColumn>
+                <StyledPersonsText>
+                  Добавьте ещё 1,2 ролла и получите{" "}
+                  <StyledPersonsTextLabel>-50Kč</StyledPersonsTextLabel>
+                </StyledPersonsText>
+              </StyledPersonsColumn>
+            </StyledPersons>
 
-                  <StyledPaymentImage alt="Card" src="/images/cash_img.jpg" />
-                </StyledPaymentColumn>
-              </StyledPaymentHeader>
-            </StyledPayment>
+            <StyledFooter>
+              <Delivery />
+
+              {cart.additionals && !!cart.additionals.length && (
+                <StyledTable isSmall>
+                  <StyledTableCaption>Дополнительно</StyledTableCaption>
+                  <tbody>
+                    <StyledTableRow>
+                      <StyledTableCell colSpan={3}>
+                        fsdfasdrfasfassfd
+                      </StyledTableCell>
+                    </StyledTableRow>
+                    {cart.additionals.map(
+                      (
+                        {
+                          id: additionalId,
+                          title,
+                          quantity: additionalQuantity = 0,
+                          price,
+                        }: TAdditional,
+                        index: number
+                      ): React.ReactElement => (
+                        <StyledTableRow key={`${index}-${title}`}>
+                          <StyledTableCell>
+                            <StyledAdditionalName>{title}</StyledAdditionalName>
+                          </StyledTableCell>
+                          <StyledTableCell>
+                            <StyledQuantityWrapper>
+                              <StyledQuantityButton
+                                isIncrease
+                                onClick={() =>
+                                  handleAdditionalQuantityIncrease(additionalId)
+                                }
+                                type="button"
+                              >
+                                <SvgPlusIcon />
+                              </StyledQuantityButton>
+                              <StyledQuantityInput
+                                min="1"
+                                max="50"
+                                onChange={() => {}}
+                                type="number"
+                                value={additionalQuantity}
+                              />
+                              <StyledQuantityButton
+                                isDecrease
+                                onClick={() =>
+                                  handleAdditionalQuantityDecrease(additionalId)
+                                }
+                                type="button"
+                              >
+                                <SvgMinusIcon />
+                              </StyledQuantityButton>
+                            </StyledQuantityWrapper>
+                          </StyledTableCell>
+                          <StyledTableCell>
+                            <StyledPrice>
+                              {price * additionalQuantity} Kč
+                            </StyledPrice>
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      )
+                    )}
+                  </tbody>
+                </StyledTable>
+              )}
+            </StyledFooter>
+
+            <Payment />
 
             <StyledTotal>Общая цена: {totalPrice} Kč</StyledTotal>
             <StyledButtons>
