@@ -190,50 +190,6 @@ export const StyledDelivery = styled.div`
   width: 45%;
 `;
 
-export const StyledDeliveryTitle = styled.h2`
-  border-bottom: 3px solid #da2628;
-  font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
-  padding: ${({ theme }) => theme.rem(10)};
-`;
-
-export const StyledDeliveryHeader = styled.div`
-  display: flex;
-  height: ${({ theme }) => theme.rem(60)};
-  margin-bottom: ${({ theme }) => theme.rem(10)};
-`;
-
-export const StyledDeliveryContent = styled.div<{ isVisible: boolean }>`
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
-
-  ${({ isVisible }) =>
-    isVisible &&
-    css`
-      opacity: 1;
-      visibility: visible;
-    `}
-`;
-
-export const StyledDeliveryLayout = styled.div``;
-
-export const StyledDeliveryInputWrapper = styled.div`
-  margin-bottom: ${({ theme }) => theme.rem(20)};
-`;
-
-export const StyledDeliveryPickup = styled.p`
-  background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath fill='%23da2628' d='M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z'%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-size: auto ${({ theme }) => theme.rem(20)};
-  background-position: 5px center;
-  margin-top: ${({ theme }) => theme.rem(27)};
-  padding-left: ${({ theme }) => theme.rem(30)};
-`;
-
-export const StyledDeliveryPickupLabel = styled.span`
-  margin-right: 10px;
-`;
-
 export const StyledNameInput = styled.input`
   background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' %3E%3Cpath fill='%23da2628' d='M352,384H317.61523c-19.65039,17.98828-39.01953,33.541-55.49023,45.84766a63.66049,63.66049,0,0,1-76.25.00195C169.4043,417.543,150.03516,401.98828,130.38477,384H96A95.99975,95.99975,0,0,0,0,480a32.00033,32.00033,0,0,0,32,32H416a32.00033,32.00033,0,0,0,32-32A95.99975,95.99975,0,0,0,352,384ZM205.0293,404.21484a31.66414,31.66414,0,0,0,37.9414,0C288.459,370.22266,400,277.51172,400,185.68359,400,70.31836,321.18164,0,224,0,126.791,0,48,70.31836,48,185.68359,48,277.51172,159.541,370.22266,205.0293,404.21484ZM240,252a60.00047,60.00047,0,0,1,60-60h24a12.0006,12.0006,0,0,1,12,12v8a60.00047,60.00047,0,0,1-60,60H252a12.0006,12.0006,0,0,1-12-12ZM112,212v-8a12.0006,12.0006,0,0,1,12-12h24a60.00047,60.00047,0,0,1,60,60v8a12.0006,12.0006,0,0,1-12,12H172A60.00047,60.00047,0,0,1,112,212Z' /%3E%3C/svg%3E");
   background-repeat: no-repeat;

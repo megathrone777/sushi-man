@@ -8,6 +8,7 @@ import {
   TAdditional,
   removeFromCart,
 } from "~/store";
+import { Delivery } from "./Delivery";
 import { StyledContainer } from "~/components/Layout/styled";
 import { SvgPlusIcon, SvgMinusIcon } from "~/icons";
 import {
@@ -59,13 +60,10 @@ import {
   StyledDeliveryPickupLabel,
 } from "./styled";
 
-type TDeliveryPickup = "delivery" | "pickup";
 type TPayment = "card" | "cash";
 
 const Cart: React.FC = () => {
   const [cutlery, setCutlery] = useState<string>("0");
-  const [deliveryPickup, setDeliveryPickup] =
-    useState<TDeliveryPickup>("delivery");
   const [payment, setPayment] = useState("card");
   const { dispatch, state } = useContext(AppContext);
   const { cart } = state;
@@ -115,14 +113,6 @@ const Cart: React.FC = () => {
       return;
     }
     setCutlery(currentTarget.value);
-  };
-
-  const handleDeliveryPickupChange = ({
-    currentTarget,
-  }: React.SyntheticEvent<HTMLInputElement>): void => {
-    const name = currentTarget.value;
-
-    setDeliveryPickup(name as TDeliveryPickup);
   };
 
   const handlePaymentChange = ({
@@ -265,86 +255,7 @@ const Cart: React.FC = () => {
               </StyledPersons>
 
               <StyledFooter>
-                <StyledDelivery>
-                  <StyledDeliveryTitle>Доставка</StyledDeliveryTitle>
-                  <StyledDeliveryHeader>
-                    <StyledRadioWrapper>
-                      <StyledRadio
-                        checked={deliveryPickup === "delivery"}
-                        id="input-delivery"
-                        name="delivery-pickup"
-                        onChange={handleDeliveryPickupChange}
-                        type="radio"
-                        value="delivery"
-                      />
-                      <StyledRadioLabel htmlFor="input-delivery">
-                        Доставка курьером
-                      </StyledRadioLabel>
-                    </StyledRadioWrapper>
-
-                    <StyledRadioWrapper>
-                      <StyledRadio
-                        id="input-pickup"
-                        name="delivery-pickup"
-                        onChange={handleDeliveryPickupChange}
-                        type="radio"
-                        value="pickup"
-                      />
-                      <StyledRadioLabel htmlFor="input-pickup">
-                        Самовывоз
-                      </StyledRadioLabel>
-                    </StyledRadioWrapper>
-                  </StyledDeliveryHeader>
-
-                  <StyledDeliveryLayout>
-                    {deliveryPickup === "delivery" && (
-                      <StyledDeliveryContent
-                        isVisible={deliveryPickup === "delivery"}
-                      >
-                        <StyledDeliveryInputWrapper>
-                          <StyledNameInput placeholder="Имя" type="text" />
-                        </StyledDeliveryInputWrapper>
-
-                        <StyledDeliveryInputWrapper>
-                          <StyledPhoneInput placeholder="Телефон" type="tel" />
-                        </StyledDeliveryInputWrapper>
-
-                        <StyledDeliveryInputWrapper>
-                          <StyledDeliveryInput
-                            placeholder="Введите адрес"
-                            type="text"
-                          />
-                        </StyledDeliveryInputWrapper>
-                      </StyledDeliveryContent>
-                    )}
-
-                    {deliveryPickup === "pickup" && (
-                      <StyledDeliveryContent
-                        isVisible={deliveryPickup === "pickup"}
-                      >
-                        <StyledDeliveryInputWrapper>
-                          <StyledNameInput placeholder="Имя" type="text" />
-                        </StyledDeliveryInputWrapper>
-
-                        <StyledDeliveryInputWrapper>
-                          <StyledPhoneInput placeholder="Телефон" type="tel" />
-                        </StyledDeliveryInputWrapper>
-
-                        <StyledDeliveryPickup>
-                          <StyledDeliveryPickupLabel>
-                            Адрес для самовывоза:
-                          </StyledDeliveryPickupLabel>
-                          <StyledLink
-                            href="https://goo.gl/maps/r6Tf6xHVnu59bD9J9"
-                            target="_blank"
-                          >
-                            Husitská 187/60, Praha 3
-                          </StyledLink>
-                        </StyledDeliveryPickup>
-                      </StyledDeliveryContent>
-                    )}
-                  </StyledDeliveryLayout>
-                </StyledDelivery>
+                <Delivery />
 
                 {cart.additionals && !!cart.additionals.length && (
                   <StyledTable isSmall>
