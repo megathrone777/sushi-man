@@ -2,7 +2,7 @@ import { styled } from "~/theme";
 import { StyledContainer } from "~/components/Layout/styled";
 
 export const StyledWrapper = styled.section`
-  background-color: #eaeaed;
+  background: url("/images/products_bg.jpg") center center/auto 100%;
   padding: ${({ theme }) => theme.rem(60)} 0;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {

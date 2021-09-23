@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+// import { Map } from "react-mapycz";
 
+import useTranslation from "~/intl/useTranslation";
+import { AppContext, setPickup } from "~/store";
 import {
   StyledWrapper,
   StyledContent,
@@ -19,10 +22,26 @@ import {
   StyledLink,
 } from "./styled";
 
+interface TSuggestData {
+  phrase: string;
+  data: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
 type TDelivery = "delivery" | "pickup";
 
 const Delivery: React.FC = () => {
+  const { t } = useTranslation();
+  const { dispatch } = useContext(AppContext);
   const [delivery, setDelivery] = useState<TDelivery>("delivery");
+  const [suggestCoords, setSuggestCoords] = useState<{
+    lat: number;
+    lng: number;
+  }>({ lat: 50.08502707893264, lng: 14.132315462014551 });
+  const textInput = useRef(null);
+  const mapNode = useRef(null);
 
   const handleDeliveryChange = ({
     currentTarget,
@@ -32,9 +51,32 @@ const Delivery: React.FC = () => {
     setDelivery(name as TDelivery);
   };
 
+  useEffect((): void => {
+    dispatch(setPickup(delivery === "pickup"));
+  }, [delivery, dispatch]);
+
+  useEffect(() => {
+    let suggest = new window.SMap.Suggest(textInput.current);
+
+    suggest.urlParams({
+      bounds: "48.5370786,12.0921668|51.0746358,18.8927040",
+    });
+
+    suggest.addListener("suggest", (suggestData: TSuggestData) => {
+      setSuggestCoords({
+        lat: suggestData.data.latitude,
+        lng: suggestData.data.longitude,
+      });
+    });
+
+    return () => {
+      suggest.removeListener("suggest");
+    };
+  }, []);
+
   return (
     <StyledWrapper>
-      <StyledTitle>Доставка</StyledTitle>
+      <StyledTitle>{t("delivery")}</StyledTitle>
       <StyledHeader>
         <StyledRadioWrapper>
           <StyledRadio
@@ -46,7 +88,7 @@ const Delivery: React.FC = () => {
             value="delivery"
           />
           <StyledRadioLabel htmlFor="input-delivery">
-            Доставка курьером
+            {t("deliveryLabel")}
           </StyledRadioLabel>
         </StyledRadioWrapper>
 
@@ -59,40 +101,47 @@ const Delivery: React.FC = () => {
             value="pickup"
           />
           <StyledRadioLabel htmlFor="input-pickup">
-            Самовывоз <StyledRadioLabelInfo>-50Kč</StyledRadioLabelInfo>
+            {t("pickupLabel")}{" "}
+            <StyledRadioLabelInfo>-50Kč</StyledRadioLabelInfo>
           </StyledRadioLabel>
         </StyledRadioWrapper>
       </StyledHeader>
 
       <StyledLayout>
         {delivery === "delivery" && (
-          <StyledContent isVisible={delivery === "delivery"}>
+          <StyledContent>
             <StyledInputWrapper>
-              <StyledNameInput placeholder="Имя" type="text" />
+              <StyledNameInput placeholder={t("name")} type="text" />
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledPhoneInput placeholder="Телефон" type="tel" />
+              <StyledPhoneInput placeholder={t("phone")} type="tel" />
             </StyledInputWrapper>
 
             <StyledInputWrapper data-info="Cena dopravy: 500Kč">
-              <StyledDeliveryInput placeholder="Введите адрес" type="text" />
+              <StyledDeliveryInput
+                ref={textInput}
+                placeholder={t("fillAddress")}
+                type="text"
+              />
             </StyledInputWrapper>
+
+            {/* <Map center={suggestCoords} zoom={1} /> */}
           </StyledContent>
         )}
 
         {delivery === "pickup" && (
-          <StyledContent isVisible={delivery === "pickup"}>
+          <StyledContent>
             <StyledInputWrapper>
-              <StyledNameInput placeholder="Имя" type="text" />
+              <StyledNameInput placeholder={t("name")} type="text" />
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledPhoneInput placeholder="Телефон" type="tel" />
+              <StyledPhoneInput placeholder={t("phone")} type="tel" />
             </StyledInputWrapper>
 
             <StyledInfo>
-              <StyledInfoLabel>Адрес для самовывоза:</StyledInfoLabel>
+              <StyledInfoLabel>{t("pickupAddress")}:</StyledInfoLabel>
               <StyledLink
                 href="https://goo.gl/maps/r6Tf6xHVnu59bD9J9"
                 target="_blank"

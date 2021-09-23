@@ -8,7 +8,10 @@ export enum TActionTypes {
   CHANGE_ADDITIONAL_QUANTITY = "CHANGE_ADDITIONAL_QUANTITY",
   SET_ADDITIONALS = "SET_ADDITIONALS",
   ADD_ADDITIONAL = "ADD_ADDITIONAL",
-  ADD_CUTLERY = "ADD_CUTLERY",
+  SET_CUTLERY_AMOUNT = "SET_CUTLERY_AMOUNT",
+  SET_CUTLERY_PRICE = "SET_CUTLERY_PRICE",
+  SET_CUTLERY_TOTAL_PRICE = "SET_CUTLERY_TOTAL_PRICE",
+  SET_PICKUP = "SET_PICKUP",
   SET_SCHEDULE = "SET_SCHEDULE",
   SET_PRODUCTS = "SET_PRODUCTS",
 }
@@ -23,8 +26,16 @@ export const addToCart = (product: TCartProduct): TAction => ({
   type: TActionTypes.ADD_PRODUCT,
 });
 
-export const removeFromCart = (id: number): TAction => ({
-  payload: id,
+export const removeFromCart = (
+  id: number,
+  persons: number,
+  quantity: number
+): TAction => ({
+  payload: {
+    id,
+    persons,
+    quantity,
+  },
   type: TActionTypes.REMOVE_PRODUCT,
 });
 
@@ -33,9 +44,14 @@ export const clearCart = (): TAction => ({
   type: TActionTypes.CLEAR_CART,
 });
 
-export const changeQuantity = (id: number, quantity: number): TAction => ({
+export const changeQuantity = (
+  id: number,
+  quantity: number,
+  persons: number
+): TAction => ({
   payload: {
     id,
+    persons,
     quantity,
   },
   type: TActionTypes.CHANGE_QUANTITY,
@@ -65,9 +81,24 @@ export const addAdditional = (id: number, quantity: number): TAction => ({
   type: TActionTypes.ADD_ADDITIONAL,
 });
 
-export const addCutlery = (amount: number) => ({
+export const setCutleryPrice = (price: number): TAction => ({
+  payload: price,
+  type: TActionTypes.SET_CUTLERY_PRICE,
+});
+
+export const setCutleryAmount = (amount: number): TAction => ({
   payload: amount,
-  type: TActionTypes.ADD_CUTLERY,
+  type: TActionTypes.SET_CUTLERY_AMOUNT,
+});
+
+export const setCutleryTotalPrice = (price: number): TAction => ({
+  payload: price,
+  type: TActionTypes.SET_CUTLERY_TOTAL_PRICE,
+});
+
+export const setPickup = (checked: boolean): TAction => ({
+  payload: checked,
+  type: TActionTypes.SET_PICKUP,
 });
 
 export const setSchedule = ({

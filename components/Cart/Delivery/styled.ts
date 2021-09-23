@@ -25,18 +25,7 @@ export const StyledHeader = styled.div`
   }
 `;
 
-export const StyledContent = styled.div<{ isVisible: boolean }>`
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
-
-  ${({ isVisible }) =>
-    isVisible &&
-    css`
-      opacity: 1;
-      visibility: visible;
-    `}
-`;
+export const StyledContent = styled.div``;
 
 export const StyledLayout = styled.div``;
 
@@ -129,6 +118,7 @@ export const StyledRadioLabel = styled.label`
 
 export const StyledRadioLabelInfo = styled.span`
   color: #da2628;
+  font-family: ${({ theme }) => theme.fonts.fontBold};
 `;
 
 export const StyledRadio = styled.input`
@@ -143,6 +133,7 @@ export const StyledRadio = styled.input`
   display: inline-block;
   height: ${({ theme }) => theme.rem(25)};
   margin-right: ${({ theme }) => theme.rem(10)};
+  min-width: ${({ theme }) => theme.rem(25)};
   width: ${({ theme }) => theme.rem(25)};
 
   &:checked {

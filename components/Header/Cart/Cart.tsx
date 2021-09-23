@@ -33,8 +33,8 @@ const Cart: React.FC = () => {
   }, []);
 
   return (
-    <StyledWrapper isFixed={isFixed}>
-      <Link href="/cart">
+    <StyledWrapper>
+      <Link href="/cart" passHref>
         <StyledLink>
           <StyledSvgSymbol
             fill="white"

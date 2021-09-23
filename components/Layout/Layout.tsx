@@ -30,6 +30,13 @@ const Layout: React.FC<TLayout> = ({ children, title, inner }) => {
         <meta name="format-detection" content="telephone=no" />
         <meta name="description" content={metaDescription} />
         <meta name="yandex-verification" content="2d640540016895e1" />
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="https://api.mapy.cz/loader.js" />
+        <script>
+          {`
+            Loader.load(null, { suggest: true });
+          `}
+        </script>
       </Head>
 
       <ThemeProvider theme={theme}>

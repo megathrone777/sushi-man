@@ -22,16 +22,14 @@ export const StyledHeader = styled.div`
 `;
 
 export const StyledImage = styled.img`
+  display: block;
   height: ${({ theme }) => theme.rem(40)};
-  margin-left: ${({ theme }) => theme.rem(40)};
-  margin-top: ${({ theme }) => theme.rem(10)};
   width: auto;
 `;
 
 export const StyledColumn = styled.div``;
 
 export const StyledRadioWrapper = styled.div`
-  align-items: center;
   display: flex;
   margin-right: ${({ theme }) => theme.rem(30)};
 `;
@@ -48,6 +46,7 @@ export const StyledRadio = styled.input`
   display: inline-block;
   height: ${({ theme }) => theme.rem(25)};
   margin-right: ${({ theme }) => theme.rem(10)};
+  margin-top: ${({ theme }) => theme.rem(1)};
   min-width: ${({ theme }) => theme.rem(25)};
   width: ${({ theme }) => theme.rem(25)};
 
@@ -57,9 +56,19 @@ export const StyledRadio = styled.input`
 `;
 
 export const StyledRadioLabel = styled.label`
-  align-items: center;
+  align-items: flex-start;
   cursor: pointer;
   display: flex;
+  flex-direction: column;
+  margin-top: ${({ theme }) => theme.rem(4)};
+`;
+
+export const StyledRadioLabelText = styled.span`
   font-family: ${({ theme }) => theme.fonts.fontMedium};
-  min-height: ${({ theme }) => theme.rem(38)};
+  margin-bottom: ${({ theme }) => theme.rem(10)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    margin-bottom: ${({ theme }) => theme.rem(5)};
+    min-height: ${({ theme }) => theme.rem(38)};
+  }
 `;

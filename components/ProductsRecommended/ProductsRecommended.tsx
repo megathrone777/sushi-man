@@ -85,6 +85,8 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
                   allergeny,
                   id,
                   image,
+                  isRoll,
+                  persons,
                   title,
                   weight,
                   ingredients,
@@ -135,12 +137,13 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
                         onClick={() =>
                           handleAddToCart({
                             allergeny,
-                            cutleryAmount: 1,
                             image: {
                               url: image.url,
                             },
                             id,
                             ingredients,
+                            isRoll,
+                            persons,
                             price,
                             product_modifiers,
                             quantity: 1,

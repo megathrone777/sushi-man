@@ -39,7 +39,7 @@ const App = ({ Component, pageProps, router }: AppProps) => (
           fbq('track', 'PageView');
         `}
     </Script>
-    
+
     <noscript>
       <img
         height="1"

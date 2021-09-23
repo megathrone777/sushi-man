@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNotifications } from "reapop";
+import Image from "next/image";
 
 import { TProps, TProductModifier, TProductSubmodifier } from "./types";
 import useTranslation from "~/intl/useTranslation";
@@ -29,6 +30,8 @@ const ProductDetails: React.FC<TProps> = ({
   id,
   image,
   ingredients,
+  isRoll,
+  persons,
   price,
   product_modifiers,
   slug,
@@ -95,7 +98,14 @@ const ProductDetails: React.FC<TProps> = ({
     <StyledWrapper>
       <StyledLayout>
         <StyledContentLeft>
-          <img alt={title} src={image.url} />
+          <Image
+            alt={title}
+            layout="responsive"
+            height={540}
+            objectFit="cover"
+            width={400}
+            src={image.url}
+          />
         </StyledContentLeft>
 
         <StyledContentRight>
@@ -197,19 +207,20 @@ const ProductDetails: React.FC<TProps> = ({
             onClick={() =>
               handleAddToCart({
                 allergeny,
-                cutleryAmount: 1,
                 image: {
                   url: image.url,
                 },
                 id,
                 ingredients,
+                isRoll,
+                persons,
                 price,
                 product_modifiers,
                 quantity: 1,
                 slug,
                 title,
                 weight,
-                totalPrice,
+                totalPrice: parseInt(price),
               })
             }
             type="button"

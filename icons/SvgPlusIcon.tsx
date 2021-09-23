@@ -5,8 +5,9 @@ const SvgPlusIcon: React.FC = () => (
     aria-hidden="true"
     focusable="false"
     role="img"
-    xmlns="http://www.w3.org/2000/svg"
+    style={{ height: "14px", width: "14px" }}
     viewBox="0 0 448 512"
+    xmlns="http://www.w3.org/2000/svg"
   >
     <path
       fill="currentColor"

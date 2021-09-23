@@ -22,8 +22,6 @@ import {
   StyledItemDesc,
   StyledItemImage,
   StyledItemText,
-  StyledSVGSymbol,
-  StyledPathSymbol,
   StyledItemButton,
   StyledScroller,
 } from "./styled";
@@ -67,8 +65,10 @@ const Products: React.FC<TProps> = ({ products }) => {
                 {
                   allergeny,
                   id,
+                  isRoll,
                   image,
                   title,
+                  persons,
                   weight,
                   ingredients,
                   product_modifiers,
@@ -120,15 +120,16 @@ const Products: React.FC<TProps> = ({ products }) => {
                         onClick={() =>
                           handleAddToCart({
                             allergeny,
-                            cutleryAmount: 1,
                             image: {
                               url: image.url,
                             },
                             id,
+                            isRoll,
                             ingredients,
                             price,
                             product_modifiers,
                             quantity: 1,
+                            persons,
                             slug,
                             title,
                             weight,

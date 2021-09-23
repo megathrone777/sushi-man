@@ -15,15 +15,19 @@ export interface TSchedule {
 }
 
 export interface TCartProduct extends TProduct {
-  cutleryAmount: number;
   quantity: number;
   totalPrice: number;
 }
 
 export interface TState {
+  cutleryPrice: number;
   cart: {
+    cutleryAmount: number;
+    cutleryTotalPrice: number;
+    isPickupChecked: boolean;
     products: TCartProduct[];
     additionals: TAdditional[];
+    totalPersons: number;
   };
   schedule: {
     schedule_cs: TSchedule;
@@ -32,9 +36,14 @@ export interface TState {
 }
 
 const initialState: TState = {
+  cutleryPrice: 0,
   cart: {
+    cutleryAmount: 1,
+    cutleryTotalPrice: 0,
+    isPickupChecked: false,
     products: [],
     additionals: [],
+    totalPersons: 0,
   },
   schedule: {
     schedule_cs: {

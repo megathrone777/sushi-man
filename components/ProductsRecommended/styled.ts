@@ -1,7 +1,7 @@
 import { styled } from "~/theme";
 
 export const StyledWrapper = styled.section`
-  background: url("/images/products_bg.jpg") center center repeat-y;
+  background: url("/images/products_bg.jpg") center center/auto 100%;
   padding: ${({ theme }) => theme.rem(30)} 0 ${({ theme }) => theme.rem(50)};
 `;
 

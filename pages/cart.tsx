@@ -3,7 +3,12 @@ import { NextPage } from "next";
 import { gql } from "@apollo/client";
 
 import client from "~/apollo-client";
-import { TAdditional, AppContext, setAdditionals } from "~/store";
+import {
+  TAdditional,
+  AppContext,
+  setAdditionals,
+  setCutleryPrice,
+} from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   Banner,
@@ -16,9 +21,13 @@ import {
 import HeroQuery from "~/queries/hero.graphql";
 import ProductsQuery from "~/queries/products.graphql";
 import AdditionalsQuery from "~/queries/additionals.graphql";
+import CutleryQuery from "~/queries/cutlery.graphql";
 
 interface TProps {
   additionals: TAdditional[];
+  cutlery: {
+    price: number;
+  };
   hero: {
     hero_cs: TBanner;
     hero_ru: TBanner;
@@ -26,14 +35,20 @@ interface TProps {
   products: TProduct[];
 }
 
-const CartPage: NextPage<TProps> = ({ additionals, hero, products }) => {
+const CartPage: NextPage<TProps> = ({
+  additionals,
+  cutlery,
+  hero,
+  products,
+}) => {
   const { dispatch } = useContext(AppContext);
   const { t } = useTranslation();
   const cartTitle = t("cartTitle");
 
   useEffect((): void => {
+    dispatch(setCutleryPrice(cutlery.price));
     dispatch(setAdditionals(additionals));
-  }, [additionals]);
+  }, []);
 
   return (
     <Layout inner title={cartTitle}>
@@ -73,10 +88,19 @@ CartPage.getInitialProps = async () => {
     `,
   });
 
+  const {
+    data: { cutlery },
+  } = await client.query({
+    query: gql`
+      ${CutleryQuery}
+    `,
+  });
+
   return {
     additionals,
     products,
     hero,
+    cutlery,
   };
 };
 

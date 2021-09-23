@@ -17,6 +17,8 @@ export interface TProduct {
   };
   allergeny: string;
   ingredients: string;
+  isRoll: boolean | null;
+  persons: number;
   price: string;
   product_modifiers: TProductModifier[];
   slug: string;

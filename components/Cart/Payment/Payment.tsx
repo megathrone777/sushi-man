@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
   StyledColumn,
@@ -9,11 +10,13 @@ import {
   StyledRadioWrapper,
   StyledRadio,
   StyledRadioLabel,
+  StyledRadioLabelText,
 } from "./styled";
 
 type TPayment = "card" | "cash";
 
 const Payment: React.FC = () => {
+  const { t } = useTranslation();
   const [payment, setPayment] = useState("card");
 
   const handlePaymentChange = ({
@@ -26,7 +29,7 @@ const Payment: React.FC = () => {
 
   return (
     <StyledWrapper>
-      <StyledTitle>Оплата</StyledTitle>
+      <StyledTitle>{t("paymentMethods")}</StyledTitle>
 
       <StyledHeader>
         <StyledColumn>
@@ -40,11 +43,10 @@ const Payment: React.FC = () => {
               value="card"
             />
             <StyledRadioLabel htmlFor="input-card">
-              Картой на месте или онлайн
+              <StyledRadioLabelText>{t("payByCard")}</StyledRadioLabelText>
+              <StyledImage alt="Card" src="/images/payments_img.png" />
             </StyledRadioLabel>
           </StyledRadioWrapper>
-
-          <StyledImage alt="Card" src="/images/payments_img.png" />
         </StyledColumn>
 
         <StyledColumn>
@@ -56,10 +58,11 @@ const Payment: React.FC = () => {
               type="radio"
               value="cash"
             />
-            <StyledRadioLabel htmlFor="input-cash">Наличными</StyledRadioLabel>
+            <StyledRadioLabel htmlFor="input-cash">
+              <StyledRadioLabelText>{t("payByCash")}</StyledRadioLabelText>
+              <StyledImage alt="Card" src="/images/cash_img.jpg" />
+            </StyledRadioLabel>
           </StyledRadioWrapper>
-
-          <StyledImage alt="Card" src="/images/cash_img.jpg" />
         </StyledColumn>
       </StyledHeader>
     </StyledWrapper>

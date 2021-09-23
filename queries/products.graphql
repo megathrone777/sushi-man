@@ -6,6 +6,8 @@ query ProductsQuery {
       url
     }
     ingredients
+    isRoll
+    persons
     price
     slug
     title

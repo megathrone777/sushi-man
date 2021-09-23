@@ -1,7 +1,8 @@
 import { styled } from "~/theme";
 
 export const StyledWrapper = styled.section`
-  background: url("/images/products_bg.jpg") center center repeat-y;
+  background-image: url("/images/products_bg.jpg");
+  background-size: 33.3333% auto;
   padding: ${({ theme }) => theme.rem(60)} 0;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -232,9 +233,6 @@ export const StyledScroller = styled.button`
   }
 `;
 
-export const StyledSVGSymbol = styled.svg``;
-export const StyledPathSymbol = styled.path``;
-
 export const StyledItemButton = styled.button`
   background-color: #da2628;
   border: none;
@@ -265,10 +263,6 @@ export const StyledItemButton = styled.button`
 
   &:focus {
     outline: none;
-  }
-
-  ${StyledSVGSymbol} {
-    max-width: ${({ theme }) => theme.rem(24)};
   }
 
   &:hover {

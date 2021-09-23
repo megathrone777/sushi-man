@@ -9,7 +9,7 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledTitle = styled.h2`
-  border-bottom: 3px solid #da2628;
+  border-bottom: ${({ theme }) => theme.rem(3)} solid #da2628;
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
   padding: ${({ theme }) => theme.rem(10)};
   text-align: left;
@@ -27,7 +27,7 @@ export const StyledRow = styled.div`
   grid-template-areas: "image name quantity options";
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    border: 2px solid rgb(239, 239, 239);
+    border: ${({ theme }) => theme.rem(2)} solid rgb(239, 239, 239);
     border-radius: ${({ theme }) => theme.rem(7)};
     grid-template-columns: 50% 50%;
     grid-template-areas:
@@ -106,31 +106,16 @@ export const StyledWeight = styled.p``;
 export const StyledQuantityWrapper = styled.div`
   align-items: center;
   display: inline-flex;
-  position: relative;
-  margin-right: 15px;
+  margin-right: ${({ theme }) => theme.rem(15)};
 `;
 
-export const StyledQuantityInput = styled.input`
-  appearance: none;
-  border: none;
+export const StyledQuantity = styled.p`
   font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
-  height: ${({ theme }) => theme.rem(30)};
-  margin: 0 ${({ theme }) => theme.rem(0)};
+  height: ${({ theme }) => theme.rem(25)};
+  line-height: ${({ theme }) => theme.rem(25)};
   text-align: center;
+  vertical-align: middle;
   width: ${({ theme }) => theme.rem(50)};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    background-color: rgb(239, 239, 239);
-  }
-
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    appearance: none;
-  }
-
-  &:focus {
-    outline: none;
-  }
 `;
 
 export const StyledQuantityButton = styled.button<{
@@ -139,12 +124,13 @@ export const StyledQuantityButton = styled.button<{
 }>`
   align-items: center;
   background: none;
-  border: 2px solid black;
   border-radius: 50%;
+  border: ${({ theme }) => theme.rem(2)} solid black;
   cursor: pointer;
   display: flex;
   height: ${({ theme }) => theme.rem(22)};
-  padding: ${({ theme }) => theme.rem(2)};
+  justify-content: center;
+  padding: 0;
   width: ${({ theme }) => theme.rem(22)};
 
   &:hover {

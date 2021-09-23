@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import Link from "next/link";
 
+import useTranslation from "~/intl/useTranslation";
 import {
   AppContext,
   TCartProduct,
@@ -17,7 +18,7 @@ import {
   StyledLink,
   StyledBold,
   StyledQuantityWrapper,
-  StyledQuantityInput,
+  StyledQuantity,
   StyledQuantityButton,
   StyledPrice,
   StyledRemove,
@@ -29,24 +30,38 @@ import {
 } from "./styled";
 
 const Products: React.FC = () => {
+  const { t } = useTranslation();
   const { dispatch, state } = useContext(AppContext);
   const { cart } = state;
-  const handleQuantityIncrease = (id: number, quantity: number): void => {
-    dispatch(changeQuantity(id, quantity + 1));
+
+  const handleQuantityIncrease = (
+    id: number,
+    quantity: number,
+    persons: number
+  ): void => {
+    dispatch(changeQuantity(id, quantity + 1, persons));
   };
 
-  const handleQuantityDecrease = (id: number, quantity: number): void => {
+  const handleQuantityDecrease = (
+    id: number,
+    quantity: number,
+    persons: number
+  ): void => {
     if (quantity === 1) return;
-    dispatch(changeQuantity(id, quantity - 1));
+    dispatch(changeQuantity(id, quantity - 1, persons * -1));
   };
 
-  const handleProductRemove = (id: number): void => {
-    dispatch(removeFromCart(id));
+  const handleProductRemove = (
+    id: number,
+    quantity: number,
+    persons: number
+  ): void => {
+    dispatch(removeFromCart(id, quantity, persons));
   };
 
   return (
     <StyledWrapper>
-      <StyledTitle>Заказ</StyledTitle>
+      <StyledTitle>{t("order")}</StyledTitle>
 
       <StyledContent>
         {cart.products.map(
@@ -56,6 +71,7 @@ const Products: React.FC = () => {
               title,
               image,
               weight,
+              persons,
               price,
               quantity,
               totalPrice,
@@ -79,24 +95,23 @@ const Products: React.FC = () => {
               <StyledQuantityArea>
                 <StyledQuantityWrapper>
                   <StyledQuantityButton
-                    isIncrease
-                    onClick={() => handleQuantityIncrease(id, quantity)}
-                    type="button"
-                  >
-                    <SvgPlusIcon />
-                  </StyledQuantityButton>
-                  <StyledQuantityInput
-                    min="1"
-                    max="50"
-                    type="number"
-                    value={quantity ? quantity : 1}
-                  />
-                  <StyledQuantityButton
                     isDecrease
-                    onClick={() => handleQuantityDecrease(id, quantity)}
+                    onClick={() =>
+                      handleQuantityDecrease(id, quantity, persons)
+                    }
                     type="button"
                   >
                     <SvgMinusIcon />
+                  </StyledQuantityButton>
+                  <StyledQuantity>{quantity ? quantity : 1}</StyledQuantity>
+                  <StyledQuantityButton
+                    isIncrease
+                    onClick={() =>
+                      handleQuantityIncrease(id, quantity, persons)
+                    }
+                    type="button"
+                  >
+                    <SvgPlusIcon />
                   </StyledQuantityButton>
                 </StyledQuantityWrapper>
               </StyledQuantityArea>
@@ -107,10 +122,10 @@ const Products: React.FC = () => {
                 </StyledPrice>
 
                 <StyledRemove
-                  onClick={() => handleProductRemove(id)}
+                  onClick={() => handleProductRemove(id, quantity, persons)}
                   type="button"
                 >
-                  Удалить
+                  {t("remove")}
                 </StyledRemove>
               </StyledOptionsArea>
             </StyledRow>

@@ -1,7 +1,7 @@
 import { css, styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
-  background: url("/images/products_bg.jpg") center center repeat-y;
+  background: url("/images/products_bg.jpg") center center/auto 100%;
   border-bottom: ${({ theme }) => theme.rem(10)} solid #da2628;
   padding: ${({ theme }) => theme.rem(50)} 0 ${({ theme }) => theme.rem(100)};
   overflow: hidden;
@@ -18,7 +18,8 @@ export const StyledLayout = styled.div`
 `;
 
 const StyledContentColumn = styled.div`
-  padding: 0 ${({ theme }) => theme.rem(20)};
+  margin: 0 ${({ theme }) => theme.rem(20)};
+  position: relative;
 `;
 
 export const StyledContentLeft = styled(StyledContentColumn)`
