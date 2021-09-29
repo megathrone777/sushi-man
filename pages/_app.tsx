@@ -8,7 +8,11 @@ import { LanguageProvider } from "../intl/LanguageProvider";
 
 const App = ({ Component, pageProps, router }: AppProps) => (
   <>
-    {/* Global site tag (gtag.js) - Google Analytics  */}
+    <Script
+      strategy="beforeInteractive"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAelVTTeDWjXmX7yF_m83ebT7GbJZsNaUY&libraries=places"
+      id="google-maps"
+    />
     <Script
       strategy="lazyOnload"
       src="https://www.googletagmanager.com/gtag/js?id=G-CEW5H8WB6K"
@@ -24,7 +28,6 @@ const App = ({ Component, pageProps, router }: AppProps) => (
             gtag('config', 'G-CEW5H8WB6K');    
       `}
     </Script>
-
     <Script strategy="lazyOnload" id="facebook">
       {`
           !function(f,b,e,v,n,t,s)
@@ -39,16 +42,6 @@ const App = ({ Component, pageProps, router }: AppProps) => (
           fbq('track', 'PageView');
         `}
     </Script>
-
-    <noscript>
-      <img
-        height="1"
-        width="1"
-        style={{ display: "none" }}
-        src="https://www.facebook.com/tr?id=3473434059547685&ev=PageView&noscript=1"
-      />
-    </noscript>
-
     <Script
       dangerouslySetInnerHTML={{
         __html: `(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -63,15 +56,6 @@ const App = ({ Component, pageProps, router }: AppProps) => (
       }}
       id="yandex"
     />
-    <noscript>
-      <div>
-        <img
-          alt=""
-          src="https://mc.yandex.ru/watch/78947092"
-          style={{ position: "absolute", left: "-9999px" }}
-        />
-      </div>
-    </noscript>
     <NotificationsProvider>
       <AppProvider>
         <LanguageProvider>

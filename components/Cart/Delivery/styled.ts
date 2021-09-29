@@ -1,4 +1,4 @@
-import { css, styled } from "~/theme";
+import { styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
   width: 45%;
@@ -30,26 +30,10 @@ export const StyledContent = styled.div``;
 export const StyledLayout = styled.div``;
 
 export const StyledInputWrapper = styled.div`
+  align-items: center;
+  display: flex;
   margin-bottom: ${({ theme }) => theme.rem(20)};
   position: relative;
-
-  &::after {
-    color: black;
-    content: attr(data-info);
-    display: block;
-    font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
-    position: absolute;
-    right: ${({ theme }) => theme.rem(30)};
-
-    @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
-      position: static;
-      margin-top: ${({ theme }) => theme.rem(15)};
-    }
-
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-      text-align: right;
-    }
-  }
 `;
 
 const StyledInput = styled.input`
@@ -62,6 +46,7 @@ const StyledInput = styled.input`
   font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontMedium}`};
   height: ${({ theme }) => theme.rem(35)};
   padding: 0 ${({ theme }) => theme.rem(30)};
+  width: ${({ theme }) => theme.rem(400)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 100%;
@@ -148,5 +133,41 @@ export const StyledLink = styled.a`
 
   &:hover {
     color: #da2628;
+  }
+`;
+
+export const StyledMap = styled.div`
+  height: ${({ theme }) => theme.rem(200)};
+  margin-bottom: ${({ theme }) => theme.rem(20)};
+  margin-top: ${({ theme }) => theme.rem(20)};
+`;
+
+export const StyledLengthInKm = styled.p`
+  display: inline-block;
+  margin-left: ${({ theme }) => theme.rem(10)};
+`;
+
+export const StyledCurrentLocationButton = styled.button`
+  background: none;
+  border: none;
+  color: #da2628;
+  cursor: pointer;
+  height: ${({ theme }) => theme.rem(35)};
+  margin-left: ${({ theme }) => theme.rem(10)};
+  padding: 0;
+  width: ${({ theme }) => theme.rem(35)};
+
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+
+export const StyledDeliveryPrice = styled.p`
+  font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
+  text-align: right;
+  margin-right: ${({ theme }) => theme.rem(30)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    margin-top: ${({ theme }) => theme.rem(15)};
   }
 `;

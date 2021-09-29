@@ -14,6 +14,9 @@ export enum TActionTypes {
   SET_PICKUP = "SET_PICKUP",
   SET_SCHEDULE = "SET_SCHEDULE",
   SET_PRODUCTS = "SET_PRODUCTS",
+  SET_TOTAL_ROLLS_DISCOUNT = "SET_TOTAL_ROLLS_DISCOUNT",
+  SET_LENGTH_IN_KM = "SET_LENGTH_IN_KM",
+  SET_DELIVERY_PRICE = "SET_DELIVERY_PRICE",
 }
 
 export interface TAction {
@@ -101,6 +104,16 @@ export const setPickup = (checked: boolean): TAction => ({
   type: TActionTypes.SET_PICKUP,
 });
 
+export const setDeliveryPrice = (price: number): TAction => ({
+  payload: price,
+  type: TActionTypes.SET_DELIVERY_PRICE,
+});
+
+export const setTotalRollsDiscount = (price: number): TAction => ({
+  payload: price,
+  type: TActionTypes.SET_TOTAL_ROLLS_DISCOUNT,
+});
+
 export const setSchedule = ({
   schedule_cs,
   schedule_ru,
@@ -110,4 +123,9 @@ export const setSchedule = ({
     schedule_ru,
   },
   type: TActionTypes.SET_SCHEDULE,
+});
+
+export const setLengthInKm = (lengthInKm: string): TAction => ({
+  payload: lengthInKm,
+  type: TActionTypes.SET_LENGTH_IN_KM,
 });

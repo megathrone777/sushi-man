@@ -30,6 +30,17 @@ const base = css`
     height: 100%;
     width: 100%;
   }
+
+  a[href^="http://maps.google.com/maps"],
+  a[href^="https://maps.google.com/maps"],
+  a[href^="https://www.google.com/maps"]
+  {
+    display: none !important;
+  }
+
+  .gmnoprint:not(.gm-bundled-control) {
+    display: none;
+  }
 `;
 
 export { base };

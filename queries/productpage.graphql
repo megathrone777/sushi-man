@@ -1,4 +1,4 @@
-query HeroQuery {
+query ProductPageQuery {
   hero_cs: hero(locale: "cs") {
     image {
       url
@@ -15,5 +15,20 @@ query HeroQuery {
     locale
     text
     title
+  }
+
+  products(sort: "created_at") {
+    allergeny
+    id
+    image {
+      url
+    }
+    ingredients
+    isRoll
+    persons
+    price
+    slug
+    title
+    weight
   }
 }

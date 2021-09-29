@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
+import { usePersistedContext } from "react-persist-context";
 
-import { AppContext } from "~/store";
 import {
   StyledWrapper,
   StyledLink,
@@ -10,27 +10,8 @@ import {
 } from "./styled";
 
 const Cart: React.FC = () => {
-  const [isFixed, toggleFixed] = useState<boolean>(false);
-  const { state } = useContext(AppContext);
+  const { state } = usePersistedContext();
   const totalAmount = state.cart.products.length;
-
-  const checkCartPosition = (): void => {
-    if (window.pageYOffset > 125) {
-      toggleFixed(true);
-      return;
-    }
-
-    toggleFixed(false);
-  };
-
-  useEffect(() => {
-    checkCartPosition();
-    window.addEventListener("scroll", checkCartPosition, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", checkCartPosition);
-    };
-  }, []);
 
   return (
     <StyledWrapper>

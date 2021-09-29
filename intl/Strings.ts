@@ -115,14 +115,14 @@ export const LangStrings = {
     paymentMethods: "Způsoby platby",
     addMore: "Přidat navíc",
     priceIncluded:
-      "Pozor na to, že rolly a sety už mají v ceně Vasabi a Zázvor!",
+      "Pozor na to, že rolly a sety už mají v ceně Vasabi, Zázvor a Soja!",
     deliveryLabel: "Doručení kurýrem",
     pickupLabel: "Vyzvednout",
     deliveryPrice: "Cena doručení",
     cutleryQuantity: "Pro kolik lidi přidat příbory",
     cutleryPriceIncluded: "příborů můžete přidat zdarma.",
     addMoreRolls: "Přidejte ještě",
-    addMoreRollsResult: "rollu a získejte",
+    addMoreRollsResult: "rolly a získejte",
     remove: "Odstranit",
     delivery: "Doručení",
     order: "Objednávka",
@@ -131,7 +131,7 @@ export const LangStrings = {
     phone: "Telefon",
     address: "Adresa",
     fillAddress: "Adresa",
-    pickupAddres: "Adresa pro vyzvednutí",
+    pickupAddress: "Adresa pro vyzvednutí",
   },
   ru: {
     metaDescription: `По-настоящему вкусные и сочные сеты, которые Вас вдоволь накормят и насладят 

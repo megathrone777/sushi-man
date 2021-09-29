@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+import { usePersistedContext } from "react-persist-context";
 
 import useTranslation from "~/intl/useTranslation";
-import { AppContext, TCartProduct, TAdditional } from "~/store";
+import { TCartProduct, TAdditional } from "~/store";
 import { Additionals } from "./Additionals";
 import { Delivery } from "./Delivery";
 import { Payment } from "./Payment";
@@ -19,10 +21,16 @@ import {
 } from "./styled";
 
 const Cart: React.FC = () => {
+  const router = useRouter();
   const { t } = useTranslation();
-  const { state } = useContext(AppContext);
+  const { state } = usePersistedContext();
   const { cart } = state;
-  const { cutleryTotalPrice, isPickupChecked } = cart;
+  const {
+    cutleryTotalPrice,
+    isPickupChecked,
+    totalRollsDiscount,
+    deliveryPrice,
+  } = cart;
 
   const addedProductsPrice: number[] = state.cart.products.map(
     ({ totalPrice }: TCartProduct): number => totalPrice
@@ -46,7 +54,20 @@ const Cart: React.FC = () => {
     totalProductsPrice +
     totalAdditionalsPrice +
     cutleryTotalPrice +
-    (isPickupChecked ? -50 : 0);
+    (isPickupChecked ? -50 : 0) -
+    totalRollsDiscount +
+    deliveryPrice;
+
+  useEffect((): void => {
+    router.replace(
+      {
+        pathname: location.pathname,
+        query: {},
+      },
+      undefined,
+      { scroll: false }
+    );
+  }, []);
 
   return (
     <StyledWrapper>
@@ -62,6 +83,7 @@ const Cart: React.FC = () => {
             </StyledLayout>
 
             <Payment />
+
             <StyledTotal>
               {t("priceTotal")}: {totalPrice} Kč
             </StyledTotal>

@@ -1,12 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNotifications } from "reapop";
 import Slider from "react-slick";
 import Link from "next/link";
+import { usePersistedContext } from "react-persist-context";
 
 import { TProps } from "./types";
 import useTranslation from "~/intl/useTranslation";
 import { SvgBuyIcon } from "~/icons";
-import { addToCart, AppContext, TCartProduct } from "~/store";
+import { addToCart, TCartProduct } from "~/store";
 import { TProduct } from "~/components";
 import {
   StyledWrapper,
@@ -27,7 +28,7 @@ import {
 import { StyledContainer } from "~/components/Layout/styled";
 
 const ProductsRecommended: React.FC<TProps> = ({ products }) => {
-  const { dispatch } = useContext(AppContext);
+  const { dispatch } = usePersistedContext();
   const { t } = useTranslation();
   const { notify } = useNotifications();
   const productsTitle = t("recommendedTitle");

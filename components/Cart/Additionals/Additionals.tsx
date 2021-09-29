@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
+import { usePersistedContext } from "react-persist-context";
 
 import useTranslation from "~/intl/useTranslation";
-import { AppContext, TAdditional, changeAdditionalQuantity } from "~/store";
+import { TAdditional, changeAdditionalQuantity } from "~/store";
 import { SvgPlusIcon, SvgMinusIcon } from "~/icons";
 import {
   StyledTable,
@@ -17,7 +18,7 @@ import {
 
 const Additionals: React.FC = () => {
   const { t } = useTranslation();
-  const { dispatch, state } = useContext(AppContext);
+  const { dispatch, state } = usePersistedContext();
   const { cart } = state;
 
   const handleQuantityIncrease = (id: number, quantity: number): void => {
@@ -36,7 +37,7 @@ const Additionals: React.FC = () => {
       {cart.additionals && !!cart.additionals.length && (
         <tbody>
           <StyledTableRow>
-            <StyledTableCell colSpan={3}>{t('priceIncluded')}</StyledTableCell>
+            <StyledTableCell colSpan={3}>{t("priceIncluded")}</StyledTableCell>
           </StyledTableRow>
           {cart.additionals.map(
             (

@@ -111,7 +111,6 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
 
     [TActionTypes.ADD_ADDITIONAL]: (): TState => {
       const additionals = [...state.cart.additionals];
-
       const foundIndex = additionals.findIndex(
         (additional: TAdditional) => additional.id === payload.id
       );
@@ -157,6 +156,30 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
       cart: {
         ...state.cart,
         isPickupChecked: payload,
+      },
+    }),
+
+    [TActionTypes.SET_TOTAL_ROLLS_DISCOUNT]: (): TState => ({
+      ...state,
+      cart: {
+        ...state.cart,
+        totalRollsDiscount: payload,
+      },
+    }),
+
+    [TActionTypes.SET_DELIVERY_PRICE]: (): TState => ({
+      ...state,
+      cart: {
+        ...state.cart,
+        deliveryPrice: payload
+      }
+    }),
+
+    [TActionTypes.SET_LENGTH_IN_KM]: (): TState => ({
+      ...state,
+      cart: {
+        ...state.cart,
+        lengthInKm: payload,
       },
     }),
 

@@ -1,10 +1,11 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
+import { usePersistedContext } from "react-persist-context";
 
 import useTranslation from "~/intl/useTranslation";
 import {
-  AppContext,
   setCutleryAmount,
   setCutleryTotalPrice,
+  setTotalRollsDiscount,
   TCartProduct,
 } from "~/store";
 import { SvgPlusIcon, SvgMinusIcon } from "~/icons";
@@ -22,7 +23,7 @@ import {
 
 const Persons: React.FC = () => {
   const { t } = useTranslation();
-  const { dispatch, state } = useContext(AppContext);
+  const { dispatch, state } = usePersistedContext();
   const { cart, cutleryPrice } = state;
   const { cutleryAmount, cutleryTotalPrice, products, totalPersons } = cart;
   const [amount, setAmount] = useState<number>(1);
@@ -62,39 +63,42 @@ const Persons: React.FC = () => {
 
   const renderDiscount = (): React.ReactElement => (
     <>
-      {checkRollsAdded() % 4 === 0 ? (
+      {checkRollsAdded() > 0 && checkRollsAdded() % 4 === 0 ? (
         <StyledText>
           {t("discountReceived")}{" "}
           <StyledTextLabel>
-            -{Math.ceil(checkRollsAdded() / 4) * 50}Kč
+            -
+            {checkRollsAdded() % 4 === 0
+              ? Math.floor(checkRollsAdded() / 4) * 50
+              : 50}
+            Kč
           </StyledTextLabel>
         </StyledText>
       ) : (
         <StyledText>
-          {t("addMoreRolls")} {4 - (checkRollsAdded() % 4)}{" "}
-          {t("addMoreRollsResult")}{" "}
+          {t("addMoreRolls")}{" "}
+          {checkRollsAdded() > 0 ? 4 - (checkRollsAdded() % 4) : 4}{" "}
+          {t("addMoreRollsResult")}
           <StyledTextLabel>
-            -{Math.ceil(checkRollsAdded() / 4) * 50}Kč
+            {" "}
+            {"-"}
+            {checkRollsAdded() > 0 && checkRollsAdded() < 4
+              ? 50
+              : checkRollsAdded() > 0 && checkRollsAdded() % 4 === 0
+              ? Math.floor(checkRollsAdded() / 4) * 50
+              : checkRollsAdded() > 0 && checkRollsAdded() > 4
+              ? Math.ceil(checkRollsAdded() / 4) * 50
+              : 50}
+            Kč
           </StyledTextLabel>
         </StyledText>
       )}
     </>
   );
 
-  // useCallback(() => {
-  //   if (checkRollsAdded() % 4 === 0) {
-  //     notify({
-  //       dismissAfter: 3000,
-  //       dismissible: true,
-  //       position: "bottom-center",
-  //       showDismissButton: true,
-  //       status: "success",
-  //       title: `Вы получили скидку -${Math.ceil(checkRollsAdded() / 4) * 50}`,
-  //     });
-  //   }
-  // }, [checkRollsAdded, notify]);
-
   useEffect((): void => {
+    dispatch(setTotalRollsDiscount(Math.floor(checkRollsAdded() / 4) * 50));
+
     if (cutleryAmount > totalPersons) {
       dispatch(
         setCutleryTotalPrice((cutleryAmount - totalPersons) * cutleryPrice)
@@ -102,13 +106,13 @@ const Persons: React.FC = () => {
     } else {
       dispatch(setCutleryTotalPrice(0));
     }
-  }, [cutleryAmount, cutleryPrice, dispatch, totalPersons]);
+  }, [cutleryAmount, cutleryPrice, dispatch, totalPersons, checkRollsAdded]);
 
   return (
     <StyledWrapper>
       <StyledColumn>
         <StyledQuantityWrapper>
-          <StyledQuantityLabel>{t("cutleryQuantity")}:</StyledQuantityLabel>
+          <StyledQuantityLabel>{t("cutleryQuantity")}</StyledQuantityLabel>
 
           <StyledQuantityButton
             isDecrease

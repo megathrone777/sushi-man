@@ -1,7 +1,0 @@
-query DeliveryQuery {
-  deliveryItems(locale: "all") {
-    locale
-    text
-    title
-  }
-}

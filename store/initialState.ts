@@ -24,9 +24,12 @@ export interface TState {
   cart: {
     cutleryAmount: number;
     cutleryTotalPrice: number;
+    deliveryPrice: number;
     isPickupChecked: boolean;
     products: TCartProduct[];
     additionals: TAdditional[];
+    lengthInKm: string;
+    totalRollsDiscount: number;
     totalPersons: number;
   };
   schedule: {
@@ -38,12 +41,15 @@ export interface TState {
 const initialState: TState = {
   cutleryPrice: 0,
   cart: {
+    additionals: [],
     cutleryAmount: 1,
     cutleryTotalPrice: 0,
+    deliveryPrice: 0,
     isPickupChecked: false,
+    lengthInKm: null,
     products: [],
-    additionals: [],
     totalPersons: 0,
+    totalRollsDiscount: 0,
   },
   schedule: {
     schedule_cs: {

@@ -1,9 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { NextPage } from "next";
 import { gql } from "@apollo/client";
+import { usePersistedContext } from "react-persist-context";
 
 import client from "~/apollo-client";
-import { AppContext, TAdditional, setAdditionals } from "~/store";
+import { TAdditional, setAdditionals } from "~/store";
 import { TSchedule } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -23,15 +24,7 @@ import {
   TProduct,
 } from "~/components";
 
-import ProductsQuery from "~/queries/products.graphql";
-import ReviewsQuery from "~/queries/reviews.graphql";
-import DeliveryQuery from "~/queries/delivery.graphql";
-import AboutQuery from "~/queries/about.graphql";
-import DeliveryTitleQuery from "~/queries/delivery-title.graphql";
-import ScheduleQuery from "~/queries/schedule.graphql";
-import HeroQuery from "~/queries/hero.graphql";
-import BannerQuery from "~/queries/banner.graphql";
-import AdditionalsQuery from "~/queries/additionals.graphql";
+import HomePageQuery from "~/queries/homepage.graphql";
 
 interface TProps {
   additionals: TAdditional[];
@@ -66,7 +59,7 @@ const IndexPage: NextPage<TProps> = ({
   reviews,
   schedule,
 }) => {
-  const { dispatch } = useContext(AppContext);
+  const { dispatch } = usePersistedContext();
   const { t } = useTranslation();
   const mainTitle = t("mainTitle");
 
@@ -113,81 +106,59 @@ const IndexPage: NextPage<TProps> = ({
   );
 };
 
-IndexPage.getInitialProps = async () => {
+export const getServerSideProps = async () => {
   const {
-    data: { products },
+    data: {
+      additionals,
+      about_cs,
+      about_ru,
+      banner_ru,
+      banner_cs,
+      deliveryTitle_cs,
+      deliveryTitle_ru,
+      deliveryItems,
+      hero_cs,
+      hero_ru,
+      products,
+      reviews,
+      schedule_cs,
+      schedule_ru,
+    },
   } = await client.query({
     query: gql`
-      ${ProductsQuery}
-    `,
-  });
-
-  const {
-    data: { additionals },
-  } = await client.query({
-    query: gql`
-      ${AdditionalsQuery}
-    `,
-  });
-
-  const {
-    data: { reviews },
-  } = await client.query({
-    query: gql`
-      ${ReviewsQuery}
-    `,
-  });
-
-  const {
-    data: { deliveryItems },
-  } = await client.query({
-    query: gql`
-      ${DeliveryQuery}
-    `,
-  });
-
-  const { data: about } = await client.query({
-    query: gql`
-      ${AboutQuery}
-    `,
-  });
-
-  const { data: deliveryTitle } = await client.query({
-    query: gql`
-      ${DeliveryTitleQuery}
-    `,
-  });
-
-  const { data: schedule } = await client.query({
-    query: gql`
-      ${ScheduleQuery}
-    `,
-  });
-
-  const { data: hero } = await client.query({
-    query: gql`
-      ${HeroQuery}
-    `,
-  });
-
-  const { data: banner } = await client.query({
-    query: gql`
-      ${BannerQuery}
+      ${HomePageQuery}
     `,
   });
 
   return {
-    additionals,
-    about,
-    banner,
-    delivery: {
-      deliveryTitle,
-      deliveryItems,
+    props: {
+      additionals,
+      about: {
+        about_cs,
+        about_ru,
+      },
+      banner: {
+        banner_cs,
+        banner_ru,
+      },
+      delivery: {
+        deliveryTitle: {
+          deliveryTitle_cs,
+          deliveryTitle_ru,
+        },
+        deliveryItems,
+      },
+      hero: {
+        hero_cs,
+        hero_ru,
+      },
+      products,
+      reviews,
+      schedule: {
+        schedule_cs,
+        schedule_ru,
+      },
     },
-    hero,
-    products,
-    reviews,
-    schedule,
   };
 };
 

@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { NextPage } from "next";
 import { gql } from "@apollo/client";
+import fetch from "isomorphic-unfetch";
+import { usePersistedContext } from "react-persist-context";
 
 import client from "~/apollo-client";
 import {
@@ -8,6 +10,7 @@ import {
   AppContext,
   setAdditionals,
   setCutleryPrice,
+  setLengthInKm,
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -18,10 +21,8 @@ import {
   TProduct,
   ProductsRecommended,
 } from "~/components";
-import HeroQuery from "~/queries/hero.graphql";
-import ProductsQuery from "~/queries/products.graphql";
-import AdditionalsQuery from "~/queries/additionals.graphql";
-import CutleryQuery from "~/queries/cutlery.graphql";
+
+import CartPageQuery from "~/queries/cartpage.graphql";
 
 interface TProps {
   additionals: TAdditional[];
@@ -33,6 +34,7 @@ interface TProps {
     hero_ru: TBanner;
   };
   products: TProduct[];
+  lengthInKm: string;
 }
 
 const CartPage: NextPage<TProps> = ({
@@ -40,15 +42,17 @@ const CartPage: NextPage<TProps> = ({
   cutlery,
   hero,
   products,
+  lengthInKm,
 }) => {
-  const { dispatch } = useContext(AppContext);
+  const { dispatch } = usePersistedContext();
   const { t } = useTranslation();
   const cartTitle = t("cartTitle");
 
   useEffect((): void => {
+    dispatch(setLengthInKm(lengthInKm));
     dispatch(setCutleryPrice(cutlery.price));
     dispatch(setAdditionals(additionals));
-  }, []);
+  }, [dispatch, lengthInKm]);
 
   return (
     <Layout inner title={cartTitle}>
@@ -65,42 +69,39 @@ const CartPage: NextPage<TProps> = ({
   );
 };
 
-CartPage.getInitialProps = async () => {
-  const { data: hero } = await client.query({
-    query: gql`
-      ${HeroQuery}
-    `,
-  });
+export const getServerSideProps = async ({ query }) => {
+  const origins = "50.086610,14.448785";
+  const key = "AIzaSyAelVTTeDWjXmX7yF_m83ebT7GbJZsNaUY";
+  const { destinations } = query;
+
+  const response = await fetch(
+    `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${
+      destinations || ""
+    }&key=${key}`,
+    { mode: "no-cors" }
+  );
+  const data = await response.json();
+  const lengthInKm = data.rows.length && data.rows[0].elements[0].distance.text;
 
   const {
-    data: { products },
+    data: { additionals, hero_cs, hero_ru, products, cutlery },
   } = await client.query({
     query: gql`
-      ${ProductsQuery}
-    `,
-  });
-
-  const {
-    data: { additionals },
-  } = await client.query({
-    query: gql`
-      ${AdditionalsQuery}
-    `,
-  });
-
-  const {
-    data: { cutlery },
-  } = await client.query({
-    query: gql`
-      ${CutleryQuery}
+      ${CartPageQuery}
     `,
   });
 
   return {
-    additionals,
-    products,
-    hero,
-    cutlery,
+    props: {
+      additionals,
+      products,
+      hero: {
+        hero_cs,
+        hero_ru,
+      },
+      cutlery,
+      lengthInKm,
+    },
   };
 };
 

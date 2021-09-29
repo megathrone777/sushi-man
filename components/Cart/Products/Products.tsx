@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import Link from "next/link";
+import { usePersistedContext } from "react-persist-context";
 
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -31,7 +32,7 @@ import {
 
 const Products: React.FC = () => {
   const { t } = useTranslation();
-  const { dispatch, state } = useContext(AppContext);
+  const { dispatch, state } = usePersistedContext();
   const { cart } = state;
 
   const handleQuantityIncrease = (

@@ -1,7 +1,0 @@
-query AdditionalsQuery {
-  additionals {
-    id
-    title
-    price
-  }
-}

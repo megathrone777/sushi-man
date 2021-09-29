@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-// import { Map } from "react-mapycz";
+import React, { useEffect, useRef } from "react";
+import { useRouter } from "next/router";
+import { usePersistedContext } from "react-persist-context";
 
 import useTranslation from "~/intl/useTranslation";
-import { AppContext, setPickup } from "~/store";
+import { setPickup, setDeliveryPrice, TState } from "~/store";
+// import { SvgTargetIcon } from "~/icons";
 import {
   StyledWrapper,
   StyledContent,
@@ -20,59 +22,88 @@ import {
   StyledDeliveryInput,
   StyledPhoneInput,
   StyledLink,
+  StyledMap,
+  StyledLengthInKm,
+  StyledDeliveryPrice,
+  // StyledCurrentLocationButton,
 } from "./styled";
 
-interface TSuggestData {
-  phrase: string;
-  data: {
-    latitude: number;
-    longitude: number;
-  };
-}
-
-type TDelivery = "delivery" | "pickup";
-
 const Delivery: React.FC = () => {
+  const router = useRouter();
   const { t } = useTranslation();
-  const { dispatch } = useContext(AppContext);
-  const [delivery, setDelivery] = useState<TDelivery>("delivery");
-  const [suggestCoords, setSuggestCoords] = useState<{
-    lat: number;
-    lng: number;
-  }>({ lat: 50.08502707893264, lng: 14.132315462014551 });
-  const textInput = useRef(null);
-  const mapNode = useRef(null);
+  const { dispatch, state } = usePersistedContext();
+  const { cart } = state;
+  const addressInputElement = useRef(null);
+  const mapElement = useRef(null);
 
   const handleDeliveryChange = ({
     currentTarget,
   }: React.SyntheticEvent<HTMLInputElement>): void => {
     const name = currentTarget.value;
 
-    setDelivery(name as TDelivery);
+    dispatch(setPickup(name === "pickup"));
   };
 
   useEffect((): void => {
-    dispatch(setPickup(delivery === "pickup"));
-  }, [delivery, dispatch]);
+    const currentLengthInKm = parseInt(cart.lengthInKm);
 
-  useEffect(() => {
-    let suggest = new window.SMap.Suggest(textInput.current);
+    if (currentLengthInKm < 3) {
+      dispatch(setDeliveryPrice(0));
+    } else if (currentLengthInKm > 3 && currentLengthInKm < 7) {
+      dispatch(setDeliveryPrice(50));
+    } else if (currentLengthInKm > 3 && currentLengthInKm < 9) {
+      dispatch(setDeliveryPrice(100));
+    } else {
+      dispatch(setDeliveryPrice(-1));
+    }
+  }, [dispatch, cart.lengthInKm]);
 
-    suggest.urlParams({
-      bounds: "48.5370786,12.0921668|51.0746358,18.8927040",
+  useEffect((): void => {
+    if (cart.isPickupChecked) return;
+
+    const map = new google.maps.Map(mapElement.current, {
+      center: { lat: 50.08661, lng: 14.448785 },
+      zoom: 13,
+      fullscreenControl: false,
+      mapTypeControl: false,
+      streetViewControl: false,
+    });
+    const input = addressInputElement.current;
+    const autocomplete = new google.maps.places.Autocomplete(input, {});
+    const marker = new google.maps.Marker({
+      map,
+      anchorPoint: new google.maps.Point(0, -29),
     });
 
-    suggest.addListener("suggest", (suggestData: TSuggestData) => {
-      setSuggestCoords({
-        lat: suggestData.data.latitude,
-        lng: suggestData.data.longitude,
-      });
-    });
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
 
-    return () => {
-      suggest.removeListener("suggest");
-    };
-  }, []);
+      if (!place.geometry || !place.geometry.location) {
+        console.warn("No details available for input: '" + place.name + "'");
+        return;
+      }
+
+      if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+      } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(17);
+      }
+
+      marker.setPosition(place.geometry.location);
+      marker.setVisible(true);
+      router.push(
+        {
+          pathname: location.pathname,
+          query: {
+            destinations: `${place.geometry.location.lat()},${place.geometry.location.lng()}`,
+          },
+        },
+        undefined,
+        { scroll: false }
+      );
+    });
+  }, [cart.isPickupChecked]);
 
   return (
     <StyledWrapper>
@@ -80,7 +111,7 @@ const Delivery: React.FC = () => {
       <StyledHeader>
         <StyledRadioWrapper>
           <StyledRadio
-            checked={delivery === "delivery"}
+            checked={!cart.isPickupChecked}
             id="input-delivery"
             name="delivery-pickup"
             onChange={handleDeliveryChange}
@@ -94,6 +125,7 @@ const Delivery: React.FC = () => {
 
         <StyledRadioWrapper>
           <StyledRadio
+            checked={cart.isPickupChecked}
             id="input-pickup"
             name="delivery-pickup"
             onChange={handleDeliveryChange}
@@ -108,29 +140,7 @@ const Delivery: React.FC = () => {
       </StyledHeader>
 
       <StyledLayout>
-        {delivery === "delivery" && (
-          <StyledContent>
-            <StyledInputWrapper>
-              <StyledNameInput placeholder={t("name")} type="text" />
-            </StyledInputWrapper>
-
-            <StyledInputWrapper>
-              <StyledPhoneInput placeholder={t("phone")} type="tel" />
-            </StyledInputWrapper>
-
-            <StyledInputWrapper data-info="Cena dopravy: 500Kč">
-              <StyledDeliveryInput
-                ref={textInput}
-                placeholder={t("fillAddress")}
-                type="text"
-              />
-            </StyledInputWrapper>
-
-            {/* <Map center={suggestCoords} zoom={1} /> */}
-          </StyledContent>
-        )}
-
-        {delivery === "pickup" && (
+        {cart.isPickupChecked ? (
           <StyledContent>
             <StyledInputWrapper>
               <StyledNameInput placeholder={t("name")} type="text" />
@@ -149,6 +159,45 @@ const Delivery: React.FC = () => {
                 Husitská 187/60, Praha 3
               </StyledLink>
             </StyledInfo>
+          </StyledContent>
+        ) : (
+          <StyledContent>
+            <StyledInputWrapper>
+              <StyledNameInput placeholder={t("name")} type="text" />
+            </StyledInputWrapper>
+
+            <StyledInputWrapper>
+              <StyledPhoneInput placeholder={t("phone")} type="tel" />
+            </StyledInputWrapper>
+
+            <StyledInputWrapper>
+              <StyledDeliveryInput
+                ref={addressInputElement}
+                placeholder={t("fillAddress")}
+                type="text"
+              />
+              {/* <StyledCurrentLocationButton
+                onClick={handleCurrentLocationClick}
+                type="button"
+              >
+                <SvgTargetIcon />
+              </StyledCurrentLocationButton> */}
+              {cart.lengthInKm !== null && parseInt(cart.lengthInKm) > 0 && (
+                <StyledLengthInKm>{cart.lengthInKm}</StyledLengthInKm>
+              )}
+            </StyledInputWrapper>
+
+            {cart.deliveryPrice === -1 ? (
+              <StyledDeliveryPrice>
+                Ваш адрес вне диапазона доставки
+              </StyledDeliveryPrice>
+            ) : (
+              <StyledDeliveryPrice>
+                Cena dopravy: {cart.deliveryPrice} Kč
+              </StyledDeliveryPrice>
+            )}
+
+            <StyledMap ref={mapElement} />
           </StyledContent>
         )}
       </StyledLayout>

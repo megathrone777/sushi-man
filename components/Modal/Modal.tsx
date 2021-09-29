@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
+import { usePersistedContext } from "react-persist-context";
 
-import { AppContext, TSchedule } from "~/store";
+import { TSchedule } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
@@ -13,7 +14,6 @@ import {
   StyledClose,
   StyledBackground,
   StyledTime,
-  StyledText,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
@@ -29,7 +29,7 @@ interface TProps {
 
 const Modal: React.FC<TProps> = ({ close, isOpened }) => {
   const { locale, t } = useTranslation();
-  const { state } = useContext(AppContext);
+  const { state } = usePersistedContext();
   const contactsLinks = t("contactsLinks");
   const content: TSchedule = state.schedule[`schedule_${locale}`];
 

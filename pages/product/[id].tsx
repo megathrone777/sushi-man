@@ -11,8 +11,8 @@ import {
   TProduct,
   ProductsRecommended,
 } from "~/components";
-import HeroQuery from "~/queries/hero.graphql";
-import ProductsQuery from "~/queries/products.graphql";
+
+import ProductPageQuery from "~/queries/productpage.graphql";
 
 interface TProps {
   product: TProduct;
@@ -37,7 +37,7 @@ const ProductPage: NextPage<TProps> = ({ hero, product, products }) => (
   </Layout>
 );
 
-ProductPage.getInitialProps = async ({ query: { id } }) => {
+export const getServerSideProps = async ({ query: { id } }) => {
   const { data: product } = await client.query({
     query: gql`
       query ProductQuery {
@@ -69,24 +69,23 @@ ProductPage.getInitialProps = async ({ query: { id } }) => {
     `,
   });
 
-  const { data: hero } = await client.query({
-    query: gql`
-      ${HeroQuery}
-    `,
-  });
-
   const {
-    data: { products },
+    data: { products, hero_cs, hero_ru },
   } = await client.query({
     query: gql`
-      ${ProductsQuery}
+      ${ProductPageQuery}
     `,
   });
 
   return {
-    ...product,
-    hero,
-    products,
+    props: {
+      ...product,
+      hero: {
+        hero_cs,
+        hero_ru,
+      },
+      products,
+    },
   };
 };
 

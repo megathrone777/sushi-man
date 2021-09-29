@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNotifications } from "reapop";
 import Image from "next/image";
+import { usePersistedContext } from "react-persist-context";
 
 import { TProps, TProductModifier, TProductSubmodifier } from "./types";
 import useTranslation from "~/intl/useTranslation";
-import { AppContext, addToCart, TCartProduct } from "~/store";
+import { addToCart, TCartProduct } from "~/store";
 import {
   StyledWrapper,
   StyledLayout,
@@ -38,7 +39,7 @@ const ProductDetails: React.FC<TProps> = ({
   title,
   weight,
 }) => {
-  const { dispatch } = useContext(AppContext);
+  const { dispatch } = usePersistedContext();
   const { notify } = useNotifications();
   const { t } = useTranslation();
   const [totalPrice, setTotalPrice] = useState<number>(parseInt(price));

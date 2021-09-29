@@ -1,4 +1,4 @@
-import { css, styled } from "~/theme";
+import { styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
   border-bottom: ${({ theme }) => theme.rem(4)} solid #da2628;
@@ -14,6 +14,7 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledLayout = styled.div`
+  align-items: flex-start;
   display: flex;
   justify-content: space-between;
 
@@ -22,7 +23,7 @@ export const StyledLayout = styled.div`
   }
 `;
 
-export const StyledTotal = styled.p`
+export const StyledTotal = styled.div`
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
   margin-bottom: ${({ theme }) => theme.rem(22)};
   text-align: right;

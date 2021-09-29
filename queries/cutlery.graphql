@@ -1,5 +1,0 @@
-query CutleryQuery {
-  cutlery {
-    price
-  }
-}

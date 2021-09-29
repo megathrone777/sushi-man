@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import Link from "next/link";
 import { useNotifications } from "reapop";
+import { usePersistedContext } from "react-persist-context";
 
 import { TProps } from "./types";
 import { SvgBuyIcon } from "~/icons";
 import { TProduct } from "~/components";
-import { addToCart, AppContext, TCartProduct } from "~/store";
+import { addToCart, TCartProduct } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
@@ -30,7 +31,7 @@ import { StyledContainer } from "~/components/Layout/styled";
 const Products: React.FC<TProps> = ({ products }) => {
   const { t } = useTranslation();
   const { notify } = useNotifications();
-  const { dispatch } = useContext(AppContext);
+  const { dispatch } = usePersistedContext();
   const productsTitle = t("productsTitle");
 
   const handleScrollTo = (): void => {
@@ -100,9 +101,11 @@ const Products: React.FC<TProps> = ({ products }) => {
                         <StyledItemText>{weight}</StyledItemText>
                       </StyledItemDesc>
 
-                      <StyledItemDesc>
-                        <StyledItemText>{ingredients}</StyledItemText>
-                      </StyledItemDesc>
+                      {ingredients && (
+                        <StyledItemDesc>
+                          <StyledItemText>{ingredients}</StyledItemText>
+                        </StyledItemDesc>
+                      )}
 
                       {allergeny && (
                         <StyledItemDesc>
