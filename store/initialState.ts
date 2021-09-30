@@ -1,4 +1,4 @@
-import { TProduct } from "~/components";
+import { TProduct, TProductModifier } from "~/components";
 
 export interface TAdditional {
   id: number;
@@ -20,17 +20,22 @@ export interface TCartProduct extends TProduct {
 }
 
 export interface TState {
-  cutleryPrice: number;
   cart: {
+    additionals: TAdditional[];
+    customerAddress: string;
+    customerName: string;
+    customerNote: string;
+    customerPhone: string;
     cutleryAmount: number;
+    cutleryPrice: number;
     cutleryTotalPrice: number;
     deliveryPrice: number;
     isPickupChecked: boolean;
-    products: TCartProduct[];
-    additionals: TAdditional[];
     lengthInKm: string;
-    totalRollsDiscount: number;
+    modifiers: TProductModifier[];
+    products: TCartProduct[];
     totalPersons: number;
+    totalRollsDiscount: number;
   };
   schedule: {
     schedule_cs: TSchedule;
@@ -39,14 +44,19 @@ export interface TState {
 }
 
 const initialState: TState = {
-  cutleryPrice: 0,
   cart: {
     additionals: [],
+    customerAddress: "",
+    customerNote: "",
     cutleryAmount: 1,
+    cutleryPrice: 0,
     cutleryTotalPrice: 0,
     deliveryPrice: 0,
     isPickupChecked: false,
     lengthInKm: null,
+    customerName: "",
+    customerPhone: "",
+    modifiers: [],
     products: [],
     totalPersons: 0,
     totalRollsDiscount: 0,

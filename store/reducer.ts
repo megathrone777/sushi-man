@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TProduct } from "~/components";
+import { TProduct, TProductModifier } from "~/components";
 import { TAction, TActionTypes } from "./actions";
 import { TAdditional, TState } from "./initialState";
 
@@ -31,6 +31,21 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
           ...state.cart,
           products,
           totalPersons: cart.totalPersons,
+        },
+      };
+    },
+
+    [TActionTypes.SET_PRODUCT_MODIFIERS]: (): TState => {
+      const modifiers = [...state.cart.modifiers];
+      const foundIndex = modifiers.findIndex(
+        (modifier: TProductModifier) => modifier.id === payload.id
+      );
+
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          modifiers: [...state.cart.modifiers, payload],
         },
       };
     },
@@ -132,7 +147,10 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
 
     [TActionTypes.SET_CUTLERY_PRICE]: (): TState => ({
       ...state,
-      cutleryPrice: payload,
+      cart: {
+        ...state.cart,
+        cutleryPrice: payload,
+      },
     }),
 
     [TActionTypes.SET_CUTLERY_AMOUNT]: (): TState => ({
@@ -171,8 +189,8 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
       ...state,
       cart: {
         ...state.cart,
-        deliveryPrice: payload
-      }
+        deliveryPrice: payload,
+      },
     }),
 
     [TActionTypes.SET_LENGTH_IN_KM]: (): TState => ({
@@ -180,6 +198,30 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
       cart: {
         ...state.cart,
         lengthInKm: payload,
+      },
+    }),
+
+    [TActionTypes.SET_CUSTOMER_NAME]: (): TState => ({
+      ...state,
+      cart: {
+        ...state.cart,
+        customerName: payload,
+      },
+    }),
+
+    [TActionTypes.SET_CUSTOMER_PHONE]: (): TState => ({
+      ...state,
+      cart: {
+        ...state.cart,
+        customerPhone: payload,
+      },
+    }),
+
+    [TActionTypes.SET_CUSTOMER_ADDRESS]: (): TState => ({
+      ...state,
+      cart: {
+        ...state.cart,
+        customerAddress: payload,
       },
     }),
 

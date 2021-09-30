@@ -1,3 +1,4 @@
+import { TProductModifier } from "~/components";
 import { TAdditional, TCartProduct, TSchedule } from "./initialState";
 
 export enum TActionTypes {
@@ -17,6 +18,14 @@ export enum TActionTypes {
   SET_TOTAL_ROLLS_DISCOUNT = "SET_TOTAL_ROLLS_DISCOUNT",
   SET_LENGTH_IN_KM = "SET_LENGTH_IN_KM",
   SET_DELIVERY_PRICE = "SET_DELIVERY_PRICE",
+  SET_CUSTOMER_NAME = "SET_CUSTOMER_NAME",
+  SET_CUSTOMER_NAME_ERROR = "SET_CUSTOMER_NAME_ERROR",
+  SET_CUSTOMER_PHONE = "SET_CUSTOMER_PHONE",
+  SET_CUSTOMER_PHONE_ERROR = "SET_CUSTOMER_PHONE_ERROR",
+  SET_CUSTOMER_ADDRESS = "SET_CUSTOMER_ADDRESS",
+  SET_CUSTOMER_ADDRESS_ERROR = "SET_CUSTOMER_ADDRESS_ERROR",
+  SET_CUSTOMER_NOTE = "SET_CUSTOMER_NOTE",
+  SET_PRODUCT_MODIFIERS = "SET_PRODUCT_MODIFIERS",
 }
 
 export interface TAction {
@@ -27,6 +36,11 @@ export interface TAction {
 export const addToCart = (product: TCartProduct): TAction => ({
   payload: product,
   type: TActionTypes.ADD_PRODUCT,
+});
+
+export const setProductModifiers = (modifier: TProductModifier): TAction => ({
+  payload: modifier,
+  type: TActionTypes.SET_PRODUCT_MODIFIERS,
 });
 
 export const removeFromCart = (
@@ -128,4 +142,24 @@ export const setSchedule = ({
 export const setLengthInKm = (lengthInKm: string): TAction => ({
   payload: lengthInKm,
   type: TActionTypes.SET_LENGTH_IN_KM,
+});
+
+export const setCustomerName = (name: string): TAction => ({
+  payload: name,
+  type: TActionTypes.SET_CUSTOMER_NAME,
+});
+
+export const setCustomerAddress = (address: string): TAction => ({
+  payload: address,
+  type: TActionTypes.SET_CUSTOMER_ADDRESS,
+});
+
+export const setCustomerPhone = (phone: string): TAction => ({
+  payload: phone,
+  type: TActionTypes.SET_CUSTOMER_PHONE,
+});
+
+export const setCustomerNote = (note: string): TAction => ({
+  payload: note,
+  type: TActionTypes.SET_CUSTOMER_NOTE,
 });

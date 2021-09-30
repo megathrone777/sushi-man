@@ -65,9 +65,9 @@ const ProductDetails: React.FC<TProps> = ({
       );
 
       setModifierIds(newModifierIds);
-      setTotalPrice((prevTotalPrice: number): number => {
-        return prevTotalPrice - parseInt(price);
-      });
+      setTotalPrice(
+        (prevTotalPrice: number): number => prevTotalPrice - parseInt(price)
+      );
     } else {
       const newModifierIds = [...modifierIds];
 
@@ -215,13 +215,13 @@ const ProductDetails: React.FC<TProps> = ({
                 ingredients,
                 isRoll,
                 persons,
-                price,
+                price: price + [modifierIds].length * 20,
                 product_modifiers,
                 quantity: 1,
                 slug,
                 title,
                 weight,
-                totalPrice: parseInt(price),
+                totalPrice,
               })
             }
             type="button"

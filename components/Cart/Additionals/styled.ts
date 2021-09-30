@@ -1,11 +1,7 @@
 import { styled } from "~/theme";
 
-export const StyledTable = styled.table`
-  border-top: ${({ theme }) => theme.rem(3)} solid #da2628;
+export const StyledWrapper = styled.div`
   margin-bottom: ${({ theme }) => theme.rem(40)};
-  min-height: ${({ theme }) => theme.rem(220)};
-  table-layout: fixed;
-  text-align: left;
   width: 45%;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -13,6 +9,15 @@ export const StyledTable = styled.table`
     min-height: 0;
     width: 100%;
   }
+`;
+
+export const StyledTable = styled.table`
+  border-top: ${({ theme }) => theme.rem(3)} solid #da2628;
+  margin-bottom: ${({ theme }) => theme.rem(20)};
+  min-height: ${({ theme }) => theme.rem(220)};
+  table-layout: fixed;
+  text-align: left;
+  width: 100%;
 `;
 
 export const StyledTableCaption = styled.caption`
@@ -73,5 +78,39 @@ export const StyledQuantityButton = styled.button<{
 
   &:hover {
     opacity: 0.8;
+  }
+`;
+
+export const StyledNoteWrapper = styled.div`
+  position: relative;
+`;
+
+export const StyledNoteIcon = styled.i`
+  color: #da2628;
+  position: absolute;
+  display: block;
+  top: ${({ theme }) => theme.rem(1)};
+  width: ${({ theme }) => theme.rem(30)};
+`;
+
+export const StyledNoteLabel = styled.p`
+  border-bottom: ${({ theme }) => theme.rem(3)} solid #da2628;
+  font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
+  margin-bottom: ${({ theme }) => theme.rem(20)};
+  padding: ${({ theme }) => theme.rem(10)};
+`;
+
+export const StyledNote = styled.textarea`
+  border: none;
+  border-bottom: ${({ theme }) => theme.rem(2)} solid #da2628;
+  display: block;
+  font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontMedium}`};
+  height: ${({ theme }) => theme.rem(60)};
+  padding: ${({ theme }) => `${theme.rem(5)} ${theme.rem(40)}`};
+  resize: none;
+  width: 100%;
+
+  &:focus {
+    outline: none;
   }
 `;

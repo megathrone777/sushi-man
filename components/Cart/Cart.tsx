@@ -18,6 +18,7 @@ import {
   StyledButtons,
   StyledBuy,
   StyledLayout,
+  StyledCheckbox,
 } from "./styled";
 
 const Cart: React.FC = () => {
@@ -89,7 +90,9 @@ const Cart: React.FC = () => {
             </StyledTotal>
 
             <StyledButtons>
-              <StyledBuy type="button">{t("goToPay")}</StyledBuy>
+              <StyledBuy disabled type="button">
+                {t("goToPay")}
+              </StyledBuy>
             </StyledButtons>
           </>
         ) : (

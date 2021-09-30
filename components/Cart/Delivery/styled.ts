@@ -117,6 +117,7 @@ export const StyledRadio = styled.input`
   cursor: pointer;
   display: inline-block;
   height: ${({ theme }) => theme.rem(25)};
+  margin-top: 0;
   margin-right: ${({ theme }) => theme.rem(10)};
   min-width: ${({ theme }) => theme.rem(25)};
   width: ${({ theme }) => theme.rem(25)};

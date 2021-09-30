@@ -1,9 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { usePersistedContext } from "react-persist-context";
 
 import useTranslation from "~/intl/useTranslation";
-import { setPickup, setDeliveryPrice, TState } from "~/store";
+import {
+  setPickup,
+  setDeliveryPrice,
+  setCustomerAddress,
+  setCustomerName,
+  setCustomerPhone,
+} from "~/store";
 // import { SvgTargetIcon } from "~/icons";
 import {
   StyledWrapper,
@@ -44,6 +50,18 @@ const Delivery: React.FC = () => {
     dispatch(setPickup(name === "pickup"));
   };
 
+  const handlePhoneChange = ({
+    currentTarget,
+  }: React.SyntheticEvent<HTMLInputElement>): void => {
+    dispatch(setCustomerPhone(currentTarget.value.replace(/\D/, "")));
+  };
+
+  const handleNameChange = ({
+    currentTarget,
+  }: React.SyntheticEvent<HTMLInputElement>): void => {
+    dispatch(setCustomerName(currentTarget.value));
+  };
+
   useEffect((): void => {
     const currentLengthInKm = parseInt(cart.lengthInKm);
 
@@ -54,7 +72,7 @@ const Delivery: React.FC = () => {
     } else if (currentLengthInKm > 3 && currentLengthInKm < 9) {
       dispatch(setDeliveryPrice(100));
     } else {
-      dispatch(setDeliveryPrice(-1));
+      dispatch(setDeliveryPrice(null));
     }
   }, [dispatch, cart.lengthInKm]);
 
@@ -92,6 +110,7 @@ const Delivery: React.FC = () => {
 
       marker.setPosition(place.geometry.location);
       marker.setVisible(true);
+      dispatch(setCustomerAddress(place.formatted_address));
       router.push(
         {
           pathname: location.pathname,
@@ -143,11 +162,22 @@ const Delivery: React.FC = () => {
         {cart.isPickupChecked ? (
           <StyledContent>
             <StyledInputWrapper>
-              <StyledNameInput placeholder={t("name")} type="text" />
+              <StyledNameInput
+                onChange={handleNameChange}
+                placeholder={t("name")}
+                type="text"
+                value={cart.customerName}
+              />
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledPhoneInput placeholder={t("phone")} type="tel" />
+              <StyledPhoneInput
+                onChange={handlePhoneChange}
+                pattern="[0-9]*"
+                placeholder={t("phone")}
+                type="tel"
+                value={cart.customerPhone}
+              />
             </StyledInputWrapper>
 
             <StyledInfo>
@@ -163,18 +193,29 @@ const Delivery: React.FC = () => {
         ) : (
           <StyledContent>
             <StyledInputWrapper>
-              <StyledNameInput placeholder={t("name")} type="text" />
+              <StyledNameInput
+                onChange={handleNameChange}
+                placeholder={t("name")}
+                type="text"
+                value={cart.customerName}
+              />
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledPhoneInput placeholder={t("phone")} type="tel" />
+              <StyledPhoneInput
+                onChange={handlePhoneChange}
+                pattern="[0-9]*"
+                placeholder={t("phone")}
+                type="tel"
+                value={cart.customerPhone}
+              />
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledDeliveryInput
+              <StyledDeliveryInput            
                 ref={addressInputElement}
                 placeholder={t("fillAddress")}
-                type="text"
+                type="search"
               />
               {/* <StyledCurrentLocationButton
                 onClick={handleCurrentLocationClick}
@@ -187,7 +228,7 @@ const Delivery: React.FC = () => {
               )}
             </StyledInputWrapper>
 
-            {cart.deliveryPrice === -1 ? (
+            {cart.deliveryPrice === null ? (
               <StyledDeliveryPrice>
                 Ваш адрес вне диапазона доставки
               </StyledDeliveryPrice>

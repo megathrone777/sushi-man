@@ -70,3 +70,10 @@ export const StyledQuantityPrice = styled.span`
 export const StyledPrice = styled.span`
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
 `;
+
+export const StyledCheckbox = styled.input`
+  appearance: none;
+  display: inline-block;
+  height: ${({ theme }) => theme.rem(35)};
+  width: ${({ theme }) => theme.rem(35)};
+`;

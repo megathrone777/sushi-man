@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { usePersistedContext } from "react-persist-context";
 
 import useTranslation from "~/intl/useTranslation";
@@ -24,8 +24,14 @@ import {
 const Persons: React.FC = () => {
   const { t } = useTranslation();
   const { dispatch, state } = usePersistedContext();
-  const { cart, cutleryPrice } = state;
-  const { cutleryAmount, cutleryTotalPrice, products, totalPersons } = cart;
+  const { cart } = state;
+  const {
+    cutleryPrice,
+    cutleryAmount,
+    cutleryTotalPrice,
+    products,
+    totalPersons,
+  } = cart;
   const [amount, setAmount] = useState<number>(1);
 
   const checkRollsAdded = useCallback((): number => {
@@ -34,7 +40,7 @@ const Persons: React.FC = () => {
     );
 
     const totalAmount = totalRollsAdded.reduce(
-      (accumulator, { quantity }: TCartProduct) => {
+      (accumulator: number, { quantity }: TCartProduct) => {
         return accumulator + quantity;
       },
       0
@@ -130,7 +136,7 @@ const Persons: React.FC = () => {
             <SvgPlusIcon />
           </StyledQuantityButton>
         </StyledQuantityWrapper>
-        <StyledQuantityPrice>{cutleryTotalPrice} Kc</StyledQuantityPrice>
+        <StyledQuantityPrice>{cutleryTotalPrice} Kč</StyledQuantityPrice>
         <StyledText>
           Do <StyledTextLabel>{totalPersons}</StyledTextLabel>{" "}
           {t("cutleryPriceIncluded")}
