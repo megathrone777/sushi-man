@@ -1,31 +1,23 @@
-import * as styledComponents from "styled-components";
-
-import { breakpoints, Breakpoints } from "./variables/breakpoints";
-import { fonts, Fonts } from "./variables/fonts";
-
-interface ThemeInterface {
-  breakpoints: Breakpoints;
-  fonts: Fonts;
-  rem: (px: number) => string;
-}
-
-const {
-  ThemeProvider,
+import styled, {
   createGlobalStyle,
-  default: styled,
   css,
-} = styledComponents as styledComponents.ThemedStyledComponentsModule<
-  ThemeInterface
->;
+  DefaultTheme,
+  ThemeProvider,
+} from "styled-components";
 
-const theme: ThemeInterface = {
+import { breakpoints } from "./variables/breakpoints";
+import { colors } from "./variables/colors";
+import { fonts } from "./variables/fonts";
+
+const theme: DefaultTheme = {
   breakpoints,
+  colors,
   fonts,
   rem: (px) => {
     const baseFontSize = fonts.initialFontSize;
-    
+
     return `${px / baseFontSize}rem`;
   },
 };
 
-export { styled, theme, ThemeProvider, css, createGlobalStyle };
+export { createGlobalStyle, css, styled, theme, ThemeProvider };

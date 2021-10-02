@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import { NextPage } from "next";
 import { gql } from "@apollo/client";
-import { usePersistedContext } from "react-persist-context";
 
 import client from "~/apollo-client";
-import { TAdditional, setAdditionals } from "~/store";
-import { TSchedule } from "~/store";
+import { TAdditional, TSchedule, setAdditionals, useStore } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   About,
@@ -59,13 +57,13 @@ const IndexPage: NextPage<TProps> = ({
   reviews,
   schedule,
 }) => {
-  const { dispatch } = usePersistedContext();
+  const { dispatch } = useStore();
   const { t } = useTranslation();
   const mainTitle = t("mainTitle");
 
   useEffect((): void => {
     dispatch(setAdditionals(additionals));
-  }, []);
+  }, [additionals, dispatch]);
 
   return (
     <Layout title={mainTitle}>

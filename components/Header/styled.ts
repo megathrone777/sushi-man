@@ -85,10 +85,11 @@ export const StyledButtonHelper = styled.span<{
   isHalf?: boolean;
 }>`
   align-self: ${({ isRight }) => (isRight ? "flex-end" : "auto")};
-  background-color: ${({ isOpened }) => (isOpened ? "#da2628" : "black")};
+  background-color: ${({ isOpened, theme }) =>
+    isOpened ? theme.colors.red : "black"};
   border-radius: ${({ theme }) => theme.rem(5)};
   height: ${({ theme }) => theme.rem(4)};
-  opacity: .7;
+  opacity: 0.7;
   width: ${({ isHalf }) => (isHalf ? "50%" : "100%")};
   transform: ${({ isOpened, isRight, isLeft }) =>
     isOpened && isLeft

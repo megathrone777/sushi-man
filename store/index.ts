@@ -1,4 +1,3 @@
-export { AppProvider } from "./context";
 export {
   addAdditional,
   addToCart,
@@ -21,4 +20,6 @@ export {
   setSchedule,
   setTotalRollsDiscount,
 } from "./actions";
+export { useStore, AppContext } from "./context";
+export { reducer } from "./reducer";
 export type { TCartProduct, TAdditional, TSchedule } from "./initialState";

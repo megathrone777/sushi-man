@@ -1,8 +1,8 @@
 import React from "react";
-import { usePersistedContext } from "react-persist-context";
+
 
 import useTranslation from "~/intl/useTranslation";
-import { TAdditional, changeAdditionalQuantity } from "~/store";
+import { TAdditional, changeAdditionalQuantity, useStore } from "~/store";
 import { SvgPlusIcon, SvgMinusIcon, SvgNoteIcon } from "~/icons";
 import {
   StyledWrapper,
@@ -23,7 +23,7 @@ import {
 
 const Additionals: React.FC = () => {
   const { t } = useTranslation();
-  const { dispatch, state } = usePersistedContext();
+  const { dispatch, state } = useStore();
   const { cart } = state;
 
   const handleQuantityIncrease = (id: number, quantity: number): void => {

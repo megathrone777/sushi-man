@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { usePersistedContext } from "react-persist-context";
 
+import { useStore } from "~/store";
 import {
   StyledWrapper,
   StyledLink,
@@ -10,7 +10,7 @@ import {
 } from "./styled";
 
 const Cart: React.FC = () => {
-  const { state } = usePersistedContext();
+  const { state } = useStore();
   const totalAmount = state.cart.products.length;
 
   return (

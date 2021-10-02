@@ -42,7 +42,11 @@ const Layout: React.FC<TLayout> = ({ children, title, inner }) => {
             innerMenuItems={innerMenu}
           />
           <StyledContent>{children}</StyledContent>
-          <Footer />
+          <Footer
+            inner={inner}
+            mainMenuItems={mainMenu}
+            innerMenuItems={innerMenu}
+          />
         </StyledWrapper>
 
         <NotificationsSystem

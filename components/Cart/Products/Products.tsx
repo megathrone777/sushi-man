@@ -1,14 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { usePersistedContext } from "react-persist-context";
+
 
 import useTranslation from "~/intl/useTranslation";
-import {
-  AppContext,
-  TCartProduct,
-  changeQuantity,
-  removeFromCart,
-} from "~/store";
+import { TCartProduct, changeQuantity, removeFromCart, useStore } from "~/store";
 import { SvgPlusIcon, SvgMinusIcon } from "~/icons";
 import {
   StyledWrapper,
@@ -32,7 +27,7 @@ import {
 
 const Products: React.FC = () => {
   const { t } = useTranslation();
-  const { dispatch, state } = usePersistedContext();
+  const { dispatch, state } = useStore();
   const { cart } = state;
 
   const handleQuantityIncrease = (

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { usePersistedContext } from "react-persist-context";
 
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -9,6 +8,7 @@ import {
   setCustomerAddress,
   setCustomerName,
   setCustomerPhone,
+  useStore,
 } from "~/store";
 // import { SvgTargetIcon } from "~/icons";
 import {
@@ -37,7 +37,7 @@ import {
 const Delivery: React.FC = () => {
   const router = useRouter();
   const { t } = useTranslation();
-  const { dispatch, state } = usePersistedContext();
+  const { dispatch, state } = useStore();
   const { cart } = state;
   const addressInputElement = useRef(null);
   const mapElement = useRef(null);
@@ -212,7 +212,7 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledDeliveryInput            
+              <StyledDeliveryInput
                 ref={addressInputElement}
                 placeholder={t("fillAddress")}
                 type="search"

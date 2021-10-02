@@ -1,16 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { NextPage } from "next";
 import { gql } from "@apollo/client";
 import fetch from "isomorphic-unfetch";
-import { usePersistedContext } from "react-persist-context";
 
 import client from "~/apollo-client";
 import {
   TAdditional,
-  AppContext,
   setAdditionals,
   setCutleryPrice,
   setLengthInKm,
+  useStore,
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -44,7 +43,7 @@ const CartPage: NextPage<TProps> = ({
   products,
   lengthInKm,
 }) => {
-  const { dispatch } = usePersistedContext();
+  const { dispatch } = useStore();
   const { t } = useTranslation();
   const cartTitle = t("cartTitle");
 
@@ -52,7 +51,7 @@ const CartPage: NextPage<TProps> = ({
     dispatch(setLengthInKm(lengthInKm));
     dispatch(setCutleryPrice(cutlery.price));
     dispatch(setAdditionals(additionals));
-  }, [dispatch, lengthInKm]);
+  }, [additionals, cutlery.price, dispatch, lengthInKm]);
 
   return (
     <Layout inner title={cartTitle}>

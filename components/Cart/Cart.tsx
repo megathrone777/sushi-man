@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { usePersistedContext } from "react-persist-context";
+
 
 import useTranslation from "~/intl/useTranslation";
-import { TCartProduct, TAdditional } from "~/store";
+import { TCartProduct, TAdditional, useStore } from "~/store";
 import { Additionals } from "./Additionals";
 import { Delivery } from "./Delivery";
 import { Payment } from "./Payment";
@@ -24,7 +24,7 @@ import {
 const Cart: React.FC = () => {
   const router = useRouter();
   const { t } = useTranslation();
-  const { state } = usePersistedContext();
+  const { state } = useStore();
   const { cart } = state;
   const {
     cutleryTotalPrice,

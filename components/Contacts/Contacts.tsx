@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { usePersistedContext } from "react-persist-context";
+import React from "react";
 
-import { TSchedule, AppContext, setSchedule } from "~/store";
+
+import { TSchedule, setSchedule, useStore } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
@@ -30,7 +30,7 @@ interface TProps {
 
 const Contacts: React.FC<TProps> = ({ schedule }) => {
   const { locale, t } = useTranslation();
-  const { dispatch } = usePersistedContext();
+  const { dispatch } = useStore();
   const content = schedule[`schedule_${locale}`];
   const contactsLinks = t("contactsLinks");
 

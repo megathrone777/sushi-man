@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { usePersistedContext } from "react-persist-context";
 
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -7,6 +6,7 @@ import {
   setCutleryTotalPrice,
   setTotalRollsDiscount,
   TCartProduct,
+  useStore,
 } from "~/store";
 import { SvgPlusIcon, SvgMinusIcon } from "~/icons";
 import {
@@ -23,7 +23,7 @@ import {
 
 const Persons: React.FC = () => {
   const { t } = useTranslation();
-  const { dispatch, state } = usePersistedContext();
+  const { dispatch, state } = useStore();
   const { cart } = state;
   const {
     cutleryPrice,

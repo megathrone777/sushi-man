@@ -1,11 +1,11 @@
-export interface Breakpoints {
+export interface TBreakpoints {
   desktop: string;
   tablet: string;
   mobile: string;
   mobileSm: string;
 }
 
-const breakpoints: Breakpoints = {
+const breakpoints: TBreakpoints = {
   desktop: "1235px",
   tablet: "1023px",
   mobile: "767px",

@@ -111,11 +111,11 @@ const slick = css`
       no-repeat;
     border: none;
     cursor: pointer;
-    height: 60px;
+    height: ${({ theme }) => theme.rem(60)};
     position: absolute;
     text-indent: -9999px;
     top: 50%;
-    width: 40px;
+    width: ${({ theme }) => theme.rem(40)};
 
     @media (max-width: 600px) {
       display: none !important;

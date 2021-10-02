@@ -13,7 +13,7 @@ const base = css`
   }
 
   html {
-    font-size: ${({ theme }): string | number => theme.fonts.initialFontSize}px;
+    font-size: ${({ theme }): number => theme.fonts.initialFontSize}px;
     scroll-behavior: smooth;
   }
 

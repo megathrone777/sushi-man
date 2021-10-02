@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNotifications } from "reapop";
 import Image from "next/image";
-import { usePersistedContext } from "react-persist-context";
+
 
 import { TProps, TProductModifier, TProductSubmodifier } from "./types";
 import useTranslation from "~/intl/useTranslation";
-import { addToCart, TCartProduct } from "~/store";
+import { addToCart, TCartProduct, useStore } from "~/store";
 import {
   StyledWrapper,
   StyledLayout,
@@ -39,7 +39,7 @@ const ProductDetails: React.FC<TProps> = ({
   title,
   weight,
 }) => {
-  const { dispatch } = usePersistedContext();
+  const { dispatch } = useStore();
   const { notify } = useNotifications();
   const { t } = useTranslation();
   const [totalPrice, setTotalPrice] = useState<number>(parseInt(price));
@@ -47,6 +47,7 @@ const ProductDetails: React.FC<TProps> = ({
   const [submodifiersIds, setSubmodifiersIds] = useState<string[]>([]);
 
   const handleAddToCart = (product: TCartProduct): void => {
+    console.log('handle add');
     dispatch(addToCart(product));
     notify({
       dismissAfter: 3000,
@@ -198,10 +199,12 @@ const ProductDetails: React.FC<TProps> = ({
                 </StyledModifiers>
               </>
             )}
-            <StyledItemPrice>
-              <StyledItemTitle>{t("priceTotal")}:</StyledItemTitle>
-              {totalPrice} Kč
-            </StyledItemPrice>
+            {product_modifiers.length > 0 && (
+              <StyledItemPrice>
+                <StyledItemTitle>{t("priceTotal")}:</StyledItemTitle>
+                {totalPrice} Kč
+              </StyledItemPrice>
+            )}
           </StyledContent>
 
           <StyledButton

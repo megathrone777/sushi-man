@@ -153,7 +153,6 @@ export const StyledButton = styled.button`
   }
 
   &:hover {
-    box-shadow: 0px 0px ${({ theme }) => theme.rem(14)} 0px
-      rgba(218, 38, 40, 0.75);
+    box-shadow: 0 0 ${({ theme }) => theme.rem(14)} 0 rgba(218, 38, 40, 0.75);
   }
 `;

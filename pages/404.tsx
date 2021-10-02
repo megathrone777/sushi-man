@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { theme, ThemeProvider } from "~/theme";
 import { GlobalStyle } from "~/theme/global-style";
@@ -10,7 +11,7 @@ const Page404: React.FC = () => (
     <GlobalStyle />
 
     <StyledWrapper>
-      <img alt="Logo" src="/images/logo_img.png" />
+      <Image alt="Logo" layout="fill" src="/images/logo_img.png" />
       <StyledTitle>Page not found</StyledTitle>
 
       <Link href="/" passHref>
@@ -33,7 +34,7 @@ const StyledTitle = styled.h1`
 `;
 
 const StyledButton = styled.a`
-  background-color: #da2628;
+  background-color: ${({ theme }) => theme.colors.red};
   color: white;
   display: inline-block;
   font: ${({ theme }) => theme.rem(22)} ${({ theme }) => theme.fonts.fontMedium};
@@ -66,8 +67,7 @@ const StyledButton = styled.a`
   }
 
   &:hover {
-    box-shadow: 0px 0px ${({ theme }) => theme.rem(14)} 0px
-      rgba(218, 38, 40, 0.75);
+    box-shadow: 0 0 ${({ theme }) => theme.rem(14)} 0 rgba(218, 38, 40, 0.75);
   }
 `;
 

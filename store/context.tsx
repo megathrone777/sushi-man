@@ -1,13 +1,32 @@
-import React from "react";
-import { PersistentContextProvider } from "react-persist-context";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
+import { set } from "local-storage";
 
-import { initialState } from "./initialState";
+import { TState, initialState } from "./initialState";
+import { TAction } from "./actions";
 import { reducer } from "./reducer";
 
-const AppProvider: React.FC = ({ children }) => (
-  <PersistentContextProvider store={{ state: initialState, reducer }}>
-    {children}
-  </PersistentContextProvider>
-);
+const AppContext = createContext<{
+  state: TState;
+  dispatch: React.Dispatch<TAction>;
+}>({
+  state: initialState,
+  dispatch: () => null,
+});
 
-export { AppProvider };
+const AppProvider: React.FC = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect((): void => {
+    set<TState>("state", state);
+  }, [state]);
+
+  return (
+    <AppContext.Provider value={{ state, dispatch }}>
+      {children}
+    </AppContext.Provider>
+  );
+};
+
+const useStore = () => useContext(AppContext);
+
+export { AppContext, AppProvider, useStore };

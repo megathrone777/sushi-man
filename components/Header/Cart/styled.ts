@@ -4,6 +4,7 @@ export const StyledWrapper = styled.div`
   background-color: #da2628;
   border-radius: 50%;
   border: ${({ theme }) => theme.rem(3)} solid white;
+  display: flex;
   height: ${({ theme }) => theme.rem(70)};
   margin-left: ${({ theme }) => theme.rem(70)};
   padding: ${({ theme }) => theme.rem(5)};
@@ -21,14 +22,22 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledLink = styled.a`
+  align-items: center;
+  color: white;
   cursor: pointer;
   display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100%;
+  justify-content: center;
+  width: 100%;
 `;
 
-export const StyledAmount = styled.p`
+export const StyledIcon = styled.i`
+  display: block;
+  height: ${({ theme }) => theme.rem(35)};
+  width: ${({ theme }) => theme.rem(35)};
+`;
+
+export const StyledAmount = styled.div`
   background-color: white;
   border-radius: 50%;
   bottom: ${({ theme }) => theme.rem(-5)};
@@ -40,9 +49,4 @@ export const StyledAmount = styled.p`
   right: ${({ theme }) => theme.rem(-5)};
   text-align: center;
   user-select: none;
-`;
-
-export const StyledSvgSymbol = styled.svg`
-  height: ${({ theme }) => theme.rem(35)};
-  width: ${({ theme }) => theme.rem(35)};
 `;

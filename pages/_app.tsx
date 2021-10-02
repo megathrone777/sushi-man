@@ -3,8 +3,8 @@ import Script from "next/script";
 import { AppProps } from "next/app";
 import { NotificationsProvider } from "reapop";
 
-import { AppProvider } from "~/store";
 import { LanguageProvider } from "../intl/LanguageProvider";
+import { AppProvider } from "~/store/context";
 
 const App = ({ Component, pageProps, router }: AppProps) => (
   <>
@@ -56,8 +56,8 @@ const App = ({ Component, pageProps, router }: AppProps) => (
       }}
       id="yandex"
     />
-    <NotificationsProvider>
-      <AppProvider>
+    <AppProvider>
+      <NotificationsProvider>
         <LanguageProvider>
           <Component {...pageProps} key={router.route} />
         </LanguageProvider>
@@ -79,8 +79,8 @@ const App = ({ Component, pageProps, router }: AppProps) => (
             src: url("/fonts/AvenirNext-Medium.woff");
           }
         `}</style>
-      </AppProvider>
-    </NotificationsProvider>
+      </NotificationsProvider>
+    </AppProvider>
   </>
 );
 

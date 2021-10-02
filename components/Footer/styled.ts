@@ -16,7 +16,11 @@ export const StyledLayout = styled.div`
 `;
 
 export const StyledLogo = styled.div`
+  height: ${({ theme }) => theme.rem(96)};
   margin-bottom: ${({ theme }) => theme.rem(30)};
+  margin-left: auto;
+  margin-right: auto;
+  width: ${({ theme }) => theme.rem(98)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-bottom: ${({ theme }) => theme.rem(17)};
@@ -25,11 +29,10 @@ export const StyledLogo = styled.div`
 
 export const StyledLogoLink = styled.a`
   cursor: pointer;
-  display: inline-block;
+  display: block;
   height: 100%;
+  position: relative;
 `;
-
-export const StyledLogoImage = styled.img``;
 
 export const StyledMenu = styled.div`
   margin-bottom: ${({ theme }) => theme.rem(25)};
