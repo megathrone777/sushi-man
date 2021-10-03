@@ -89,10 +89,14 @@ export const StyledMenuLink = styled.span`
   }
 `;
 
+export const StyledItem = styled.p`
+  margin-bottom: ${({ theme }) => theme.rem(17)};
+  text-align: center;
+`;
+
 export const StyledLink = styled.a`
   color: black;
-  display: block;
-  margin-bottom: ${({ theme }) => theme.rem(17)};
+  display: inline-block;
   text-decoration: none;
 
   &:hover {

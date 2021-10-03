@@ -6,8 +6,10 @@ import fetch from "isomorphic-unfetch";
 import client from "~/apollo-client";
 import {
   TAdditional,
+  TShopSettings,
   setAdditionals,
   setCutleryPrice,
+  setShopSettings,
   setLengthInKm,
   useStore,
 } from "~/store";
@@ -34,6 +36,7 @@ interface TProps {
   };
   products: TProduct[];
   lengthInKm: string;
+  shopSettings: TShopSettings;
 }
 
 const CartPage: NextPage<TProps> = ({
@@ -42,6 +45,7 @@ const CartPage: NextPage<TProps> = ({
   hero,
   products,
   lengthInKm,
+  shopSettings,
 }) => {
   const { dispatch } = useStore();
   const { t } = useTranslation();
@@ -51,6 +55,7 @@ const CartPage: NextPage<TProps> = ({
     dispatch(setLengthInKm(lengthInKm));
     dispatch(setCutleryPrice(cutlery.price));
     dispatch(setAdditionals(additionals));
+    dispatch(setShopSettings(shopSettings));
   }, [additionals, cutlery.price, dispatch, lengthInKm]);
 
   return (
@@ -83,7 +88,7 @@ export const getServerSideProps = async ({ query }) => {
   const lengthInKm = data.rows.length && data.rows[0].elements[0].distance.text;
 
   const {
-    data: { additionals, hero_cs, hero_ru, products, cutlery },
+    data: { additionals, hero_cs, hero_ru, products, cutlery, shop },
   } = await client.query({
     query: gql`
       ${CartPageQuery}
@@ -100,6 +105,7 @@ export const getServerSideProps = async ({ query }) => {
       },
       cutlery,
       lengthInKm,
+      shopSettings: shop,
     },
   };
 };

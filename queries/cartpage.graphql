@@ -41,4 +41,8 @@ query CartPageQuery {
   cutlery {
     price
   }
+
+  shop {
+    shopIsClosed
+  }
 }

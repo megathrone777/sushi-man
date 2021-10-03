@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useNotifications } from "reapop";
 import Image from "next/image";
 
-
 import { TProps, TProductModifier, TProductSubmodifier } from "./types";
 import useTranslation from "~/intl/useTranslation";
+import { ShopModal } from "~/components";
 import { addToCart, TCartProduct, useStore } from "~/store";
 import {
   StyledWrapper,
@@ -39,15 +39,21 @@ const ProductDetails: React.FC<TProps> = ({
   title,
   weight,
 }) => {
-  const { dispatch } = useStore();
+  const { dispatch, state } = useStore();
   const { notify } = useNotifications();
   const { t } = useTranslation();
+  const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(parseInt(price));
   const [modifierIds, setModifierIds] = useState<number[]>([]);
   const [submodifiersIds, setSubmodifiersIds] = useState<string[]>([]);
+  const { shopSettings } = state;
 
   const handleAddToCart = (product: TCartProduct): void => {
-    console.log('handle add');
+    if (shopSettings.shopIsClosed) {
+      toggleModalOpened(true);
+      return;
+    }
+
     dispatch(addToCart(product));
     notify({
       dismissAfter: 3000,
@@ -94,6 +100,10 @@ const ProductDetails: React.FC<TProps> = ({
 
     newSubModifierIds.push(id);
     setSubmodifiersIds(newSubModifierIds);
+  };
+
+  const handleModalClose = (): void => {
+    toggleModalOpened(false);
   };
 
   return (
@@ -233,6 +243,8 @@ const ProductDetails: React.FC<TProps> = ({
           </StyledButton>
         </StyledContentRight>
       </StyledLayout>
+
+      <ShopModal isOpened={modalIsOpened} close={handleModalClose} />
     </StyledWrapper>
   );
 };

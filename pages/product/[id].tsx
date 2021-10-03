@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NextPage } from "next";
 import { gql } from "@apollo/client";
 
 import client from "~/apollo-client";
+import { TShopSettings, setShopSettings, useStore } from "~/store";
 import {
   Banner,
   Layout,
@@ -21,23 +22,37 @@ interface TProps {
     hero_cs: TBanner;
     hero_ru: TBanner;
   };
+  shopSettings: TShopSettings;
 }
 
-const ProductPage: NextPage<TProps> = ({ hero, product, products }) => (
-  <Layout inner title="Product">
-    <Banner
-      hero={{
-        hero_cs: hero["hero_cs"],
-        hero_ru: hero["hero_ru"],
-      }}
-      inner
-    />
-    <ProductDetails {...product} />
-    <ProductsRecommended products={products} />
-  </Layout>
-);
+const ProductPage: NextPage<TProps> = ({
+  hero,
+  product,
+  products,
+  shopSettings,
+}) => {
+  const { dispatch } = useStore();
 
-export const getServerSideProps = async ({ query: { id } }) => {
+  useEffect((): void => {
+    dispatch(setShopSettings(shopSettings));
+  }, [dispatch]);
+
+  return (
+    <Layout inner title="Product">
+      <Banner
+        hero={{
+          hero_cs: hero["hero_cs"],
+          hero_ru: hero["hero_ru"],
+        }}
+        inner
+      />
+      <ProductDetails {...product} />
+      <ProductsRecommended products={products} />
+    </Layout>
+  );
+};
+
+ProductPage.getInitialProps = async ({ query: { id } }) => {
   const { data: product } = await client.query({
     query: gql`
       query ProductQuery {
@@ -70,7 +85,7 @@ export const getServerSideProps = async ({ query: { id } }) => {
   });
 
   const {
-    data: { products, hero_cs, hero_ru },
+    data: { products, hero_cs, hero_ru, shop },
   } = await client.query({
     query: gql`
       ${ProductPageQuery}
@@ -78,14 +93,13 @@ export const getServerSideProps = async ({ query: { id } }) => {
   });
 
   return {
-    props: {
-      ...product,
-      hero: {
-        hero_cs,
-        hero_ru,
-      },
-      products,
+    ...product,
+    hero: {
+      hero_cs,
+      hero_ru,
     },
+    products,
+    shopSettings: shop,
   };
 };
 

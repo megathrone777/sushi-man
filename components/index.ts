@@ -1,4 +1,4 @@
-export { About } from "./About"
+export { About } from "./About";
 export { Banner } from "./Banner";
 export { Cart } from "./Cart";
 export { Contacts } from "./Contacts";
@@ -10,6 +10,7 @@ export { ProductDetails } from "./ProductDetails";
 export { Products } from "./Products";
 export { ProductsRecommended } from "./ProductsRecommended";
 export { Reviews } from "./Reviews";
+export { ShopModal } from "./ShopModal";
 
 export type { TAbout } from "./About/types";
 export type { TBanner } from "./Banner/types";

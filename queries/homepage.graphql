@@ -99,4 +99,8 @@ query HomePageQuery {
     text
     title
   }
+
+  shop {
+    shopIsClosed
+  }
 }

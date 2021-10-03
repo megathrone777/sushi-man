@@ -1,8 +1,13 @@
 import { TProductModifier } from "~/components";
-import { TAdditional, TCartProduct, TSchedule } from "./initialState";
+import {
+  TAdditional,
+  TCartProduct,
+  TSchedule,
+  TShopSettings,
+} from "./initialState";
 
 export enum TActionTypes {
-  UPDATE_STORE = "UPATE_STORE",
+  SET_SHOP_SETTINGS = "SET_SHOP_SETTINGS",
   ADD_PRODUCT = "ADD_PRODUCT",
   REMOVE_PRODUCT = "REMOVE_PRODUCT",
   CLEAR_CART = "CLEAR_CART",
@@ -34,10 +39,10 @@ export interface TAction {
   type: TActionTypes;
 }
 
-// export const updateStore = (store: TState): TAction => ({
-//   payload: store,
-//   type: TActionTypes.UPDATE_STORE,
-// });
+export const setShopSettings = (settings: TShopSettings): TAction => ({
+  payload: settings,
+  type: TActionTypes.SET_SHOP_SETTINGS,
+});
 
 export const addToCart = (product: TCartProduct): TAction => ({
   payload: product,

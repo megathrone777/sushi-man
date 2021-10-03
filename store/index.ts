@@ -18,8 +18,14 @@ export {
   setPickup,
   setProductModifiers,
   setSchedule,
+  setShopSettings,
   setTotalRollsDiscount,
 } from "./actions";
 export { useStore, AppContext } from "./context";
 export { reducer } from "./reducer";
-export type { TCartProduct, TAdditional, TSchedule } from "./initialState";
+export type {
+  TCartProduct,
+  TAdditional,
+  TSchedule,
+  TShopSettings,
+} from "./initialState";

@@ -16,6 +16,10 @@ export interface TSchedule {
   title: string;
 }
 
+export interface TShopSettings {
+  shopIsClosed: boolean;
+}
+
 export interface TCartProduct extends TProduct {
   quantity: number;
   totalPrice: number;
@@ -43,6 +47,7 @@ export interface TState {
     schedule_cs: TSchedule;
     schedule_ru: TSchedule;
   };
+  shopSettings: TShopSettings;
 }
 
 const initialState: TState = get("state")
@@ -78,6 +83,9 @@ const initialState: TState = get("state")
           title: "",
           text: "",
         },
+      },
+      shopSettings: {
+        shopIsClosed: false,
       },
     };
 

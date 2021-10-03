@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Slider, { Settings } from "react-slick";
 
 import useTranslation from "~/intl/useTranslation";

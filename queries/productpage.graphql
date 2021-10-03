@@ -31,4 +31,8 @@ query ProductPageQuery {
     title
     weight
   }
+
+  shop {
+    shopIsClosed
+  }
 }

@@ -3,7 +3,14 @@ import { NextPage } from "next";
 import { gql } from "@apollo/client";
 
 import client from "~/apollo-client";
-import { TAdditional, TSchedule, setAdditionals, useStore } from "~/store";
+import {
+  TAdditional,
+  TSchedule,
+  TShopSettings,
+  setAdditionals,
+  setShopSettings,
+  useStore,
+} from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   About,
@@ -45,6 +52,7 @@ interface TProps {
     schedule_cs: TSchedule;
     schedule_ru: TSchedule;
   };
+  shopSettings: TShopSettings;
 }
 
 const IndexPage: NextPage<TProps> = ({
@@ -56,6 +64,7 @@ const IndexPage: NextPage<TProps> = ({
   products,
   reviews,
   schedule,
+  shopSettings,
 }) => {
   const { dispatch } = useStore();
   const { t } = useTranslation();
@@ -63,6 +72,7 @@ const IndexPage: NextPage<TProps> = ({
 
   useEffect((): void => {
     dispatch(setAdditionals(additionals));
+    dispatch(setShopSettings(shopSettings));
   }, [additionals, dispatch]);
 
   return (
@@ -104,7 +114,7 @@ const IndexPage: NextPage<TProps> = ({
   );
 };
 
-export const getServerSideProps = async () => {
+IndexPage.getInitialProps = async () => {
   const {
     data: {
       additionals,
@@ -121,6 +131,7 @@ export const getServerSideProps = async () => {
       reviews,
       schedule_cs,
       schedule_ru,
+      shop,
     },
   } = await client.query({
     query: gql`
@@ -129,34 +140,33 @@ export const getServerSideProps = async () => {
   });
 
   return {
-    props: {
-      additionals,
-      about: {
-        about_cs,
-        about_ru,
-      },
-      banner: {
-        banner_cs,
-        banner_ru,
-      },
-      delivery: {
-        deliveryTitle: {
-          deliveryTitle_cs,
-          deliveryTitle_ru,
-        },
-        deliveryItems,
-      },
-      hero: {
-        hero_cs,
-        hero_ru,
-      },
-      products,
-      reviews,
-      schedule: {
-        schedule_cs,
-        schedule_ru,
-      },
+    additionals,
+    about: {
+      about_cs,
+      about_ru,
     },
+    banner: {
+      banner_cs,
+      banner_ru,
+    },
+    delivery: {
+      deliveryTitle: {
+        deliveryTitle_cs,
+        deliveryTitle_ru,
+      },
+      deliveryItems,
+    },
+    hero: {
+      hero_cs,
+      hero_ru,
+    },
+    products,
+    reviews,
+    schedule: {
+      schedule_cs,
+      schedule_ru,
+    },
+    shopSettings: shop,
   };
 };
 

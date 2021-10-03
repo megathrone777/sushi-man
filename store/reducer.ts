@@ -15,10 +15,10 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
   const { payload, type } = action;
 
   const actions = {
-    [TActionTypes.UPDATE_STORE]: (): TState => {
-      console.log("update");
-      return payload;
-    },
+    [TActionTypes.SET_SHOP_SETTINGS]: (): TState => ({
+      ...state,
+      shopSettings: payload,
+    }),
 
     [TActionTypes.ADD_PRODUCT]: (): TState => {
       const cart = { ...state.cart };

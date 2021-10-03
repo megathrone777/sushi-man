@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useNotifications } from "reapop";
 
 import { TProps } from "./types";
 import { SvgBuyIcon } from "~/icons";
-import { TProduct } from "~/components";
+import { TProduct, ShopModal } from "~/components";
 import { addToCart, TCartProduct, useStore } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -29,8 +29,10 @@ import { StyledContainer } from "~/components/Layout/styled";
 
 const Products: React.FC<TProps> = ({ products }) => {
   const { t } = useTranslation();
+  const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
   const { notify } = useNotifications();
-  const { dispatch } = useStore();
+  const { dispatch, state } = useStore();
+  const { shopSettings } = state;
   const productsTitle = t("productsTitle");
 
   const handleScrollTo = (): void => {
@@ -43,6 +45,11 @@ const Products: React.FC<TProps> = ({ products }) => {
   };
 
   const handleAddToCart = (product: TCartProduct): void => {
+    if (shopSettings.shopIsClosed) {
+      toggleModalOpened(true);
+      return;
+    }
+
     dispatch(addToCart(product));
     notify({
       dismissAfter: 3000,
@@ -52,6 +59,10 @@ const Products: React.FC<TProps> = ({ products }) => {
       status: "success",
       title: `${product.title} добавлен в корзину`,
     });
+  };
+
+  const handleModalClose = (): void => {
+    toggleModalOpened(false);
   };
 
   return (
@@ -150,6 +161,7 @@ const Products: React.FC<TProps> = ({ products }) => {
         )}
 
         <StyledScroller onClick={handleScrollTo} type="button" />
+        <ShopModal isOpened={modalIsOpened} close={handleModalClose} />
       </StyledContainer>
     </StyledWrapper>
   );

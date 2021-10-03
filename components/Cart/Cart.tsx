@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-
+import Link from "next/link";
 
 import useTranslation from "~/intl/useTranslation";
 import { TCartProduct, TAdditional, useStore } from "~/store";
@@ -19,6 +19,9 @@ import {
   StyledBuy,
   StyledLayout,
   StyledCheckbox,
+  StyledAgree,
+  StyledLabel,
+  StyledLabelLink,
 } from "./styled";
 
 const Cart: React.FC = () => {
@@ -85,6 +88,17 @@ const Cart: React.FC = () => {
 
             <Payment />
 
+            <StyledAgree>
+              <StyledCheckbox id="agree" type="checkbox" />
+              <StyledLabel htmlFor="agree">
+                Souhlasíte s zpracováním a uchováním{" "}
+                <Link href="/rules" passHref>
+                  <StyledLabelLink>
+                    zásady ochrany osobních údajů
+                  </StyledLabelLink>
+                </Link>
+              </StyledLabel>
+            </StyledAgree>
             <StyledTotal>
               {t("priceTotal")}: {totalPrice} Kč
             </StyledTotal>
