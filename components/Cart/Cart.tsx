@@ -49,6 +49,23 @@ const Cart: React.FC = () => {
       },
     }
   );
+  const [updateOrder, { loading: updateOrderLoading }] = useMutation(
+    gql`
+      mutation Mutation($updateOrderInput: updateOrderInput) {
+        createOrder(input: $createOrderInput) {
+          order {
+            comgatePaymentStatus
+          }
+        }
+      }
+    `,
+    {
+      client,
+      onCompleted: (data) => {
+        console.log(data);
+      },
+    }
+  );
   const { cart } = state;
   const {
     cutleryTotalPrice,
