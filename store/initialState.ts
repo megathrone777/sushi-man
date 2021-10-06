@@ -37,7 +37,6 @@ export interface TState {
     cutleryTotalPrice: number;
     deliveryPrice: number;
     isPickupChecked: boolean;
-    lengthInKm: string;
     modifiers: TProductModifier[];
     products: TCartProduct[];
     totalPersons: number;
@@ -62,7 +61,6 @@ const initialState: TState = get("state")
         cutleryTotalPrice: 0,
         deliveryPrice: 0,
         isPickupChecked: false,
-        lengthInKm: null,
         customerName: "",
         customerPhone: "",
         modifiers: [],

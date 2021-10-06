@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from "react";
-import { useRouter } from "next/router";
+import React, { useEffect, useRef, useState } from "react";
 
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -10,7 +9,6 @@ import {
   setCustomerPhone,
   useStore,
 } from "~/store";
-// import { SvgTargetIcon } from "~/icons";
 import {
   StyledWrapper,
   StyledContent,
@@ -31,12 +29,11 @@ import {
   StyledMap,
   StyledLengthInKm,
   StyledDeliveryPrice,
-  // StyledCurrentLocationButton,
 } from "./styled";
 
 const Delivery: React.FC = () => {
-  const router = useRouter();
   const { t } = useTranslation();
+  const [lengthInKm, setLengthInKm] = useState<string>("0");
   const { dispatch, state } = useStore();
   const { cart } = state;
   const addressInputElement = useRef(null);
@@ -63,7 +60,7 @@ const Delivery: React.FC = () => {
   };
 
   useEffect((): void => {
-    const currentLengthInKm = parseInt(cart.lengthInKm);
+    const currentLengthInKm = parseInt(lengthInKm);
 
     if (currentLengthInKm < 3) {
       dispatch(setDeliveryPrice(0));
@@ -74,7 +71,7 @@ const Delivery: React.FC = () => {
     } else {
       dispatch(setDeliveryPrice(null));
     }
-  }, [dispatch, cart.lengthInKm]);
+  }, [dispatch, lengthInKm]);
 
   useEffect((): void => {
     if (cart.isPickupChecked) return;
@@ -93,8 +90,19 @@ const Delivery: React.FC = () => {
       anchorPoint: new google.maps.Point(0, -29),
     });
 
-    autocomplete.addListener("place_changed", () => {
+    autocomplete.addListener("place_changed", async () => {
       const place = autocomplete.getPlace();
+      const response = await fetch("/api/cart/googlemaps", {
+        method: "POST",
+        body: JSON.stringify({
+          destinations: `${place.geometry.location.lat()},${place.geometry.location.lng()}`,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
 
       if (!place.geometry || !place.geometry.location) {
         console.warn("No details available for input: '" + place.name + "'");
@@ -108,19 +116,10 @@ const Delivery: React.FC = () => {
         map.setZoom(17);
       }
 
+      setLengthInKm(data.lengthInKm);
       marker.setPosition(place.geometry.location);
       marker.setVisible(true);
       dispatch(setCustomerAddress(place.formatted_address));
-      router.push(
-        {
-          pathname: location.pathname,
-          query: {
-            destinations: `${place.geometry.location.lat()},${place.geometry.location.lng()}`,
-          },
-        },
-        undefined,
-        { scroll: false }
-      );
     });
   }, [cart.isPickupChecked]);
 
@@ -217,14 +216,8 @@ const Delivery: React.FC = () => {
                 placeholder={t("fillAddress")}
                 type="search"
               />
-              {/* <StyledCurrentLocationButton
-                onClick={handleCurrentLocationClick}
-                type="button"
-              >
-                <SvgTargetIcon />
-              </StyledCurrentLocationButton> */}
-              {cart.lengthInKm !== null && parseInt(cart.lengthInKm) > 0 && (
-                <StyledLengthInKm>{cart.lengthInKm}</StyledLengthInKm>
+              {lengthInKm !== null && parseInt(lengthInKm) > 0 && (
+                <StyledLengthInKm>{lengthInKm}</StyledLengthInKm>
               )}
             </StyledInputWrapper>
 

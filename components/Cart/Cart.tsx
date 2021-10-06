@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { gql, useMutation } from "@apollo/client";
 
+import client from "~/apollo-client";
 import useTranslation from "~/intl/useTranslation";
 import { TCartProduct, TAdditional, useStore } from "~/store";
 import { Additionals } from "./Additionals";
@@ -28,6 +30,25 @@ const Cart: React.FC = () => {
   const router = useRouter();
   const { t } = useTranslation();
   const { state } = useStore();
+  const [submitOrder, { loading: submitOrderLoading }] = useMutation(
+    gql`
+      mutation Mutation($createOrderInput: createOrderInput) {
+        createOrder(input: $createOrderInput) {
+          order {
+            name
+            price
+            comgateTransId
+          }
+        }
+      }
+    `,
+    {
+      client,
+      onCompleted: (data) => {
+        console.log(data);
+      },
+    }
+  );
   const { cart } = state;
   const {
     cutleryTotalPrice,
@@ -62,6 +83,24 @@ const Cart: React.FC = () => {
     totalRollsDiscount +
     deliveryPrice;
 
+  const handleBuyClick = (
+    name: string,
+    comgateTransId: string,
+    price: number
+  ): void => {
+    submitOrder({
+      variables: {
+        createOrderInput: {
+          data: {
+            name,
+            comgateTransId,
+            price,
+          },
+        },
+      },
+    });
+  };
+
   useEffect((): void => {
     router.replace(
       {
@@ -75,6 +114,7 @@ const Cart: React.FC = () => {
 
   return (
     <StyledWrapper>
+      {submitOrderLoading && <p>Loading...</p>}
       <StyledContainer>
         {cart && !!cart.products.length ? (
           <>
@@ -104,7 +144,10 @@ const Cart: React.FC = () => {
             </StyledTotal>
 
             <StyledButtons>
-              <StyledBuy disabled type="button">
+              <StyledBuy
+                onClick={() => handleBuyClick("New order", "id", totalPrice)}
+                type="button"
+              >
                 {t("goToPay")}
               </StyledBuy>
             </StyledButtons>

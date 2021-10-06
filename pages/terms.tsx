@@ -2,7 +2,7 @@ import React from "react";
 import { NextPage } from "next";
 import { gql } from "@apollo/client";
 
-import { TBanner, Banner, Layout } from "~/components";
+import { TBanner, Banner, LayoutSecondary } from "~/components";
 import client from "~/apollo-client";
 
 import TermsPageQuery from "~/queries/termspage.graphql";
@@ -15,7 +15,7 @@ interface TProps {
 }
 
 const TermsPage: NextPage<TProps> = ({ hero }) => (
-  <Layout inner title="Všeobecné obchodní podmínky">
+  <LayoutSecondary title="Všeobecné obchodní podmínky">
     <Banner
       hero={{
         hero_cs: hero["hero_cs"],
@@ -541,7 +541,7 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
     </p>
 
     <p>Poslední aktualizace: srpen 2021</p>
-  </Layout>
+  </LayoutSecondary>
 );
 
 TermsPage.getInitialProps = async () => {

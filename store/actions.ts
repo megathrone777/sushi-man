@@ -22,7 +22,6 @@ export enum TActionTypes {
   SET_SCHEDULE = "SET_SCHEDULE",
   SET_PRODUCTS = "SET_PRODUCTS",
   SET_TOTAL_ROLLS_DISCOUNT = "SET_TOTAL_ROLLS_DISCOUNT",
-  SET_LENGTH_IN_KM = "SET_LENGTH_IN_KM",
   SET_DELIVERY_PRICE = "SET_DELIVERY_PRICE",
   SET_CUSTOMER_NAME = "SET_CUSTOMER_NAME",
   SET_CUSTOMER_NAME_ERROR = "SET_CUSTOMER_NAME_ERROR",
@@ -148,11 +147,6 @@ export const setSchedule = ({
     schedule_ru,
   },
   type: TActionTypes.SET_SCHEDULE,
-});
-
-export const setLengthInKm = (lengthInKm: string): TAction => ({
-  payload: lengthInKm,
-  type: TActionTypes.SET_LENGTH_IN_KM,
 });
 
 export const setCustomerName = (name: string): TAction => ({

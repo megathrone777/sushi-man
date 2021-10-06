@@ -2,7 +2,7 @@ import React from "react";
 import { NextPage } from "next";
 import { gql } from "@apollo/client";
 
-import { TBanner, Banner, Layout } from "~/components";
+import { TBanner, Banner, LayoutSecondary } from "~/components";
 import client from "~/apollo-client";
 import { StyledContainer } from "~/components/Layout/styled";
 import { styled } from "~/theme";
@@ -17,7 +17,7 @@ interface TProps {
 }
 
 const RulesPage: NextPage<TProps> = ({ hero }) => (
-  <Layout inner title="Zásady ochrany osobních údajů">
+  <LayoutSecondary title="Zásady ochrany osobních údajů">
     <Banner
       hero={{
         hero_cs: hero["hero_cs"],
@@ -568,7 +568,7 @@ const RulesPage: NextPage<TProps> = ({ hero }) => (
         <StyledText>Poslední aktualizace: srpen 2021</StyledText>
       </StyledWrapper>
     </StyledContainer>
-  </Layout>
+  </LayoutSecondary>
 );
 
 const StyledWrapper = styled.div`

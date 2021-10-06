@@ -1,8 +1,8 @@
 import React from "react";
 import NotificationsSystem, { useNotifications } from "reapop";
 
-import useTranslation from "~/intl/useTranslation";
 import { LayoutHead } from "./LayoutHead";
+import useTranslation from "~/intl/useTranslation";
 import { Header } from "~/components/Header";
 import { Footer } from "~/components/Footer";
 import { GlobalStyle } from "~/theme/global-style";
@@ -13,11 +13,10 @@ interface TLayout {
   title: string;
 }
 
-const Layout: React.FC<TLayout> = ({ children, title }) => {
+const LayoutSecondary: React.FC<TLayout> = ({ children, title }) => {
   const { notifications, dismissNotification } = useNotifications();
   const { t } = useTranslation();
-
-  const mainMenu = t("mainMenu");
+  const innerMenu = t("innerMenu");
 
   return (
     <>
@@ -27,9 +26,9 @@ const Layout: React.FC<TLayout> = ({ children, title }) => {
         <GlobalStyle />
 
         <StyledWrapper>
-          <Header menuItems={mainMenu} />
+          <Header inner menuItems={innerMenu} />
           <StyledContent>{children}</StyledContent>
-          <Footer menuItems={mainMenu} />
+          <Footer inner menuItems={innerMenu} />
         </StyledWrapper>
 
         <NotificationsSystem
@@ -41,4 +40,4 @@ const Layout: React.FC<TLayout> = ({ children, title }) => {
   );
 };
 
-export { Layout };
+export { LayoutSecondary };

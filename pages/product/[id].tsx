@@ -6,7 +6,7 @@ import client from "~/apollo-client";
 import { TShopSettings, setShopSettings, useStore } from "~/store";
 import {
   Banner,
-  Layout,
+  LayoutSecondary,
   TBanner,
   ProductDetails,
   TProduct,
@@ -38,7 +38,7 @@ const ProductPage: NextPage<TProps> = ({
   }, [dispatch]);
 
   return (
-    <Layout inner title="Product">
+    <LayoutSecondary title="Product">
       <Banner
         hero={{
           hero_cs: hero["hero_cs"],
@@ -48,7 +48,7 @@ const ProductPage: NextPage<TProps> = ({
       />
       <ProductDetails {...product} />
       <ProductsRecommended products={products} />
-    </Layout>
+    </LayoutSecondary>
   );
 };
 

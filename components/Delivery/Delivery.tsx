@@ -14,7 +14,7 @@ import {
 import { StyledContainer } from "~/components/Layout/styled";
 
 const Delivery: React.FC<TProps> = ({ deliveryItems, deliveryTitle }) => {
-  const { locale, t } = useTranslation();
+  const { locale } = useTranslation();
   const items = deliveryItems.filter(
     (item: TDeliveryItem) => item.locale === locale
   );

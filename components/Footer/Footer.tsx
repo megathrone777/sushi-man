@@ -40,11 +40,10 @@ interface TMenuItem {
 
 interface TProps {
   inner?: boolean;
-  mainMenuItems: TMenuItem[];
-  innerMenuItems: TMenuItem[];
+  menuItems: TMenuItem[];
 }
 
-const Footer: React.FC<TProps> = ({ mainMenuItems, innerMenuItems, inner }) => {
+const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const { t } = useTranslation();
   const { state } = useStore();
   const { shopSettings } = state;
@@ -87,11 +86,11 @@ const Footer: React.FC<TProps> = ({ mainMenuItems, innerMenuItems, inner }) => {
 
           {inner ? (
             <>
-              {innerMenuItems && (
+              {menuItems && (
                 <StyledMenu>
                   <StyledMenuList>
-                    {!!innerMenuItems.length &&
-                      innerMenuItems.map(
+                    {!!menuItems.length &&
+                      menuItems.map(
                         (
                           { anchor, text }: TMenuItem,
                           index: number
@@ -109,11 +108,11 @@ const Footer: React.FC<TProps> = ({ mainMenuItems, innerMenuItems, inner }) => {
             </>
           ) : (
             <>
-              {mainMenuItems && (
+              {menuItems && (
                 <StyledMenu>
                   <StyledMenuList>
-                    {!!mainMenuItems.length &&
-                      mainMenuItems.map(
+                    {!!menuItems.length &&
+                      menuItems.map(
                         (
                           { anchor, text }: TMenuItem,
                           index: number

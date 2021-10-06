@@ -1,5 +1,6 @@
 import React from "react";
 
+import { TProps, TContactsLink } from "./types";
 import useTranslation from "~/intl/useTranslation";
 import { SvgCloseIcon } from "~/icons";
 import {
@@ -15,16 +16,6 @@ import {
   StyledTime,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
-
-export interface TContactsLink {
-  type: string;
-  url: string;
-}
-
-interface TProps {
-  isOpened: boolean;
-  close: () => void;
-}
 
 const ShopModal: React.FC<TProps> = ({ close, isOpened }) => {
   const { t } = useTranslation();

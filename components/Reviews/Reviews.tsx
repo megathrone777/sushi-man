@@ -1,6 +1,7 @@
 import React from "react";
 import Slider, { Settings } from "react-slick";
 
+import { TProps, TReview } from "./types";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
@@ -12,19 +13,6 @@ import {
   StyledButton,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
-
-export interface TReview {
-  id: number;
-  image: [
-    {
-      url: string;
-    }
-  ];
-}
-
-interface TProps {
-  reviews: TReview[];
-}
 
 const Reviews: React.FC<TProps> = ({ reviews }) => {
   const { t } = useTranslation();

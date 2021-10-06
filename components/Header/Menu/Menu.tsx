@@ -10,12 +10,11 @@ export interface TMenuItem {
 
 interface TProps {
   closeMenu: () => void;
-  mainMenuItems: TMenuItem[];
-  innerMenuItems: TMenuItem[];
+  menuItems: TMenuItem[];
   inner?: boolean;
 }
 
-const Menu: React.FC<TProps> = ({ closeMenu, mainMenuItems, innerMenuItems, inner }) => {
+const Menu: React.FC<TProps> = ({ closeMenu, menuItems, inner }) => {
   const handleScroll = (anchor: string): void => {
     const scrolledSection = document.getElementById(anchor);
 
@@ -31,10 +30,10 @@ const Menu: React.FC<TProps> = ({ closeMenu, mainMenuItems, innerMenuItems, inne
     <StyledWrapper>
       {inner ? (
         <>
-          {innerMenuItems && (
+          {menuItems && (
             <StyledList>
-              {!!innerMenuItems.length &&
-                innerMenuItems.map(
+              {!!menuItems.length &&
+                menuItems.map(
                   (
                     { anchor, text }: TMenuItem,
                     index: number
@@ -51,10 +50,10 @@ const Menu: React.FC<TProps> = ({ closeMenu, mainMenuItems, innerMenuItems, inne
         </>
       ) : (
         <>
-          {mainMenuItems && (
+          {menuItems && (
             <StyledList>
-              {!!mainMenuItems.length &&
-                mainMenuItems.map(
+              {!!menuItems.length &&
+                menuItems.map(
                   (
                     { anchor, text }: TMenuItem,
                     index: number

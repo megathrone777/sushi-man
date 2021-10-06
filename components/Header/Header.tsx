@@ -15,12 +15,11 @@ import {
 import { StyledContainer } from "~/components/Layout/styled";
 
 interface TProps {
+  menuItems: TMenuItem[];
   inner?: boolean;
-  mainMenuItems: TMenuItem[];
-  innerMenuItems: TMenuItem[];
 }
 
-const Header: React.FC<TProps> = ({ mainMenuItems, innerMenuItems, inner }) => {
+const Header: React.FC<TProps> = ({ menuItems, inner }) => {
   const { state } = useStore();
   const { shopSettings } = state;
   const [menuIsOpened, toggleMenuIsOpened] = useState<boolean>(false);
@@ -46,8 +45,7 @@ const Header: React.FC<TProps> = ({ mainMenuItems, innerMenuItems, inner }) => {
           <StyledContent isOpened={menuIsOpened}>
             <Menu
               inner={inner}
-              mainMenuItems={mainMenuItems}
-              innerMenuItems={innerMenuItems}
+              menuItems={menuItems}
               closeMenu={() => toggleMenuIsOpened(false)}
             />
             <Contact />

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { NextPage } from "next";
 import { gql } from "@apollo/client";
-import fetch from "isomorphic-unfetch";
 
 import client from "~/apollo-client";
 import {
@@ -10,14 +9,13 @@ import {
   setAdditionals,
   setCutleryPrice,
   setShopSettings,
-  setLengthInKm,
   useStore,
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   Banner,
   Cart,
-  Layout,
+  LayoutSecondary,
   TBanner,
   TProduct,
   ProductsRecommended,
@@ -44,7 +42,6 @@ const CartPage: NextPage<TProps> = ({
   cutlery,
   hero,
   products,
-  lengthInKm,
   shopSettings,
 }) => {
   const { dispatch } = useStore();
@@ -52,14 +49,13 @@ const CartPage: NextPage<TProps> = ({
   const cartTitle = t("cartTitle");
 
   useEffect((): void => {
-    dispatch(setLengthInKm(lengthInKm));
     dispatch(setCutleryPrice(cutlery.price));
     dispatch(setAdditionals(additionals));
     dispatch(setShopSettings(shopSettings));
-  }, [additionals, cutlery.price, dispatch, lengthInKm]);
+  }, [additionals, cutlery.price, dispatch]);
 
   return (
-    <Layout inner title={cartTitle}>
+    <LayoutSecondary title={cartTitle}>
       <Banner
         hero={{
           hero_cs: hero["hero_cs"],
@@ -69,24 +65,11 @@ const CartPage: NextPage<TProps> = ({
       />
       <Cart />
       <ProductsRecommended products={products} />
-    </Layout>
+    </LayoutSecondary>
   );
 };
 
-export const getServerSideProps = async ({ query }) => {
-  const origins = "50.086610,14.448785";
-  const key = "AIzaSyAelVTTeDWjXmX7yF_m83ebT7GbJZsNaUY";
-  const { destinations } = query;
-
-  const response = await fetch(
-    `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${
-      destinations || ""
-    }&key=${key}`,
-    { mode: "no-cors" }
-  );
-  const data = await response.json();
-  const lengthInKm = data.rows.length && data.rows[0].elements[0].distance.text;
-
+export const getServerSideProps = async () => {
   const {
     data: { additionals, hero_cs, hero_ru, products, cutlery, shop },
   } = await client.query({
@@ -104,7 +87,6 @@ export const getServerSideProps = async ({ query }) => {
         hero_ru,
       },
       cutlery,
-      lengthInKm,
       shopSettings: shop,
     },
   };
