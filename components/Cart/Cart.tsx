@@ -35,6 +35,7 @@ const Cart: React.FC = () => {
       mutation Mutation($createOrderInput: createOrderInput) {
         createOrder(input: $createOrderInput) {
           order {
+            id
             name
             price
             comgateTransId
@@ -46,6 +47,8 @@ const Cart: React.FC = () => {
       client,
       onCompleted: (data) => {
         console.log(data);
+        // data.id
+        // call ${host}/api/payOrder
       },
     }
   );
@@ -110,7 +113,6 @@ const Cart: React.FC = () => {
         createOrderInput: {
           data: {
             name,
-            comgateTransId,
             price,
           },
         },
