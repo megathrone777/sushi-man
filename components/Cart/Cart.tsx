@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { gql, useMutation } from "@apollo/client";
-import fetch from 'isomorphic-unfetch'
+import fetch from "isomorphic-unfetch";
 
 import client from "~/apollo-client";
 import useTranslation from "~/intl/useTranslation";
@@ -39,7 +39,6 @@ const Cart: React.FC = () => {
             id
             name
             price
-            comgateTransId
           }
         }
       }
@@ -47,9 +46,22 @@ const Cart: React.FC = () => {
     {
       client,
       onCompleted: (data) => {
-        console.log(data);
-        // data.id
-        // call ${host}/api/payOrder
+        fetch("/api/cart/order", {
+          method: "POST",
+          body: JSON.stringify({
+            orderId: data["createOrder"]["order"]["id"],
+            orderPrice: data["createOrder"]["order"]["price"],
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+          });
       },
     }
   );
@@ -113,6 +125,7 @@ const Cart: React.FC = () => {
       variables: {
         createOrderInput: {
           data: {
+            comgateTransId,
             name,
             price,
           },
@@ -165,7 +178,7 @@ const Cart: React.FC = () => {
 
             <StyledButtons>
               <StyledBuy
-                onClick={() => handleBuyClick("New order", "id", totalPrice)}
+                onClick={() => handleBuyClick("New order", "", totalPrice)}
                 type="button"
               >
                 {t("goToPay")}
