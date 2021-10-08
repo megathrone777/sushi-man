@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNotifications } from "reapop";
 import Image from "next/image";
 
@@ -44,8 +44,12 @@ const ProductDetails: React.FC<TProps> = ({
   const { t } = useTranslation();
   const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(parseInt(price));
-  const [modifierIds, setModifierIds] = useState<number[]>([]);
-  const [submodifiersIds, setSubmodifiersIds] = useState<string[]>([]);
+  const [selectedModifiers, setSelectedModifiers] = useState<
+    TProductModifier[]
+  >([]);
+  const [selectedSubModifiers, setSelectedSubmodifiers] = useState<
+    TProductSubmodifier[]
+  >([]);
   const { shopSettings } = state;
 
   const handleAddToCart = (product: TCartProduct): void => {
@@ -65,46 +69,65 @@ const ProductDetails: React.FC<TProps> = ({
     });
   };
 
-  const handleModifierChange = (id: number, price: string): void => {
-    if (modifierIds.includes(id)) {
-      const newModifierIds = modifierIds.filter(
-        (modifierId: number) => modifierId !== id
+  const handleModifierChange = (modifier: TProductModifier): void => {
+    if (
+      selectedModifiers.some(
+        (selectedModifier: TProductModifier): boolean =>
+          selectedModifier.id === modifier.id
+      )
+    ) {
+      const newModifiers = selectedModifiers.filter(
+        (selectedModifier: TProductModifier): boolean =>
+          selectedModifier.id !== modifier.id
       );
 
-      setModifierIds(newModifierIds);
+      setSelectedModifiers(newModifiers);
       setTotalPrice(
-        (prevTotalPrice: number): number => prevTotalPrice - parseInt(price)
+        (prevTotalPrice: number): number =>
+          prevTotalPrice - parseInt(modifier.price)
       );
     } else {
-      const newModifierIds = [...modifierIds];
+      const newModifiers = [...selectedModifiers];
 
-      newModifierIds.push(id);
-      setModifierIds(newModifierIds);
+      newModifiers.push(modifier);
+      setSelectedModifiers(newModifiers);
       setTotalPrice((prevTotalPrice: number): number => {
-        return prevTotalPrice + parseInt(price);
+        return prevTotalPrice + parseInt(modifier.price);
       });
     }
   };
 
-  const handleSubModifierChange = (id: string): void => {
-    if (submodifiersIds.includes(id)) {
-      const newSubModifierIds = submodifiersIds.filter(
-        (subModifierId: string) => subModifierId !== id
+  const handleSubModifierChange = (subModifier: TProductSubmodifier): void => {
+    if (
+      selectedSubModifiers.some(
+        (selectedSubmodifier: TProductSubmodifier): boolean =>
+          selectedSubmodifier.id === subModifier.id
+      )
+    ) {
+      const newSubModifiers = selectedSubModifiers.filter(
+        (selectedSubModifier: TProductSubmodifier) =>
+          selectedSubModifier.id !== subModifier.id
       );
 
-      setSubmodifiersIds(newSubModifierIds);
+      setSelectedSubmodifiers(newSubModifiers);
       return;
     }
 
-    const newSubModifierIds = [...submodifiersIds];
+    const newSubModifiers = [...selectedSubModifiers];
 
-    newSubModifierIds.push(id);
-    setSubmodifiersIds(newSubModifierIds);
+    newSubModifiers.push(subModifier);
+    setSelectedSubmodifiers(newSubModifiers);
   };
 
   const handleModalClose = (): void => {
     toggleModalOpened(false);
   };
+
+  useEffect((): void => {
+    console.log(selectedModifiers);
+
+    console.log(selectedSubModifiers);
+  }, [selectedModifiers, selectedSubModifiers]);
 
   return (
     <StyledWrapper>
@@ -112,11 +135,11 @@ const ProductDetails: React.FC<TProps> = ({
         <StyledContentLeft>
           <Image
             alt={title}
-            layout="responsive"
             height={540}
+            layout="responsive"
             objectFit="cover"
-            width={400}
             src={image.url}
+            width={400}
           />
         </StyledContentLeft>
 
@@ -148,60 +171,65 @@ const ProductDetails: React.FC<TProps> = ({
                   <StyledModifiersList>
                     {product_modifiers.map(
                       (
-                        {
-                          id: modifierId,
-                          name,
-                          price,
-                          submodifiers,
-                        }: TProductModifier,
+                        modifier: TProductModifier,
                         index: number
                       ): React.ReactElement => (
-                        <StyledModifiersItem key={`${index}-${name}`}>
+                        <StyledModifiersItem key={`${index}-${modifier.name}`}>
                           <StyledMofifiersCheckbox
-                            id={modifierId.toString()}
-                            onChange={() =>
-                              handleModifierChange(modifierId, price)
-                            }
-                            checked={modifierIds.includes(modifierId)}
+                            id={modifier.id.toString()}
+                            onChange={() => handleModifierChange(modifier)}
+                            checked={selectedModifiers.some(
+                              (selectedModifier: TProductModifier) =>
+                                selectedModifier.id === modifier.id
+                            )}
                             type="checkbox"
                           />
-                          <StyledModifierLabel htmlFor={modifierId.toString()}>
-                            {name} - {price}
+                          <StyledModifierLabel htmlFor={modifier.id.toString()}>
+                            {modifier.name} - {modifier.price}
                           </StyledModifierLabel>
 
-                          {modifierIds.includes(modifierId) &&
-                            submodifiers &&
-                            !!submodifiers.length && (
+                          {/* {selectedModifiers.some(
+                            (selectedModifier: TProductModifier): boolean =>
+                              selectedModifier.id === modifier.id
+                          ) &&
+                            modifier.submodifiers &&
+                            !!modifier.submodifiers.length && (
                               <StyledSubmodifiersList>
-                                {submodifiers.map(
-                                  ({
-                                    id: subModifierId,
-                                    name,
-                                  }: TProductSubmodifier): React.ReactElement => (
-                                    <li key={`${index}-${subModifierId}`}>
+                                {modifier.submodifiers.map(
+                                  (
+                                    subModifier: TProductSubmodifier,
+                                    subMofifierIndex: number
+                                  ): React.ReactElement => (
+                                    <li key={`${index}-${subModifier.id}`}>
                                       <StyledMofifiersCheckbox
-                                        checked={submodifiersIds.includes(
-                                          `${index}-${subModifierId}`
+                                        checked={selectedSubModifiers.some(
+                                          (
+                                            selectedSubmodifier: TProductSubmodifier
+                                          ): boolean =>
+                                            selectedSubModifiers.some(
+                                              (
+                                                subModifier: TProductSubmodifier
+                                              ): boolean =>
+                                                selectedSubmodifier.id === subModifier.id && 
+                                            )
                                         )}
-                                        id={`${index}-${subModifierId}`}
+                                        id={`${index}-${subModifier.id}`}
                                         isSecondary
                                         onChange={() =>
-                                          handleSubModifierChange(
-                                            `${index}-${subModifierId}`
-                                          )
+                                          handleSubModifierChange(subModifier)
                                         }
                                         type="checkbox"
                                       />
                                       <StyledModifierLabel
-                                        htmlFor={`${index}-${subModifierId}`}
+                                        htmlFor={`${index}-${subModifier.id}`}
                                       >
-                                        {name}
+                                        {subModifier.name}
                                       </StyledModifierLabel>
                                     </li>
                                   )
                                 )}
                               </StyledSubmodifiersList>
-                            )}
+                            )} */}
                         </StyledModifiersItem>
                       )
                     )}
@@ -221,20 +249,21 @@ const ProductDetails: React.FC<TProps> = ({
             onClick={() =>
               handleAddToCart({
                 allergeny,
+                id,
                 image: {
                   url: image.url,
                 },
-                id,
                 ingredients,
                 isRoll,
                 persons,
-                price: price + [modifierIds].length * 20,
-                product_modifiers,
+                price: price + [selectedModifiers].length * 20,
+                product_modifiers: selectedModifiers,
+                product_submodifiers: selectedSubModifiers,
                 quantity: 1,
                 slug,
                 title,
-                weight,
                 totalPrice,
+                weight,
               })
             }
             type="button"

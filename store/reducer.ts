@@ -1,7 +1,7 @@
 import React from "react";
 import { set as setToLocalStorage } from "local-storage";
 
-import { TProduct, TProductModifier } from "~/components";
+import { TProduct } from "~/components";
 import { TAction, TActionTypes } from "./actions";
 import { TState, TAdditional } from "./initialState";
 
@@ -43,21 +43,6 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
           ...state.cart,
           products,
           totalPersons: cart.totalPersons,
-        },
-      });
-    },
-
-    [TActionTypes.SET_PRODUCT_MODIFIERS]: (): TState => {
-      // const modifiers = [...state.cart.modifiers];
-      // const foundIndex = modifiers.findIndex(
-      //   (modifier: TProductModifier) => modifier.id === payload.id
-      // );
-
-      return setStateToLocalStorage({
-        ...state,
-        cart: {
-          ...state.cart,
-          modifiers: [...state.cart.modifiers, payload],
         },
       });
     },

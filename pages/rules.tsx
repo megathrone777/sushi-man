@@ -7,7 +7,7 @@ import client from "~/apollo-client";
 import { StyledContainer } from "~/components/Layout/styled";
 import { styled } from "~/theme";
 
-import RulesPageQuery from "~/queries/rulespage.graphql";
+import RulesPageQuery from "~/queries/rulespage.gql";
 
 interface TProps {
   hero: {

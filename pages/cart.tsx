@@ -21,7 +21,7 @@ import {
   ProductsRecommended,
 } from "~/components";
 
-import CartPageQuery from "~/queries/cartpage.graphql";
+import CartPageQuery from "~/queries/cartpage.gql";
 
 interface TProps {
   additionals: TAdditional[];

@@ -1,6 +1,7 @@
-import { get } from "local-storage";
+import { get as getFromLocalStorage } from "local-storage";
 
 import { TProduct, TProductModifier } from "~/components";
+import { TProductSubmodifier } from "~/components/ProductDetails/types";
 
 export interface TAdditional {
   id: number;
@@ -21,6 +22,8 @@ export interface TShopSettings {
 }
 
 export interface TCartProduct extends TProduct {
+  product_modifiers: TProductModifier[];
+  product_submodifiers: TProductSubmodifier[];
   quantity: number;
   totalPrice: number;
 }
@@ -49,8 +52,8 @@ export interface TState {
   shopSettings: TShopSettings;
 }
 
-const initialState: TState = get("state")
-  ? get<TState>("state")
+const initialState: TState = getFromLocalStorage("state")
+  ? getFromLocalStorage<TState>("state")
   : {
       cart: {
         additionals: [],

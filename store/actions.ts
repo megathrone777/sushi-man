@@ -1,4 +1,3 @@
-import { TProductModifier } from "~/components";
 import {
   TAdditional,
   TCartProduct,
@@ -30,7 +29,6 @@ export enum TActionTypes {
   SET_CUSTOMER_ADDRESS = "SET_CUSTOMER_ADDRESS",
   SET_CUSTOMER_ADDRESS_ERROR = "SET_CUSTOMER_ADDRESS_ERROR",
   SET_CUSTOMER_NOTE = "SET_CUSTOMER_NOTE",
-  SET_PRODUCT_MODIFIERS = "SET_PRODUCT_MODIFIERS",
 }
 
 export interface TAction {
@@ -46,11 +44,6 @@ export const setShopSettings = (settings: TShopSettings): TAction => ({
 export const addToCart = (product: TCartProduct): TAction => ({
   payload: product,
   type: TActionTypes.ADD_PRODUCT,
-});
-
-export const setProductModifiers = (modifier: TProductModifier): TAction => ({
-  payload: modifier,
-  type: TActionTypes.SET_PRODUCT_MODIFIERS,
 });
 
 export const removeFromCart = (

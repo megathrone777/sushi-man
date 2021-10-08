@@ -29,7 +29,7 @@ import {
   TProduct,
 } from "~/components";
 
-import HomePageQuery from "~/queries/homepage.graphql";
+import HomePageQuery from "~/queries/homepage.gql";
 
 interface TProps {
   additionals: TAdditional[];

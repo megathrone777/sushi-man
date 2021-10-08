@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import { set } from "local-storage";
+import { set as setToLocalStorage } from "local-storage";
 
 import { TState, initialState } from "./initialState";
 import { TAction } from "./actions";
@@ -17,7 +17,7 @@ const AppProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect((): void => {
-    set<TState>("state", state);
+    setToLocalStorage<TState>("state", state);
   }, [state]);
 
   return (

@@ -14,10 +14,11 @@ const App = ({ Component, pageProps, router }: AppProps) => (
       id="google-maps"
     />
     <Script
-      strategy="lazyOnload"
+      id="googleTagManager"
       src="https://www.googletagmanager.com/gtag/js?id=G-CEW5H8WB6K"
+      strategy="beforeInteractive"
     />
-    <Script strategy="lazyOnload" id="google">
+    <Script id="google" strategy="beforeInteractive">
       {`
             window.dataLayer = window.dataLayer || [];
                 function gtag(){
@@ -28,7 +29,7 @@ const App = ({ Component, pageProps, router }: AppProps) => (
                 gtag('config', 'G-CEW5H8WB6K');    
           `}
     </Script>
-    <Script strategy="lazyOnload" id="facebook">
+    <Script id="facebook" strategy="beforeInteractive">
       {`
               !function(f,b,e,v,n,t,s)
               {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -42,9 +43,8 @@ const App = ({ Component, pageProps, router }: AppProps) => (
               fbq('track', 'PageView');
             `}
     </Script>
-    <Script
-      dangerouslySetInnerHTML={{
-        __html: `(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    <Script id="yandex" strategy="beforeInteractive">
+      {`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
        ym(78947092, "init", {
@@ -52,10 +52,8 @@ const App = ({ Component, pageProps, router }: AppProps) => (
             trackLinks:true,
             accurateTrackBounce:true,
             webvisor:true
-       });`,
-      }}
-      id="yandex"
-    />
+       });`}
+    </Script>
     <AppProvider>
       <NotificationsProvider>
         <LanguageProvider>

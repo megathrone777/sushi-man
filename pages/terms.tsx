@@ -5,7 +5,7 @@ import { gql } from "@apollo/client";
 import { TBanner, Banner, LayoutSecondary } from "~/components";
 import client from "~/apollo-client";
 
-import TermsPageQuery from "~/queries/termspage.graphql";
+import TermsPageQuery from "~/queries/termspage.gql";
 
 interface TProps {
   hero: {

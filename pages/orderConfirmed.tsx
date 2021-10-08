@@ -7,7 +7,7 @@ import client from "~/apollo-client";
 import { TBanner, Banner, LayoutSecondary } from "~/components";
 import { StyledContainer } from "~/components/Layout/styled";
 
-import OrderConfirmedPageQuery from "~/queries/rulespage.graphql";
+import OrderConfirmedPageQuery from "~/queries/rulespage.gql";
 
 interface TProps {
   hero: {

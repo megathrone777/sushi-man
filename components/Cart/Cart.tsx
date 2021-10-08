@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { gql, useMutation } from "@apollo/client";
+import fetch from 'isomorphic-unfetch'
 
 import client from "~/apollo-client";
 import useTranslation from "~/intl/useTranslation";
@@ -45,7 +46,12 @@ const Cart: React.FC = () => {
     {
       client,
       onCompleted: (data) => {
-        console.log(data);
+        fetch('/api/cart/order', {
+          method: "POST",
+          body: {
+            
+          }
+        })
       },
     }
   );

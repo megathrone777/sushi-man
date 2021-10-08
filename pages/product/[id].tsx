@@ -13,7 +13,7 @@ import {
   ProductsRecommended,
 } from "~/components";
 
-import ProductPageQuery from "~/queries/productpage.graphql";
+import ProductPageQuery from "~/queries/productpage.gql";
 
 interface TProps {
   product: TProduct;
