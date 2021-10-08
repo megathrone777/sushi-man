@@ -27,6 +27,8 @@ import {
   StyledNameArea,
   StyledOptionsArea,
   StyledQuantityArea,
+  StyledModifiersList,
+  StyledModifiersItem,
 } from "./styled";
 import { TProductModifier } from "~/components";
 
@@ -93,13 +95,15 @@ const Products: React.FC = () => {
                 <StyledBold>{title}</StyledBold>
                 <StyledWeight>{weight}</StyledWeight>
                 {product_modifiers && !!product_modifiers.length && (
-                  <ul>
+                  <StyledModifiersList>
                     {product_modifiers.map(
                       ({ name }: TProductModifier): React.ReactElement => (
-                        <li key={`${index}-${name}`}>{name}</li>
+                        <StyledModifiersItem key={`${index}-${name}`}>
+                          {name.substring(6, name.length)}
+                        </StyledModifiersItem>
                       )
                     )}
-                  </ul>
+                  </StyledModifiersList>
                 )}
               </StyledNameArea>
 

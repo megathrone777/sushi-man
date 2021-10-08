@@ -56,6 +56,7 @@ export const StyledImageArea = styled(StyledCell)`
 export const StyledNameArea = styled(StyledCell)`
   flex-direction: column;
   grid-area: name;
+  text-align: center;
 `;
 
 export const StyledQuantityArea = styled(StyledCell)`
@@ -101,7 +102,9 @@ export const StyledBold = styled.p`
   font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
 `;
 
-export const StyledWeight = styled.p``;
+export const StyledWeight = styled.p`
+  margin-bottom: ${({ theme }) => theme.rem(10)};
+`;
 
 export const StyledQuantityWrapper = styled.div`
   align-items: center;
@@ -158,4 +161,10 @@ export const StyledRemove = styled.button`
   &:hover {
     opacity: 0.8;
   }
+`;
+
+export const StyledModifiersList = styled.ul``;
+
+export const StyledModifiersItem = styled.li`
+  font-size: ${({ theme }) => theme.rem(14)};
 `;
