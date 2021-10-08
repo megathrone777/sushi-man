@@ -1,9 +1,13 @@
 import React from "react";
 import Link from "next/link";
 
-
 import useTranslation from "~/intl/useTranslation";
-import { TCartProduct, changeQuantity, removeFromCart, useStore } from "~/store";
+import {
+  TCartProduct,
+  changeQuantity,
+  removeFromCart,
+  useStore,
+} from "~/store";
 import { SvgPlusIcon, SvgMinusIcon } from "~/icons";
 import {
   StyledWrapper,
@@ -24,6 +28,7 @@ import {
   StyledOptionsArea,
   StyledQuantityArea,
 } from "./styled";
+import { TProductModifier } from "~/components";
 
 const Products: React.FC = () => {
   const { t } = useTranslation();
@@ -69,6 +74,7 @@ const Products: React.FC = () => {
               weight,
               persons,
               price,
+              product_modifiers,
               quantity,
               totalPrice,
             }: TCartProduct,
@@ -86,6 +92,15 @@ const Products: React.FC = () => {
               <StyledNameArea>
                 <StyledBold>{title}</StyledBold>
                 <StyledWeight>{weight}</StyledWeight>
+                {product_modifiers && !!product_modifiers.length && (
+                  <ul>
+                    {product_modifiers.map(
+                      ({ name }: TProductModifier): React.ReactElement => (
+                        <li key={`${index}-${name}`}>{name}</li>
+                      )
+                    )}
+                  </ul>
+                )}
               </StyledNameArea>
 
               <StyledQuantityArea>

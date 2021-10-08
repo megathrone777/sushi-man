@@ -188,7 +188,7 @@ const ProductDetails: React.FC<TProps> = ({
                             {modifier.name} - {modifier.price}
                           </StyledModifierLabel>
 
-                          {/* {selectedModifiers.some(
+                          {selectedModifiers.some(
                             (selectedModifier: TProductModifier): boolean =>
                               selectedModifier.id === modifier.id
                           ) &&
@@ -206,12 +206,8 @@ const ProductDetails: React.FC<TProps> = ({
                                           (
                                             selectedSubmodifier: TProductSubmodifier
                                           ): boolean =>
-                                            selectedSubModifiers.some(
-                                              (
-                                                subModifier: TProductSubmodifier
-                                              ): boolean =>
-                                                selectedSubmodifier.id === subModifier.id && 
-                                            )
+                                            selectedSubmodifier.id ===
+                                            subModifier.id
                                         )}
                                         id={`${index}-${subModifier.id}`}
                                         isSecondary
@@ -229,7 +225,7 @@ const ProductDetails: React.FC<TProps> = ({
                                   )
                                 )}
                               </StyledSubmodifiersList>
-                            )} */}
+                            )}
                         </StyledModifiersItem>
                       )
                     )}

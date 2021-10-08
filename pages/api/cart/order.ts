@@ -4,7 +4,7 @@ import fetch from "isomorphic-unfetch";
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const { orderId, orderPrice } = request.body;
 
-  console.log(orderId, orderPrice);
+  /// merchant=457844&price=1000&curr=CZK&label=sushiManOrder&refId=1&method=ALL&prepareOnly=true&secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3
 
   const comgateResponse = await fetch(
     "http://payments.comgate.cz/v1.0/create",
@@ -19,11 +19,9 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     }
   );
 
-  const comgateData = await comgateResponse.json();
+  console.log(comgateResponse);
 
-  console.log(comgateData);
-
-  // if (!res.status !== 200) {
+  // if (!comgateResponse.status !== 200) {
   //   return response.send('INTERNAL ERROR') // 500
   // }
 
