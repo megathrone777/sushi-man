@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNotifications } from "reapop";
 import Image from "next/image";
 
@@ -26,6 +26,10 @@ import {
   StyledSubmodifiersList,
 } from "./styled";
 
+interface TSelectedSubmodifier extends TProductSubmodifier {
+  modifierIndex: number;
+}
+
 const ProductDetails: React.FC<TProps> = ({
   allergeny,
   id,
@@ -48,7 +52,7 @@ const ProductDetails: React.FC<TProps> = ({
     TProductModifier[]
   >([]);
   const [selectedSubModifiers, setSelectedSubmodifiers] = useState<
-    TProductSubmodifier[]
+    TSelectedSubmodifier[]
   >([]);
   const { shopSettings } = state;
 
@@ -97,15 +101,20 @@ const ProductDetails: React.FC<TProps> = ({
     }
   };
 
-  const handleSubModifierChange = (subModifier: TProductSubmodifier): void => {
+  const handleSubModifierChange = (
+    subModifier: TProductSubmodifier,
+    modifierIndex: number
+  ): void => {
     if (
       selectedSubModifiers.some(
-        (selectedSubmodifier: TProductSubmodifier): boolean =>
+        (selectedSubmodifier: TSelectedSubmodifier): boolean =>
+          selectedSubmodifier.modifierIndex === modifierIndex &&
           selectedSubmodifier.id === subModifier.id
       )
     ) {
       const newSubModifiers = selectedSubModifiers.filter(
-        (selectedSubModifier: TProductSubmodifier) =>
+        (selectedSubModifier: TSelectedSubmodifier): boolean =>
+          selectedSubModifier.modifierIndex !== modifierIndex ||
           selectedSubModifier.id !== subModifier.id
       );
 
@@ -113,21 +122,17 @@ const ProductDetails: React.FC<TProps> = ({
       return;
     }
 
-    const newSubModifiers = [...selectedSubModifiers];
+    const newSubModifiers: TSelectedSubmodifier[] = [
+      ...selectedSubModifiers,
+      { ...subModifier, modifierIndex },
+    ];
 
-    newSubModifiers.push(subModifier);
     setSelectedSubmodifiers(newSubModifiers);
   };
 
   const handleModalClose = (): void => {
     toggleModalOpened(false);
   };
-
-  useEffect((): void => {
-    console.log(selectedModifiers);
-
-    console.log(selectedSubModifiers);
-  }, [selectedModifiers, selectedSubModifiers]);
 
   return (
     <StyledWrapper>
@@ -197,22 +202,17 @@ const ProductDetails: React.FC<TProps> = ({
                               <StyledSubmodifiersList>
                                 {modifier.submodifiers.map(
                                   (
-                                    subModifier: TProductSubmodifier,
-                                    subMofifierIndex: number
+                                    subModifier: TProductSubmodifier
                                   ): React.ReactElement => (
                                     <li key={`${index}-${subModifier.id}`}>
                                       <StyledMofifiersCheckbox
-                                        checked={selectedSubModifiers.some(
-                                          (
-                                            selectedSubmodifier: TProductSubmodifier
-                                          ): boolean =>
-                                            selectedSubmodifier.id ===
-                                            subModifier.id
-                                        )}
                                         id={`${index}-${subModifier.id}`}
                                         isSecondary
                                         onChange={() =>
-                                          handleSubModifierChange(subModifier)
+                                          handleSubModifierChange(
+                                            subModifier,
+                                            index
+                                          )
                                         }
                                         type="checkbox"
                                       />
@@ -233,7 +233,7 @@ const ProductDetails: React.FC<TProps> = ({
                 </StyledModifiers>
               </>
             )}
-            {product_modifiers.length > 0 && (
+            {product_modifiers && !!product_modifiers.length && (
               <StyledItemPrice>
                 <StyledItemTitle>{t("priceTotal")}:</StyledItemTitle>
                 {totalPrice} Kč
