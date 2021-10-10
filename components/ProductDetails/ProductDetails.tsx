@@ -21,6 +21,7 @@ import {
   StyledModifiers,
   StyledMofifiersCheckbox,
   StyledModifierLabel,
+  StyledModifierPrice,
   StyledModifiersList,
   StyledModifiersItem,
   StyledSubmodifiersList,
@@ -63,6 +64,9 @@ const ProductDetails: React.FC<TProps> = ({
     }
 
     dispatch(addToCart(product));
+    setSelectedModifiers([]);
+    setSelectedSubmodifiers([]);
+    setTotalPrice(parseInt(price));
     notify({
       dismissAfter: 3000,
       dismissible: true,
@@ -181,7 +185,7 @@ const ProductDetails: React.FC<TProps> = ({
                       ): React.ReactElement => (
                         <StyledModifiersItem key={`${index}-${modifier.name}`}>
                           <StyledMofifiersCheckbox
-                            id={modifier.id.toString()}
+                            id={modifier.id}
                             onChange={() => handleModifierChange(modifier)}
                             checked={selectedModifiers.some(
                               (selectedModifier: TProductModifier) =>
@@ -189,8 +193,11 @@ const ProductDetails: React.FC<TProps> = ({
                             )}
                             type="checkbox"
                           />
-                          <StyledModifierLabel htmlFor={modifier.id.toString()}>
-                            {modifier.name} - {modifier.price}
+                          <StyledModifierLabel htmlFor={modifier.id}>
+                            {modifier.name} +{" "}
+                            <StyledModifierPrice>
+                              {modifier.price} Kč
+                            </StyledModifierPrice>
                           </StyledModifierLabel>
 
                           {selectedModifiers.some(
@@ -245,14 +252,14 @@ const ProductDetails: React.FC<TProps> = ({
             onClick={() =>
               handleAddToCart({
                 allergeny,
-                id,
+                id: !!selectedModifiers.length ? `${id}-modified` : id,
                 image: {
                   url: image.url,
                 },
                 ingredients,
                 isRoll,
                 persons,
-                price: price + [selectedModifiers].length * 20,
+                price,
                 product_modifiers: selectedModifiers,
                 product_submodifiers: selectedSubModifiers,
                 quantity: 1,

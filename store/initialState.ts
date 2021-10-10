@@ -4,7 +4,7 @@ import { TProduct, TProductModifier } from "~/components";
 import { TProductSubmodifier } from "~/components/ProductDetails/types";
 
 export interface TAdditional {
-  id: number;
+  id: string;
   price: number;
   quantity: number;
   title: string;

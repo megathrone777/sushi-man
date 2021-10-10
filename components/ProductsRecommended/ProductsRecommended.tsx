@@ -3,7 +3,6 @@ import { useNotifications } from "reapop";
 import Slider from "react-slick";
 import Link from "next/link";
 
-
 import { TProps } from "./types";
 import useTranslation from "~/intl/useTranslation";
 import { SvgBuyIcon } from "~/icons";
@@ -91,7 +90,6 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
                   title,
                   weight,
                   ingredients,
-                  product_modifiers,
                   price,
                   slug,
                 }: TProduct,
@@ -146,7 +144,8 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
                             isRoll,
                             persons,
                             price,
-                            product_modifiers,
+                            product_modifiers: [],
+                            product_submodifiers: [],
                             quantity: 1,
                             slug,
                             title,

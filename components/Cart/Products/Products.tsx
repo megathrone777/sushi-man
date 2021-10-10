@@ -4,7 +4,8 @@ import Link from "next/link";
 import useTranslation from "~/intl/useTranslation";
 import {
   TCartProduct,
-  changeQuantity,
+  decreaseQuantity,
+  increaseQuantity,
   removeFromCart,
   useStore,
 } from "~/store";
@@ -38,24 +39,24 @@ const Products: React.FC = () => {
   const { cart } = state;
 
   const handleQuantityIncrease = (
-    id: number,
+    id: string,
     quantity: number,
     persons: number
   ): void => {
-    dispatch(changeQuantity(id, quantity + 1, persons));
+    dispatch(increaseQuantity(id, quantity + 1, persons));
   };
 
   const handleQuantityDecrease = (
-    id: number,
+    id: string,
     quantity: number,
     persons: number
   ): void => {
     if (quantity === 1) return;
-    dispatch(changeQuantity(id, quantity - 1, persons * -1));
+    dispatch(decreaseQuantity(id, quantity - 1, persons));
   };
 
   const handleProductRemove = (
-    id: number,
+    id: string,
     quantity: number,
     persons: number
   ): void => {

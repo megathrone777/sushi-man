@@ -1,6 +1,5 @@
 import React from "react";
 
-
 import useTranslation from "~/intl/useTranslation";
 import { TAdditional, changeAdditionalQuantity, useStore } from "~/store";
 import { SvgPlusIcon, SvgMinusIcon, SvgNoteIcon } from "~/icons";
@@ -26,11 +25,11 @@ const Additionals: React.FC = () => {
   const { dispatch, state } = useStore();
   const { cart } = state;
 
-  const handleQuantityIncrease = (id: number, quantity: number): void => {
+  const handleQuantityIncrease = (id: string, quantity: number): void => {
     dispatch(changeAdditionalQuantity(id, quantity + 1));
   };
 
-  const handleQuantityDecrease = (id: number, quantity: number): void => {
+  const handleQuantityDecrease = (id: string, quantity: number): void => {
     if (quantity === 0) return;
     dispatch(changeAdditionalQuantity(id, quantity - 1));
   };

@@ -10,7 +10,8 @@ export enum TActionTypes {
   ADD_PRODUCT = "ADD_PRODUCT",
   REMOVE_PRODUCT = "REMOVE_PRODUCT",
   CLEAR_CART = "CLEAR_CART",
-  CHANGE_QUANTITY = "CHANGE_QUANTITY",
+  INCREASE_QUANTITY = "INCREASE_QUANTITY",
+  DECREASE_QUANTITY = "DECREASE_QUANTITY",
   CHANGE_ADDITIONAL_QUANTITY = "CHANGE_ADDITIONAL_QUANTITY",
   SET_ADDITIONALS = "SET_ADDITIONALS",
   ADD_ADDITIONAL = "ADD_ADDITIONAL",
@@ -47,7 +48,7 @@ export const addToCart = (product: TCartProduct): TAction => ({
 });
 
 export const removeFromCart = (
-  id: number,
+  id: string,
   persons: number,
   quantity: number
 ): TAction => ({
@@ -64,8 +65,8 @@ export const clearCart = (): TAction => ({
   type: TActionTypes.CLEAR_CART,
 });
 
-export const changeQuantity = (
-  id: number,
+export const decreaseQuantity = (
+  id: string,
   quantity: number,
   persons: number
 ): TAction => ({
@@ -74,11 +75,24 @@ export const changeQuantity = (
     persons,
     quantity,
   },
-  type: TActionTypes.CHANGE_QUANTITY,
+  type: TActionTypes.DECREASE_QUANTITY,
+});
+
+export const increaseQuantity = (
+  id: string,
+  quantity: number,
+  persons: number
+): TAction => ({
+  payload: {
+    id,
+    persons,
+    quantity,
+  },
+  type: TActionTypes.INCREASE_QUANTITY,
 });
 
 export const changeAdditionalQuantity = (
-  id: number,
+  id: string,
   quantity: number
 ): TAction => ({
   payload: {
