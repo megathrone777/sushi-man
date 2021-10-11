@@ -16,6 +16,7 @@ import { StyledContainer } from "~/components/Layout/styled";
 interface TDeliveryTitle {
   locale: string;
   title: string;
+  text: string;
 }
 
 interface TDeliveryItem {
@@ -36,7 +37,7 @@ const Delivery: React.FC<TProps> = ({ deliveryItems, deliveryTitle }) => {
   const items = deliveryItems.filter(
     (item: TDeliveryItem) => item.locale === locale
   );
-  const { title }: TDeliveryTitle = deliveryTitle.find(
+  const { title, text }: TDeliveryTitle = deliveryTitle.find(
     (item: TDeliveryTitle) => item.locale === locale
   );
 
@@ -45,6 +46,7 @@ const Delivery: React.FC<TProps> = ({ deliveryItems, deliveryTitle }) => {
       <StyledContainer>
         <StyledLayout>
           <StyledTitle dangerouslySetInnerHTML={{ __html: title }} />
+          <StyledSubtitle dangerouslySetInnerHTML={{ __html: text }} />
 
           {items && (
             <StyledList>
