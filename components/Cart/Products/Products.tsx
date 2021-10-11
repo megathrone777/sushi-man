@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import Link from "next/link";
 
 import useTranslation from "~/intl/useTranslation";
@@ -8,6 +8,7 @@ import {
   increaseQuantity,
   removeFromCart,
   useStore,
+  setTotalRollsDiscount
 } from "~/store";
 import { SvgPlusIcon, SvgMinusIcon } from "~/icons";
 import {
@@ -30,6 +31,8 @@ import {
   StyledQuantityArea,
   StyledModifiersList,
   StyledModifiersItem,
+  StyledText,
+  StyledTextLabel,
 } from "./styled";
 import { TProductModifier } from "~/components";
 
@@ -37,6 +40,57 @@ const Products: React.FC = () => {
   const { t } = useTranslation();
   const { dispatch, state } = useStore();
   const { cart } = state;
+  const { products } = cart;
+
+  const checkRollsAdded = useCallback((): number => {
+    const totalRollsAdded = products.filter(
+      ({ isRoll }: TCartProduct): boolean => isRoll
+    );
+
+    const totalAmount = totalRollsAdded.reduce(
+      (accumulator: number, { quantity }: TCartProduct) => {
+        return accumulator + quantity;
+      },
+      0
+    );
+
+    return totalAmount;
+  }, [products]);
+
+  const renderDiscount = (): React.ReactElement => (
+    <>
+      {checkRollsAdded() > 0 && checkRollsAdded() % 4 === 0 ? (
+        <StyledText>
+          {t("discountReceived")}{" "}
+          <StyledTextLabel>
+            -
+            {checkRollsAdded() % 4 === 0
+              ? Math.floor(checkRollsAdded() / 4) * 50
+              : 50}
+            Kč
+          </StyledTextLabel>
+        </StyledText>
+      ) : (
+        <StyledText>
+          {t("addMoreRolls")}{" "}
+          {checkRollsAdded() > 0 ? 4 - (checkRollsAdded() % 4) : 4}{" "}
+          {t("addMoreRollsResult")}
+          <StyledTextLabel>
+            {" "}
+            {"-"}
+            {checkRollsAdded() > 0 && checkRollsAdded() < 4
+              ? 50
+              : checkRollsAdded() > 0 && checkRollsAdded() % 4 === 0
+              ? Math.floor(checkRollsAdded() / 4) * 50
+              : checkRollsAdded() > 0 && checkRollsAdded() > 4
+              ? Math.ceil(checkRollsAdded() / 4) * 50
+              : 50}
+            Kč
+          </StyledTextLabel>
+        </StyledText>
+      )}
+    </>
+  );
 
   const handleQuantityIncrease = (
     id: string,
@@ -62,6 +116,10 @@ const Products: React.FC = () => {
   ): void => {
     dispatch(removeFromCart(id, quantity, persons));
   };
+
+  useEffect((): void => {
+    dispatch(setTotalRollsDiscount(Math.floor(checkRollsAdded() / 4) * 50));
+  }, [checkRollsAdded]);
 
   return (
     <StyledWrapper>
@@ -152,6 +210,8 @@ const Products: React.FC = () => {
           )
         )}
       </StyledContent>
+
+      {renderDiscount()}
     </StyledWrapper>
   );
 };

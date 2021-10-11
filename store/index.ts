@@ -8,9 +8,12 @@ export {
   removeFromCart,
   setAdditionals,
   setCustomerAddress,
+  setCustomerAddressError,
   setCustomerName,
+  setCustomerNameError,
   setCustomerNote,
   setCustomerPhone,
+  setCustomerPhoneError,
   setCutleryAmount,
   setCutleryPrice,
   setCutleryTotalPrice,
@@ -18,6 +21,7 @@ export {
   setPickup,
   setSchedule,
   setShopSettings,
+  setTotalPersonsError,
   setTotalRollsDiscount,
 } from "./actions";
 export { useStore, AppContext } from "./context";

@@ -66,8 +66,7 @@ const ProductDetails: React.FC<TProps> = ({
         showDismissButton: true,
         status: "error",
         title: `Zvolte příchuť`,
-      });
-      
+      });      
       return;
     }
 

@@ -6,7 +6,7 @@ import { SvgPlusIcon, SvgMinusIcon, SvgNoteIcon } from "~/icons";
 import {
   StyledWrapper,
   StyledTable,
-  StyledTableCaption,
+  StyledTitle,
   StyledTableCell,
   StyledTableRow,
   StyledName,
@@ -36,9 +36,9 @@ const Additionals: React.FC = () => {
 
   return (
     <StyledWrapper>
-      <StyledTable>
-        <StyledTableCaption>{t("addMore")}</StyledTableCaption>
+      <StyledTitle>{t("addMore")}</StyledTitle>
 
+      <StyledTable>
         {cart.additionals && !!cart.additionals.length && (
           <tbody>
             <StyledTableRow>

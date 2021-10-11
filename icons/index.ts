@@ -7,3 +7,4 @@ export { SvgNoteIcon } from "./SvgNoteIcon";
 export { SvgPlusIcon } from "./SvgPlusIcon";
 export { SvgTargetIcon } from "./SvgTargetIcon";
 export { SvgCloseIcon } from "./SvgCloseIcon";
+export { SvgExclamationIcon } from "./SvgExclamationIcon";

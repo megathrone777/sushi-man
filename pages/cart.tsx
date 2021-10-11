@@ -59,13 +59,6 @@ const CartPage: NextPage<TProps> = ({
     dispatch(setCutleryPrice(cutlery.price));
     dispatch(setAdditionals(additionals));
     dispatch(setShopSettings(shopSettings));
-    dispatch(
-      setSchedule({
-        schedule_cs: schedule["schedule_cs"],
-        schedule_ru: schedule["schedule_ru"],
-      })
-    );
-    console.log(schedule);
   }, [additionals, cutlery.price, schedule, dispatch]);
 
   return (

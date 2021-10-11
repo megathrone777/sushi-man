@@ -1,12 +1,7 @@
 import { styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
-  width: 45%;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-bottom: ${({ theme }) => theme.rem(40)};
-    width: 100%;
-  }
+  margin-bottom: ${({ theme }) => theme.rem(40)};
 `;
 
 export const StyledTitle = styled.h2`

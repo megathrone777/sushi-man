@@ -11,7 +11,16 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     {
       body: `merchant=457844&price=${
         orderPrice * 100
-      }&curr=CZK&label=sushiManOrder&refId=${orderId}&method=ALL&prepareOnly=true&secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3`,
+      }
+        &curr=CZK
+        &label=sushiManOrder
+        &refId=${orderId}
+        &email=megathrone3333@gmail.com
+        &method=ALL
+        &prepareOnly=true
+        &secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3
+        &test=true`,
+        
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },

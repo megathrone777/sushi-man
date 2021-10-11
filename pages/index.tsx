@@ -10,6 +10,7 @@ import {
   setAdditionals,
   setShopSettings,
   useStore,
+  setSchedule,
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -73,7 +74,8 @@ const IndexPage: NextPage<TProps> = ({
   useEffect((): void => {
     dispatch(setAdditionals(additionals));
     dispatch(setShopSettings(shopSettings));
-  }, [additionals, dispatch]);
+    dispatch(setSchedule(schedule));
+  }, [additionals, schedule, dispatch]);
 
   return (
     <Layout title={mainTitle}>

@@ -35,8 +35,11 @@ const notification = css`
       &-title {
         color: green;
         font-size: ${({ theme }) => theme.rem(18)};
-        text-shadow: 0 0 ${({ theme }) => theme.rem(1)} rgba(0, 0, 0, 0.16);
-        text-transform: lowercase;
+        text-shadow: 0 0 ${({ theme }) => theme.rem(1)} rgba(0, 0, 0, 0.16);        
+
+        &:first-letter {
+          text-transform: uppercase;
+        }
 
         @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
           font-size: ${({ theme }) => theme.rem(16)};

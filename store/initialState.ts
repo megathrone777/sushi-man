@@ -32,9 +32,12 @@ export interface TState {
   cart: {
     additionals: TAdditional[];
     customerAddress: string;
+    customerAddressError: boolean;
     customerName: string;
+    customerNameError: boolean;
     customerNote: string;
     customerPhone: string;
+    customerPhoneError: boolean;
     cutleryAmount: number;
     cutleryPrice: number;
     cutleryTotalPrice: number;
@@ -43,6 +46,7 @@ export interface TState {
     modifiers: TProductModifier[];
     products: TCartProduct[];
     totalPersons: number;
+    totalPersonsError: boolean;
     totalRollsDiscount: number;
   };
   schedule: {
@@ -58,17 +62,21 @@ const initialState: TState = getFromLocalStorage("state")
       cart: {
         additionals: [],
         customerAddress: "",
+        customerAddressError: false,
         customerNote: "",
-        cutleryAmount: 1,
+        cutleryAmount: 0,
         cutleryPrice: 0,
         cutleryTotalPrice: 0,
         deliveryPrice: 0,
         isPickupChecked: false,
         customerName: "",
+        customerNameError: false,
         customerPhone: "",
+        customerPhoneError: false,
         modifiers: [],
         products: [],
         totalPersons: 0,
+        totalPersonsError: false,
         totalRollsDiscount: 0,
       },
       schedule: {

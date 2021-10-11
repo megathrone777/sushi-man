@@ -1,8 +1,5 @@
 import React from "react";
 
-
-import { TSchedule, useStore } from "~/store";
-import useTranslation from "~/intl/useTranslation";
 import { SvgCloseIcon } from "~/icons";
 import {
   StyledWrapper,
@@ -26,16 +23,18 @@ export interface TContactsLink {
 interface TProps {
   isOpened: boolean;
   close: () => void;
+  title: string;
+  text: string;
+  contactsLinks: TContactsLink[];
 }
 
-const Modal: React.FC<TProps> = ({ close, isOpened }) => {
-  const { locale, t } = useTranslation();
-  const { state } = useStore();
-  const contactsLinks = t("contactsLinks");
-  const content: TSchedule = state.schedule[`schedule_${locale}`];
-
-  console.log(content);
-
+const Modal: React.FC<TProps> = ({
+  close,
+  isOpened,
+  title,
+  text,
+  contactsLinks,
+}) => {
   const handleClose = (): void => {
     close();
   };
@@ -45,8 +44,8 @@ const Modal: React.FC<TProps> = ({ close, isOpened }) => {
       <StyledBackground onClick={handleClose} isOpened={isOpened} />
       <StyledLayout isOpened={isOpened}>
         <StyledContainer>
-          <StyledTitle dangerouslySetInnerHTML={{ __html: content.title }} />
-          <StyledTime dangerouslySetInnerHTML={{ __html: content.schedule }} />
+          {title && <StyledTitle dangerouslySetInnerHTML={{ __html: title }} />}
+          {text && <StyledTime dangerouslySetInnerHTML={{ __html: text }} />}
 
           {contactsLinks && (
             <StyledLinks>

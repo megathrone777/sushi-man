@@ -9,6 +9,7 @@ import {
   setCustomerPhone,
   useStore,
 } from "~/store";
+import { SvgExclamationIcon } from "~/icons";
 import {
   StyledWrapper,
   StyledContent,
@@ -29,6 +30,8 @@ import {
   StyledMap,
   StyledLengthInKm,
   StyledDeliveryPrice,
+  StyledErrorIcon,
+  StyledDeliveryPriceResult,
 } from "./styled";
 
 const Delivery: React.FC = () => {
@@ -57,6 +60,12 @@ const Delivery: React.FC = () => {
     currentTarget,
   }: React.SyntheticEvent<HTMLInputElement>): void => {
     dispatch(setCustomerName(currentTarget.value));
+  };
+
+  const handleAddressChange = ({
+    currentTarget,
+  }: React.SyntheticEvent<HTMLInputElement>): void => {
+    dispatch(setCustomerAddress(currentTarget.value));
   };
 
   useEffect((): void => {
@@ -105,7 +114,6 @@ const Delivery: React.FC = () => {
       const data = await response.json();
 
       if (!place.geometry || !place.geometry.location) {
-        console.warn("No details available for input: '" + place.name + "'");
         return;
       }
 
@@ -162,8 +170,11 @@ const Delivery: React.FC = () => {
           <StyledContent>
             <StyledInputWrapper>
               <StyledNameInput
+                hasError={cart.customerNameError}
                 onChange={handleNameChange}
-                placeholder={t("name")}
+                placeholder={
+                  cart.customerNameError ? "Vyplňte jméno" : t("name")
+                }
                 type="text"
                 value={cart.customerName}
               />
@@ -171,9 +182,12 @@ const Delivery: React.FC = () => {
 
             <StyledInputWrapper>
               <StyledPhoneInput
+                hasError={cart.customerPhoneError}
                 onChange={handlePhoneChange}
                 pattern="[0-9]*"
-                placeholder={t("phone")}
+                placeholder={
+                  cart.customerPhoneError ? "Vyplňte telefon" : t("phone")
+                }
                 type="tel"
                 value={cart.customerPhone}
               />
@@ -193,41 +207,71 @@ const Delivery: React.FC = () => {
           <StyledContent>
             <StyledInputWrapper>
               <StyledNameInput
+                hasError={cart.customerNameError}
                 onChange={handleNameChange}
-                placeholder={t("name")}
+                placeholder={
+                  cart.customerNameError ? "Vyplňte jméno" : t("name")
+                }
                 type="text"
                 value={cart.customerName}
               />
+              {cart.customerNameError && (
+                <StyledErrorIcon>
+                  <SvgExclamationIcon />
+                </StyledErrorIcon>
+              )}
             </StyledInputWrapper>
 
             <StyledInputWrapper>
               <StyledPhoneInput
+                hasError={cart.customerPhoneError}
                 onChange={handlePhoneChange}
                 pattern="[0-9]*"
-                placeholder={t("phone")}
+                placeholder={
+                  cart.customerPhoneError ? "Vyplňte telefon" : t("phone")
+                }
                 type="tel"
                 value={cart.customerPhone}
               />
+              {cart.customerPhoneError && (
+                <StyledErrorIcon>
+                  <SvgExclamationIcon />
+                </StyledErrorIcon>
+              )}
             </StyledInputWrapper>
 
             <StyledInputWrapper>
               <StyledDeliveryInput
+                hasError={cart.customerAddressError}
+                onChange={handleAddressChange}
                 ref={addressInputElement}
-                placeholder={t("fillAddress")}
+                placeholder={
+                  cart.customerAddressError
+                    ? "Vyplňte adresu"
+                    : t("fillAddress")
+                }
                 type="search"
               />
-              {lengthInKm !== null && parseInt(lengthInKm) > 0 && (
-                <StyledLengthInKm>{lengthInKm}</StyledLengthInKm>
+              {lengthInKm !== null &&
+                parseInt(lengthInKm) > 0 &&
+                !cart.customerAddressError && (
+                  <StyledLengthInKm>{lengthInKm}</StyledLengthInKm>
+                )}
+              {cart.customerAddressError && (
+                <StyledErrorIcon>
+                  <SvgExclamationIcon />
+                </StyledErrorIcon>
               )}
             </StyledInputWrapper>
 
             {cart.deliveryPrice === null ? (
               <StyledDeliveryPrice>
-                Ваш адрес вне диапазона доставки
+                Adresa mimo rozsah rozvozu
               </StyledDeliveryPrice>
             ) : (
               <StyledDeliveryPrice>
-                Cena dopravy: {cart.deliveryPrice} Kč
+                Cena dopravy: {cart.deliveryPrice}{" "}
+                <StyledDeliveryPriceResult>Kč</StyledDeliveryPriceResult>
               </StyledDeliveryPrice>
             )}
 

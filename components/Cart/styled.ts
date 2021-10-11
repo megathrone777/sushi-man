@@ -23,6 +23,14 @@ export const StyledLayout = styled.div`
   }
 `;
 
+export const StyledColumn = styled.div`
+  width: 45%;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 100%;
+  }
+`;
+
 export const StyledTotal = styled.div`
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
   margin-bottom: ${({ theme }) => theme.rem(22)};
@@ -32,6 +40,13 @@ export const StyledTotal = styled.div`
 export const StyledEmpty = styled.p`
   align-items: center;
   display: flex;
+  margin-bottom: ${({ theme }) => theme.rem(20)};
+  font: ${({ theme }) => theme.rem(30)} ${({ theme }) => theme.fonts.fontBold};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: ${({ theme }) => theme.rem(25)};
+    margin-bottom: ${({ theme }) => theme.rem(20)};
+  }
 `;
 
 export const StyledEmptyImage = styled.img`

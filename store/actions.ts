@@ -29,7 +29,9 @@ export enum TActionTypes {
   SET_CUSTOMER_PHONE_ERROR = "SET_CUSTOMER_PHONE_ERROR",
   SET_CUSTOMER_ADDRESS = "SET_CUSTOMER_ADDRESS",
   SET_CUSTOMER_ADDRESS_ERROR = "SET_CUSTOMER_ADDRESS_ERROR",
+  SET_PERSONS_ERROR = "SET_PERSONS_ERROR",
   SET_CUSTOMER_NOTE = "SET_CUSTOMER_NOTE",
+  SET_TOTAL_PERSONS_ERROR = "SET_TOTAL_PERSONS_ERROR",
 }
 
 export interface TAction {
@@ -174,4 +176,24 @@ export const setCustomerPhone = (phone: string): TAction => ({
 export const setCustomerNote = (note: string): TAction => ({
   payload: note,
   type: TActionTypes.SET_CUSTOMER_NOTE,
+});
+
+export const setCustomerNameError = (error: boolean): TAction => ({
+  payload: error,
+  type: TActionTypes.SET_CUSTOMER_NAME_ERROR,
+});
+
+export const setCustomerAddressError = (error: boolean): TAction => ({
+  payload: error,
+  type: TActionTypes.SET_CUSTOMER_ADDRESS_ERROR,
+});
+
+export const setCustomerPhoneError = (error: boolean): TAction => ({
+  payload: error,
+  type: TActionTypes.SET_CUSTOMER_PHONE_ERROR,
+});
+
+export const setTotalPersonsError = (error: boolean): TAction => ({
+  payload: error,
+  type: TActionTypes.SET_TOTAL_PERSONS_ERROR,
 });

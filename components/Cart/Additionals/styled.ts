@@ -2,27 +2,25 @@ import { styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
   margin-bottom: ${({ theme }) => theme.rem(40)};
-  width: 45%;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin-bottom: ${({ theme }) => theme.rem(20)};
     min-height: 0;
-    width: 100%;
   }
 `;
 
-export const StyledTable = styled.table`
-  border-top: ${({ theme }) => theme.rem(3)} solid #da2628;
-  margin-bottom: ${({ theme }) => theme.rem(20)};
-  min-height: ${({ theme }) => theme.rem(220)};
-  table-layout: fixed;
+export const StyledTitle = styled.h2`
+  border-bottom: ${({ theme }) => theme.rem(3)} solid #da2628;
+  font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
+  padding: ${({ theme }) => theme.rem(10)};
   text-align: left;
   width: 100%;
 `;
 
-export const StyledTableCaption = styled.caption`
-  font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
-  padding: ${({ theme }) => theme.rem(10)};
+export const StyledTable = styled.table`
+  margin-bottom: ${({ theme }) => theme.rem(20)};
+  min-height: ${({ theme }) => theme.rem(220)};
+  table-layout: fixed;
   text-align: left;
 `;
 

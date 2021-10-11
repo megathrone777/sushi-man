@@ -1,12 +1,7 @@
 import { styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
-  width: 45%;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-bottom: ${({ theme }) => theme.rem(20)};
-    width: 100%;
-  }
+  margin-bottom: ${({ theme }) => theme.rem(20)};
 `;
 
 export const StyledTitle = styled.h2`
@@ -30,13 +25,16 @@ export const StyledContent = styled.div``;
 export const StyledLayout = styled.div``;
 
 export const StyledInputWrapper = styled.div`
-  align-items: center;
-  display: flex;
   margin-bottom: ${({ theme }) => theme.rem(20)};
   position: relative;
+  width: ${({ theme }) => theme.rem(400)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 100%;
+  }
 `;
 
-const StyledInput = styled.input`
+const StyledInput = styled.input<{ hasError: boolean }>`
   background-position: ${({ theme }) => theme.rem(5)} center;
   background-repeat: no-repeat;
   background-size: auto ${({ theme }) => theme.rem(20)};
@@ -46,14 +44,30 @@ const StyledInput = styled.input`
   font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontMedium}`};
   height: ${({ theme }) => theme.rem(35)};
   padding: 0 ${({ theme }) => theme.rem(30)};
-  width: ${({ theme }) => theme.rem(400)};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 100%;
-  }
+  width: 100%;
 
   &:focus {
     outline: none;
+  }
+
+  &::-webkit-input-placeholder {
+    color: ${({ theme, hasError }) =>
+      hasError ? `${theme.colors.red}` : "rgb(118, 118, 118)"};
+  }
+
+  &:-moz-placeholder {
+    color: ${({ theme, hasError }) =>
+      hasError ? `${theme.colors.red}` : "rgb(118, 118, 118)"};
+  }
+
+  &::-moz-placeholder {
+    color: ${({ theme, hasError }) =>
+      hasError ? `${theme.colors.red}` : "rgb(118, 118, 118)"};
+  }
+
+  &:-ms-input-placeholder {
+    color: ${({ theme, hasError }) =>
+      hasError ? `${theme.colors.red}` : "rgb(118, 118, 118)"};
   }
 `;
 
@@ -146,6 +160,10 @@ export const StyledMap = styled.div`
 export const StyledLengthInKm = styled.p`
   display: inline-block;
   margin-left: ${({ theme }) => theme.rem(10)};
+  position: absolute;
+  left: calc(100% + ${({ theme }) => theme.rem(10)});
+  top: ${({ theme }) => theme.rem(10)};
+  white-space: nowrap;
 `;
 
 export const StyledCurrentLocationButton = styled.button`
@@ -165,10 +183,26 @@ export const StyledCurrentLocationButton = styled.button`
 
 export const StyledDeliveryPrice = styled.p`
   font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
-  text-align: right;
+  text-align: left;
   margin-right: ${({ theme }) => theme.rem(30)};
+  width: ${({ theme }) => theme.rem(400)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
     margin-top: ${({ theme }) => theme.rem(15)};
   }
+`;
+
+export const StyledDeliveryPriceResult = styled.span`
+  font-size: ${({ theme }) => theme.rem(16)};
+`;
+
+export const StyledErrorIcon = styled.span`
+  display: block;
+  color: ${({ theme }) => theme.colors.red};
+  height: ${({ theme }) => theme.rem(20)};
+  position: absolute;
+  right: ${({ theme }) => theme.rem(-20)};
+  top: 50%;
+  transform: translateY(-50%);
+  width: ${({ theme }) => theme.rem(20)};
 `;

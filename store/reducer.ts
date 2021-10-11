@@ -255,6 +255,42 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
         },
       }),
 
+    [TActionTypes.SET_CUSTOMER_ADDRESS_ERROR]: (): TState =>
+      setStateToLocalStorage({
+        ...state,
+        cart: {
+          ...state.cart,
+          customerAddressError: payload,
+        },
+      }),
+
+    [TActionTypes.SET_CUSTOMER_NAME_ERROR]: (): TState =>
+      setStateToLocalStorage({
+        ...state,
+        cart: {
+          ...state.cart,
+          customerNameError: payload,
+        },
+      }),
+
+    [TActionTypes.SET_CUSTOMER_PHONE_ERROR]: (): TState =>
+      setStateToLocalStorage({
+        ...state,
+        cart: {
+          ...state.cart,
+          customerPhoneError: payload,
+        },
+      }),
+
+    [TActionTypes.SET_TOTAL_PERSONS_ERROR]: (): TState =>
+      setStateToLocalStorage({
+        ...state,
+        cart: {
+          ...state.cart,
+          totalPersonsError: payload,
+        },
+      }),
+
     DEFAULT: (): TState => {
       return state;
     },

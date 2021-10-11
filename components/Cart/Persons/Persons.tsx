@@ -8,17 +8,19 @@ import {
   TCartProduct,
   useStore,
 } from "~/store";
-import { SvgPlusIcon, SvgMinusIcon } from "~/icons";
+import { SvgPlusIcon, SvgMinusIcon, SvgExclamationIcon } from "~/icons";
 import {
   StyledWrapper,
-  StyledColumn,
   StyledQuantityWrapper,
+  StyledQuantityLabel,
   StyledQuantityButton,
   StyledQuantity,
   StyledText,
   StyledTextLabel,
-  StyledQuantityLabel,
+  StyledTitle,
   StyledQuantityPrice,
+  StyledError,
+  StyledErrorIcon,
 } from "./styled";
 
 const Persons: React.FC = () => {
@@ -29,25 +31,10 @@ const Persons: React.FC = () => {
     cutleryPrice,
     cutleryAmount,
     cutleryTotalPrice,
-    products,
     totalPersons,
+    totalPersonsError,
   } = cart;
-  const [amount, setAmount] = useState<number>(1);
-
-  const checkRollsAdded = useCallback((): number => {
-    const totalRollsAdded = products.filter(
-      ({ isRoll }: TCartProduct): boolean => isRoll
-    );
-
-    const totalAmount = totalRollsAdded.reduce(
-      (accumulator: number, { quantity }: TCartProduct) => {
-        return accumulator + quantity;
-      },
-      0
-    );
-
-    return totalAmount;
-  }, [products]);
+  const [amount, setAmount] = useState<number>(0);
 
   const handleQuantityIncrease = (): void => {
     setAmount((prevValue: number): number => {
@@ -58,7 +45,7 @@ const Persons: React.FC = () => {
   };
 
   const handleQuantityDecrease = (): void => {
-    if (amount === 1) return;
+    if (amount === 0) return;
 
     setAmount((prevValue: number): number => {
       dispatch(setCutleryAmount(prevValue - 1));
@@ -67,44 +54,7 @@ const Persons: React.FC = () => {
     });
   };
 
-  const renderDiscount = (): React.ReactElement => (
-    <>
-      {checkRollsAdded() > 0 && checkRollsAdded() % 4 === 0 ? (
-        <StyledText>
-          {t("discountReceived")}{" "}
-          <StyledTextLabel>
-            -
-            {checkRollsAdded() % 4 === 0
-              ? Math.floor(checkRollsAdded() / 4) * 50
-              : 50}
-            Kč
-          </StyledTextLabel>
-        </StyledText>
-      ) : (
-        <StyledText>
-          {t("addMoreRolls")}{" "}
-          {checkRollsAdded() > 0 ? 4 - (checkRollsAdded() % 4) : 4}{" "}
-          {t("addMoreRollsResult")}
-          <StyledTextLabel>
-            {" "}
-            {"-"}
-            {checkRollsAdded() > 0 && checkRollsAdded() < 4
-              ? 50
-              : checkRollsAdded() > 0 && checkRollsAdded() % 4 === 0
-              ? Math.floor(checkRollsAdded() / 4) * 50
-              : checkRollsAdded() > 0 && checkRollsAdded() > 4
-              ? Math.ceil(checkRollsAdded() / 4) * 50
-              : 50}
-            Kč
-          </StyledTextLabel>
-        </StyledText>
-      )}
-    </>
-  );
-
   useEffect((): void => {
-    dispatch(setTotalRollsDiscount(Math.floor(checkRollsAdded() / 4) * 50));
-
     if (cutleryAmount > totalPersons) {
       dispatch(
         setCutleryTotalPrice((cutleryAmount - totalPersons) * cutleryPrice)
@@ -112,38 +62,45 @@ const Persons: React.FC = () => {
     } else {
       dispatch(setCutleryTotalPrice(0));
     }
-  }, [cutleryAmount, cutleryPrice, dispatch, totalPersons, checkRollsAdded]);
+  }, [cutleryAmount, cutleryPrice, dispatch, totalPersons]);
 
   return (
     <StyledWrapper>
-      <StyledColumn>
-        <StyledQuantityWrapper>
-          <StyledQuantityLabel>{t("cutleryQuantity")}</StyledQuantityLabel>
+      <StyledTitle>{t("cutleryQuantity")}</StyledTitle>
 
-          <StyledQuantityButton
-            isDecrease
-            onClick={handleQuantityDecrease}
-            type="button"
-          >
-            <SvgMinusIcon />
-          </StyledQuantityButton>
-          <StyledQuantity>{amount}</StyledQuantity>
-          <StyledQuantityButton
-            isIncrease
-            onClick={handleQuantityIncrease}
-            type="button"
-          >
-            <SvgPlusIcon />
-          </StyledQuantityButton>
-        </StyledQuantityWrapper>
+      <StyledText>
+        Do <StyledTextLabel>{totalPersons}</StyledTextLabel>{" "}
+        {t("cutleryPriceIncluded")}
+      </StyledText>
+
+      <StyledQuantityWrapper>
+        <StyledQuantityLabel>Příbory</StyledQuantityLabel>
+        <StyledQuantityButton
+          isDecrease
+          onClick={handleQuantityDecrease}
+          type="button"
+        >
+          <SvgMinusIcon />
+        </StyledQuantityButton>
+        <StyledQuantity hasError={totalPersonsError}>{amount}</StyledQuantity>
+        <StyledQuantityButton
+          isIncrease
+          onClick={handleQuantityIncrease}
+          type="button"
+        >
+          <SvgPlusIcon />
+        </StyledQuantityButton>
+
         <StyledQuantityPrice>{cutleryTotalPrice} Kč</StyledQuantityPrice>
-        <StyledText>
-          Do <StyledTextLabel>{totalPersons}</StyledTextLabel>{" "}
-          {t("cutleryPriceIncluded")}
-        </StyledText>
-      </StyledColumn>
+      </StyledQuantityWrapper>
 
-      <StyledColumn>{renderDiscount()}</StyledColumn>
+      {totalPersonsError && (
+        <StyledError>
+          <StyledErrorIcon>
+            <SvgExclamationIcon />
+          </StyledErrorIcon>
+        </StyledError>
+      )}
     </StyledWrapper>
   );
 };

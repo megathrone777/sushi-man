@@ -168,3 +168,19 @@ export const StyledModifiersList = styled.ul``;
 export const StyledModifiersItem = styled.li`
   font-size: ${({ theme }) => theme.rem(14)};
 `;
+
+export const StyledText = styled.p`
+  font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontMedium}`};
+  margin-bottom: ${({ theme }) => theme.rem(10)};
+  padding-left: ${({ theme }) => theme.rem(10)};
+  text-align: right;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-bottom: ${({ theme }) => theme.rem(15)};
+  }
+`;
+
+export const StyledTextLabel = styled.span`
+  color: #da2628;
+  font-family: ${({ theme }) => theme.fonts.fontBold};
+`;
