@@ -38,7 +38,7 @@ const ProductPage: NextPage<TProps> = ({
   }, [dispatch]);
 
   return (
-    <LayoutSecondary title="Product">
+    <LayoutSecondary title={`${product.title} | Rozvoz sushi po Praze`}>
       <Banner
         hero={{
           hero_cs: hero["hero_cs"],

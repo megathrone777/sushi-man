@@ -85,7 +85,11 @@ const Products: React.FC = () => {
           ): React.ReactElement => (
             <StyledRow key={`${index}-${title}`}>
               <StyledImageArea>
-                <Link as={`/product/${id}`} href={`/product/[${id}]`} passHref>
+                <Link
+                  as={`/product/${id.replace("-modified", "")}`}
+                  href={`/product/[${id.replace("-modified", "")}]`}
+                  passHref
+                >
                   <StyledLink>
                     <StyledImage alt={title} src={image.url} />
                   </StyledLink>

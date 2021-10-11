@@ -43,6 +43,10 @@ const notification = css`
         }
       }
 
+      &--error &-title {
+        color: white;
+      }
+
       &-meta {
         flex-grow: 1;
       }
@@ -57,6 +61,10 @@ const notification = css`
           cursor: pointer;
           margin-right: 0;
         }
+      }
+
+      &--error &-dismiss-icon {
+        color: white;
       }
     }
   }

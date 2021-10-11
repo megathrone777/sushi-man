@@ -45,4 +45,18 @@ query CartPageQuery {
   shop {
     shopIsClosed
   }
+
+  schedule_cs: schedule(locale: "cs") {
+    locale
+    schedule
+    text
+    title
+  }
+
+  schedule_ru: schedule(locale: "ru") {
+    locale
+    schedule
+    text
+    title
+  }
 }

@@ -10,6 +10,8 @@ import {
   setCutleryPrice,
   setShopSettings,
   useStore,
+  setSchedule,
+  TSchedule,
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -35,6 +37,10 @@ interface TProps {
   products: TProduct[];
   lengthInKm: string;
   shopSettings: TShopSettings;
+  schedule: {
+    schedule_cs: TSchedule;
+    schedule_ru: TSchedule;
+  };
 }
 
 const CartPage: NextPage<TProps> = ({
@@ -43,6 +49,7 @@ const CartPage: NextPage<TProps> = ({
   hero,
   products,
   shopSettings,
+  schedule,
 }) => {
   const { dispatch } = useStore();
   const { t } = useTranslation();
@@ -52,7 +59,14 @@ const CartPage: NextPage<TProps> = ({
     dispatch(setCutleryPrice(cutlery.price));
     dispatch(setAdditionals(additionals));
     dispatch(setShopSettings(shopSettings));
-  }, [additionals, cutlery.price, dispatch]);
+    dispatch(
+      setSchedule({
+        schedule_cs: schedule["schedule_cs"],
+        schedule_ru: schedule["schedule_ru"],
+      })
+    );
+    console.log(schedule);
+  }, [additionals, cutlery.price, schedule, dispatch]);
 
   return (
     <LayoutSecondary title={cartTitle}>
@@ -71,7 +85,16 @@ const CartPage: NextPage<TProps> = ({
 
 export const getServerSideProps = async () => {
   const {
-    data: { additionals, hero_cs, hero_ru, products, cutlery, shop },
+    data: {
+      additionals,
+      hero_cs,
+      hero_ru,
+      products,
+      cutlery,
+      shop,
+      schedule_cs,
+      schedule_ru,
+    },
   } = await client.query({
     query: gql`
       ${CartPageQuery}
@@ -88,6 +111,10 @@ export const getServerSideProps = async () => {
       },
       cutlery,
       shopSettings: shop,
+      schedule: {
+        schedule_cs,
+        schedule_ru,
+      },
     },
   };
 };

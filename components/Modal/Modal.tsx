@@ -34,6 +34,8 @@ const Modal: React.FC<TProps> = ({ close, isOpened }) => {
   const contactsLinks = t("contactsLinks");
   const content: TSchedule = state.schedule[`schedule_${locale}`];
 
+  console.log(content);
+
   const handleClose = (): void => {
     close();
   };
