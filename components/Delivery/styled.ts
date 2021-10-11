@@ -31,7 +31,8 @@ export const StyledTitle = styled.h2`
 export const StyledSubtitle = styled.span`
   color: white;
   display: block;
-  font: ${({ theme }) => theme.rem(26)} ${({ theme }) => theme.fonts.fontSemiBold};
+  font: ${({ theme }) => theme.rem(26)}
+    ${({ theme }) => theme.fonts.fontSemiBold};
   margin-bottom: ${({ theme }) => theme.rem(55)};
 `;
 
