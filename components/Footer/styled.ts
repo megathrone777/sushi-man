@@ -97,10 +97,9 @@ export const StyledItem = styled.p`
 export const StyledLink = styled.a`
   color: black;
   display: inline-block;
-  text-decoration: none;
 
   &:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 `;
 

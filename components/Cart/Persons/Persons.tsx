@@ -1,23 +1,20 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import useTranslation from "~/intl/useTranslation";
-import {
-  setCutleryAmount,
-  setCutleryTotalPrice,
-  setTotalRollsDiscount,
-  TCartProduct,
-  useStore,
-} from "~/store";
+import { setCutleryAmount, setCutleryTotalPrice, useStore } from "~/store";
 import { SvgPlusIcon, SvgMinusIcon, SvgExclamationIcon } from "~/icons";
 import {
   StyledWrapper,
   StyledQuantityWrapper,
-  StyledQuantityLabel,
   StyledQuantityButton,
   StyledQuantity,
+  StyledName,
   StyledText,
   StyledTextLabel,
   StyledTitle,
+  StyledTable,
+  StyledTableRow,
+  StyledTableCell,
   StyledQuantityPrice,
   StyledError,
   StyledErrorIcon,
@@ -73,26 +70,39 @@ const Persons: React.FC = () => {
         {t("cutleryPriceIncluded")}
       </StyledText>
 
-      <StyledQuantityWrapper>
-        <StyledQuantityLabel>Příbory</StyledQuantityLabel>
-        <StyledQuantityButton
-          isDecrease
-          onClick={handleQuantityDecrease}
-          type="button"
-        >
-          <SvgMinusIcon />
-        </StyledQuantityButton>
-        <StyledQuantity hasError={totalPersonsError}>{amount}</StyledQuantity>
-        <StyledQuantityButton
-          isIncrease
-          onClick={handleQuantityIncrease}
-          type="button"
-        >
-          <SvgPlusIcon />
-        </StyledQuantityButton>
+      <StyledTable>
+        <StyledTableRow>
+          <StyledTableCell>
+            <StyledName>Příbory</StyledName>
+          </StyledTableCell>
 
-        <StyledQuantityPrice>{cutleryTotalPrice} Kč</StyledQuantityPrice>
-      </StyledQuantityWrapper>
+          <StyledTableCell>
+            <StyledQuantityWrapper>
+              <StyledQuantityButton
+                isDecrease
+                onClick={handleQuantityDecrease}
+                type="button"
+              >
+                <SvgMinusIcon />
+              </StyledQuantityButton>
+              <StyledQuantity hasError={totalPersonsError}>
+                {amount}
+              </StyledQuantity>
+              <StyledQuantityButton
+                isIncrease
+                onClick={handleQuantityIncrease}
+                type="button"
+              >
+                <SvgPlusIcon />
+              </StyledQuantityButton>
+            </StyledQuantityWrapper>
+          </StyledTableCell>
+
+          <StyledTableCell>
+            <StyledQuantityPrice>{cutleryTotalPrice} Kč</StyledQuantityPrice>
+          </StyledTableCell>
+        </StyledTableRow>
+      </StyledTable>
 
       {totalPersonsError && (
         <StyledError>

@@ -17,11 +17,28 @@ export const StyledTitle = styled.h2`
   padding: ${({ theme }) => theme.rem(10)};
 `;
 
+export const StyledTable = styled.table`
+  margin-bottom: ${({ theme }) => theme.rem(20)};
+  table-layout: fixed;
+  text-align: left;
+  min-width: ${({ theme }) => theme.rem(475)};
+`;
+
+export const StyledTableRow = styled.tr``;
+
+export const StyledTableCell = styled.td`
+  padding: ${({ theme }) => theme.rem(10)};
+  vertical-align: middle;
+`;
+
+export const StyledName = styled.span`
+  font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
+`;
+
 export const StyledQuantityWrapper = styled.div`
   align-items: center;
   display: inline-flex;
   position: relative;
-  padding-left: ${({ theme }) => theme.rem(10)};
 `;
 
 export const StyledQuantity = styled.p<{ hasError: boolean }>`
@@ -33,11 +50,6 @@ export const StyledQuantity = styled.p<{ hasError: boolean }>`
   text-align: center;
   vertical-align: middle;
   width: ${({ theme }) => theme.rem(50)};
-`;
-
-export const StyledQuantityLabel = styled.span`
-  font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
-  margin-right: ${({ theme }) => theme.rem(20)};
 `;
 
 export const StyledQuantityButton = styled.button<{
