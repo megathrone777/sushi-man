@@ -26,6 +26,7 @@ import {
   StyledContactsList,
   StyledContactsItem,
   StyledContactsLink,
+  StyledItem,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
@@ -121,10 +122,28 @@ const Footer: React.FC = () => {
             </StyledContacts>
           )}
 
-          <StyledLink href="tel:+420792745116">+420 792 745 116</StyledLink>
-          <StyledLink href={`/images/${allergenyImage}`} target="_blank">
-            {allergeny}
-          </StyledLink>
+          <StyledItem>
+            <StyledLink href="tel:+420792745116">+420 792 745 116</StyledLink>
+          </StyledItem>
+
+          <StyledItem>
+            <StyledLink href={`/images/${allergenyImage}`} target="_blank">
+              {allergeny}
+            </StyledLink>
+          </StyledItem>
+
+          <StyledItem>
+            <Link href="/terms" passHref>
+              <StyledLink>Všeobecné obchodní podmínky</StyledLink>
+            </Link>
+          </StyledItem>
+
+          <StyledItem>
+            <Link href="/rules" passHref>
+              <StyledLink>Zásady ochrany osobních údajů</StyledLink>
+            </Link>
+          </StyledItem>
+
           <StyledText>Provozovna: Husitská 187/60</StyledText>
           <StyledText>MSN form s.r.o., IČ: 099 07 017</StyledText>
           <StyledEmail href="mailto:sushimanprague@gmail.com" target="_blank">
