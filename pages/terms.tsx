@@ -134,11 +134,6 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
             telefonicky na čísle +420 792 745 116.
           </StyledListItem>
           <StyledListItem>
-            Změny či zrušení uskutečněné v rozmezí 14.00 hod. – 23:59 hod.
-            daného pracovního dne se registrují k dodávce Zboží, která se má
-            uskutečnit čtvrtého dne po uplynutí daného pracovního dne.
-          </StyledListItem>
-          <StyledListItem>
             Pokud Kupující nepřebere svou objednávku během smluveného večerního
             rozvozu při příjezdu kurýra na adresu v smluveném čase doručení, je
             Prodávající oprávněn naúčtovat si sankci a to ve výši 100 Kč s DPH

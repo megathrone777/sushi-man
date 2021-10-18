@@ -148,6 +148,7 @@ export const StyledScrollButton = styled.button`
   position: fixed;
   right: ${({ theme }) => theme.rem(40)};
   width: ${({ theme }) => theme.rem(45)};
+  z-index: 300;
 
   &:hover {
     opacity: 1;
@@ -164,6 +165,7 @@ export const StyledChatButton = styled.button`
   position: fixed;
   right: ${({ theme }) => theme.rem(40)};
   width: ${({ theme }) => theme.rem(45)};
+  z-index: 300;
 
   &:hover {
     opacity: 1;
