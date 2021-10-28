@@ -13,8 +13,8 @@ const RulesPage: NextPage<TProps> = ({ hero }) => (
   <Layout title="Zásady ochrany osobních údajů">
     <Banner hero={hero} />
 
-    <StyledContainer>
-      <StyledWrapper>
+    <StyledWrapper>
+      <StyledContainer>
         <StyledStrong>Vážený zákazníku,</StyledStrong>
 
         <StyledText>
@@ -33,6 +33,8 @@ const RulesPage: NextPage<TProps> = ({ hero }) => (
           Sushi Man.
           <br />
           Můžete se na nás obracet s použitím následujících kontaktních údajů:
+          <br />
+          IČO 09907017
           <br />
           Adresa: Vlkova 532/8, 130 00 Praha 3
           <br />
@@ -554,12 +556,13 @@ const RulesPage: NextPage<TProps> = ({ hero }) => (
         </StyledText>
 
         <StyledText>Poslední aktualizace: srpen 2021</StyledText>
-      </StyledWrapper>
-    </StyledContainer>
+      </StyledContainer>
+    </StyledWrapper>
   </Layout>
 );
 
 const StyledWrapper = styled.div`
+  border-top: ${({ theme }) => theme.rem(10)} solid #da2628;
   padding-bottom: ${({ theme }) => theme.rem(40)};
   padding-top: ${({ theme }) => theme.rem(40)};
   text-align: justify;

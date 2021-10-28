@@ -13,68 +13,48 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
   <Layout title="Všeobecné obchodní podmínky">
     <Banner hero={hero} />
 
-    <StyledContainer>
-      <StyledWrapper>
+    <StyledWrapper>
+      <StyledContainer>
         <StyledHeading>Všeobecné obchodní podmínky</StyledHeading>
-
         <StyledText>
           Všeobecné obchodní podmínky společnosti MSN form s.r.o. se sídlem
           Vlkova 532/8, Žižkov, 130 00 Praha 3, IČO 09907017, DIČ CZ09907017
         </StyledText>
-
         <StyledText>
           Pro účely těchto Všeobecných obchodních podmínek mají níže uvedené
           termíny následující význam:
         </StyledText>
-
         <StyledText>
-          <StyledStrong>“Prodávající”</StyledStrong> je MSN form s.r.o. se
+          <StyledStrong>“Prodávající”</StyledStrong> je MSN form s.r.o. se
           sídlem Vlkova 532/8, Žižkov, 130 00 Praha 3, IČO 09907017, a
           provozovnou "Sushi Man", Husitská 187/60, Žižkov, 130 00 Praha 3.
         </StyledText>
-
         <StyledText>
-          <StyledStrong>“Ceník”</StyledStrong> je ceník vydávaný Prodávajícím,
+          <StyledStrong>“Ceník”</StyledStrong> je ceník vydávaný Prodávajícím,
           kterým jsou určeny ceny jednotlivých druhů Zboží. Ceník je uveřejněn
           na internetových stránkách Prodávajícího sushi-man.cz.
         </StyledText>
-
         <StyledText>
-          <StyledStrong>“Kupní cena”</StyledStrong> je cena Zboží, vypočítaná
+          <StyledStrong>“Kupní cena”</StyledStrong> je cena Zboží, vypočítaná
           Prodávajícím jako násobek Zboží dodaného Kupujícímu a ceny Zboží
           určené Ceníkem.
         </StyledText>
-
         <StyledText>
-          <StyledStrong>“Kupující”</StyledStrong> je fyzická nebo právnická
+          <StyledStrong>“Kupující”</StyledStrong> je fyzická nebo právnická
           osoba, která s Prodávajícím uzavře kupní smlouvu na dodávku Zboží
-          prostřednictvím závazné objednávky. “Zboží” jsou produkty
-          Prodávajícího nabízené na internetových stránkách sushi-man.cz.
+          prostřednictvím závazné objednávky.
         </StyledText>
-
+        <StyledText>
+          <StyledStrong>“Zboží”</StyledStrong> jsou produkty Prodávajícího
+          nabízené na internetových stránkách sushi-man.cz.
+        </StyledText>
         <StyledHeading>ZBOŽÍ</StyledHeading>
-
         <StyledList>
           <StyledListItem>
             Prodávající se zavazuje vyrobit Zboží dle objednávky Kupujícího,
             Zboží Kupujícímu dopravit na své náklady do místa určeného Kupujícím
             a tam Zboží odevzdat Kupujícímu způsobem uvedeným v odst. 2 tohoto
             článku.
-          </StyledListItem>
-          <StyledListItem>
-            Řidič rozváží Zboží Kupujícímu pravidelně ve večerních hodinách mezi
-            11:00 a 21:00/22:00 hodinami, maximální doba doručení objednávky 120
-            minut. Po překročení tyto doby dodání, kupující muže požádat o
-            vracení ve výše 50% od ceny zboží.
-          </StyledListItem>
-          <StyledListItem>
-            Řidič rozvážející Zboží předá Zboží Kupujícímu, osobě Kupujícím
-            určené nebo jiné osobě přítomné v místě určeném Kupujícím jako místo
-            dodávky Zboží. Pokud není na místě určeném Kupujícím jako místo
-            dodání Zboží žádná osoba, které by mohlo být Zboží předáno, bude
-            Zboží dodáno na odběrové místo na adrese Husitská 187/60, Žižkov,
-            130 00 Praha 3, pro osobní převzetí Kupujícím. Okamžikem odevzdání
-            Zboží Kupujícímu přechází na Kupujícího nebezpečí škody na Zboží.
           </StyledListItem>
           <StyledListItem>
             Prodávající se zavazuje informovat Kupujícího o aktuální nabídce
@@ -94,16 +74,47 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
             Zboží je dodáváno v chlazeném a teplem stavu. Zboží musí být až do
             jeho konzumace udržováno v chladu. Prodávající nenese žádnou
             odpovědnost za jakost Zboží, pokud po odevzdání Zboží Kupujícímu
-            dojde k porušení skladovacích podmínek.
-          </StyledListItem>
-          <StyledListItem>
-            Zboží musí být spotřebováno do 5 hodin po uskutečnění dodávky. Po
-            otevření je nutné Zboží ihned spotřebovat.
+            dojde k porušení skladovacích podmínek. Zboží musí být spotřebováno
+            do 5 hodin po uskutečnění dodávky. Po otevření je nutné Zboží ihned
+            spotřebovat.
           </StyledListItem>
         </StyledList>
+        <StyledHeading>PLATBA A DOPRAVA</StyledHeading>
+        <StyledList>
+          <StyledListItem>
+            Platbu Kupující může provést na našem e-shopu přes platební bránu a
+            taky kartou přes platební terminál při vyzvednutí na provozovně.
+            Nebo v hotovosti při vyzvednutí na provozovně nebo kurýrů při dodání
+            zboží.
+          </StyledListItem>
 
+          <StyledListItem>
+            Při jakémkoliv způsobu platby, Kupující dostane od nás účtenku o
+            zaplacení.
+          </StyledListItem>
+
+          <StyledListItem>Možnosti dopravy</StyledListItem>
+
+          <StyledListItem>
+            Doprava zboží kurýrem nebo Vyzvednutí zboží na provozovně Husitská
+            187/60, Žižkov, 130 00 Praha 3.
+          </StyledListItem>
+
+          <StyledListItem>
+            Řidič rozváží Zboží Kupujícímu pravidelně ve večerních hodinách mezi
+            11:00 a 21:00/22:00 hodinami, maximální doba doručení objednávky 120
+            minut od momenta vytvoření objednávky. Po překročení tyto doby
+            dodání, kupující muže požádat o vracení ve výše 50% od ceny zboží.
+            Řidič rozvážející Zboží předá Zboží Kupujícímu, osobě Kupujícím
+            určené nebo jiné osobě přítomné v místě určeném Kupujícím jako místo
+            dodávky Zboží. Pokud není na místě určeném Kupujícím jako místo
+            dodání Zboží žádná osoba, které by mohlo být Zboží předáno, bude
+            Zboží dodáno na odběrové místo na adrese Husitská 187/60, Žižkov,
+            130 00 Praha 3, pro osobní převzetí Kupujícím. Okamžikem odevzdání
+            Zboží Kupujícímu přechází na Kupujícího nebezpečí škody na Zboží.
+          </StyledListItem>
+        </StyledList>
         <StyledHeading>OBJEDNÁVKA</StyledHeading>
-
         <StyledList>
           <StyledListItem>
             Objednávku Zboží lze provést následujícím způsobem: a) na telefonním
@@ -112,32 +123,32 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
             prostřednictvím sociální sítě uvedených na internetových stránkách
             sushi-man.cz
           </StyledListItem>
+
           <StyledListItem>
             Objednávku Zboží je třeba uskutečnit nejméně do 20:45 nebo 21:45
             hodin přede dopravou. Každá učiněná objednávka je závazným návrhem
             na uzavření kupní smlouvy.
           </StyledListItem>
         </StyledList>
-
-        <StyledList>
-          <StyledListItem>
-            <StyledStrong>
-              ZMĚNA/STORNO OBJEDNÁVKY
-              <br />
-            </StyledStrong>
-          </StyledListItem>
-        </StyledList>
-
+        <StyledHeading>REKLAMAČNÍ PODMÍNKY</StyledHeading>
         <StyledList>
           <StyledListItem>
             Změny či zrušení uskutečněné do 10 minut od vytvoření objednávky
-            telefonicky na čísle +420 792 745 116.
+            telefonicky na čísle +420 792 745 116.
           </StyledListItem>
           <StyledListItem>
-            Pokud Kupující nepřebere svou objednávku během smluveného večerního
-            rozvozu při příjezdu kurýra na adresu v smluveném čase doručení, je
-            Prodávající oprávněn naúčtovat si sankci a to ve výši 100 Kč s DPH
-            za každou nepřebranou objednávku.
+            Při zrušení objednávky do 10 minut od vytvoření objednávky, Kupující
+            může požádat o vrácení peněz, na účet který musí nám poslat na
+            e-mail sushimanprague@gmail.com, a peníze budou vráceny do 7
+            pracovních dnů, ale v tom případě, Prodávající oprávněn naúčtovat si
+            sankci a to ve výši 100 Kč s DPH za objednávku.
+          </StyledListItem>
+          <StyledListItem>
+            Pokud zboží bylo doručeno nebo vyzvednuto, už není možné ho vrátit.
+          </StyledListItem>
+          <StyledListItem>
+            Pokud zboží ještě nebylo doručeno nebo vyzvednuto, zboží můžete
+            vrátit(nechat) na provozovně nebo u kurýra.
           </StyledListItem>
           <StyledListItem>
             Podle zákona o evidenci tržeb je prodávající povinen vystavit
@@ -147,11 +158,7 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
           </StyledListItem>
         </StyledList>
 
-        <StyledList>
-          <StyledListItem>
-            <StyledStrong>KUPNÍ CENA</StyledStrong>
-          </StyledListItem>
-        </StyledList>
+        <StyledHeading>KUPNÍ CENA</StyledHeading>
 
         <StyledList>
           <StyledListItem>
@@ -160,6 +167,7 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
             těchto podmínek, a uhradit Prodávajícímu za toto Zboží řádně a včas
             Kupní cenu.
           </StyledListItem>
+
           <StyledListItem>
             Pokud má Kupující IČO je na něj oprávněn zažádat o vystavení faktury
             pod variabilním symbolem a zaplatit Kupní cenu bezhotovostním
@@ -171,21 +179,25 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
             považuje za uhrazenou okamžikem jejího připsání na bankovní účet
             Prodávajícího.
           </StyledListItem>
+
           <StyledListItem>
             V případě platby Kupní ceny v hotovosti nebo kartou rozvážejícímu
             řidiči při převzetí, vystaví řidič Kupujícímu daňový doklad na
             přijatou částku Kupní ceny s uvedením tarifu, za který Kupující
             Kupní cenu uhradil.
           </StyledListItem>
+
           <StyledListItem>
             V případě prodlení s úhradou Kupní ceny může Prodávající požadovat
             po Kupujícím zaplacení úroku z prodlení.
           </StyledListItem>
+
           <StyledListItem>
             V případě prodlení s úhradou Kupní ceny může Prodávající odmítnout
             dodávku objednaného Zboží až do úplné úhrady Kupní ceny za předchozí
             dodávky Zboží.
           </StyledListItem>
+
           <StyledListItem>
             V případě prodlení s úhradou Kupní ceny je Prodávající oprávněn
             předat údaje Kupujícího na zastupující advokátní kancelář za účelem
@@ -193,13 +205,7 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
           </StyledListItem>
         </StyledList>
 
-        <StyledList>
-          <StyledListItem>
-            <StyledStrong>
-              OCHRANA OSOBNÍCH ÚDAJŮ A UKLÁDÁNÍ COOKIES
-            </StyledStrong>
-          </StyledListItem>
-        </StyledList>
+        <StyledHeading>OCHRANA OSOBNÍCH ÚDAJŮ A UKLÁDÁNÍ COOKIES</StyledHeading>
 
         <StyledList>
           <StyledListItem>
@@ -208,6 +214,7 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
             identifikační číslo, adresa elektronické pošty, telefonní číslo a
             adresy bydliště (dále společně vše jen jako „osobní údaje“).
           </StyledListItem>
+
           <StyledListItem>
             Kupující souhlasí se zpracováním osobních údajů prodávajícím, a to
             pro účely realizace práv a povinností z kupní smlouvy, pro účely
@@ -215,12 +222,14 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
             možnost, souhlasí se zpracováním osobních údajů prodávajícím také
             pro účely zasílání informací a obchodních sdělení kupujícímu.
           </StyledListItem>
+
           <StyledListItem>
             Kupující bere na vědomí, že je povinen své osobní údaje (při
             objednávce provedené z webového rozhraní obchodu) uvádět správně a
             pravdivě a že je povinen bez zbytečného odkladu informovat
             prodávajícího o změně ve svých osobních údajích.
           </StyledListItem>
+
           <StyledListItem>
             Zpracováním osobních údajů kupujícího může prodávající pověřit třetí
             osobu, jakožto zpracovatele. Kromě zaměstnanců firmy a osob
@@ -228,38 +237,30 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
             prodávajícím bez předchozího souhlasu kupujícího předávány třetím
             osobám.
           </StyledListItem>
+
           <StyledListItem>
             Osobní údaje budou zpracovávány po dobu neurčitou. Osobní údaje
             budou zpracovávány v elektronické podobě automatizovaným způsobem
             nebo v tištěné podobě.
           </StyledListItem>
+
           <StyledListItem>
             Kupující potvrzuje, že poskytnuté osobní údaje jsou přesné a že byl
             poučen o tom, že se jedná o dobrovolné poskytnutí
           </StyledListItem>
+
           <StyledListItem>
             V případě, že by se kupující domníval, že prodávající nebo
             zpracovatel provádí zpracování jeho osobních údajů, které je v
             rozporu s ochranou soukromého a osobního života kupujícího nebo v
             rozporu se zákonem, zejména jsou-li osobní údaje nepřesné s ohledem
-            na účel jejich zpracování, může:
+            na účel jejich zpracování, může: o požádat prodávajícího nebo
+            zpracovatele o vysvětlení, o požadovat, aby prodávající nebo
+            zpracovatel odstranil takto vzniklý stav.
           </StyledListItem>
         </StyledList>
 
-        <StyledText>
-          o požádat prodávajícího nebo zpracovatele o vysvětlení,
-        </StyledText>
-
-        <StyledText>
-          o požadovat, aby prodávající nebo zpracovatel odstranil takto vzniklý
-          stav.
-        </StyledText>
-
-        <StyledList>
-          <StyledListItem>
-            <StyledStrong>ZASÍLÁNÍ OBCHODNÍCH SDĚLENÍ</StyledStrong>
-          </StyledListItem>
-        </StyledList>
+        <StyledHeading>ZASÍLÁNÍ OBCHODNÍCH SDĚLENÍ</StyledHeading>
 
         <StyledList>
           <StyledListItem>
@@ -271,24 +272,21 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
           </StyledListItem>
         </StyledList>
 
-        <StyledList>
-          <StyledListItem>
-            <StyledStrong>OSTATNÍ</StyledStrong>
-          </StyledListItem>
-        </StyledList>
-
+        <StyledHeading>OSTATNÍ</StyledHeading>
         <StyledList>
           <StyledListItem>
             Smluvní strany se dohodly, že jejich vzájemná práva a povinnosti
             neupravené touto smlouvou se řídí ust. § 2079 a následujícími zákona
             č. 89/2012 Sb., občanského zákoníku.
           </StyledListItem>
+
           <StyledListItem>
             Kupující a Prodávající shodně uvádějí, že tyto Všeobecné obchodní
             podmínky jsou součástí kupní smlouvy uzavřené mezi Prodávajícím a
             Kupujícím. Kupující prohlašuje, že je mu znění těchto Všeobecných
             obchodních podmínek známo a že je jejich obsah jasný a srozumitelný.
           </StyledListItem>
+
           <StyledListItem>
             Subjektem mimosoudního řešení spotřebitelských sporů z uzavřených
             kupních smluv je Česká obchodní inspekce. Více informací naleznete
@@ -296,12 +294,13 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
             Všeobecné obchodní podmínky nabývají účinnosti dne 10. 10. 2021.
           </StyledListItem>
         </StyledList>
-      </StyledWrapper>
-    </StyledContainer>
+      </StyledContainer>
+    </StyledWrapper>
   </Layout>
 );
 
 const StyledWrapper = styled.div`
+  border-top: ${({ theme }) => theme.rem(10)} solid #da2628;
   padding-bottom: ${({ theme }) => theme.rem(40)};
   padding-top: ${({ theme }) => theme.rem(40)};
   text-align: justify;
