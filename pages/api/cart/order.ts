@@ -14,14 +14,14 @@ const handler = async (request: NextApiRequest) => {
         &label=sushiManOrder
         &refId=${orderId}
         &email=megathrone3333@gmail.com
-        &method=ALL
+        &method=POST
         &prepareOnly=true
         &secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3
         &test=true`,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      method: "ALL",
+      method: "POST",
     }
   );
 
