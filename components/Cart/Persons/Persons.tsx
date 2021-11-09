@@ -59,7 +59,7 @@ const Persons: React.FC = () => {
     } else {
       dispatch(setCutleryTotalPrice(0));
     }
-  }, [cutleryAmount, cutleryPrice, dispatch, totalPersons]);
+  }, [cutleryAmount, cutleryPrice, totalPersons]);
 
   return (
     <StyledWrapper>

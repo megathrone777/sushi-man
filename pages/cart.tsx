@@ -10,7 +10,6 @@ import {
   setCutleryPrice,
   setShopSettings,
   useStore,
-  setSchedule,
   TSchedule,
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";

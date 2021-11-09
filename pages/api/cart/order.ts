@@ -1,17 +1,15 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest } from "next";
 import fetch from "isomorphic-unfetch";
 
-const handler = async (request: NextApiRequest, response: NextApiResponse) => {
-  const { orderId, orderPrice } = request.body;
+// merchant=457844&price=1000&curr=CZK&label=sushiManOrder&refId=1&method=ALL&prepareOnly=true&secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3
 
-  /// merchant=457844&price=1000&curr=CZK&label=sushiManOrder&refId=1&method=ALL&prepareOnly=true&secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3
+const handler = async (request: NextApiRequest) => {
+  const { orderId, orderPrice } = request.body;
 
   const comgateResponse = await fetch(
     "http://payments.comgate.cz/v1.0/create",
     {
-      body: `merchant=457844&price=${
-        orderPrice * 100
-      }
+      body: `merchant=457844&price=${orderPrice * 100}
         &curr=CZK
         &label=sushiManOrder
         &refId=${orderId}
@@ -20,7 +18,6 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         &prepareOnly=true
         &secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3
         &test=true`,
-        
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },

@@ -58,6 +58,11 @@ const ProductDetails: React.FC<TProps> = ({
   const { shopSettings } = state;
 
   const handleAddToCart = (product: TCartProduct): void => {
+    if (shopSettings.shopIsClosed) {
+      toggleModalOpened(true);
+      return;
+    }
+
     if (!!selectedModifiers.length && selectedSubModifiers.length === 0) {
       notify({
         dismissAfter: 3000,
@@ -66,12 +71,7 @@ const ProductDetails: React.FC<TProps> = ({
         showDismissButton: true,
         status: "error",
         title: `Zvolte příchuť`,
-      });      
-      return;
-    }
-
-    if (shopSettings.shopIsClosed) {
-      toggleModalOpened(true);
+      });
       return;
     }
 
