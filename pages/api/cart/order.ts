@@ -10,11 +10,16 @@ const handler = async (request: NextApiRequest) => {
     "http://payments.comgate.cz/v1.0/create",
     {
       body: `merchant=457844&price=${orderPrice * 100}
+        &country=ALL
         &curr=CZK
         &label=sushiManOrder
         &refId=${orderId}
         &email=megathrone3333@gmail.com
-        &method=POST
+        &method=ALL
+        &lang=cs
+        &embedded=1
+        &phone=333333333
+        &payerName=Hello
         &prepareOnly=true
         &secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3
         &test=true`,

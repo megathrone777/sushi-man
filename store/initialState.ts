@@ -18,6 +18,7 @@ export interface TSchedule {
 }
 
 export interface TShopSettings {
+  ordersStop: boolean;
   shopIsClosed: boolean;
 }
 
@@ -94,6 +95,7 @@ const initialState: TState = getFromLocalStorage("state")
         },
       },
       shopSettings: {
+        ordersStop: false,
         shopIsClosed: false,
       },
     };

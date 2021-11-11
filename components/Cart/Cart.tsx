@@ -35,6 +35,9 @@ import {
   StyledLabel,
   StyledLabelLink,
   StyledColumn,
+  StyledTitle,
+  StyledText,
+  StyledTextPrice,
 } from "./styled";
 
 const Cart: React.FC = () => {
@@ -105,7 +108,73 @@ const Cart: React.FC = () => {
     cutleryAmount,
   } = cart;
 
+  const addedProductsPrice: number[] = state.cart.products.map(
+    ({ totalPrice }: TCartProduct): number => totalPrice
+  );
+
+  const addedAdditionalsPrice: number[] = state.cart.additionals.map(
+    ({ price, quantity = 0 }: TAdditional) => price * quantity
+  );
+
+  const totalProductsPrice = addedProductsPrice.reduce(
+    (accumulator, currentPrice) => accumulator + currentPrice,
+    0
+  );
+
+  const totalAdditionalsPrice = addedAdditionalsPrice.reduce(
+    (accumulator, currentPrice) => accumulator + currentPrice,
+    0
+  );
+
+  const totalPrice =
+    totalProductsPrice +
+    totalAdditionalsPrice +
+    cutleryTotalPrice +
+    (isPickupChecked ? -50 : 0) -
+    totalRollsDiscount +
+    deliveryPrice;
+
   const checkCartFields = (): boolean => {
+    if (isPickupChecked && totalPrice < 150) {
+      notify({
+        dismissAfter: 3000,
+        dismissible: true,
+        position: "bottom-center",
+        showDismissButton: true,
+        status: "error",
+        title: `Minimální cena objednávky při vyzvednutí - 150 Kč`,
+      });
+      return;
+    }
+
+    if (!isPickupChecked && deliveryPrice === 0 && totalPrice < 250) {
+      notify({
+        dismissAfter: 3000,
+        dismissible: true,
+        position: "bottom-center",
+        showDismissButton: true,
+        status: "error",
+        title: `Minimální cena objednávky do 3km. - 250 Kč (bez ceny dopravy)`,
+      });
+      return;
+    }
+
+    if (
+      !isPickupChecked &&
+      deliveryPrice >= 50 &&
+      totalPrice - deliveryPrice < 300
+    ) {
+      notify({
+        dismissAfter: 3000,
+        dismissible: true,
+        position: "bottom-center",
+        showDismissButton: true,
+        status: "error",
+        title: `Minimální cena objednávky od 3km. - 300 Kč (bez ceny dopravy)`,
+      });
+      return;
+    }
+
     if (customerAddress.length === 0) {
       dispatch(setCustomerAddressError(true));
     } else {
@@ -150,32 +219,6 @@ const Cart: React.FC = () => {
     return true;
   };
 
-  const addedProductsPrice: number[] = state.cart.products.map(
-    ({ totalPrice }: TCartProduct): number => totalPrice
-  );
-
-  const addedAdditionalsPrice: number[] = state.cart.additionals.map(
-    ({ price, quantity = 0 }: TAdditional) => price * quantity
-  );
-
-  const totalProductsPrice = addedProductsPrice.reduce(
-    (accumulator, currentPrice) => accumulator + currentPrice,
-    0
-  );
-
-  const totalAdditionalsPrice = addedAdditionalsPrice.reduce(
-    (accumulator, currentPrice) => accumulator + currentPrice,
-    0
-  );
-
-  const totalPrice =
-    totalProductsPrice +
-    totalAdditionalsPrice +
-    cutleryTotalPrice +
-    (isPickupChecked ? -50 : 0) -
-    totalRollsDiscount +
-    deliveryPrice;
-
   const handleBuyClick = (
     name: string,
     comgateTransId: string,
@@ -218,6 +261,19 @@ const Cart: React.FC = () => {
             <StyledLayout>
               <StyledColumn>
                 <Delivery />
+                <StyledTitle>Podmínky</StyledTitle>
+                <StyledText>
+                  Minimální cena objednávky do 3km. -{" "}
+                  <StyledTextPrice>250 Kč</StyledTextPrice>
+                </StyledText>
+                <StyledText>
+                  Minimální cena objednávky od 3km. -{" "}
+                  <StyledTextPrice>300 Kč</StyledTextPrice>
+                </StyledText>
+                <StyledText>
+                  Minimální cena objednávky při vyzvednutí -{" "}
+                  <StyledTextPrice>150 Kč</StyledTextPrice>
+                </StyledText>
               </StyledColumn>
 
               <StyledColumn>

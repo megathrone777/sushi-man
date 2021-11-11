@@ -73,6 +73,13 @@ const Persons: React.FC = () => {
       <StyledTable>
         <StyledTableRow>
           <StyledTableCell>
+            {totalPersonsError && (
+              <StyledError>
+                <StyledErrorIcon>
+                  <SvgExclamationIcon />
+                </StyledErrorIcon>
+              </StyledError>
+            )}
             <StyledName>Příbory</StyledName>
           </StyledTableCell>
 
@@ -103,14 +110,6 @@ const Persons: React.FC = () => {
           </StyledTableCell>
         </StyledTableRow>
       </StyledTable>
-
-      {totalPersonsError && (
-        <StyledError>
-          <StyledErrorIcon>
-            <SvgExclamationIcon />
-          </StyledErrorIcon>
-        </StyledError>
-      )}
     </StyledWrapper>
   );
 };

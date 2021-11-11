@@ -28,6 +28,7 @@ export const StyledTableRow = styled.tr``;
 
 export const StyledTableCell = styled.td`
   padding: ${({ theme }) => theme.rem(10)};
+  position: relative;
   vertical-align: middle;
 `;
 
@@ -99,7 +100,11 @@ export const StyledTextLabel = styled.span`
 export const StyledError = styled.span`
   color: #da2628;
   font-family: ${({ theme }) => theme.fonts.fontBold};
+  left: -${({ theme }) => theme.rem(25)};
   margin-left: ${({ theme }) => theme.rem(10)};
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 
 export const StyledErrorIcon = styled.span`

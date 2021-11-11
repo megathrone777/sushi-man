@@ -75,7 +75,7 @@ const Delivery: React.FC = () => {
       dispatch(setDeliveryPrice(0));
     } else if (currentLengthInKm > 3 && currentLengthInKm < 7) {
       dispatch(setDeliveryPrice(50));
-    } else if (currentLengthInKm > 3 && currentLengthInKm < 9) {
+    } else if (currentLengthInKm > 3 && currentLengthInKm < 8) {
       dispatch(setDeliveryPrice(100));
     } else {
       dispatch(setDeliveryPrice(null));

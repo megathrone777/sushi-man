@@ -31,6 +31,24 @@ export const StyledColumn = styled.div`
   }
 `;
 
+export const StyledTitle = styled.h2`
+  border-bottom: ${({ theme }) => theme.rem(3)} solid #da2628;
+  font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
+  margin-bottom: ${({ theme }) => theme.rem(10)};
+  padding: ${({ theme }) => theme.rem(10)};
+`;
+
+export const StyledText = styled.p`
+  font-family: ${({ theme }) => theme.fonts.fontMedium};
+  margin-bottom: ${({ theme }) => theme.rem(12)};
+  padding-left: ${({ theme }) => theme.rem(10)};
+`;
+
+export const StyledTextPrice = styled.span`
+  color: #da2628;
+  font-family: ${({ theme }) => theme.fonts.fontBold};
+`;
+
 export const StyledTotal = styled.div`
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
   margin-bottom: ${({ theme }) => theme.rem(22)};
@@ -76,14 +94,6 @@ export const StyledBuy = styled.button`
   &:hover {
     box-shadow: 0 0 ${({ theme }) => theme.rem(14)} 0 rgba(218, 38, 40, 0.75);
   }
-`;
-
-export const StyledQuantityPrice = styled.span`
-  font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
-`;
-
-export const StyledPrice = styled.span`
-  font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
 `;
 
 export const StyledCheckbox = styled.input`

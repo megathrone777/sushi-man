@@ -10,6 +10,7 @@ export { ProductDetails } from "./ProductDetails";
 export { Products } from "./Products";
 export { ProductsRecommended } from "./ProductsRecommended";
 export { Reviews } from "./Reviews";
+export { Settings } from "./Settings";
 export { ShopModal } from "./ShopModal";
 
 export type { TAbout } from "./About/types";
