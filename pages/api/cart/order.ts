@@ -1,25 +1,33 @@
-import { NextApiRequest } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import fetch from "isomorphic-unfetch";
+import { gql } from "@apollo/client";
 
-// merchant=457844&price=1000&curr=CZK&label=sushiManOrder&refId=1&method=ALL&prepareOnly=true&secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3
+import client from "~/apollo-client";
 
-const handler = async (request: NextApiRequest) => {
-  const { orderId, orderPrice } = request.body;
+const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "100mb",
+    },
+  },
+};
+
+const handler = async (request: NextApiRequest, response: NextApiResponse) => {
+  const { orderId, orderPrice, email, name, phone } = request.body;
 
   const comgateResponse = await fetch(
-    "http://payments.comgate.cz/v1.0/create",
+    "https://payments.comgate.cz/v1.0/create",
     {
       body: `merchant=457844&price=${orderPrice * 100}
         &country=ALL
         &curr=CZK
         &label=sushiManOrder
         &refId=${orderId}
-        &email=megathrone3333@gmail.com
-        &method=ALL
+        &email=${email}
         &lang=cs
-        &embedded=1
-        &phone=333333333
-        &payerName=Hello
+        &method=ALL
+        &phone=${phone}
+        &payerName=${name}
         &prepareOnly=true
         &secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3
         &test=true`,
@@ -28,26 +36,65 @@ const handler = async (request: NextApiRequest) => {
       },
       method: "POST",
     }
-  );
+  )
+    .then((response) => response.text())
+    .catch((error) => error.text());
 
-  console.log(comgateResponse);
+  const params = new URLSearchParams(comgateResponse);
+  const comgateData = Object.fromEntries(params);
+  const { code, message, redirect, transId } = comgateData;
 
-  // if (!comgateResponse.status !== 200) {
-  //   return response.send('INTERNAL ERROR') // 500
-  // }
+  if (!code) {
+    client.mutate({
+      mutation: gql`
+        mutation UpdateOrderMutation($input: updateOrderInput) {
+          updateOrder(input: $input) {
+            order {
+              comgatePaymentStatus
+            }
+          }
+        }
+      `,
+      variables: {
+        input: {
+          data: {
+            comgatePaymentStatus: "CANCELLED",
+          },
+          where: {
+            id: orderId,
+          },
+        },
+      },
+    });
 
-  // code=0&message=OK&transId=AB12-EF34-IJ56&redirect=https%3A%2F%2Fpayments.comgate.cz%2Fclient%2Finstructions%2F%3Fid%3DABCDEFGHIJ
-  // if (res.body.code !== 0) {
-  // post request to Strapi - update order: status = CANCELED
-  //   throw new Error(res.body.message);
-  // }
+    response.send({ statusCode: 500, message });
+    return;
+  }
 
-  // const transId = res.body.transId;
-  // post request to Strapi - update order: comgateTransId = transId
-  //
+  client.mutate({
+    mutation: gql`
+      mutation UpdateOrderMutation($input: updateOrderInput) {
+        updateOrder(input: $input) {
+          order {
+            comgateTransId
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        data: {
+          comgateTransId: transId,
+        },
+        where: {
+          id: orderId,
+        },
+      },
+    },
+  });
 
-  // const redirect = `https%3A%2F%2Fpayments.comgate.cz%2Fclient%2Finstructions%2F%3Fid%3DABCDEFGHIJ`;
-  // response redirect (status = 302, url = redirect)
+  response.send({ redirect, message, statusCode: 0 });
 };
 
+export { config };
 export default handler;

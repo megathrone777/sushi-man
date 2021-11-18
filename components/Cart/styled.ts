@@ -1,4 +1,14 @@
-import { styled } from "~/theme";
+import { keyframes, styled } from "~/theme";
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg) translateY(-50%);
+  }
+
+  to {
+    transform: rotate(360deg) translateY(-50%);
+  }
+`;
 
 export const StyledWrapper = styled.div`
   border-bottom: ${({ theme }) => theme.rem(4)} solid #da2628;
@@ -7,9 +17,9 @@ export const StyledWrapper = styled.div`
   overflow: hidden;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding-top: ${({ theme }) => theme.rem(10)};
     padding-left: ${({ theme }) => theme.rem(10)};
     padding-right: ${({ theme }) => theme.rem(10)};
+    padding-top: ${({ theme }) => theme.rem(10)};
   }
 `;
 
@@ -75,11 +85,11 @@ export const StyledButtons = styled.div`
   text-align: right;
 `;
 
-export const StyledBuy = styled.button`
+export const StyledBuy = styled.button<{ isLoading: boolean }>`
   background-color: #da2628;
   border: none;
   border-radius: ${({ theme }) => theme.rem(5)};
-  color: white;
+  color: ${({ isLoading }) => (isLoading ? "transparent" : "white")};
   cursor: pointer;
   display: inline-block;
   font: ${({ theme }) => `${theme.rem(22)} ${theme.fonts.fontMedium}`};
@@ -87,13 +97,32 @@ export const StyledBuy = styled.button`
   line-height: ${({ theme }) => theme.rem(55)};
   min-width: ${({ theme }) => theme.rem(190)};
   padding: 0 ${({ theme }) => theme.rem(15)};
+  position: relative;
   text-align: center;
   text-decoration: none;
-  transition: 0.2s ease-in;
+  transition: box-shadow 0.2s ease-in;
 
   &:hover {
     box-shadow: 0 0 ${({ theme }) => theme.rem(14)} 0 rgba(218, 38, 40, 0.75);
   }
+`;
+
+export const StyledBuyLoader = styled.span`
+  align-items: center;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-name: ${rotate};
+  animation-timing-function: linear;
+  display: flex;
+  height: ${({ theme }) => theme.rem(30)};
+  justify-content: center;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform-origin: center top;
+  width: ${({ theme }) => theme.rem(30)};
 `;
 
 export const StyledCheckbox = styled.input`
@@ -137,4 +166,14 @@ export const StyledAgree = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-bottom: ${({ theme }) => theme.rem(25)};
+  position: relative;
+`;
+
+export const StyledErrorIcon = styled.span`
+  display: inline-block;
+  color: ${({ theme }) => theme.colors.red};
+  height: ${({ theme }) => theme.rem(20)};
+  margin-right: ${({ theme }) => theme.rem(5)};
+  margin-top: ${({ theme }) => theme.rem(-7)};
+  width: ${({ theme }) => theme.rem(20)};
 `;

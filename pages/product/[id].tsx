@@ -75,7 +75,6 @@ ProductPage.getInitialProps = async ({ query: { id } }) => {
             }
           }
           isRoll
-          persons
           title
           slug
           weight

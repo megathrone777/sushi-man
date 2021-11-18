@@ -25,7 +25,8 @@ query ProductPageQuery {
     }
     ingredients
     isRoll
-    persons
+    isSalat
+    isDrink
     price
     slug
     title

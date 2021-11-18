@@ -16,22 +16,22 @@ export enum TActionTypes {
   SET_ADDITIONALS = "SET_ADDITIONALS",
   ADD_ADDITIONAL = "ADD_ADDITIONAL",
   SET_CUTLERY_AMOUNT = "SET_CUTLERY_AMOUNT",
-  SET_CUTLERY_PRICE = "SET_CUTLERY_PRICE",
-  SET_CUTLERY_TOTAL_PRICE = "SET_CUTLERY_TOTAL_PRICE",
   SET_PICKUP = "SET_PICKUP",
   SET_SCHEDULE = "SET_SCHEDULE",
   SET_PRODUCTS = "SET_PRODUCTS",
   SET_TOTAL_ROLLS_DISCOUNT = "SET_TOTAL_ROLLS_DISCOUNT",
   SET_DELIVERY_PRICE = "SET_DELIVERY_PRICE",
+  SET_AGREE = "SET_AGREE",
+  SET_AGREE_ERROR = "SET_AGREE_ERROR",
+  SET_CUSTOMER_EMAIL = "SET_CUSTOMER_EMAIL",
+  SET_CUSTOMER_EMAIL_ERROR = "SET_CUSTOMER_EMAIL_ERROR",
   SET_CUSTOMER_NAME = "SET_CUSTOMER_NAME",
   SET_CUSTOMER_NAME_ERROR = "SET_CUSTOMER_NAME_ERROR",
   SET_CUSTOMER_PHONE = "SET_CUSTOMER_PHONE",
   SET_CUSTOMER_PHONE_ERROR = "SET_CUSTOMER_PHONE_ERROR",
   SET_CUSTOMER_ADDRESS = "SET_CUSTOMER_ADDRESS",
   SET_CUSTOMER_ADDRESS_ERROR = "SET_CUSTOMER_ADDRESS_ERROR",
-  SET_PERSONS_ERROR = "SET_PERSONS_ERROR",
   SET_CUSTOMER_NOTE = "SET_CUSTOMER_NOTE",
-  SET_TOTAL_PERSONS_ERROR = "SET_TOTAL_PERSONS_ERROR",
 }
 
 export interface TAction {
@@ -49,14 +49,9 @@ export const addToCart = (product: TCartProduct): TAction => ({
   type: TActionTypes.ADD_PRODUCT,
 });
 
-export const removeFromCart = (
-  id: string,
-  persons: number,
-  quantity: number
-): TAction => ({
+export const removeFromCart = (id: string, quantity: number): TAction => ({
   payload: {
     id,
-    persons,
     quantity,
   },
   type: TActionTypes.REMOVE_PRODUCT,
@@ -67,27 +62,17 @@ export const clearCart = (): TAction => ({
   type: TActionTypes.CLEAR_CART,
 });
 
-export const decreaseQuantity = (
-  id: string,
-  quantity: number,
-  persons: number
-): TAction => ({
+export const decreaseQuantity = (id: string, quantity: number): TAction => ({
   payload: {
     id,
-    persons,
     quantity,
   },
   type: TActionTypes.DECREASE_QUANTITY,
 });
 
-export const increaseQuantity = (
-  id: string,
-  quantity: number,
-  persons: number
-): TAction => ({
+export const increaseQuantity = (id: string, quantity: number): TAction => ({
   payload: {
     id,
-    persons,
     quantity,
   },
   type: TActionTypes.INCREASE_QUANTITY,
@@ -117,19 +102,9 @@ export const addAdditional = (id: number, quantity: number): TAction => ({
   type: TActionTypes.ADD_ADDITIONAL,
 });
 
-export const setCutleryPrice = (price: number): TAction => ({
-  payload: price,
-  type: TActionTypes.SET_CUTLERY_PRICE,
-});
-
 export const setCutleryAmount = (amount: number): TAction => ({
   payload: amount,
   type: TActionTypes.SET_CUTLERY_AMOUNT,
-});
-
-export const setCutleryTotalPrice = (price: number): TAction => ({
-  payload: price,
-  type: TActionTypes.SET_CUTLERY_TOTAL_PRICE,
 });
 
 export const setPickup = (checked: boolean): TAction => ({
@@ -156,6 +131,26 @@ export const setSchedule = ({
     schedule_ru,
   },
   type: TActionTypes.SET_SCHEDULE,
+});
+
+export const setAgree = (isChecked: boolean): TAction => ({
+  payload: isChecked,
+  type: TActionTypes.SET_AGREE,
+});
+
+export const setAgreeError = (error: boolean): TAction => ({
+  payload: error,
+  type: TActionTypes.SET_AGREE_ERROR,
+});
+
+export const setCustomerEmail = (email: string): TAction => ({
+  payload: email,
+  type: TActionTypes.SET_CUSTOMER_EMAIL,
+});
+
+export const setCustomerEmailError = (error: boolean): TAction => ({
+  payload: error,
+  type: TActionTypes.SET_CUSTOMER_EMAIL_ERROR,
 });
 
 export const setCustomerName = (name: string): TAction => ({
@@ -191,9 +186,4 @@ export const setCustomerAddressError = (error: boolean): TAction => ({
 export const setCustomerPhoneError = (error: boolean): TAction => ({
   payload: error,
   type: TActionTypes.SET_CUSTOMER_PHONE_ERROR,
-});
-
-export const setTotalPersonsError = (error: boolean): TAction => ({
-  payload: error,
-  type: TActionTypes.SET_TOTAL_PERSONS_ERROR,
 });

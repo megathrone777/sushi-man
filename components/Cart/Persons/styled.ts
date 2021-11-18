@@ -30,6 +30,7 @@ export const StyledTableCell = styled.td`
   padding: ${({ theme }) => theme.rem(10)};
   position: relative;
   vertical-align: middle;
+  width: 33.3333%;
 `;
 
 export const StyledName = styled.span`
@@ -42,9 +43,8 @@ export const StyledQuantityWrapper = styled.div`
   position: relative;
 `;
 
-export const StyledQuantity = styled.p<{ hasError: boolean }>`
-  color: ${({ theme, hasError }) =>
-    hasError ? `${theme.colors.red}` : "black"};
+export const StyledQuantity = styled.p`
+  color: black;
   font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
   height: ${({ theme }) => theme.rem(25)};
   line-height: ${({ theme }) => theme.rem(25)};
@@ -75,26 +75,6 @@ export const StyledQuantityButton = styled.button<{
   &:hover {
     opacity: 0.8;
   }
-`;
-
-export const StyledQuantityPrice = styled.span`
-  font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
-  margin-left: ${({ theme }) => theme.rem(15)};
-`;
-
-export const StyledText = styled.p`
-  font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontMedium}`};
-  margin-bottom: ${({ theme }) => theme.rem(10)};
-  padding-left: ${({ theme }) => theme.rem(10)};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-bottom: ${({ theme }) => theme.rem(15)};
-  }
-`;
-
-export const StyledTextLabel = styled.span`
-  color: #da2628;
-  font-family: ${({ theme }) => theme.fonts.fontBold};
 `;
 
 export const StyledError = styled.span`

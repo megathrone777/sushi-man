@@ -73,7 +73,8 @@ query HomePageQuery {
     }
     ingredients
     isRoll
-    persons
+    isSalat
+    isDrink
     price
     slug
     title

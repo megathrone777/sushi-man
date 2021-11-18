@@ -2,12 +2,19 @@ import React, { useEffect, useRef, useState } from "react";
 
 import useTranslation from "~/intl/useTranslation";
 import {
+  TCartProduct,
+  TAdditional,
   setPickup,
   setDeliveryPrice,
   setCustomerAddress,
   setCustomerName,
   setCustomerPhone,
+  setCustomerEmailError,
   useStore,
+  setCustomerEmail,
+  setCustomerPhoneError,
+  setCustomerNameError,
+  setCustomerAddressError,
 } from "~/store";
 import { SvgExclamationIcon } from "~/icons";
 import {
@@ -42,6 +49,45 @@ const Delivery: React.FC = () => {
   const addressInputElement = useRef(null);
   const mapElement = useRef(null);
 
+  const {
+    additionals,
+    customerAddressError,
+    customerEmail,
+    customerEmailError,
+    customerName,
+    customerNameError,
+    customerPhone,
+    customerPhoneError,
+    isPickupChecked,
+    totalRollsDiscount,
+    deliveryPrice,
+    products,
+  } = cart;
+
+  const addedProductsPrice: number[] = products.map(
+    ({ totalPrice }: TCartProduct): number => totalPrice
+  );
+
+  const addedAdditionalsPrice: number[] = additionals.map(
+    ({ price, quantity = 0 }: TAdditional) => price * quantity
+  );
+
+  const totalProductsPrice = addedProductsPrice.reduce(
+    (accumulator, currentPrice) => accumulator + currentPrice,
+    0
+  );
+
+  const totalAdditionalsPrice = addedAdditionalsPrice.reduce(
+    (accumulator, currentPrice) => accumulator + currentPrice,
+    0
+  );
+
+  const totalPrice =
+    totalProductsPrice +
+    totalAdditionalsPrice +
+    deliveryPrice -
+    totalRollsDiscount;
+
   const handleDeliveryChange = ({
     currentTarget,
   }: React.SyntheticEvent<HTMLInputElement>): void => {
@@ -53,18 +99,40 @@ const Delivery: React.FC = () => {
   const handlePhoneChange = ({
     currentTarget,
   }: React.SyntheticEvent<HTMLInputElement>): void => {
+    if (currentTarget.value.length > 0) {
+      dispatch(setCustomerPhoneError(false));
+    }
+
     dispatch(setCustomerPhone(currentTarget.value.replace(/\D/, "")));
+  };
+
+  const handleEmailChange = ({
+    currentTarget,
+  }: React.SyntheticEvent<HTMLInputElement>): void => {
+    if (currentTarget.value.length > 0) {
+      dispatch(setCustomerEmailError(false));
+    }
+
+    dispatch(setCustomerEmail(currentTarget.value));
   };
 
   const handleNameChange = ({
     currentTarget,
   }: React.SyntheticEvent<HTMLInputElement>): void => {
+    if (currentTarget.value.length > 0) {
+      dispatch(setCustomerNameError(false));
+    }
+
     dispatch(setCustomerName(currentTarget.value));
   };
 
   const handleAddressChange = ({
     currentTarget,
   }: React.SyntheticEvent<HTMLInputElement>): void => {
+    if (currentTarget.value.length > 0) {
+      dispatch(setCustomerAddressError(false));
+    }
+
     dispatch(setCustomerAddress(currentTarget.value));
   };
 
@@ -83,7 +151,7 @@ const Delivery: React.FC = () => {
   }, [dispatch, lengthInKm]);
 
   useEffect((): void => {
-    if (cart.isPickupChecked) return;
+    if (isPickupChecked) return;
 
     const map = new google.maps.Map(mapElement.current, {
       center: { lat: 50.08661, lng: 14.448785 },
@@ -129,7 +197,7 @@ const Delivery: React.FC = () => {
       marker.setVisible(true);
       dispatch(setCustomerAddress(place.formatted_address));
     });
-  }, [cart.isPickupChecked]);
+  }, [isPickupChecked]);
 
   return (
     <StyledWrapper>
@@ -137,7 +205,7 @@ const Delivery: React.FC = () => {
       <StyledHeader>
         <StyledRadioWrapper>
           <StyledRadio
-            checked={!cart.isPickupChecked}
+            checked={!isPickupChecked}
             id="input-delivery"
             name="delivery-pickup"
             onChange={handleDeliveryChange}
@@ -151,7 +219,7 @@ const Delivery: React.FC = () => {
 
         <StyledRadioWrapper>
           <StyledRadio
-            checked={cart.isPickupChecked}
+            checked={isPickupChecked}
             id="input-pickup"
             name="delivery-pickup"
             onChange={handleDeliveryChange}
@@ -160,37 +228,62 @@ const Delivery: React.FC = () => {
           />
           <StyledRadioLabel htmlFor="input-pickup">
             {t("pickupLabel")}{" "}
-            <StyledRadioLabelInfo>-50Kč</StyledRadioLabelInfo>
+            {totalPrice > 350 && (
+              <StyledRadioLabelInfo>-50Kč</StyledRadioLabelInfo>
+            )}
           </StyledRadioLabel>
         </StyledRadioWrapper>
       </StyledHeader>
 
       <StyledLayout>
-        {cart.isPickupChecked ? (
+        {isPickupChecked ? (
           <StyledContent>
             <StyledInputWrapper>
               <StyledNameInput
-                hasError={cart.customerNameError}
+                hasError={customerNameError}
                 onChange={handleNameChange}
-                placeholder={
-                  cart.customerNameError ? "Vyplňte jméno" : t("name")
-                }
+                placeholder={customerNameError ? "Vyplňte jméno" : t("name")}
                 type="text"
-                value={cart.customerName}
+                value={customerName}
               />
+              {customerNameError && (
+                <StyledErrorIcon>
+                  <SvgExclamationIcon />
+                </StyledErrorIcon>
+              )}
+            </StyledInputWrapper>
+
+            <StyledInputWrapper>
+              <StyledNameInput
+                hasError={customerEmailError}
+                onChange={handleEmailChange}
+                placeholder={customerEmailError ? "Vyplňte e-mail" : t("email")}
+                type="email"
+                value={customerEmail}
+              />
+              {customerEmailError && (
+                <StyledErrorIcon>
+                  <SvgExclamationIcon />
+                </StyledErrorIcon>
+              )}
             </StyledInputWrapper>
 
             <StyledInputWrapper>
               <StyledPhoneInput
-                hasError={cart.customerPhoneError}
+                hasError={customerPhoneError}
                 onChange={handlePhoneChange}
                 pattern="[0-9]*"
                 placeholder={
-                  cart.customerPhoneError ? "Vyplňte telefon" : t("phone")
+                  customerPhoneError ? "Vyplňte telefon" : t("phone")
                 }
                 type="tel"
-                value={cart.customerPhone}
+                value={customerPhone}
               />
+              {customerPhoneError && (
+                <StyledErrorIcon>
+                  <SvgExclamationIcon />
+                </StyledErrorIcon>
+              )}
             </StyledInputWrapper>
 
             <StyledInfo>
@@ -207,15 +300,28 @@ const Delivery: React.FC = () => {
           <StyledContent>
             <StyledInputWrapper>
               <StyledNameInput
-                hasError={cart.customerNameError}
+                hasError={customerNameError}
                 onChange={handleNameChange}
-                placeholder={
-                  cart.customerNameError ? "Vyplňte jméno" : t("name")
-                }
+                placeholder={customerNameError ? "Vyplňte jméno" : t("name")}
                 type="text"
-                value={cart.customerName}
+                value={customerName}
               />
-              {cart.customerNameError && (
+              {customerNameError && (
+                <StyledErrorIcon>
+                  <SvgExclamationIcon />
+                </StyledErrorIcon>
+              )}
+            </StyledInputWrapper>
+
+            <StyledInputWrapper>
+              <StyledNameInput
+                hasError={customerEmailError}
+                onChange={handleEmailChange}
+                placeholder={customerEmailError ? "Vyplňte e-mail" : t("email")}
+                type="email"
+                value={customerEmail}
+              />
+              {customerEmailError && (
                 <StyledErrorIcon>
                   <SvgExclamationIcon />
                 </StyledErrorIcon>
@@ -224,16 +330,16 @@ const Delivery: React.FC = () => {
 
             <StyledInputWrapper>
               <StyledPhoneInput
-                hasError={cart.customerPhoneError}
+                hasError={customerPhoneError}
                 onChange={handlePhoneChange}
                 pattern="[0-9]*"
                 placeholder={
-                  cart.customerPhoneError ? "Vyplňte telefon" : t("phone")
+                  customerPhoneError ? "Vyplňte telefon" : t("phone")
                 }
                 type="tel"
-                value={cart.customerPhone}
+                value={customerPhone}
               />
-              {cart.customerPhoneError && (
+              {customerPhoneError && (
                 <StyledErrorIcon>
                   <SvgExclamationIcon />
                 </StyledErrorIcon>
@@ -242,35 +348,33 @@ const Delivery: React.FC = () => {
 
             <StyledInputWrapper>
               <StyledDeliveryInput
-                hasError={cart.customerAddressError}
+                hasError={customerAddressError}
                 onChange={handleAddressChange}
                 ref={addressInputElement}
                 placeholder={
-                  cart.customerAddressError
-                    ? "Vyplňte adresu"
-                    : t("fillAddress")
+                  customerAddressError ? "Vyplňte adresu" : t("fillAddress")
                 }
                 type="search"
               />
               {lengthInKm !== null &&
                 parseInt(lengthInKm) > 0 &&
-                !cart.customerAddressError && (
+                !customerAddressError && (
                   <StyledLengthInKm>{lengthInKm}</StyledLengthInKm>
                 )}
-              {cart.customerAddressError && (
+              {customerAddressError && (
                 <StyledErrorIcon>
                   <SvgExclamationIcon />
                 </StyledErrorIcon>
               )}
             </StyledInputWrapper>
 
-            {cart.deliveryPrice === null ? (
+            {deliveryPrice === null ? (
               <StyledDeliveryPrice>
                 Adresa mimo rozsah rozvozu
               </StyledDeliveryPrice>
             ) : (
               <StyledDeliveryPrice>
-                Cena dopravy: {cart.deliveryPrice}{" "}
+                Cena dopravy: {deliveryPrice}{" "}
                 <StyledDeliveryPriceResult>Kč</StyledDeliveryPriceResult>
               </StyledDeliveryPrice>
             )}

@@ -14,11 +14,12 @@ export interface TProduct {
   allergeny: string;
   ingredients: string;
   isRoll: boolean | null;
+  isSalat: boolean | null;
+  isDrink: boolean | null;
   id: string;
   image: {
     url: string;
   };
-  persons: number;
   price: string;
   product_modifiers: TProductModifier[];
   slug: string;

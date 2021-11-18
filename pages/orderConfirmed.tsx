@@ -1,11 +1,10 @@
 import React from "react";
 import { NextPage } from "next";
-import Link from "next/link";
 import { gql } from "@apollo/client";
 
 import client from "~/apollo-client";
-import { TBanner, Banner, LayoutSecondary } from "~/components";
-import { StyledContainer } from "~/components/Layout/styled";
+import { TBanner, Banner, LayoutSecondary, OrderConfirmed } from "~/components";
+
 
 import OrderConfirmedPageQuery from "~/queries/rulespage.gql";
 
@@ -25,9 +24,7 @@ const OrderConfirmedPage: NextPage<TProps> = ({ hero }) => (
       }}
       inner
     />
-    <StyledContainer>
-      Order Confirmed<Link href="/">Main page</Link>
-    </StyledContainer>
+    <OrderConfirmed />
   </LayoutSecondary>
 );
 

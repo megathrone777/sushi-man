@@ -7,7 +7,6 @@ import {
   TAdditional,
   TShopSettings,
   setAdditionals,
-  setCutleryPrice,
   setShopSettings,
   useStore,
   TSchedule,
@@ -55,7 +54,6 @@ const CartPage: NextPage<TProps> = ({
   const cartTitle = t("cartTitle");
 
   useEffect((): void => {
-    dispatch(setCutleryPrice(cutlery.price));
     dispatch(setAdditionals(additionals));
     dispatch(setShopSettings(shopSettings));
   }, [additionals, cutlery.price, schedule, dispatch]);

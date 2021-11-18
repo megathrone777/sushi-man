@@ -29,6 +29,7 @@ export const StyledTableRow = styled.tr``;
 export const StyledTableCell = styled.td`
   padding: ${({ theme }) => theme.rem(10)};
   vertical-align: middle;
+  width: 33.3333%;
 `;
 
 export const StyledName = styled.span`

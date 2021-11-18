@@ -35,11 +35,8 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
           products[foundIndex].totalPrice =
             products[foundIndex].totalPrice + parseInt(payload.price);
         }
-
-        cart.totalPersons = cart.totalPersons + products[foundIndex].persons;
       } else {
         products.push(payload);
-        cart.totalPersons = cart.totalPersons + payload.persons;
       }
 
       return setStateToLocalStorage({
@@ -47,26 +44,20 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
         cart: {
           ...state.cart,
           products,
-          totalPersons: cart.totalPersons,
         },
       });
     },
 
     [TActionTypes.REMOVE_PRODUCT]: (): TState => {
-      const cart = { ...state.cart };
       const products = [...state.cart.products].filter(
         (product: TCartProduct) => product.id !== payload.id
       );
-
-      cart.totalPersons =
-        cart.totalPersons - payload.quantity * payload.persons;
 
       return setStateToLocalStorage({
         ...state,
         cart: {
           ...state.cart,
           products,
-          totalPersons: cart.totalPersons,
         },
       });
     },
@@ -76,12 +67,10 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
       cart: {
         ...state.cart,
         products: [],
-        totalPersons: 0,
       },
     }),
 
     [TActionTypes.DECREASE_QUANTITY]: (): TState => {
-      const cart = { ...state.cart };
       const products = [...state.cart.products];
       const foundIndex = products.findIndex(
         (product: TProduct) => product.id === payload.id
@@ -92,20 +81,17 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
         (parseInt(products[foundIndex].price) +
           products[foundIndex].product_modifiers.length * 20) *
         payload.quantity;
-      cart.totalPersons = cart.totalPersons - payload.persons;
 
       return setStateToLocalStorage({
         ...state,
         cart: {
           ...state.cart,
           products,
-          totalPersons: cart.totalPersons,
         },
       });
     },
 
     [TActionTypes.INCREASE_QUANTITY]: (): TState => {
-      const cart = { ...state.cart };
       const products = [...state.cart.products];
       const foundIndex = products.findIndex(
         (product: TProduct) => product.id === payload.id
@@ -116,14 +102,12 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
         (parseInt(products[foundIndex].price) +
           products[foundIndex].product_modifiers.length * 20) *
         payload.quantity;
-      cart.totalPersons = cart.totalPersons + payload.persons;
 
       return setStateToLocalStorage({
         ...state,
         cart: {
           ...state.cart,
           products,
-          totalPersons: cart.totalPersons,
         },
       });
     },
@@ -174,30 +158,12 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
         schedule: payload,
       }),
 
-    [TActionTypes.SET_CUTLERY_PRICE]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
-        cart: {
-          ...state.cart,
-          cutleryPrice: payload,
-        },
-      }),
-
     [TActionTypes.SET_CUTLERY_AMOUNT]: (): TState =>
       setStateToLocalStorage({
         ...state,
         cart: {
           ...state.cart,
           cutleryAmount: payload,
-        },
-      }),
-
-    [TActionTypes.SET_CUTLERY_TOTAL_PRICE]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
-        cart: {
-          ...state.cart,
-          cutleryTotalPrice: payload,
         },
       }),
 
@@ -225,6 +191,42 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
         cart: {
           ...state.cart,
           deliveryPrice: payload,
+        },
+      }),
+
+    [TActionTypes.SET_AGREE]: (): TState =>
+      setStateToLocalStorage({
+        ...state,
+        cart: {
+          ...state.cart,
+          isAgreeChecked: payload,
+        },
+      }),
+
+    [TActionTypes.SET_AGREE_ERROR]: (): TState =>
+      setStateToLocalStorage({
+        ...state,
+        cart: {
+          ...state.cart,
+          isAgreeCheckedError: payload,
+        },
+      }),
+
+    [TActionTypes.SET_CUSTOMER_EMAIL]: (): TState =>
+      setStateToLocalStorage({
+        ...state,
+        cart: {
+          ...state.cart,
+          customerEmail: payload,
+        },
+      }),
+
+    [TActionTypes.SET_CUSTOMER_EMAIL_ERROR]: (): TState =>
+      setStateToLocalStorage({
+        ...state,
+        cart: {
+          ...state.cart,
+          customerEmailError: payload,
         },
       }),
 
@@ -279,15 +281,6 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
         cart: {
           ...state.cart,
           customerPhoneError: payload,
-        },
-      }),
-
-    [TActionTypes.SET_TOTAL_PERSONS_ERROR]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
-        cart: {
-          ...state.cart,
-          totalPersonsError: payload,
         },
       }),
 

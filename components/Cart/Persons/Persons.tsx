@@ -1,114 +1,139 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useNotifications } from "reapop";
 
 import useTranslation from "~/intl/useTranslation";
-import { setCutleryAmount, setCutleryTotalPrice, useStore } from "~/store";
-import { SvgPlusIcon, SvgMinusIcon, SvgExclamationIcon } from "~/icons";
+import { TCartProduct, setCutleryAmount, useStore } from "~/store";
+import { SvgPlusIcon, SvgMinusIcon } from "~/icons";
 import {
   StyledWrapper,
   StyledQuantityWrapper,
   StyledQuantityButton,
   StyledQuantity,
   StyledName,
-  StyledText,
-  StyledTextLabel,
   StyledTitle,
   StyledTable,
   StyledTableRow,
   StyledTableCell,
-  StyledQuantityPrice,
-  StyledError,
-  StyledErrorIcon,
 } from "./styled";
 
 const Persons: React.FC = () => {
+  const { notify } = useNotifications();
   const { t } = useTranslation();
   const { dispatch, state } = useStore();
   const { cart } = state;
-  const {
-    cutleryPrice,
-    cutleryAmount,
-    cutleryTotalPrice,
-    totalPersons,
-    totalPersonsError,
-  } = cart;
-  const [amount, setAmount] = useState<number>(0);
+  const { cutleryAmount, products } = cart;
+
+  const totalRollsAdded = products.filter(
+    ({ isRoll }: TCartProduct): boolean => isRoll
+  );
+
+  const totalSetsAdded = products.filter(
+    ({ isDrink, isSalat, isRoll }: TCartProduct): boolean =>
+      !isRoll && !isDrink && !isSalat
+  );
+
+  const totalDrinksAdded = products.filter(
+    ({ isDrink }: TCartProduct): boolean => isDrink
+  );
+
+  const totalSalatsAdded = products.filter(
+    ({ isSalat }: TCartProduct): boolean => isSalat
+  );
+
+  const totalRollsAmount = totalRollsAdded.reduce(
+    (accumulator: number, { quantity }: TCartProduct) => {
+      return accumulator + quantity;
+    },
+    0
+  );
+
+  const totalSetsAmount = totalSetsAdded.reduce(
+    (accumulator: number, { quantity }: TCartProduct) => {
+      return accumulator + quantity;
+    },
+    0
+  );
+
+  const totalDrinksAmount = totalDrinksAdded.reduce(
+    (accumulator: number, { quantity }: TCartProduct) => {
+      return accumulator + quantity;
+    },
+    0
+  );
+
+  const totalSalatsAmount = totalSalatsAdded.reduce(
+    (accumulator: number, { quantity }: TCartProduct) => {
+      return accumulator + quantity;
+    },
+    0
+  );
+
+  const maxCutleryAmount =
+    totalRollsAmount * 2 +
+    totalSetsAmount * 4 +
+    totalDrinksAmount * 0 +
+    totalSalatsAmount * 2;
 
   const handleQuantityIncrease = (): void => {
-    setAmount((prevValue: number): number => {
-      dispatch(setCutleryAmount(prevValue + 1));
+    if (cutleryAmount >= maxCutleryAmount) {
+      notify({
+        dismissAfter: 3000,
+        dismissible: true,
+        position: "bottom-center",
+        showDismissButton: true,
+        status: "error",
+        title: `Вы не можете добавить больше ${maxCutleryAmount} приборов`,
+      });
+      return;
+    }
 
-      return prevValue + 1;
-    });
+    dispatch(setCutleryAmount(cutleryAmount + 1));
   };
 
   const handleQuantityDecrease = (): void => {
-    if (amount === 0) return;
+    if (cutleryAmount === 0) return;
 
-    setAmount((prevValue: number): number => {
-      dispatch(setCutleryAmount(prevValue - 1));
-
-      return prevValue - 1;
-    });
+    dispatch(setCutleryAmount(cutleryAmount - 1));
   };
 
   useEffect((): void => {
-    if (cutleryAmount > totalPersons) {
-      dispatch(
-        setCutleryTotalPrice((cutleryAmount - totalPersons) * cutleryPrice)
-      );
-    } else {
-      dispatch(setCutleryTotalPrice(0));
-    }
-  }, [cutleryAmount, cutleryPrice, totalPersons]);
+    dispatch(setCutleryAmount(0));
+  }, [cart.products]);
 
   return (
     <StyledWrapper>
       <StyledTitle>{t("cutleryQuantity")}</StyledTitle>
 
-      <StyledText>
-        Do <StyledTextLabel>{totalPersons}</StyledTextLabel>{" "}
-        {t("cutleryPriceIncluded")}
-      </StyledText>
-
       <StyledTable>
-        <StyledTableRow>
-          <StyledTableCell>
-            {totalPersonsError && (
-              <StyledError>
-                <StyledErrorIcon>
-                  <SvgExclamationIcon />
-                </StyledErrorIcon>
-              </StyledError>
-            )}
-            <StyledName>Příbory</StyledName>
-          </StyledTableCell>
+        <tbody>
+          <StyledTableRow>
+            <StyledTableCell>
+              <StyledName>Příbory</StyledName>
+            </StyledTableCell>
 
-          <StyledTableCell>
-            <StyledQuantityWrapper>
-              <StyledQuantityButton
-                isDecrease
-                onClick={handleQuantityDecrease}
-                type="button"
-              >
-                <SvgMinusIcon />
-              </StyledQuantityButton>
-              <StyledQuantity hasError={totalPersonsError}>
-                {amount}
-              </StyledQuantity>
-              <StyledQuantityButton
-                isIncrease
-                onClick={handleQuantityIncrease}
-                type="button"
-              >
-                <SvgPlusIcon />
-              </StyledQuantityButton>
-            </StyledQuantityWrapper>
-          </StyledTableCell>
+            <StyledTableCell>
+              <StyledQuantityWrapper>
+                <StyledQuantityButton
+                  isDecrease
+                  onClick={handleQuantityDecrease}
+                  type="button"
+                >
+                  <SvgMinusIcon />
+                </StyledQuantityButton>
+                <StyledQuantity>{cutleryAmount}</StyledQuantity>
+                <StyledQuantityButton
+                  isIncrease
+                  onClick={handleQuantityIncrease}
+                  type="button"
+                >
+                  <SvgPlusIcon />
+                </StyledQuantityButton>
+              </StyledQuantityWrapper>
+            </StyledTableCell>
 
-          <StyledTableCell>
-            <StyledQuantityPrice>{cutleryTotalPrice} Kč</StyledQuantityPrice>
-          </StyledTableCell>
-        </StyledTableRow>
+            <StyledTableCell />
+          </StyledTableRow>
+        </tbody>
       </StyledTable>
     </StyledWrapper>
   );

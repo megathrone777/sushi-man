@@ -8,7 +8,7 @@ import {
   increaseQuantity,
   removeFromCart,
   useStore,
-  setTotalRollsDiscount
+  setTotalRollsDiscount,
 } from "~/store";
 import { SvgPlusIcon, SvgMinusIcon } from "~/icons";
 import {
@@ -92,29 +92,17 @@ const Products: React.FC = () => {
     </>
   );
 
-  const handleQuantityIncrease = (
-    id: string,
-    quantity: number,
-    persons: number
-  ): void => {
-    dispatch(increaseQuantity(id, quantity + 1, persons));
+  const handleQuantityIncrease = (id: string, quantity: number): void => {
+    dispatch(increaseQuantity(id, quantity + 1));
   };
 
-  const handleQuantityDecrease = (
-    id: string,
-    quantity: number,
-    persons: number
-  ): void => {
+  const handleQuantityDecrease = (id: string, quantity: number): void => {
     if (quantity === 1) return;
-    dispatch(decreaseQuantity(id, quantity - 1, persons));
+    dispatch(decreaseQuantity(id, quantity - 1));
   };
 
-  const handleProductRemove = (
-    id: string,
-    quantity: number,
-    persons: number
-  ): void => {
-    dispatch(removeFromCart(id, quantity, persons));
+  const handleProductRemove = (id: string, quantity: number): void => {
+    dispatch(removeFromCart(id, quantity));
   };
 
   useEffect((): void => {
@@ -133,7 +121,6 @@ const Products: React.FC = () => {
               title,
               image,
               weight,
-              persons,
               price,
               product_modifiers,
               quantity,
@@ -174,9 +161,7 @@ const Products: React.FC = () => {
                 <StyledQuantityWrapper>
                   <StyledQuantityButton
                     isDecrease
-                    onClick={() =>
-                      handleQuantityDecrease(id, quantity, persons)
-                    }
+                    onClick={() => handleQuantityDecrease(id, quantity)}
                     type="button"
                   >
                     <SvgMinusIcon />
@@ -184,9 +169,7 @@ const Products: React.FC = () => {
                   <StyledQuantity>{quantity ? quantity : 1}</StyledQuantity>
                   <StyledQuantityButton
                     isIncrease
-                    onClick={() =>
-                      handleQuantityIncrease(id, quantity, persons)
-                    }
+                    onClick={() => handleQuantityIncrease(id, quantity)}
                     type="button"
                   >
                     <SvgPlusIcon />
@@ -200,7 +183,7 @@ const Products: React.FC = () => {
                 </StyledPrice>
 
                 <StyledRemove
-                  onClick={() => handleProductRemove(id, quantity, persons)}
+                  onClick={() => handleProductRemove(id, quantity)}
                   type="button"
                 >
                   {t("remove")}

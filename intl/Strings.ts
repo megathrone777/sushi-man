@@ -128,6 +128,7 @@ export const LangStrings = {
     order: "Objednávka",
     discountReceived: "Dostal(a) jste Slevu",
     name: "Jméno",
+    email: "E-mail",
     phone: "Telefon",
     address: "Adresa",
     fillAddress: "Adresa",

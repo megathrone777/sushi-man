@@ -2,6 +2,7 @@ export { SvgArrowTopIcon } from "./SvgArrowTopIcon";
 export { SvgBuyIcon } from "./SvgBuyIcon";
 export { SvgCartIcon } from "./SvgCartIcon";
 export { SvgChatIcon } from "./SvgChatIcon";
+export { SvgLoaderIcon } from "./SvgLoaderIcon";
 export { SvgMinusIcon } from "./SvgMinusIcon";
 export { SvgNoteIcon } from "./SvgNoteIcon";
 export { SvgPlusIcon } from "./SvgPlusIcon";
