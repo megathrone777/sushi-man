@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
-import Image from 'next/image';
+import Image from "next/image";
 
+import { useStore } from "~/store";
+import { TActionTypes } from "~/store/actions";
 import { StyledContainer } from "~/components/Layout/styled";
 import {
   StyledWrapper,
@@ -11,22 +13,37 @@ import {
   StyledButton,
 } from "./styled";
 
-const OrderConfirmed: React.FC = () => (
-  <StyledWrapper>
-    <StyledContainer>
-      <StyledLayout>
-        <StyledTitle>Vaše objednávka byla úspěšně přijata</StyledTitle>
+const OrderConfirmed: React.FC = () => {
+  const { dispatch } = useStore();
 
-        <StyledImageHolder>
-          <Image alt="Sushi-man" layout="fill" src="/images/sushi-man_img.jpg" />
-        </StyledImageHolder>
+  useEffect((): void => {
+    dispatch({
+      payload: {},
+      type: TActionTypes.CLEAR_STORE,
+    });
+  }, []);
 
-        <Link href="/" passHref>
-          <StyledButton>Hlavní stránka</StyledButton>
-        </Link>
-      </StyledLayout>
-    </StyledContainer>
-  </StyledWrapper>
-);
+  return (
+    <StyledWrapper>
+      <StyledContainer>
+        <StyledLayout>
+          <StyledTitle>Vaše objednávka byla úspěšně přijata</StyledTitle>
+
+          <StyledImageHolder>
+            <Image
+              alt="Sushi-man"
+              layout="fill"
+              src="/images/sushi-man_img.jpg"
+            />
+          </StyledImageHolder>
+
+          <Link href="/" passHref>
+            <StyledButton>Hlavní stránka</StyledButton>
+          </Link>
+        </StyledLayout>
+      </StyledContainer>
+    </StyledWrapper>
+  );
+};
 
 export { OrderConfirmed };

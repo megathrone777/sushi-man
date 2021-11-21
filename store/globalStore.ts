@@ -29,7 +29,9 @@ export interface TCartProduct extends TProduct {
   totalPrice: number;
 }
 
-export interface TState {
+export type TPayment = "card" | "cash";
+
+export interface TStore {
   cart: {
     additionals: TAdditional[];
     customerAddress: string;
@@ -42,7 +44,9 @@ export interface TState {
     customerPhone: string;
     customerPhoneError: boolean;
     cutleryAmount: number;
+    cutleryAmountError: boolean;
     deliveryPrice: number;
+    paymentType: TPayment;
     isAgreeChecked: boolean;
     isAgreeCheckedError: boolean;
     isPickupChecked: boolean;
@@ -57,47 +61,51 @@ export interface TState {
   shopSettings: TShopSettings;
 }
 
-const initialState: TState = getFromLocalStorage("state")
-  ? getFromLocalStorage<TState>("state")
-  : {
-      cart: {
-        additionals: [],
-        customerAddress: "",
-        customerAddressError: false,
-        customerNote: "",
-        cutleryAmount: 0,
-        deliveryPrice: 0,
-        isAgreeChecked: false,
-        isAgreeCheckedError: false,
-        isPickupChecked: false,
-        customerEmail: "",
-        customerEmailError: false,
-        customerName: "",
-        customerNameError: false,
-        customerPhone: "",
-        customerPhoneError: false,
-        modifiers: [],
-        products: [],
-        totalRollsDiscount: 0,
-      },
-      schedule: {
-        schedule_cs: {
-          locale: "",
-          schedule: "",
-          title: "",
-          text: "",
-        },
-        schedule_ru: {
-          locale: "",
-          schedule: "",
-          title: "",
-          text: "",
-        },
-      },
-      shopSettings: {
-        ordersStop: false,
-        shopIsClosed: false,
-      },
-    };
+const initialStore: TStore = {
+  cart: {
+    additionals: [],
+    customerAddress: "",
+    customerAddressError: false,
+    customerNote: "",
+    cutleryAmount: 0,
+    deliveryPrice: 0,
+    isAgreeChecked: false,
+    isAgreeCheckedError: false,
+    isPickupChecked: false,
+    customerEmail: "",
+    customerEmailError: false,
+    customerName: "",
+    customerNameError: false,
+    customerPhone: "",
+    customerPhoneError: false,
+    cutleryAmountError: false,
+    paymentType: "card",
+    modifiers: [],
+    products: [],
+    totalRollsDiscount: 0,
+  },
+  schedule: {
+    schedule_cs: {
+      locale: "",
+      schedule: "",
+      title: "",
+      text: "",
+    },
+    schedule_ru: {
+      locale: "",
+      schedule: "",
+      title: "",
+      text: "",
+    },
+  },
+  shopSettings: {
+    ordersStop: false,
+    shopIsClosed: false,
+  },
+};
 
-export { initialState };
+const globalStore: TStore = getFromLocalStorage("store")
+  ? getFromLocalStorage<TStore>("store")
+  : initialStore;
+
+export { globalStore, initialStore };

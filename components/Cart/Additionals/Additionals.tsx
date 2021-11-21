@@ -22,8 +22,8 @@ import {
 
 const Additionals: React.FC = () => {
   const { t } = useTranslation();
-  const { dispatch, state } = useStore();
-  const { cart } = state;
+  const { dispatch, store } = useStore();
+  const { cart } = store;
 
   const handleQuantityIncrease = (id: string, quantity: number): void => {
     dispatch(changeAdditionalQuantity(id, quantity + 1));

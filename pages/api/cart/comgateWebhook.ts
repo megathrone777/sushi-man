@@ -16,6 +16,7 @@ const handler = async (request: NextApiRequest) => {
         }
       }
     `,
+
     variables: {
       input: {
         data: {

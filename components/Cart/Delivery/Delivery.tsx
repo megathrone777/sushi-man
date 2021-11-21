@@ -30,6 +30,7 @@ import {
   StyledRadioLabel,
   StyledRadioLabelInfo,
   StyledRadio,
+  StyledEmailInput,
   StyledNameInput,
   StyledDeliveryInput,
   StyledPhoneInput,
@@ -44,13 +45,14 @@ import {
 const Delivery: React.FC = () => {
   const { t } = useTranslation();
   const [lengthInKm, setLengthInKm] = useState<string>("0");
-  const { dispatch, state } = useStore();
-  const { cart } = state;
+  const { dispatch, store } = useStore();
+  const { cart } = store;
   const addressInputElement = useRef(null);
   const mapElement = useRef(null);
 
   const {
     additionals,
+    customerAddress,
     customerAddressError,
     customerEmail,
     customerEmailError,
@@ -254,7 +256,7 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledNameInput
+              <StyledEmailInput
                 hasError={customerEmailError}
                 onChange={handleEmailChange}
                 placeholder={customerEmailError ? "Vyplňte e-mail" : t("email")}
@@ -314,7 +316,7 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledNameInput
+              <StyledEmailInput
                 hasError={customerEmailError}
                 onChange={handleEmailChange}
                 placeholder={customerEmailError ? "Vyplňte e-mail" : t("email")}
@@ -355,6 +357,7 @@ const Delivery: React.FC = () => {
                   customerAddressError ? "Vyplňte adresu" : t("fillAddress")
                 }
                 type="search"
+                value={customerAddress}
               />
               {lengthInKm !== null &&
                 parseInt(lengthInKm) > 0 &&

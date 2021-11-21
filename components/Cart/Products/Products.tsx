@@ -38,8 +38,8 @@ import { TProductModifier } from "~/components";
 
 const Products: React.FC = () => {
   const { t } = useTranslation();
-  const { dispatch, state } = useStore();
-  const { cart } = state;
+  const { dispatch, store } = useStore();
+  const { cart } = store;
   const { products } = cart;
 
   const checkRollsAdded = useCallback((): number => {

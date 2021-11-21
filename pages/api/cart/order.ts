@@ -29,8 +29,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         &phone=${phone}
         &payerName=${name}
         &prepareOnly=true
-        &secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3
-        &test=true`,
+        &secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3`,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },

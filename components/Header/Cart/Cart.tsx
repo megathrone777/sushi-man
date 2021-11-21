@@ -6,8 +6,8 @@ import { SvgCartIcon } from "~/icons";
 import { StyledWrapper, StyledLink, StyledAmount, StyledIcon } from "./styled";
 
 const Cart: React.FC = () => {
-  const { state } = useStore();
-  const { cart } = state;
+  const { store } = useStore();
+  const { cart } = store;
 
   return (
     <StyledWrapper>

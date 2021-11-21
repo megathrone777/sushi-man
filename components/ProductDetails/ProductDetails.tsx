@@ -45,7 +45,7 @@ const ProductDetails: React.FC<TProps> = ({
   title,
   weight,
 }) => {
-  const { dispatch, state } = useStore();
+  const { dispatch, store } = useStore();
   const { notify } = useNotifications();
   const { t } = useTranslation();
   const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
@@ -56,7 +56,7 @@ const ProductDetails: React.FC<TProps> = ({
   const [selectedSubModifiers, setSelectedSubmodifiers] = useState<
     TSelectedSubmodifier[]
   >([]);
-  const { shopSettings } = state;
+  const { shopSettings } = store;
 
   const handleAddToCart = (product: TCartProduct): void => {
     if (shopSettings.shopIsClosed) {

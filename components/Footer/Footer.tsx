@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -45,13 +45,15 @@ interface TProps {
 
 const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const { locale, t } = useTranslation();
-  const { state } = useStore();
-  const { shopSettings } = state;
-  const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
+  const { store } = useStore();
+  const { shopSettings } = store;
+  const [modalIsOpened, toggleModalOpened] = useState<boolean>(
+    shopSettings.shopIsClosed
+  );
   const allergeny = t("allergeny");
   const allergenyImage = t("allergenyImage");
   const contactsLinks = t("contactsLinks");
-  const schedule: TSchedule = state.schedule[`schedule_${locale}`];
+  const schedule: TSchedule = store.schedule[`schedule_${locale}`];
 
   const handleScroll = (anchor: string): void => {
     const scrolledSection = document.getElementById(anchor);
@@ -72,6 +74,10 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const handleModalClose = (): void => {
     toggleModalOpened(false);
   };
+
+  useEffect((): void => {
+    toggleModalOpened(shopSettings.shopIsClosed);
+  }, [shopSettings]);
 
   return (
     <StyledFooter>

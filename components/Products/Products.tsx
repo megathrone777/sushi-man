@@ -31,8 +31,8 @@ const Products: React.FC<TProps> = ({ products }) => {
   const { t } = useTranslation();
   const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
   const { notify } = useNotifications();
-  const { dispatch, state } = useStore();
-  const { shopSettings } = state;
+  const { dispatch, store } = useStore();
+  const { shopSettings } = store;
   const productsTitle = t("productsTitle");
 
   const handleScrollTo = (): void => {
@@ -45,7 +45,7 @@ const Products: React.FC<TProps> = ({ products }) => {
   };
 
   const handleAddToCart = (product: TCartProduct): void => {
-    if (shopSettings.shopIsClosed) {
+    if (shopSettings.shopIsClosed || shopSettings.ordersStop) {
       toggleModalOpened(true);
       return;
     }

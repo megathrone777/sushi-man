@@ -6,8 +6,8 @@ import { useStore, setShopSettings } from "~/store";
 import { StyledButton, StyledWrapper, StyledDivider } from "./styled";
 
 const Settings: React.FC = () => {
-  const { dispatch, state } = useStore();
-  const { shopSettings } = state;
+  const { dispatch, store } = useStore();
+  const { shopSettings } = store;
   const [sendShopIsClosed] = useMutation(
     gql`
       mutation Mutation($updateShopInput: updateShopInput) {

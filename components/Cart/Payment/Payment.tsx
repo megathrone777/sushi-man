@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
+import { useStore, TPayment, setPaymentType } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
@@ -13,18 +14,16 @@ import {
   StyledRadioLabelText,
 } from "./styled";
 
-type TPayment = "card" | "cash";
-
 const Payment: React.FC = () => {
   const { t } = useTranslation();
-  const [payment, setPayment] = useState("card");
+  const { dispatch, store } = useStore();
+  const { cart } = store;
+  const { paymentType } = cart;
 
   const handlePaymentChange = ({
     currentTarget,
   }: React.SyntheticEvent<HTMLInputElement>): void => {
-    const name = currentTarget.value;
-
-    setPayment(name as TPayment);
+    dispatch(setPaymentType(currentTarget.value as TPayment));
   };
 
   return (
@@ -35,7 +34,7 @@ const Payment: React.FC = () => {
         <StyledColumn>
           <StyledRadioWrapper>
             <StyledRadio
-              checked={payment === "card"}
+              checked={paymentType === "card"}
               id="input-card"
               name="input-payment"
               onChange={handlePaymentChange}
@@ -52,6 +51,7 @@ const Payment: React.FC = () => {
         <StyledColumn>
           <StyledRadioWrapper>
             <StyledRadio
+              checked={paymentType === "cash"}
               id="input-cash"
               name="input-payment"
               onChange={handlePaymentChange}

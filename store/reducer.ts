@@ -3,26 +3,23 @@ import { set as setToLocalStorage } from "local-storage";
 
 import { TProduct } from "~/components";
 import { TAction, TActionTypes } from "./actions";
-import { TState, TAdditional, TCartProduct } from "./initialState";
+import { TStore, TAdditional, TCartProduct, initialStore } from "./globalStore";
 
-const setStateToLocalStorage = (currentState: TState): TState => {
-  setToLocalStorage<TState>("state", currentState);
+const setStoreToLocalStorage = (currentStore: TStore): TStore => {
+  setToLocalStorage<TStore>("store", currentStore);
 
-  return currentState;
+  return currentStore;
 };
 
-const reducer: React.Reducer<TState, TAction> = (state, action) => {
-  const { payload, type } = action;
-
+const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
   const actions = {
-    [TActionTypes.SET_SHOP_SETTINGS]: (): TState => ({
-      ...state,
+    [TActionTypes.SET_SHOP_SETTINGS]: (): TStore => ({
+      ...store,
       shopSettings: payload,
     }),
 
-    [TActionTypes.ADD_PRODUCT]: (): TState => {
-      const cart = { ...state.cart };
-      const products = [...state.cart.products];
+    [TActionTypes.ADD_PRODUCT]: (): TStore => {
+      const products = [...store.cart.products];
       const foundIndex = products.findIndex(
         (product: TCartProduct): boolean => product.id === payload.id
       );
@@ -39,39 +36,39 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
         products.push(payload);
       }
 
-      return setStateToLocalStorage({
-        ...state,
+      return setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           products,
         },
       });
     },
 
-    [TActionTypes.REMOVE_PRODUCT]: (): TState => {
-      const products = [...state.cart.products].filter(
+    [TActionTypes.REMOVE_PRODUCT]: (): TStore => {
+      const products = [...store.cart.products].filter(
         (product: TCartProduct) => product.id !== payload.id
       );
 
-      return setStateToLocalStorage({
-        ...state,
+      return setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           products,
         },
       });
     },
 
-    [TActionTypes.CLEAR_CART]: (): TState => ({
-      ...state,
+    [TActionTypes.CLEAR_CART]: (): TStore => ({
+      ...store,
       cart: {
-        ...state.cart,
+        ...store.cart,
         products: [],
       },
     }),
 
-    [TActionTypes.DECREASE_QUANTITY]: (): TState => {
-      const products = [...state.cart.products];
+    [TActionTypes.DECREASE_QUANTITY]: (): TStore => {
+      const products = [...store.cart.products];
       const foundIndex = products.findIndex(
         (product: TProduct) => product.id === payload.id
       );
@@ -82,17 +79,17 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
           products[foundIndex].product_modifiers.length * 20) *
         payload.quantity;
 
-      return setStateToLocalStorage({
-        ...state,
+      return setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           products,
         },
       });
     },
 
-    [TActionTypes.INCREASE_QUANTITY]: (): TState => {
-      const products = [...state.cart.products];
+    [TActionTypes.INCREASE_QUANTITY]: (): TStore => {
+      const products = [...store.cart.products];
       const foundIndex = products.findIndex(
         (product: TProduct) => product.id === payload.id
       );
@@ -103,189 +100,209 @@ const reducer: React.Reducer<TState, TAction> = (state, action) => {
           products[foundIndex].product_modifiers.length * 20) *
         payload.quantity;
 
-      return setStateToLocalStorage({
-        ...state,
+      return setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           products,
         },
       });
     },
 
-    [TActionTypes.CHANGE_ADDITIONAL_QUANTITY]: (): TState => {
-      const additionals = [...state.cart.additionals];
+    [TActionTypes.CHANGE_ADDITIONAL_QUANTITY]: (): TStore => {
+      const additionals = [...store.cart.additionals];
       const foundIndex = additionals.findIndex(
         (additional: TAdditional) => additional.id === payload.id
       );
       additionals[foundIndex].quantity = payload.quantity;
 
-      return setStateToLocalStorage({
-        ...state,
+      return setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           additionals,
         },
       });
     },
 
-    [TActionTypes.SET_ADDITIONALS]: (): TState => ({
-      ...state,
+    [TActionTypes.SET_ADDITIONALS]: (): TStore => ({
+      ...store,
       cart: {
-        ...state.cart,
+        ...store.cart,
         additionals: payload,
       },
     }),
 
-    [TActionTypes.ADD_ADDITIONAL]: (): TState => {
-      const additionals = [...state.cart.additionals];
+    [TActionTypes.ADD_ADDITIONAL]: (): TStore => {
+      const additionals = [...store.cart.additionals];
       const foundIndex = additionals.findIndex(
         (additional: TAdditional) => additional.id === payload.id
       );
       additionals[foundIndex].quantity = payload.quantity;
 
-      return setStateToLocalStorage({
-        ...state,
+      return setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           additionals,
         },
       });
     },
 
-    [TActionTypes.SET_SCHEDULE]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_SCHEDULE]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         schedule: payload,
       }),
 
-    [TActionTypes.SET_CUTLERY_AMOUNT]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_CUTLERY_AMOUNT]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           cutleryAmount: payload,
         },
       }),
 
-    [TActionTypes.SET_PICKUP]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_CUTLERY_AMOUNT_ERROR]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
+          cutleryAmountError: payload,
+        },
+      }),
+
+    [TActionTypes.SET_PICKUP]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
+        cart: {
+          ...store.cart,
           isPickupChecked: payload,
         },
       }),
 
-    [TActionTypes.SET_TOTAL_ROLLS_DISCOUNT]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_TOTAL_ROLLS_DISCOUNT]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           totalRollsDiscount: payload,
         },
       }),
 
-    [TActionTypes.SET_DELIVERY_PRICE]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_DELIVERY_PRICE]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           deliveryPrice: payload,
         },
       }),
 
-    [TActionTypes.SET_AGREE]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_AGREE]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           isAgreeChecked: payload,
         },
       }),
 
-    [TActionTypes.SET_AGREE_ERROR]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_AGREE_ERROR]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           isAgreeCheckedError: payload,
         },
       }),
 
-    [TActionTypes.SET_CUSTOMER_EMAIL]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_CUSTOMER_EMAIL]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           customerEmail: payload,
         },
       }),
 
-    [TActionTypes.SET_CUSTOMER_EMAIL_ERROR]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_CUSTOMER_EMAIL_ERROR]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           customerEmailError: payload,
         },
       }),
 
-    [TActionTypes.SET_CUSTOMER_NAME]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_CUSTOMER_NAME]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           customerName: payload,
         },
       }),
 
-    [TActionTypes.SET_CUSTOMER_PHONE]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_CUSTOMER_PHONE]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           customerPhone: payload,
         },
       }),
 
-    [TActionTypes.SET_CUSTOMER_ADDRESS]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_CUSTOMER_ADDRESS]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           customerAddress: payload,
         },
       }),
 
-    [TActionTypes.SET_CUSTOMER_ADDRESS_ERROR]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_CUSTOMER_ADDRESS_ERROR]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           customerAddressError: payload,
         },
       }),
 
-    [TActionTypes.SET_CUSTOMER_NAME_ERROR]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_CUSTOMER_NAME_ERROR]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           customerNameError: payload,
         },
       }),
 
-    [TActionTypes.SET_CUSTOMER_PHONE_ERROR]: (): TState =>
-      setStateToLocalStorage({
-        ...state,
+    [TActionTypes.SET_CUSTOMER_PHONE_ERROR]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
         cart: {
-          ...state.cart,
+          ...store.cart,
           customerPhoneError: payload,
         },
       }),
 
-    DEFAULT: (): TState => {
-      return state;
+    [TActionTypes.SET_PAYMENT_TYPE]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
+        cart: {
+          ...store.cart,
+          paymentType: payload,
+        },
+      }),
+
+    [TActionTypes.CLEAR_STORE]: (): TStore => initialStore,
+
+    DEFAULT: (): TStore => {
+      return store;
     },
   };
 

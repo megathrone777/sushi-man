@@ -102,6 +102,7 @@ query HomePageQuery {
   }
 
   shop {
+    ordersStop
     shopIsClosed
   }
 }

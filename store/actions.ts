@@ -1,9 +1,10 @@
 import {
+  TPayment,
   TAdditional,
   TCartProduct,
   TSchedule,
   TShopSettings,
-} from "./initialState";
+} from "./globalStore";
 
 export enum TActionTypes {
   SET_SHOP_SETTINGS = "SET_SHOP_SETTINGS",
@@ -16,6 +17,7 @@ export enum TActionTypes {
   SET_ADDITIONALS = "SET_ADDITIONALS",
   ADD_ADDITIONAL = "ADD_ADDITIONAL",
   SET_CUTLERY_AMOUNT = "SET_CUTLERY_AMOUNT",
+  SET_CUTLERY_AMOUNT_ERROR = "SET_CUTLERY_AMOUNT_ERROR",
   SET_PICKUP = "SET_PICKUP",
   SET_SCHEDULE = "SET_SCHEDULE",
   SET_PRODUCTS = "SET_PRODUCTS",
@@ -32,6 +34,8 @@ export enum TActionTypes {
   SET_CUSTOMER_ADDRESS = "SET_CUSTOMER_ADDRESS",
   SET_CUSTOMER_ADDRESS_ERROR = "SET_CUSTOMER_ADDRESS_ERROR",
   SET_CUSTOMER_NOTE = "SET_CUSTOMER_NOTE",
+  SET_PAYMENT_TYPE = "SET_PAYMENT_TYPE",
+  CLEAR_STORE = "CLEAR_STORE",
 }
 
 export interface TAction {
@@ -105,6 +109,11 @@ export const addAdditional = (id: number, quantity: number): TAction => ({
 export const setCutleryAmount = (amount: number): TAction => ({
   payload: amount,
   type: TActionTypes.SET_CUTLERY_AMOUNT,
+});
+
+export const setCutleryAmountError = (error: boolean): TAction => ({
+  payload: error,
+  type: TActionTypes.SET_CUTLERY_AMOUNT_ERROR,
 });
 
 export const setPickup = (checked: boolean): TAction => ({
@@ -186,4 +195,9 @@ export const setCustomerAddressError = (error: boolean): TAction => ({
 export const setCustomerPhoneError = (error: boolean): TAction => ({
   payload: error,
   type: TActionTypes.SET_CUSTOMER_PHONE_ERROR,
+});
+
+export const setPaymentType = (paymentType: TPayment): TAction => ({
+  payload: paymentType,
+  type: TActionTypes.SET_PAYMENT_TYPE,
 });

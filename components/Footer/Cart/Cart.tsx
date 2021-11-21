@@ -10,8 +10,9 @@ import {
 } from "./styled";
 
 const Cart: React.FC = () => {
-  const { state } = useStore();
-  const totalAmount = state.cart.products.length;
+  const { store } = useStore();
+  const { cart } = store;
+  const totalAmount = cart.products.length;
 
   return (
     <StyledWrapper>

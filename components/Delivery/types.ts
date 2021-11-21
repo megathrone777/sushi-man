@@ -17,4 +17,4 @@ export interface TDelivery {
   deliveryItems: TDeliveryItem[];
 }
 
-export interface TProps extends TDelivery {}
+export type TProps = TDelivery

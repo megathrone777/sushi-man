@@ -27,4 +27,4 @@ export interface TProduct {
   weight: string;
 }
 
-export interface TProps extends TProduct {}
+export type TProps = TProduct

@@ -17,6 +17,7 @@ export {
   setCustomerPhone,
   setCustomerPhoneError,
   setCutleryAmount,
+  setCutleryAmountError,
   setDeliveryPrice,
   setPickup,
   setAgree,
@@ -24,12 +25,14 @@ export {
   setSchedule,
   setShopSettings,
   setTotalRollsDiscount,
+  setPaymentType,
 } from "./actions";
 export { useStore, AppContext } from "./context";
 export { reducer } from "./reducer";
 export type {
+  TPayment,
   TCartProduct,
   TAdditional,
   TSchedule,
   TShopSettings,
-} from "./initialState";
+} from "./globalStore";

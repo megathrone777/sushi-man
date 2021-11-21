@@ -1,27 +1,27 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { set as setToLocalStorage } from "local-storage";
 
-import { TState, initialState } from "./initialState";
+import { TStore, globalStore } from "./globalStore";
 import { TAction } from "./actions";
 import { reducer } from "./reducer";
 
 const AppContext = createContext<{
-  state: TState;
+  store: TStore;
   dispatch: React.Dispatch<TAction>;
 }>({
-  state: initialState,
+  store: globalStore,
   dispatch: () => null,
 });
 
 const AppProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [store, dispatch] = useReducer(reducer, globalStore);
 
   useEffect((): void => {
-    setToLocalStorage<TState>("state", state);
-  }, [state]);
+    setToLocalStorage<TStore>("store", store);
+  }, [store]);
 
   return (
-    <AppContext.Provider value={{ state, dispatch }}>
+    <AppContext.Provider value={{ store, dispatch }}>
       {children}
     </AppContext.Provider>
   );

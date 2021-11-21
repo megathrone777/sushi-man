@@ -2,8 +2,13 @@ import React, { useEffect } from "react";
 import { useNotifications } from "reapop";
 
 import useTranslation from "~/intl/useTranslation";
-import { TCartProduct, setCutleryAmount, useStore } from "~/store";
-import { SvgPlusIcon, SvgMinusIcon } from "~/icons";
+import {
+  TCartProduct,
+  setCutleryAmount,
+  useStore,
+  setCutleryAmountError,
+} from "~/store";
+import { SvgPlusIcon, SvgMinusIcon, SvgExclamationIcon } from "~/icons";
 import {
   StyledWrapper,
   StyledQuantityWrapper,
@@ -14,14 +19,16 @@ import {
   StyledTable,
   StyledTableRow,
   StyledTableCell,
+  StyledError,
+  StyledErrorIcon,
 } from "./styled";
 
 const Persons: React.FC = () => {
   const { notify } = useNotifications();
   const { t } = useTranslation();
-  const { dispatch, state } = useStore();
-  const { cart } = state;
-  const { cutleryAmount, products } = cart;
+  const { dispatch, store } = useStore();
+  const { cart } = store;
+  const { cutleryAmount, cutleryAmountError, products } = cart;
 
   const totalRollsAdded = products.filter(
     ({ isRoll }: TCartProduct): boolean => isRoll
@@ -87,6 +94,7 @@ const Persons: React.FC = () => {
       return;
     }
 
+    dispatch(setCutleryAmountError(false));
     dispatch(setCutleryAmount(cutleryAmount + 1));
   };
 
@@ -108,6 +116,14 @@ const Persons: React.FC = () => {
         <tbody>
           <StyledTableRow>
             <StyledTableCell>
+              {cutleryAmountError && (
+                <StyledError>
+                  <StyledErrorIcon>
+                    <SvgExclamationIcon />
+                  </StyledErrorIcon>
+                </StyledError>
+              )}
+
               <StyledName>Příbory</StyledName>
             </StyledTableCell>
 

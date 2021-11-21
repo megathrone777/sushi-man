@@ -13,6 +13,7 @@ import {
   useStore,
   setAgree,
   setAgreeError,
+  setCutleryAmountError,
   setCustomerAddressError,
   setCustomerNameError,
   setCustomerPhoneError,
@@ -51,22 +52,24 @@ const Cart: React.FC = () => {
     useState<boolean>(false);
   const { notify } = useNotifications();
   const { t } = useTranslation();
-  const { dispatch, state } = useStore();
-  const { cart } = state;
+  const { dispatch, store } = useStore();
+  const { cart } = store;
   const {
     isAgreeChecked,
     isAgreeCheckedError,
     isPickupChecked,
     totalRollsDiscount,
     deliveryPrice,
+    cutleryAmount,
     customerAddress,
     customerName,
     customerPhone,
     customerEmail,
+    paymentType,
   } = cart;
-  const [submitOrder] = useMutation(
+  const [createOrder] = useMutation(
     gql`
-      mutation Mutation($createOrderInput: createOrderInput) {
+      mutation CreateOrderMutation($createOrderInput: createOrderInput) {
         createOrder(input: $createOrderInput) {
           order {
             id
@@ -92,9 +95,7 @@ const Cart: React.FC = () => {
             "Content-Type": "application/json",
           },
         })
-          .then((response) => {
-            return response.text();
-          })
+          .then((response) => response.text())
           .then((data) => {
             router.push(JSON.parse(data).redirect);
           })
@@ -105,11 +106,11 @@ const Cart: React.FC = () => {
     }
   );
 
-  const addedProductsPrice: number[] = state.cart.products.map(
+  const addedProductsPrice: number[] = cart.products.map(
     ({ totalPrice }: TCartProduct): number => totalPrice
   );
 
-  const addedAdditionalsPrice: number[] = state.cart.additionals.map(
+  const addedAdditionalsPrice: number[] = cart.additionals.map(
     ({ price, quantity = 0 }: TAdditional) => price * quantity
   );
 
@@ -179,9 +180,16 @@ const Cart: React.FC = () => {
       dispatch(setAgreeError(false));
     }
 
+    if (cutleryAmount === 0) {
+      dispatch(setCutleryAmountError(true));
+    } else {
+      dispatch(setCutleryAmountError(false));
+    }
+
     if (customerAddress.length === 0 && !isPickupChecked) {
       dispatch(setCustomerAddressError(true));
     } else {
+      1;
       dispatch(setCustomerAddressError(false));
     }
 
@@ -207,6 +215,7 @@ const Cart: React.FC = () => {
       customerPhone.length === 0 ||
       customerName.length === 0 ||
       customerEmail.length === 0 ||
+      cutleryAmount === 0 ||
       (customerAddress.length === 0 && !isPickupChecked) ||
       !isAgreeChecked
     ) {
@@ -227,6 +236,10 @@ const Cart: React.FC = () => {
   const handleAgreeChange = ({
     currentTarget,
   }: React.SyntheticEvent<HTMLInputElement>): void => {
+    if (currentTarget.checked) {
+      dispatch(setAgreeError(false));
+    }
+
     dispatch(setAgree(currentTarget.checked));
   };
 
@@ -237,11 +250,19 @@ const Cart: React.FC = () => {
   ): void => {
     if (checkCartFields()) {
       toggleSubmitOrderLoading(true);
-      submitOrder({
+
+      if (paymentType === "cash") {
+        router.push("/orderConfirmed");
+        return;
+      }
+
+      createOrder({
         variables: {
           createOrderInput: {
             data: {
               comgateTransId,
+              email: customerEmail,
+              phone: +customerPhone,
               name,
               price,
             },
@@ -302,6 +323,7 @@ const Cart: React.FC = () => {
               )}
 
               <StyledCheckbox
+                checked={isAgreeChecked}
                 id="agree"
                 onChange={handleAgreeChange}
                 type="checkbox"

@@ -20,8 +20,8 @@ interface TProps {
 }
 
 const Header: React.FC<TProps> = ({ menuItems, inner }) => {
-  const { state } = useStore();
-  const { shopSettings } = state;
+  const { store } = useStore();
+  const { shopSettings } = store;
   const [menuIsOpened, toggleMenuIsOpened] = useState<boolean>(false);
 
   const handleMenu = (): void => {
