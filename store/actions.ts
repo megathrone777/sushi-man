@@ -1,3 +1,5 @@
+import { Value as PhoneNumberValue } from "react-phone-number-input";
+
 import {
   TPayment,
   TAdditional,
@@ -172,7 +174,7 @@ export const setCustomerAddress = (address: string): TAction => ({
   type: TActionTypes.SET_CUSTOMER_ADDRESS,
 });
 
-export const setCustomerPhone = (phone: string): TAction => ({
+export const setCustomerPhone = (phone: PhoneNumberValue): TAction => ({
   payload: phone,
   type: TActionTypes.SET_CUSTOMER_PHONE,
 });

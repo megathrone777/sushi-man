@@ -1,4 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
+import PhoneInput, {
+  // isValidPhoneNumber,
+  Value as PhoneNumberValue,
+} from "react-phone-number-input";
+import 'react-phone-number-input/style.css'
 
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -98,14 +103,13 @@ const Delivery: React.FC = () => {
     dispatch(setPickup(name === "pickup"));
   };
 
-  const handlePhoneChange = ({
-    currentTarget,
-  }: React.SyntheticEvent<HTMLInputElement>): void => {
-    if (currentTarget.value.length > 0) {
-      dispatch(setCustomerPhoneError(false));
-    }
+  const handlePhoneChange = (value: PhoneNumberValue): void => {
+    console.log(value);
+    // if (value.length > 0) {
+    //   dispatch(setCustomerPhoneError(false));
+    // }
 
-    dispatch(setCustomerPhone(currentTarget.value.replace(/\D/, "")));
+    dispatch(setCustomerPhone(value));
   };
 
   const handleEmailChange = ({
@@ -271,14 +275,12 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledPhoneInput
-                hasError={customerPhoneError}
+              <PhoneInput
+                country="CZ"
                 onChange={handlePhoneChange}
-                pattern="[0-9]*"
                 placeholder={
                   customerPhoneError ? "Vyplňte telefon" : t("phone")
                 }
-                type="tel"
                 value={customerPhone}
               />
               {customerPhoneError && (
@@ -331,14 +333,12 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledPhoneInput
-                hasError={customerPhoneError}
+              <PhoneInput
+                country="CZ"
                 onChange={handlePhoneChange}
-                pattern="[0-9]*"
                 placeholder={
                   customerPhoneError ? "Vyplňte telefon" : t("phone")
                 }
-                type="tel"
                 value={customerPhone}
               />
               {customerPhoneError && (
