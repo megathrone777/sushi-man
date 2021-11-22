@@ -13,7 +13,7 @@ export const StyledLayout = styled.div<{
   min-width: ${({ theme }) => theme.rem(600)};
   min-height: ${({ theme }) => theme.rem(300)};
   opacity: 0;
-  padding: ${({ theme }) => theme.rem(60)} 0;
+  padding: ${({ theme }) => `${theme.rem(60)} ${theme.rem(15)}`};
   position: fixed;
   right: 0;
   top: 50%;
