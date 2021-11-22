@@ -26,6 +26,8 @@ export const StyledLayout = styled.div<{
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     max-width: calc(100% - ${({ theme }) => theme.rem(20)});
     min-width: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   ${({ isOpened }) =>
