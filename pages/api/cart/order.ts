@@ -14,16 +14,37 @@ const config = {
 };
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
-  const { orderId, orderPrice, email, name, phone, paymentType } = request.body;
-
-  console.log(paymentType);
+  const {
+    address,
+    cutleryAmount,
+    note,
+    orderId,
+    orderPrice,
+    email,
+    name,
+    phone,
+    products,
+    paymentType,
+  } = request.body;
 
   if (paymentType === "cash") {
     telegramSendMessage(`Заказ №${orderId}
-    \n <b>Phone:</b> ${phone} 
-    \n <b>Email:</b> ${email} 
-    \n <b>Payment type:</b> ${paymentType}
-    \n <b>Price:</b> ${orderPrice}Kč`);
+    ${products.map(
+      ({ title, quantity }): string =>
+        `\n<b>${title} ${quantity !== 1 ? `x${quantity}` : ""}</b>`
+    )}
+    ${note && note.length > 0 ? `\n${note}` : ""}
+    \n <b>Приборы:</b> ${cutleryAmount}
+    \n <b>Email:</b> ${email}
+    \n <b>Тип оплаты:</b> Наличные
+    \n <b>Цена:</b> ${orderPrice}Kč
+    \n <a href="tel:${phone}">${phone}</a>
+    \n ${address !== null && address.length > 0 ? "" : "Самовывоз"}
+    `);
+
+    if (address) {
+      telegramSendMessage(`${address}`);
+    }
 
     response.send({ redirect: "/orderConfirmed", statusCode: 0 });
     return;

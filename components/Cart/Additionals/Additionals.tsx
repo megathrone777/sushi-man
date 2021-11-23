@@ -1,7 +1,12 @@
 import React from "react";
 
 import useTranslation from "~/intl/useTranslation";
-import { TAdditional, changeAdditionalQuantity, useStore } from "~/store";
+import {
+  TAdditional,
+  changeAdditionalQuantity,
+  useStore,
+  setCustomerNote,
+} from "~/store";
 import { SvgPlusIcon, SvgMinusIcon, SvgNoteIcon } from "~/icons";
 import {
   StyledWrapper,
@@ -24,6 +29,7 @@ const Additionals: React.FC = () => {
   const { t } = useTranslation();
   const { dispatch, store } = useStore();
   const { cart } = store;
+  const { customerNote } = cart;
 
   const handleQuantityIncrease = (id: string, quantity: number): void => {
     dispatch(changeAdditionalQuantity(id, quantity + 1));
@@ -32,6 +38,12 @@ const Additionals: React.FC = () => {
   const handleQuantityDecrease = (id: string, quantity: number): void => {
     if (quantity === 0) return;
     dispatch(changeAdditionalQuantity(id, quantity - 1));
+  };
+
+  const handleNoteChange = (
+    event: React.SyntheticEvent<HTMLTextAreaElement>
+  ): void => {
+    dispatch(setCustomerNote(event.currentTarget.value));
   };
 
   return (
@@ -108,7 +120,11 @@ const Additionals: React.FC = () => {
         </StyledNoteIcon>
       </StyledNoteWrapper>
 
-      <StyledNote placeholder="Pokud si přejete vynechat sezam nebo pálivou omáčku, tak stačí napsat sem.."></StyledNote>
+      <StyledNote
+        onChange={handleNoteChange}
+        placeholder="Pokud si přejete vynechat sezam nebo pálivou omáčku, tak stačí napsat sem.."
+        value={customerNote}
+      />
     </StyledWrapper>
   );
 };

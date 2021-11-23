@@ -77,6 +77,7 @@ const Cart: React.FC = () => {
     customerName,
     customerPhone,
     customerEmail,
+    customerNote,
     paymentType,
     products,
   } = cart;
@@ -92,9 +93,11 @@ const Cart: React.FC = () => {
           name: customerName,
           phone: customerPhone,
           email: customerEmail,
+          note: customerNote,
           orderId: data["createOrder"]["order"]["id"],
           orderPrice: data["createOrder"]["order"]["price"],
           paymentType,
+          products,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -124,9 +127,11 @@ const Cart: React.FC = () => {
           name: customerName,
           phone: customerPhone,
           email: customerEmail,
+          note: customerNote,
           orderId: data["createOrder"]["order"]["id"],
           orderPrice: data["createOrder"]["order"]["price"],
           paymentType,
+          products,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -291,12 +296,14 @@ const Cart: React.FC = () => {
 
       const createOrderInput = {
         data: {
+          address: customerAddress,
           additionals,
           cutleryAmount,
           comgateTransId,
           email: customerEmail,
           phone: customerPhone,
           name,
+          note: customerNote,
           price,
           products,
         },

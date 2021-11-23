@@ -208,7 +208,7 @@ const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
           deliveryDistance: payload,
         },
       }),
-      
+
     [TActionTypes.SET_AGREE]: (): TStore =>
       setStoreToLocalStorage({
         ...store,
@@ -305,6 +305,15 @@ const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
         cart: {
           ...store.cart,
           paymentType: payload,
+        },
+      }),
+
+    [TActionTypes.SET_CUSTOMER_NOTE]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
+        cart: {
+          ...store.cart,
+          customerNote: payload,
         },
       }),
 

@@ -23,7 +23,9 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   });
 
   if (order && Object.keys(order).length) {
-    const { data } = await client.mutate({
+    const {
+      data: { updateOrder },
+    } = await client.mutate({
       mutation: gql`
         mutation UpdateOrderMutation($input: updateOrderInput) {
           updateOrder(input: $input) {
@@ -51,15 +53,15 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       },
     });
 
-    if (data["order"] && Object.keys(data["order"]).length) {
+    if (updateOrder["order"] && Object.keys(updateOrder["order"]).length) {
       telegramSendMessage(
-        `Заказ №${data["order"]["id"]}
-        \n <b>Phone:</b> ${data["order"]["phone"]} 
-        \n <b>Email:</b> ${data["order"]["email"]} 
-        \n <b>Price:</b> ${data["order"]["price"]}Kč 
-        \n <b>Payment status:</b> ${data["order"]["comgatePaymentStatus"]}`
+        `Заказ №${updateOrder["order"]["id"]}
+        \n <b>Phone:</b> ${updateOrder["order"]["phone"]} 
+        \n <b>Email:</b> ${updateOrder["order"]["email"]} 
+        \n <b>Price:</b> ${updateOrder["order"]["price"]}Kč 
+        \n <b>Payment status:</b> ${updateOrder["order"]["comgatePaymentStatus"]}`
       );
-      telegramSendMessage(`Address: ${data["order"]["address"]}`);
+      telegramSendMessage(`Address: ${updateOrder["order"]["address"]}`);
     }
 
     return;
