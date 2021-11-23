@@ -46,6 +46,17 @@ import {
   StyledErrorIcon,
 } from "./styled";
 
+const createOrderMutation = gql`
+  mutation CreateOrderMutation($createOrderInput: createOrderInput) {
+    createOrder(input: $createOrderInput) {
+      order {
+        id
+        price
+      }
+    }
+  }
+`;
+
 const Cart: React.FC = () => {
   const router = useRouter();
   const [submitOrderLoading, toggleSubmitOrderLoading] =
@@ -55,6 +66,7 @@ const Cart: React.FC = () => {
   const { dispatch, store } = useStore();
   const { cart } = store;
   const {
+    additionals,
     isAgreeChecked,
     isAgreeCheckedError,
     isPickupChecked,
@@ -66,45 +78,72 @@ const Cart: React.FC = () => {
     customerPhone,
     customerEmail,
     paymentType,
+    products,
   } = cart;
-  const [createOrder] = useMutation(
-    gql`
-      mutation CreateOrderMutation($createOrderInput: createOrderInput) {
-        createOrder(input: $createOrderInput) {
-          order {
-            id
-            name
-            price
-          }
-        }
-      }
-    `,
-    {
-      client,
-      onCompleted: (data) => {
-        fetch("/api/cart/order", {
-          method: "POST",
-          body: JSON.stringify({
-            name: customerName,
-            phone: customerPhone,
-            email: customerEmail,
-            orderId: data["createOrder"]["order"]["id"],
-            orderPrice: data["createOrder"]["order"]["price"],
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
+
+  const [createOrderByCard] = useMutation(createOrderMutation, {
+    client,
+    onCompleted: (data) => {
+      fetch("/api/cart/order", {
+        method: "POST",
+        body: JSON.stringify({
+          address: customerAddress,
+          cutleryAmount,
+          name: customerName,
+          phone: customerPhone,
+          email: customerEmail,
+          orderId: data["createOrder"]["order"]["id"],
+          orderPrice: data["createOrder"]["order"]["price"],
+          paymentType,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          router.push(JSON.parse(data).redirect);
         })
-          .then((response) => response.text())
-          .then((data) => {
-            router.push(JSON.parse(data).redirect);
-          })
-          .finally(() => {
-            toggleSubmitOrderLoading(false);
-          });
-      },
-    }
-  );
+        .finally(() => {
+          toggleSubmitOrderLoading(false);
+        });
+    },
+    onError: () => {
+      alert("Cannot create order");
+    },
+  });
+
+  const [createOrderByCash] = useMutation(createOrderMutation, {
+    client,
+    onCompleted: (data) => {
+      fetch("/api/cart/order", {
+        method: "POST",
+        body: JSON.stringify({
+          address: customerAddress,
+          cutleryAmount,
+          name: customerName,
+          phone: customerPhone,
+          email: customerEmail,
+          orderId: data["createOrder"]["order"]["id"],
+          orderPrice: data["createOrder"]["order"]["price"],
+          paymentType,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          router.push(JSON.parse(data).redirect);
+        })
+        .finally(() => {
+          toggleSubmitOrderLoading(false);
+        });
+    },
+    onError: () => {
+      alert("Cannot create order");
+    },
+  });
 
   const addedProductsPrice: number[] = cart.products.map(
     ({ totalPrice }: TCartProduct): number => totalPrice
@@ -189,7 +228,6 @@ const Cart: React.FC = () => {
     if (customerAddress.length === 0 && !isPickupChecked) {
       dispatch(setCustomerAddressError(true));
     } else {
-      1;
       dispatch(setCustomerAddressError(false));
     }
 
@@ -251,22 +289,31 @@ const Cart: React.FC = () => {
     if (checkCartFields()) {
       toggleSubmitOrderLoading(true);
 
+      const createOrderInput = {
+        data: {
+          additionals,
+          cutleryAmount,
+          comgateTransId,
+          email: customerEmail,
+          phone: customerPhone,
+          name,
+          price,
+          products,
+        },
+      };
+
       if (paymentType === "cash") {
-        router.push("/orderConfirmed");
+        createOrderByCash({
+          variables: {
+            createOrderInput,
+          },
+        });
         return;
       }
 
-      createOrder({
+      createOrderByCard({
         variables: {
-          createOrderInput: {
-            data: {
-              comgateTransId,
-              email: customerEmail,
-              phone: +customerPhone,
-              name,
-              price,
-            },
-          },
+          createOrderInput,
         },
       });
     }
@@ -344,7 +391,7 @@ const Cart: React.FC = () => {
             <StyledButtons>
               <StyledBuy
                 isLoading={submitOrderLoading}
-                onClick={() => handleBuyClick("New order", "", totalOrderPrice)}
+                onClick={() => handleBuyClick("Order", "", totalOrderPrice)}
                 type="button"
               >
                 {submitOrderLoading && (

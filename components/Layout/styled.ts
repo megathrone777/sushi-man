@@ -4,7 +4,7 @@ export const StyledWrapper = styled.div`
   overflow-x: hidden;
 `;
 
-export const StyledContent = styled.div``;
+export const StyledContent = styled.main``;
 
 export const StyledContainer = styled.div`
   height: 100%;

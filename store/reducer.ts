@@ -200,6 +200,15 @@ const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
         },
       }),
 
+    [TActionTypes.SET_DELIVERY_DISTANCE]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
+        cart: {
+          ...store.cart,
+          deliveryDistance: payload,
+        },
+      }),
+      
     [TActionTypes.SET_AGREE]: (): TStore =>
       setStoreToLocalStorage({
         ...store,

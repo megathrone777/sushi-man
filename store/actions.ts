@@ -25,6 +25,7 @@ export enum TActionTypes {
   SET_PRODUCTS = "SET_PRODUCTS",
   SET_TOTAL_ROLLS_DISCOUNT = "SET_TOTAL_ROLLS_DISCOUNT",
   SET_DELIVERY_PRICE = "SET_DELIVERY_PRICE",
+  SET_DELIVERY_DISTANCE = "SET_DELIVERY_DISTANCE",
   SET_AGREE = "SET_AGREE",
   SET_AGREE_ERROR = "SET_AGREE_ERROR",
   SET_CUSTOMER_EMAIL = "SET_CUSTOMER_EMAIL",
@@ -41,6 +42,8 @@ export enum TActionTypes {
 }
 
 export interface TAction {
+  // TODO: Remove any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload: any;
   type: TActionTypes;
 }
@@ -126,6 +129,11 @@ export const setPickup = (checked: boolean): TAction => ({
 export const setDeliveryPrice = (price: number): TAction => ({
   payload: price,
   type: TActionTypes.SET_DELIVERY_PRICE,
+});
+
+export const setDeliveryDistance = (distance: number): TAction => ({
+  payload: distance,
+  type: TActionTypes.SET_DELIVERY_DISTANCE,
 });
 
 export const setTotalRollsDiscount = (price: number): TAction => ({

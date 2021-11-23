@@ -25,7 +25,7 @@ const handler = async (
   const data = await googleResponse.json();
   const lengthInKm = data.rows.length && data.rows[0].elements[0].distance.text;
 
-  response.status(200).json({ lengthInKm });
+  response.status(200).json({ lengthInKm: parseInt(lengthInKm) });
 };
 
 export default handler;

@@ -140,7 +140,7 @@ export const StyledCopyLink = styled.a`
   text-decoration: none;
 `;
 
-export const StyledScrollButton = styled.button<{ isHidden: boolean }>`
+export const StyledScrollButton = styled.button`
   background-color: rgb(239, 239, 239);
   border: none;
   border-radius: ${({ theme }) => theme.rem(4)};

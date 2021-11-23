@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import PhoneInput, {
-  // isValidPhoneNumber,
+  isValidPhoneNumber,
+  formatPhoneNumberIntl,
   Value as PhoneNumberValue,
-} from "react-phone-number-input";
-import 'react-phone-number-input/style.css'
+} from "react-phone-number-input/input";
 
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -15,6 +15,7 @@ import {
   setCustomerName,
   setCustomerPhone,
   setCustomerEmailError,
+  setDeliveryDistance,
   useStore,
   setCustomerEmail,
   setCustomerPhoneError,
@@ -35,10 +36,10 @@ import {
   StyledRadioLabel,
   StyledRadioLabelInfo,
   StyledRadio,
+  StyledPhoneInput,
   StyledEmailInput,
   StyledNameInput,
   StyledDeliveryInput,
-  StyledPhoneInput,
   StyledLink,
   StyledMap,
   StyledLengthInKm,
@@ -49,7 +50,6 @@ import {
 
 const Delivery: React.FC = () => {
   const { t } = useTranslation();
-  const [lengthInKm, setLengthInKm] = useState<string>("0");
   const { dispatch, store } = useStore();
   const { cart } = store;
   const addressInputElement = useRef(null);
@@ -69,6 +69,7 @@ const Delivery: React.FC = () => {
     totalRollsDiscount,
     deliveryPrice,
     products,
+    deliveryDistance,
   } = cart;
 
   const addedProductsPrice: number[] = products.map(
@@ -104,12 +105,19 @@ const Delivery: React.FC = () => {
   };
 
   const handlePhoneChange = (value: PhoneNumberValue): void => {
-    console.log(value);
-    // if (value.length > 0) {
-    //   dispatch(setCustomerPhoneError(false));
-    // }
+    const formattedValue = formatPhoneNumberIntl(value);
 
-    dispatch(setCustomerPhone(value));
+    if (!isValidPhoneNumber(formattedValue)) {
+      dispatch(setCustomerPhoneError(true));
+    } else {
+      dispatch(setCustomerPhoneError(false));
+    }
+
+    if (formattedValue.length === 0) {
+      dispatch(setCustomerPhoneError(false));
+    }
+
+    dispatch(setCustomerPhone(formattedValue));
   };
 
   const handleEmailChange = ({
@@ -143,18 +151,16 @@ const Delivery: React.FC = () => {
   };
 
   useEffect((): void => {
-    const currentLengthInKm = parseInt(lengthInKm);
-
-    if (currentLengthInKm < 3) {
+    if (deliveryDistance < 3) {
       dispatch(setDeliveryPrice(0));
-    } else if (currentLengthInKm > 3 && currentLengthInKm < 7) {
+    } else if (deliveryDistance > 3 && deliveryDistance < 7) {
       dispatch(setDeliveryPrice(50));
-    } else if (currentLengthInKm > 3 && currentLengthInKm < 8) {
+    } else if (deliveryDistance > 3 && deliveryDistance < 8) {
       dispatch(setDeliveryPrice(100));
     } else {
       dispatch(setDeliveryPrice(null));
     }
-  }, [dispatch, lengthInKm]);
+  }, [dispatch, deliveryDistance]);
 
   useEffect((): void => {
     if (isPickupChecked) return;
@@ -198,7 +204,7 @@ const Delivery: React.FC = () => {
         map.setZoom(17);
       }
 
-      setLengthInKm(data.lengthInKm);
+      dispatch(setDeliveryDistance(data.lengthInKm));
       marker.setPosition(place.geometry.location);
       marker.setVisible(true);
       dispatch(setCustomerAddress(place.formatted_address));
@@ -276,7 +282,7 @@ const Delivery: React.FC = () => {
 
             <StyledInputWrapper>
               <PhoneInput
-                country="CZ"
+                inputComponent={StyledPhoneInput}
                 onChange={handlePhoneChange}
                 placeholder={
                   customerPhoneError ? "Vyplňte telefon" : t("phone")
@@ -334,7 +340,8 @@ const Delivery: React.FC = () => {
 
             <StyledInputWrapper>
               <PhoneInput
-                country="CZ"
+                hasError={customerPhoneError}
+                inputComponent={StyledPhoneInput}
                 onChange={handlePhoneChange}
                 placeholder={
                   customerPhoneError ? "Vyplňte telefon" : t("phone")
@@ -359,10 +366,10 @@ const Delivery: React.FC = () => {
                 type="search"
                 value={customerAddress}
               />
-              {lengthInKm !== null &&
-                parseInt(lengthInKm) > 0 &&
+              {deliveryDistance !== null &&
+                deliveryDistance > 0 &&
                 !customerAddressError && (
-                  <StyledLengthInKm>{lengthInKm}</StyledLengthInKm>
+                  <StyledLengthInKm>{deliveryDistance}{" "}km</StyledLengthInKm>
                 )}
               {customerAddressError && (
                 <StyledErrorIcon>

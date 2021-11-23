@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNotifications } from "reapop";
 
 import useTranslation from "~/intl/useTranslation";
@@ -29,6 +29,7 @@ const Persons: React.FC = () => {
   const { dispatch, store } = useStore();
   const { cart } = store;
   const { cutleryAmount, cutleryAmountError, products } = cart;
+  const isInitialMount = useRef(true);
 
   const totalRollsAdded = products.filter(
     ({ isRoll }: TCartProduct): boolean => isRoll
@@ -105,7 +106,11 @@ const Persons: React.FC = () => {
   };
 
   useEffect((): void => {
-    dispatch(setCutleryAmount(0));
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      dispatch(setCutleryAmount(0));
+    }
   }, [cart.products]);
 
   return (
@@ -124,7 +129,7 @@ const Persons: React.FC = () => {
                 </StyledError>
               )}
 
-              <StyledName>Příbory</StyledName>
+              <StyledName hasError={cutleryAmountError}>Příbory</StyledName>
             </StyledTableCell>
 
             <StyledTableCell>

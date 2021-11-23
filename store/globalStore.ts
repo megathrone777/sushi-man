@@ -46,6 +46,7 @@ export interface TStore {
     cutleryAmount: number;
     cutleryAmountError: boolean;
     deliveryPrice: number;
+    deliveryDistance: number;
     paymentType: TPayment;
     isAgreeChecked: boolean;
     isAgreeCheckedError: boolean;
@@ -69,6 +70,7 @@ const initialStore: TStore = {
     customerNote: "",
     cutleryAmount: 0,
     deliveryPrice: 0,
+    deliveryDistance: 0,
     isAgreeChecked: false,
     isAgreeCheckedError: false,
     isPickupChecked: false,

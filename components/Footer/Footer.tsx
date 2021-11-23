@@ -200,11 +200,7 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
 
       {!shopSettings.shopIsClosed && <Cart />}
 
-      <StyledScrollButton
-        isHidden={false}
-        onClick={handleScrollTop}
-        type="button"
-      >
+      <StyledScrollButton onClick={handleScrollTop} type="button">
         <SvgArrowTopIcon />
       </StyledScrollButton>
 

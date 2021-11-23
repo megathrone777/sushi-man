@@ -41,7 +41,7 @@ query HomePageQuery {
     title
   }
 
-  deliveryItems(locale: "all") {
+  deliveryItems(locale: "all", sort: "title") {
     locale
     text
     title

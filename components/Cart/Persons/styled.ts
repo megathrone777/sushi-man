@@ -33,7 +33,8 @@ export const StyledTableCell = styled.td`
   width: 33.3333%;
 `;
 
-export const StyledName = styled.span`
+export const StyledName = styled.span<{ hasError: boolean }>`
+  color: ${({ hasError }) => (hasError ? "#da2628" : "black")};
   font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
 `;
 

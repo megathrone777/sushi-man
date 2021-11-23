@@ -3,6 +3,7 @@ import fetch from "isomorphic-unfetch";
 import { gql } from "@apollo/client";
 
 import client from "~/apollo-client";
+import { telegramSendMessage } from "./telegramSendMessage";
 
 const config = {
   api: {
@@ -13,7 +14,20 @@ const config = {
 };
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
-  const { orderId, orderPrice, email, name, phone } = request.body;
+  const { orderId, orderPrice, email, name, phone, paymentType } = request.body;
+
+  console.log(paymentType);
+
+  if (paymentType === "cash") {
+    telegramSendMessage(`Заказ №${orderId}
+    \n <b>Phone:</b> ${phone} 
+    \n <b>Email:</b> ${email} 
+    \n <b>Payment type:</b> ${paymentType}
+    \n <b>Price:</b> ${orderPrice}Kč`);
+
+    response.send({ redirect: "/orderConfirmed", statusCode: 0 });
+    return;
+  }
 
   const comgateResponse = await fetch(
     "https://payments.comgate.cz/v1.0/create",
@@ -29,7 +43,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         &phone=${phone}
         &payerName=${name}
         &prepareOnly=true
-        &secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3`,
+        &secret=44j6AON7H3NQuXClU62bfNIeniPbhOk3
+        &test=true`,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },

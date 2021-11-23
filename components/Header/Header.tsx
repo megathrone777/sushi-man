@@ -34,7 +34,7 @@ const Header: React.FC<TProps> = ({ menuItems, inner }) => {
       return;
     }
 
-    document.body.style.overflow = "visible";
+    document.body.removeAttribute("style");
   }, [menuIsOpened]);
 
   return (
