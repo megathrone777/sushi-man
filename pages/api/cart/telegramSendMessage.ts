@@ -5,11 +5,13 @@ const accessToken = "2135558519:AAHY1FPlgWls7tt5b5PSD1q9MkQ2IoahtXc";
 const chatId = "-727652121";
 const telegram = new TelegramClient({ accessToken });
 
-const telegramSendMessage = (body: string): void => {
-  telegram.sendMessage(chatId, body, {
-    disableNotification: false,
-    parseMode: ParseMode.HTML,
-  });
+const telegramSendMessage = (body: string, callback?: () => void): void => {
+  telegram
+    .sendMessage(chatId, body, {
+      disableNotification: false,
+      parseMode: ParseMode.HTML,
+    })
+    .then(callback);
 };
 
 export { telegramSendMessage };

@@ -40,10 +40,13 @@ const Additionals: React.FC = () => {
     dispatch(changeAdditionalQuantity(id, quantity - 1));
   };
 
-  const handleNoteChange = (
-    event: React.SyntheticEvent<HTMLTextAreaElement>
-  ): void => {
-    dispatch(setCustomerNote(event.currentTarget.value));
+  const handleNoteChange = ({
+    currentTarget,
+  }: React.SyntheticEvent<HTMLTextAreaElement>): void => {
+    if (currentTarget.value.length > 250) {
+      return;
+    }
+    dispatch(setCustomerNote(currentTarget.value));
   };
 
   return (
@@ -121,6 +124,7 @@ const Additionals: React.FC = () => {
       </StyledNoteWrapper>
 
       <StyledNote
+        maxLength={250}
         onChange={handleNoteChange}
         placeholder="Pokud si přejete vynechat sezam nebo pálivou omáčku, tak stačí napsat sem.."
         value={customerNote}

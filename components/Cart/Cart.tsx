@@ -90,6 +90,7 @@ const Cart: React.FC = () => {
         body: JSON.stringify({
           address: customerAddress,
           cutleryAmount,
+          deliveryPrice,
           name: customerName,
           phone: customerPhone,
           email: customerEmail,
@@ -124,6 +125,7 @@ const Cart: React.FC = () => {
         body: JSON.stringify({
           address: customerAddress,
           cutleryAmount,
+          deliveryPrice,
           name: customerName,
           phone: customerPhone,
           email: customerEmail,

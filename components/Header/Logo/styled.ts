@@ -26,4 +26,8 @@ export const StyledLink = styled.a`
   display: block;
   height: 100%;
   position: relative;
+
+  &:focus {
+    outline: none;
+  }
 `;

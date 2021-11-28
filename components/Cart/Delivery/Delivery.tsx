@@ -240,7 +240,7 @@ const Delivery: React.FC = () => {
           />
           <StyledRadioLabel htmlFor="input-pickup">
             {t("pickupLabel")}{" "}
-            {totalPrice > 350 && (
+            {totalPrice > 500 && (
               <StyledRadioLabelInfo>-50Kč</StyledRadioLabelInfo>
             )}
           </StyledRadioLabel>

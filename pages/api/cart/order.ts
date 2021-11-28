@@ -17,6 +17,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const {
     address,
     cutleryAmount,
+    deliveryPrice,
     note,
     orderId,
     orderPrice,
@@ -28,23 +29,57 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   } = request.body;
 
   if (paymentType === "cash") {
-    telegramSendMessage(`Заказ №${orderId}
-    ${products.map(
-      ({ title, quantity }): string =>
-        `\n<b>${title} ${quantity !== 1 ? `x${quantity}` : ""}</b>`
-    )}
+    telegramSendMessage(
+      `Заказ №${orderId}
+    ${products.map(({ product_modifiers, title, quantity }): string => {
+      const modifiers =
+        (product_modifiers &&
+          !!product_modifiers.length &&
+          product_modifiers.map(
+            ({
+              price,
+              name: modifier_name,
+              submodifiers: modifier_submodifiers,
+            }): string => {
+              const modifier = `\n<b>-${modifier_name} ${price}Kč</b>`;
+              const submodifiers =
+                modifier_submodifiers &&
+                !!modifier_submodifiers.length &&
+                modifier_submodifiers.map(
+                  ({ name: submodifier_name }): string => {
+                    return `\n--<b>${submodifier_name}</b>`;
+                  }
+                );
+
+              return modifier + submodifiers;
+            }
+          )) ||
+        "";
+
+      return `\n<b>${title} ${
+        quantity !== 1 ? `x${quantity}` : ""
+      }</b>${modifiers}`;
+    })}
     ${note && note.length > 0 ? `\n${note}` : ""}
     \n <b>Приборы:</b> ${cutleryAmount}
     \n <b>Email:</b> ${email}
     \n <b>Тип оплаты:</b> Наличные
-    \n <b>Цена:</b> ${orderPrice}Kč
+    \n <b>Цена:</b> ${orderPrice}Kč ${
+        deliveryPrice >= 50 && deliveryPrice < 100
+          ? "D"
+          : deliveryPrice >= 100
+          ? "DP"
+          : ""
+      }
     \n <a href="tel:${phone}">${phone}</a>
     \n ${address !== null && address.length > 0 ? "" : "Самовывоз"}
-    `);
-
-    if (address) {
-      telegramSendMessage(`${address}`);
-    }
+    `,
+      () => {
+        if (address) {
+          telegramSendMessage(`${address}`);
+        }
+      }
+    );
 
     response.send({ redirect: "/orderConfirmed", statusCode: 0 });
     return;
