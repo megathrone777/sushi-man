@@ -7,15 +7,13 @@ import { StyledContainer } from "~/components/Layout/styled";
 
 const About: React.FC<TProps> = ({ about }) => {
   const { locale } = useTranslation();
-  const content = about[`about_${locale}`];
+  const { text, title } = about[`about_${locale}`];
 
   return (
     <StyledWrapper id="about-section">
       <StyledContainer>
-        {content.title && <StyledTitle>{content.title}</StyledTitle>}
-        {content.text && (
-          <StyledText dangerouslySetInnerHTML={{ __html: content.text }} />
-        )}
+        {title && <StyledTitle>{title}</StyledTitle>}
+        {text && <StyledText dangerouslySetInnerHTML={{ __html: text }} />}
       </StyledContainer>
     </StyledWrapper>
   );
