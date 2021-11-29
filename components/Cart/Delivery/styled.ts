@@ -196,13 +196,25 @@ export const StyledDeliveryPrice = styled.p`
   }
 `;
 
+export const StyledDeliveryError = styled.p`
+  color: ${({ theme }) => theme.colors.red};
+  font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
+  text-align: left;
+  margin-right: ${({ theme }) => theme.rem(30)};
+  width: ${({ theme }) => theme.rem(400)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    margin-top: ${({ theme }) => theme.rem(15)};
+  }
+`;
+
 export const StyledDeliveryPriceResult = styled.span`
   font-size: ${({ theme }) => theme.rem(16)};
 `;
 
 export const StyledErrorIcon = styled.span`
-  display: block;
   color: ${({ theme }) => theme.colors.red};
+  display: block;
   height: ${({ theme }) => theme.rem(20)};
   position: absolute;
   right: ${({ theme }) => theme.rem(-20)};

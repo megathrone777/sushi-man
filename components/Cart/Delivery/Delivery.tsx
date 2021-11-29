@@ -16,6 +16,7 @@ import {
   setCustomerPhone,
   setCustomerEmailError,
   setDeliveryDistance,
+  setDeliveryError,
   useStore,
   setCustomerEmail,
   setCustomerPhoneError,
@@ -44,6 +45,7 @@ import {
   StyledMap,
   StyledLengthInKm,
   StyledDeliveryPrice,
+  StyledDeliveryError,
   StyledErrorIcon,
   StyledDeliveryPriceResult,
 } from "./styled";
@@ -151,6 +153,8 @@ const Delivery: React.FC = () => {
   };
 
   useEffect((): void => {
+    dispatch(setDeliveryError(false));
+
     if (deliveryDistance < 3) {
       dispatch(setDeliveryPrice(0));
     } else if (deliveryDistance > 3 && deliveryDistance < 7) {
@@ -159,6 +163,7 @@ const Delivery: React.FC = () => {
       dispatch(setDeliveryPrice(100));
     } else {
       dispatch(setDeliveryPrice(null));
+      dispatch(setDeliveryError(true));
     }
   }, [dispatch, deliveryDistance]);
 
@@ -173,7 +178,9 @@ const Delivery: React.FC = () => {
       streetViewControl: false,
     });
     const input = addressInputElement.current;
-    const autocomplete = new google.maps.places.Autocomplete(input, {});
+    const autocomplete = new google.maps.places.Autocomplete(input, {
+      componentRestrictions: { country: "cz" },
+    });
     const marker = new google.maps.Marker({
       map,
       anchorPoint: new google.maps.Point(0, -29),
@@ -207,7 +214,7 @@ const Delivery: React.FC = () => {
       dispatch(setDeliveryDistance(data.lengthInKm));
       marker.setPosition(place.geometry.location);
       marker.setVisible(true);
-      dispatch(setCustomerAddress(place.formatted_address));
+      dispatch(setCustomerAddress(place.name));
     });
   }, [isPickupChecked]);
 
@@ -369,7 +376,7 @@ const Delivery: React.FC = () => {
               {deliveryDistance !== null &&
                 deliveryDistance > 0 &&
                 !customerAddressError && (
-                  <StyledLengthInKm>{deliveryDistance}{" "}km</StyledLengthInKm>
+                  <StyledLengthInKm>{deliveryDistance} km</StyledLengthInKm>
                 )}
               {customerAddressError && (
                 <StyledErrorIcon>
@@ -379,9 +386,9 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             {deliveryPrice === null ? (
-              <StyledDeliveryPrice>
+              <StyledDeliveryError>
                 Adresa mimo rozsah rozvozu
-              </StyledDeliveryPrice>
+              </StyledDeliveryError>
             ) : (
               <StyledDeliveryPrice>
                 Cena dopravy: {deliveryPrice}{" "}

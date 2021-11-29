@@ -20,6 +20,7 @@ export {
   setCutleryAmountError,
   setDeliveryPrice,
   setDeliveryDistance,
+  setDeliveryError,
   setPickup,
   setAgree,
   setAgreeError,

@@ -25,6 +25,7 @@ import {
   StyledModifiersList,
   StyledModifiersItem,
   StyledSubmodifiersList,
+  StyledSubmodifiersItem,
 } from "./styled";
 
 interface TSelectedSubmodifier extends TProductSubmodifier {
@@ -122,27 +123,12 @@ const ProductDetails: React.FC<TProps> = ({
     subModifier: TProductSubmodifier,
     modifierIndex: number
   ): void => {
-    if (
-      selectedSubModifiers.some(
-        (selectedSubmodifier: TSelectedSubmodifier): boolean =>
-          selectedSubmodifier.modifierIndex === modifierIndex &&
-          selectedSubmodifier.id === subModifier.id
-      )
-    ) {
-      const newSubModifiers = selectedSubModifiers.filter(
-        (selectedSubModifier: TSelectedSubmodifier): boolean =>
-          selectedSubModifier.modifierIndex !== modifierIndex ||
-          selectedSubModifier.id !== subModifier.id
-      );
+    const newSubModifiers = selectedSubModifiers.filter(
+      (selectedSubModifier: TSelectedSubmodifier): boolean =>
+        selectedSubModifier.modifierIndex !== modifierIndex
+    );
 
-      setSelectedSubmodifiers(newSubModifiers);
-      return;
-    }
-
-    const newSubModifiers: TSelectedSubmodifier[] = [
-      ...selectedSubModifiers,
-      { ...subModifier, modifierIndex },
-    ];
+    newSubModifiers.push({ ...subModifier, modifierIndex });
 
     setSelectedSubmodifiers(newSubModifiers);
   };
@@ -224,24 +210,27 @@ const ProductDetails: React.FC<TProps> = ({
                                   (
                                     subModifier: TProductSubmodifier
                                   ): React.ReactElement => (
-                                    <li key={`${index}-${subModifier.id}`}>
+                                    <StyledSubmodifiersItem
+                                      key={`${index}-${subModifier.id}`}
+                                    >
                                       <StyledMofifiersCheckbox
                                         id={`${index}-${subModifier.id}`}
                                         isSecondary
+                                        name={`${index}-subModifier}`}
                                         onChange={() =>
                                           handleSubModifierChange(
                                             subModifier,
                                             index
                                           )
                                         }
-                                        type="checkbox"
+                                        type="radio"
                                       />
                                       <StyledModifierLabel
                                         htmlFor={`${index}-${subModifier.id}`}
                                       >
                                         {subModifier.name}
                                       </StyledModifierLabel>
-                                    </li>
+                                    </StyledSubmodifiersItem>
                                   )
                                 )}
                               </StyledSubmodifiersList>

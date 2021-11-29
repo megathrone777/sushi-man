@@ -72,6 +72,7 @@ const Cart: React.FC = () => {
     isPickupChecked,
     totalRollsDiscount,
     deliveryPrice,
+    deliveryError,
     cutleryAmount,
     customerAddress,
     customerName,
@@ -81,6 +82,9 @@ const Cart: React.FC = () => {
     paymentType,
     products,
   } = cart;
+  const selectedAdditionals = additionals.filter(
+    ({ quantity }: TAdditional) => quantity !== undefined && quantity !== 0
+  );
 
   const [createOrderByCard] = useMutation(createOrderMutation, {
     client,
@@ -88,6 +92,7 @@ const Cart: React.FC = () => {
       fetch("/api/cart/order", {
         method: "POST",
         body: JSON.stringify({
+          additionals: selectedAdditionals,
           address: customerAddress,
           cutleryAmount,
           deliveryPrice,
@@ -123,6 +128,7 @@ const Cart: React.FC = () => {
       fetch("/api/cart/order", {
         method: "POST",
         body: JSON.stringify({
+          additionals: selectedAdditionals,
           address: customerAddress,
           cutleryAmount,
           deliveryPrice,
@@ -257,6 +263,7 @@ const Cart: React.FC = () => {
     }
 
     if (
+      deliveryError ||
       customerPhone.length === 0 ||
       customerName.length === 0 ||
       customerEmail.length === 0 ||
@@ -299,7 +306,7 @@ const Cart: React.FC = () => {
       const createOrderInput = {
         data: {
           address: customerAddress,
-          additionals,
+          additionals: selectedAdditionals,
           cutleryAmount,
           comgateTransId,
           email: customerEmail,

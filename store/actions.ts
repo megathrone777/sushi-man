@@ -26,6 +26,7 @@ export enum TActionTypes {
   SET_TOTAL_ROLLS_DISCOUNT = "SET_TOTAL_ROLLS_DISCOUNT",
   SET_DELIVERY_PRICE = "SET_DELIVERY_PRICE",
   SET_DELIVERY_DISTANCE = "SET_DELIVERY_DISTANCE",
+  SET_DELIVERY_ERROR = "SET_DELIVERY_ERROR",
   SET_AGREE = "SET_AGREE",
   SET_AGREE_ERROR = "SET_AGREE_ERROR",
   SET_CUSTOMER_EMAIL = "SET_CUSTOMER_EMAIL",
@@ -190,6 +191,11 @@ export const setCustomerPhone = (phone: PhoneNumberValue): TAction => ({
 export const setCustomerNote = (note: string): TAction => ({
   payload: note,
   type: TActionTypes.SET_CUSTOMER_NOTE,
+});
+
+export const setDeliveryError = (error: boolean): TAction => ({
+  payload: error,
+  type: TActionTypes.SET_DELIVERY_ERROR,
 });
 
 export const setCustomerNameError = (error: boolean): TAction => ({

@@ -90,6 +90,7 @@ export const StyledModifiersItem = styled.li`
 export const StyledModifierLabel = styled.label`
   cursor: pointer;
   font-family: ${({ theme }) => theme.fonts.fontMedium};
+  vertical-align: ${({ theme }) => theme.rem(-1)};
 `;
 
 export const StyledModifierPrice = styled.span`
@@ -109,6 +110,7 @@ export const StyledMofifiersCheckbox = styled.input<{ isSecondary?: boolean }>`
   height: ${({ theme }) => theme.rem(25)};
   margin-left: 0;
   margin-right: ${({ theme }) => theme.rem(10)};
+  margin-top: 0;
   overflow: hidden;
   vertical-align: middle;
   width: ${({ theme }) => theme.rem(25)};
@@ -116,8 +118,8 @@ export const StyledMofifiersCheckbox = styled.input<{ isSecondary?: boolean }>`
   ${({ isSecondary }) =>
     isSecondary &&
     css`
-      height: ${({ theme }) => theme.rem(20)};
       background-size: ${({ theme }) => `${theme.rem(13)} ${theme.rem(13)}`};
+      height: ${({ theme }) => theme.rem(20)};
       width: ${({ theme }) => theme.rem(20)};
     `}
 
@@ -127,7 +129,13 @@ export const StyledMofifiersCheckbox = styled.input<{ isSecondary?: boolean }>`
 `;
 
 export const StyledSubmodifiersList = styled.ul`
+  margin-bottom: ${({ theme }) => theme.rem(10)};
   margin-left: ${({ theme }) => theme.rem(20)};
+  margin-top: ${({ theme }) => theme.rem(5)};
+`;
+
+export const StyledSubmodifiersItem = styled.li`
+  margin-bottom: ${({ theme }) => theme.rem(6)};
 `;
 
 export const StyledButton = styled.button`
