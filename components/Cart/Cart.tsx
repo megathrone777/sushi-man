@@ -193,7 +193,7 @@ const Cart: React.FC = () => {
         position: "bottom-center",
         showDismissButton: true,
         status: "error",
-        title: `Minimální cena objednávky při vyzvednutí - 150 Kč`,
+        title: `Min. cena objednávky při vyzvednutí - 150 Kč`,
       });
       return;
     }
@@ -205,7 +205,7 @@ const Cart: React.FC = () => {
         position: "bottom-center",
         showDismissButton: true,
         status: "error",
-        title: `Minimální cena objednávky do 3km. - 250 Kč (bez ceny dopravy)`,
+        title: `Min. cena objednávky do 3km. - 250 Kč (bez ceny dopravy)`,
       });
       return;
     }
@@ -221,7 +221,7 @@ const Cart: React.FC = () => {
         position: "bottom-center",
         showDismissButton: true,
         status: "error",
-        title: `Minimální cena objednávky od 3km. - 300 Kč (bez ceny dopravy)`,
+        title: `Min. cena objednávky od 3km. - 300 Kč (bez ceny dopravy)`,
       });
       return;
     }

@@ -34,7 +34,7 @@ export const StyledText = styled.div`
   letter-spacing: ${({ theme }) => theme.rem(1)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: ${({ theme }) => theme.rem(17)};
+    font-size: ${({ theme }) => theme.rem(16)};
     max-width: 80%;
   }
 
