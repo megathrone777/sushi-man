@@ -113,6 +113,7 @@ export const StyledBuyLoader = styled.span`
   animation-iteration-count: infinite;
   animation-name: ${rotate};
   animation-timing-function: linear;
+  color: white;
   display: flex;
   height: ${({ theme }) => theme.rem(30)};
   justify-content: center;

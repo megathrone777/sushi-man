@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import { useStore, TSchedule } from "~/store";
+import { useStore } from "~/store";
 import { Cart } from "./Cart";
 import { Modal } from "~/components";
 import { TContactsLink } from "~/components/Modal";
@@ -44,7 +44,7 @@ interface TProps {
 }
 
 const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
-  const { locale, t } = useTranslation();
+  const { t } = useTranslation();
   const { store } = useStore();
   const { shopSettings } = store;
   const [modalIsOpened, toggleModalOpened] = useState<boolean>(
@@ -53,7 +53,8 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const allergeny = t("allergeny");
   const allergenyImage = t("allergenyImage");
   const contactsLinks = t("contactsLinks");
-  const schedule: TSchedule = store.schedule[`schedule_${locale}`];
+  const modalTitle = t("modalTitle");
+  const modalText = t("modalText");
 
   const handleScroll = (anchor: string): void => {
     const scrolledSection = document.getElementById(anchor);
@@ -212,8 +213,8 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
         close={handleModalClose}
         contactsLinks={contactsLinks}
         isOpened={modalIsOpened}
-        text={schedule.text}
-        title={schedule.title}
+        text={modalText}
+        title={modalTitle}
       />
     </StyledFooter>
   );

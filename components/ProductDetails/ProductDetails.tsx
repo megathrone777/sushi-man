@@ -6,6 +6,7 @@ import { TProps, TProductModifier, TProductSubmodifier } from "./types";
 import useTranslation from "~/intl/useTranslation";
 import { ShopModal } from "~/components";
 import { addToCart, TCartProduct, useStore } from "~/store";
+import { SvgLoaderIcon } from "~/icons";
 import {
   StyledWrapper,
   StyledLayout,
@@ -13,6 +14,7 @@ import {
   StyledContentRight,
   StyledTitle,
   StyledContent,
+  StyledImageLoader,
   StyledButton,
   StyledItem,
   StyledItemTitle,
@@ -57,6 +59,7 @@ const ProductDetails: React.FC<TProps> = ({
   const [selectedSubModifiers, setSelectedSubmodifiers] = useState<
     TSelectedSubmodifier[]
   >([]);
+  const [imageIsLoading, toggleImageLoading] = useState<boolean>(true);
   const { shopSettings } = store;
 
   const handleAddToCart = (product: TCartProduct): void => {
@@ -129,7 +132,6 @@ const ProductDetails: React.FC<TProps> = ({
     );
 
     newSubModifiers.push({ ...subModifier, modifierIndex });
-
     setSelectedSubmodifiers(newSubModifiers);
   };
 
@@ -137,15 +139,26 @@ const ProductDetails: React.FC<TProps> = ({
     toggleModalOpened(false);
   };
 
+  const handleImageLoading = (): void => {
+    toggleImageLoading(false);
+  };
+
   return (
     <StyledWrapper>
       <StyledLayout>
         <StyledContentLeft>
+          {imageIsLoading && (
+            <StyledImageLoader>
+              <SvgLoaderIcon />
+            </StyledImageLoader>
+          )}
+
           <Image
             alt={title}
             height={540}
             layout="responsive"
             objectFit="cover"
+            onLoadingComplete={handleImageLoading}
             src={image.url}
             width={400}
           />

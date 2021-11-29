@@ -140,16 +140,12 @@ export const StyledButton = styled.button<{ inner: boolean }>`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    display: none;
     height: ${({ theme }) => theme.rem(37)};
     line-height: ${({ theme }) => theme.rem(37)};
     min-width: ${({ theme }) => theme.rem(110)};
     position: absolute;
     top: 40%;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-    bottom: ${({ theme }) => theme.rem(20)};
-    top: inherit;
   }
 
   &:hover {

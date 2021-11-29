@@ -23,7 +23,7 @@ query CartPageQuery {
     title
   }
 
-  products(sort: "created_at") {
+  products(sort: "priority") {
     allergeny
     id
     image {

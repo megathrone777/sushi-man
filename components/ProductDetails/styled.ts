@@ -1,4 +1,14 @@
-import { css, styled } from "~/theme";
+import { css, keyframes, styled } from "~/theme";
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg) translateY(-50%);
+  }
+
+  to {
+    transform: rotate(360deg) translateY(-50%);
+  }
+`;
 
 export const StyledWrapper = styled.div`
   background: url("/images/products_bg.jpg") center center/auto 100%;
@@ -167,4 +177,23 @@ export const StyledButton = styled.button`
   &:hover {
     box-shadow: 0 0 ${({ theme }) => theme.rem(14)} 0 rgba(218, 38, 40, 0.75);
   }
+`;
+
+export const StyledImageLoader = styled.span`
+  align-items: center;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-name: ${rotate};
+  animation-timing-function: linear;
+  color: ${({ theme }) => theme.colors.red};
+  display: flex;
+  height: ${({ theme }) => theme.rem(50)};
+  justify-content: center;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform-origin: center top;
+  width: ${({ theme }) => theme.rem(50)};
 `;

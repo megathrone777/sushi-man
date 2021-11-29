@@ -18,6 +18,7 @@ const base = css`
   }
 
   body {
+    -webkit-font-smoothing: antialiased;
     font-family: ${({ theme }): string => theme.fonts.font};
   }
 

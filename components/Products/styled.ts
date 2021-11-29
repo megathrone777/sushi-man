@@ -92,6 +92,8 @@ export const StyledItemLayout = styled.div`
 `;
 
 export const StyledItemImage = styled.img`
+  border-top-left-radius: ${({ theme }) => theme.rem(15)};
+  border-bottom-left-radius: ${({ theme }) => theme.rem(15)};
   height: 100%;
   object-fit: cover;
   transition: 0.5s;
@@ -102,6 +104,7 @@ export const StyledItemImageHolder = styled.div`
   height: ${({ theme }) => theme.rem(340)};
   margin-bottom: ${({ theme }) => theme.rem(20)};
   overflow: hidden;
+  position: relative;
   text-align: center;
   transform: scale(1);
 
