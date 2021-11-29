@@ -140,7 +140,7 @@ export const StyledButton = styled.button<{ inner: boolean }>`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    display: none;
+    display: ${({ inner }) => (inner ? "none" : "block")};
     height: ${({ theme }) => theme.rem(37)};
     line-height: ${({ theme }) => theme.rem(37)};
     min-width: ${({ theme }) => theme.rem(110)};
