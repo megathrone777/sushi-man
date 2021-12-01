@@ -29,7 +29,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     paymentType,
   } = request.body;
 
-  if (paymentType === "cash") {
+  if (paymentType === "cash" || paymentType === "cardPickup") {
     telegramSendMessage(
       `Заказ №${orderId}
     ${products.map(
@@ -75,84 +75,18 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     }
     ${note && note.length > 0 ? `\n${note}` : ""}
     \n <b>Приборы:</b> ${cutleryAmount}
-    \n <b>Email:</b> ${email}
-    \n <b>Тип оплаты:</b> Наличные
-    \n <b>Цена:</b> ${orderPrice}Kč ${
-        deliveryPrice >= 50 && deliveryPrice < 100
-          ? "Д"
-          : deliveryPrice >= 100
-          ? "ДП"
-          : ""
-      }
-    \n <a href="tel:${phone}">${phone} ${name}</a>
-    \n ${address !== null && address.length > 0 ? "" : "Самовывоз"}
-    `,
-      () => {
-        if (address) {
-          telegramSendMessage(`${address}`);
-        }
-      }
-    );
-
-    response.send({ redirect: "/orderConfirmed", statusCode: 0 });
-    return;
-  }
-
-  if (paymentType === "cardPickup") {
-    telegramSendMessage(
-      `Заказ №${orderId}
-    ${products.map(
-      ({
-        product_modifiers,
-        product_submodifiers,
-        title,
-        quantity,
-      }): string => {
-        const modifiers =
-          (product_modifiers &&
-            !!product_modifiers.length &&
-            product_modifiers.map(
-              ({ price, name: modifier_name }, index: number): string => {
-                const modifier = `\n<b>-${modifier_name} ${price}Kč</b>`;
-                const modifier_submodifiers = product_submodifiers.filter(
-                  ({ modifierIndex }) => modifierIndex === index
-                );
-                const submodifiers = modifier_submodifiers.map(
-                  ({ name: submodifier_name }): string => {
-                    return `\n--<b>${submodifier_name}</b>`;
-                  }
-                );
-
-                return modifier + submodifiers;
-              }
-            )) ||
-          "";
-
-        return `\n<b>${title} ${
-          quantity !== 1 ? `x${quantity}` : ""
-        }</b>${modifiers}`;
-      }
-    )}
-    ${
-      additionals && !!additionals.length
-        ? `
-      ${additionals.map(({ title, quantity }): string => {
-        return `\n--<b>${title} x${quantity}</b>`;
-      })}
-    `
+    \n <b>Доставка:</b> ${
+      deliveryPrice >= 50 && deliveryPrice < 100
+        ? "Обычная"
+        : deliveryPrice >= 100
+        ? "Повышенная"
         : ""
     }
-    ${note && note.length > 0 ? `\n${note}` : ""}
-    \n <b>Приборы:</b> ${cutleryAmount}
     \n <b>Email:</b> ${email}
-    \n <b>Тип оплаты:</b> Картой на месте
-    \n <b>Цена:</b> ${orderPrice}Kč ${
-        deliveryPrice >= 50 && deliveryPrice < 100
-          ? "Д"
-          : deliveryPrice >= 100
-          ? "ДП"
-          : ""
-      }
+    \n <b>Оплаты:</b> ${
+      paymentType === "cash" ? "Наличными" : "Картой на месте"
+    }
+    \n <b>Цена:</b> ${orderPrice}Kč
     \n <a href="tel:${phone}">${phone} ${name}</a>
     \n ${address !== null && address.length > 0 ? "" : "Самовывоз"}
     `,
@@ -196,71 +130,56 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const comgateData = Object.fromEntries(params);
   const { code, message, redirect, transId } = comgateData;
 
-  console.log('transId', transId);
-
   if (!code) {
-    console.log('update 1')
-    client
-      .mutate({
-        mutation: gql`
-          mutation UpdateOrderMutation($input: updateOrderInput) {
-            updateOrder(input: $input) {
-              order {
-                comgatePaymentStatus
-              }
+    client.mutate({
+      mutation: gql`
+        mutation UpdateOrderMutation($input: updateOrderInput) {
+          updateOrder(input: $input) {
+            order {
+              comgatePaymentStatus
             }
           }
-        `,
-        variables: {
-          input: {
-            data: {
-              comgatePaymentStatus: "CANCELLED",
-            },
-            where: {
-              id: orderId,
-            },
+        }
+      `,
+      variables: {
+        input: {
+          data: {
+            comgatePaymentStatus: "CANCELLED",
+          },
+          where: {
+            id: orderId,
           },
         },
-      })
-      .catch((error) => {
-        console.log("update", error);
-      });
+      },
+    });
 
     response.send({ statusCode: 500, message });
   } else {
-    console.log('update 2')
-    client
-      .mutate({
-        mutation: gql`
-          mutation UpdateOrderMutation($input: updateOrderInput) {
-            updateOrder(input: $input) {
-              order {
-                comgateTransId
-                comgatePaymentStatus
-              }
+    client.mutate({
+      mutation: gql`
+        mutation UpdateOrderMutation($input: updateOrderInput) {
+          updateOrder(input: $input) {
+            order {
+              comgateTransId
+              comgatePaymentStatus
             }
           }
-        `,
-        variables: {
-          input: {
-            data: {
-              comgateTransId: transId,
-            },
-            where: {
-              id: orderId,
-            },
+        }
+      `,
+      variables: {
+        input: {
+          data: {
+            comgateTransId: transId,
+          },
+          where: {
+            id: orderId,
           },
         },
-      })
-      .catch((error) => {
-        console.log("update", error);
-      });
+      },
+    });
 
-      console.log('good');
-      response.send({ redirect, message, statusCode: 0 });
+    response.send({ redirect, message, statusCode: 0 });
   }
-
-  
 };
 
 export { config };

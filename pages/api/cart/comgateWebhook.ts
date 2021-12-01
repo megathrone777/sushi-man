@@ -6,7 +6,6 @@ import { telegramSendMessage } from "./telegramSendMessage";
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const { refId, status } = request.body;
-  console.log(refId);
   const {
     data: { order },
   } = await client.query({
@@ -22,10 +21,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     },
   });
 
-  console.log("order", order);
-
   if (order && !!Object.keys(order).length) {
-    console.log("updateOrder", "start");
     const {
       data: { updateOrder },
     } = await client.mutate({
@@ -62,10 +58,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       },
     });
 
-    console.log(updateOrder, "end");
-
     if (updateOrder["order"] && !!Object.keys(updateOrder["order"]).length) {
-      console.log(updateOrder["order"].products[0].product_modifiers, 'cond');
       telegramSendMessage(
         `Заказ №${updateOrder["order"].id}
       ${updateOrder["order"].products.map(
@@ -84,7 +77,6 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
                   const modifier_submodifiers = product_submodifiers.filter(
                     ({ modifierIndex }) => modifierIndex === index
                   );
-                  console.log(modifier_submodifiers, 'submodifiers');
                   const submodifiers = modifier_submodifiers.map(
                     ({ name: submodifier_name }): string => {
                       return `\n--<b>${submodifier_name}</b>`;
@@ -119,17 +111,18 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
           : ""
       }
       \n <b>Приборы:</b> ${updateOrder["order"].cutleryAmount}
+      \n <b>Доставка:</b> ${
+        updateOrder["order"].deliveryPrice >= 50 &&
+        updateOrder["order"].deliveryPrice < 100
+          ? "Обычная"
+          : updateOrder["order"].deliveryPrice >= 100
+          ? "Повышенная"
+          : ""
+      }
       \n <b>Email:</b> ${updateOrder["order"].email}
-      \n <b>Тип оплаты:</b> Картой
-      \n <b>Цена:</b> ${updateOrder["order"].price}Kč ${
-          updateOrder["order"].deliveryPrice >= 50 &&
-          updateOrder["order"].deliveryPrice < 100
-            ? "Д"
-            : updateOrder["order"].deliveryPrice >= 100
-            ? "ДП"
-            : ""
-        }
-      \n <b>Статус оплаты:</b> ${updateOrder["order"].comgatePaymentStatus}
+      \n <b>Тип оплаты:</b> Картой онлайн
+      \n <b>Цена:</b> ${updateOrder["order"].price}Kč
+      \n <b>Статус оплаты:</b> ${updateOrder["order"].comgatePaymentStatus === "PAID" ? "Оплачен" : "Отменён"}
       \n <a href="tel:${updateOrder["order"].phone}">${
           updateOrder["order"].phone
         } ${updateOrder["order"].name}</a>

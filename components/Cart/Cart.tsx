@@ -113,15 +113,11 @@ const Cart: React.FC = () => {
         .then((data) => {
           router.push(JSON.parse(data).redirect);
         })
-        .catch((error) => {
-          console.log(error);
-        })
         .finally(() => {
           toggleSubmitOrderLoading(false);
         });
     },
-    onError: (error) => {
-      console.log("create", error);
+    onError: () => {
       alert("Cannot create order card");
     },
   });
