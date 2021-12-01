@@ -151,93 +151,96 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     });
 
     response.send({ statusCode: 500, message });
-    return;
-  }
-
-  client.mutate({
-    mutation: gql`
-      mutation UpdateOrderMutation($input: updateOrderInput) {
-        updateOrder(input: $input) {
-          order {
-            comgateTransId
-            paymentStatus
+  } else {
+    client.mutate({
+      mutation: gql`
+        mutation UpdateOrderMutation($input: updateOrderInput) {
+          updateOrder(input: $input) {
+            order {
+              comgateTransId
+              paymentStatus
+            }
           }
         }
-      }
-    `,
-    variables: {
-      input: {
-        data: {
-          comgateTransId: transId,
-        },
-        where: {
-          id: orderId,
+      `,
+      variables: {
+        input: {
+          data: {
+            comgateTransId: transId,
+          },
+          where: {
+            id: orderId,
+          },
         },
       },
-    },
-    onQueryUpdated: (data) => {
-      console.log(data)
-    }
-  });
+      onQueryUpdated: (data) => {
+        console.log(data);
+        telegramSendMessage(
+          `Заказ №${orderId}
+        ${products.map(
+          ({
+            product_modifiers,
+            product_submodifiers,
+            title,
+            quantity,
+          }): string => {
+            const modifiers =
+              (product_modifiers &&
+                !!product_modifiers.length &&
+                product_modifiers.map(
+                  ({ price, name: modifier_name }, index: number): string => {
+                    const modifier = `\n<b>-${modifier_name} ${price}Kč</b>`;
+                    const modifier_submodifiers = product_submodifiers.filter(
+                      ({ modifierIndex }) => modifierIndex === index
+                    );
+                    const submodifiers = modifier_submodifiers.map(
+                      ({ name: submodifier_name }): string => {
+                        return `\n--<b>${submodifier_name}</b>`;
+                      }
+                    );
 
-  telegramSendMessage(
-    `Заказ №${orderId}
-  ${products.map(
-    ({ product_modifiers, product_submodifiers, title, quantity }): string => {
-      const modifiers =
-        (product_modifiers &&
-          !!product_modifiers.length &&
-          product_modifiers.map(
-            ({ price, name: modifier_name }, index: number): string => {
-              const modifier = `\n<b>-${modifier_name} ${price}Kč</b>`;
-              const modifier_submodifiers = product_submodifiers.filter(
-                ({ modifierIndex }) => modifierIndex === index
-              );
-              const submodifiers = modifier_submodifiers.map(
-                ({ name: submodifier_name }): string => {
-                  return `\n--<b>${submodifier_name}</b>`;
-                }
-              );
+                    return modifier + submodifiers;
+                  }
+                )) ||
+              "";
 
-              return modifier + submodifiers;
+            return `\n<b>${title} ${
+              quantity !== 1 ? `x${quantity}` : ""
+            }</b>${modifiers}`;
+          }
+        )}
+        ${
+          additionals && !!additionals.length
+            ? `
+          ${additionals.map(({ title, quantity }): string => {
+            return `\n--<b>${title} x${quantity}</b>`;
+          })}
+        `
+            : ""
+        }
+        ${note && note.length > 0 ? `\n${note}` : ""}
+        \n <b>Приборы:</b> ${cutleryAmount}
+        \n <b>Email:</b> ${email}
+        \n <b>Тип оплаты:</b> Картой
+        \n <b>Цена:</b> ${orderPrice}Kč ${
+            deliveryPrice >= 50 && deliveryPrice < 100
+              ? "Д"
+              : deliveryPrice >= 100
+              ? "ДП"
+              : ""
+          }
+        \n <a href="tel:${phone}">${phone} ${name}</a>
+        \n ${address !== null && address.length > 0 ? "" : "Самовывоз"}
+        `,
+          () => {
+            if (address) {
+              telegramSendMessage(`${address}`);
             }
-          )) ||
-        "";
-
-      return `\n<b>${title} ${
-        quantity !== 1 ? `x${quantity}` : ""
-      }</b>${modifiers}`;
-    }
-  )}
-  ${
-    additionals && !!additionals.length
-      ? `
-    ${additionals.map(({ title, quantity }): string => {
-      return `\n--<b>${title} x${quantity}</b>`;
-    })}
-  `
-      : ""
+          }
+        );
+      },
+    });
   }
-  ${note && note.length > 0 ? `\n${note}` : ""}
-  \n <b>Приборы:</b> ${cutleryAmount}
-  \n <b>Email:</b> ${email}
-  \n <b>Тип оплаты:</b> Картой
-  \n <b>Цена:</b> ${orderPrice}Kč ${
-      deliveryPrice >= 50 && deliveryPrice < 100
-        ? "Д"
-        : deliveryPrice >= 100
-        ? "ДП"
-        : ""
-    }
-  \n <a href="tel:${phone}">${phone} ${name}</a>
-  \n ${address !== null && address.length > 0 ? "" : "Самовывоз"}
-  `,
-    () => {
-      if (address) {
-        telegramSendMessage(`${address}`);
-      }
-    }
-  );
 
   response.send({ redirect, message, statusCode: 0 });
 };
