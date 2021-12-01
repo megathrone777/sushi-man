@@ -22,10 +22,10 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     },
   });
 
-  console.log('order', order);
+  console.log("order", order);
 
-  if (order && Object.keys(order).length) {
-    console.log('updateOrder', 'start');
+  if (order && !!Object.keys(order).length) {
+    console.log("updateOrder", "start");
     const {
       data: { updateOrder },
     } = await client.mutate({
@@ -43,6 +43,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
               phone
               price
               products
+              paymentType
             }
           }
         }
@@ -60,7 +61,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       },
     });
 
-    console.log(updateOrder, 'end');
+    console.log(updateOrder, "end");
 
     if (updateOrder["order"] && Object.keys(updateOrder["order"]).length) {
       telegramSendMessage(
@@ -98,28 +99,43 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         }
       )}
       ${
-        updateOrder["order"].additionals && !!updateOrder["order"].additionals.length
+        updateOrder["order"].additionals &&
+        !!updateOrder["order"].additionals.length
           ? `
-        ${updateOrder["order"].additionals.map(({ title, quantity }): string => {
-          return `\n--<b>${title} x${quantity}</b>`;
-        })}
+        ${updateOrder["order"].additionals.map(
+          ({ title, quantity }): string => {
+            return `\n--<b>${title} x${quantity}</b>`;
+          }
+        )}
       `
           : ""
       }
-      ${updateOrder["order"].note && updateOrder["order"].note.length > 0 ? `\n${updateOrder["order"].note}` : ""}
+      ${
+        updateOrder["order"].note && updateOrder["order"].note.length > 0
+          ? `\n${updateOrder["order"].note}`
+          : ""
+      }
       \n <b>Приборы:</b> ${updateOrder["order"].cutleryAmount}
       \n <b>Email:</b> ${updateOrder["order"].email}
       \n <b>Тип оплаты:</b> Картой
       \n <b>Цена:</b> ${updateOrder["order"].price}Kč ${
-        updateOrder["order"].deliveryPrice >= 50 && updateOrder["order"].deliveryPrice < 100
+          updateOrder["order"].deliveryPrice >= 50 &&
+          updateOrder["order"].deliveryPrice < 100
             ? "Д"
             : updateOrder["order"].deliveryPrice >= 100
             ? "ДП"
             : ""
         }
       \n <b>Статус оплаты:</b> ${updateOrder["order"].comgatePaymentStatus}
-      \n <a href="tel:${updateOrder["order"].phone}">${updateOrder["order"].phone} ${updateOrder["order"].name}</a>
-      \n ${updateOrder["order"].address !== null && updateOrder["order"].address.length > 0 ? "" : "Самовывоз"}
+      \n <a href="tel:${updateOrder["order"].phone}">${
+          updateOrder["order"].phone
+        } ${updateOrder["order"].name}</a>
+      \n ${
+        updateOrder["order"].address !== null &&
+        updateOrder["order"].address.length > 0
+          ? ""
+          : "Самовывоз"
+      }
       `,
         () => {
           if (updateOrder["order"].address) {
