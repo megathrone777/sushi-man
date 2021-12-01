@@ -80,7 +80,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         ? "Обычная"
         : deliveryPrice >= 100
         ? "Повышенная"
-        : ""
+        : "Бесплатная"
     }
     \n <b>Email:</b> ${email}
     \n <b>Оплаты:</b> ${

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import PhoneInput, {
   isValidPhoneNumber,
-  formatPhoneNumber,
+  formatPhoneNumberIntl,
   Value as PhoneNumberValue,
 } from "react-phone-number-input/input";
 
@@ -107,17 +107,23 @@ const Delivery: React.FC = () => {
   };
 
   const handlePhoneChange = (value: PhoneNumberValue): void => {
-    if (value && value.length > 14) {
-      return;
-    }
+    const formattedValue = formatPhoneNumberIntl(value);
 
-    if (value && value.length === 0) {
+    if (
+      !isValidPhoneNumber(formattedValue, {
+        defaultCountry: "CZ",
+      })
+    ) {
       dispatch(setCustomerPhoneError(true));
     } else {
       dispatch(setCustomerPhoneError(false));
     }
 
-    dispatch(setCustomerPhone(value));
+    if (formattedValue.length === 0) {
+      dispatch(setCustomerPhoneError(false));
+    }
+
+    dispatch(setCustomerPhone(formattedValue));
   };
 
   const handleEmailChange = ({
@@ -287,7 +293,6 @@ const Delivery: React.FC = () => {
 
             <StyledInputWrapper>
               <PhoneInput
-                defaultCountry="CZ"
                 inputComponent={StyledPhoneInput}
                 onChange={handlePhoneChange}
                 placeholder={
@@ -346,7 +351,6 @@ const Delivery: React.FC = () => {
 
             <StyledInputWrapper>
               <PhoneInput
-                defaultCountry="CZ"
                 hasError={customerPhoneError}
                 inputComponent={StyledPhoneInput}
                 onChange={handlePhoneChange}
