@@ -57,7 +57,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
 
     if (updateOrder["order"] && Object.keys(updateOrder["order"]).length) {
       telegramSendMessage(
-        `Заказ №${updateOrder.id}
+        `Заказ №${updateOrder["order"].id}
       ${updateOrder.products.map(
         ({
           product_modifiers,
@@ -91,32 +91,32 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         }
       )}
       ${
-        updateOrder.additionals && !!updateOrder.additionals.length
+        updateOrder["order"].additionals && !!updateOrder["order"].additionals.length
           ? `
-        ${updateOrder.additionals.map(({ title, quantity }): string => {
+        ${updateOrder["order"].additionals.map(({ title, quantity }): string => {
           return `\n--<b>${title} x${quantity}</b>`;
         })}
       `
           : ""
       }
-      ${updateOrder.note && updateOrder.note.length > 0 ? `\n${updateOrder.note}` : ""}
-      \n <b>Приборы:</b> ${updateOrder.cutleryAmount}
-      \n <b>Email:</b> ${updateOrder.email}
+      ${updateOrder["order"].note && updateOrder["order"].note.length > 0 ? `\n${updateOrder["order"].note}` : ""}
+      \n <b>Приборы:</b> ${updateOrder["order"].cutleryAmount}
+      \n <b>Email:</b> ${updateOrder["order"].email}
       \n <b>Тип оплаты:</b> Картой
-      \n <b>Цена:</b> ${updateOrder.price}Kč ${
-          updateOrder.deliveryPrice >= 50 && updateOrder.deliveryPrice < 100
+      \n <b>Цена:</b> ${updateOrder["order"].price}Kč ${
+        updateOrder["order"].deliveryPrice >= 50 && updateOrder["order"].deliveryPrice < 100
             ? "Д"
-            : updateOrder.deliveryPrice >= 100
+            : updateOrder["order"].deliveryPrice >= 100
             ? "ДП"
             : ""
         }
-      \n <b>Статус оплаты:</b> ${updateOrder.comgatePaymentStatus}
-      \n <a href="tel:${updateOrder.phone}">${updateOrder.phone} ${updateOrder.name}</a>
-      \n ${updateOrder.address !== null && updateOrder.address.length > 0 ? "" : "Самовывоз"}
+      \n <b>Статус оплаты:</b> ${updateOrder["order"].comgatePaymentStatus}
+      \n <a href="tel:${updateOrder["order"].phone}">${updateOrder["order"].phone} ${updateOrder["order"].name}</a>
+      \n ${updateOrder["order"].address !== null && updateOrder["order"].address.length > 0 ? "" : "Самовывоз"}
       `,
         () => {
-          if (updateOrder.address) {
-            telegramSendMessage(`${updateOrder.address}`);
+          if (updateOrder["order"].address) {
+            telegramSendMessage(`${updateOrder["order"].address}`);
           }
         }
       );
