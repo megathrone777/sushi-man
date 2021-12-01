@@ -160,6 +160,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         updateOrder(input: $input) {
           order {
             comgateTransId
+            paymentStatus
           }
         }
       }
@@ -174,6 +175,9 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         },
       },
     },
+    onQueryUpdated: (data) => {
+      console.log(data)
+    }
   });
 
   telegramSendMessage(
