@@ -123,8 +123,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       \n <b>Тип оплаты:</b> Картой онлайн
       \n <b>Статус оплаты:</b> ${updateOrder["order"].comgatePaymentStatus === "PAID" ? "Оплачен" : "Отменён"}
       \n <b>Цена:</b> ${updateOrder["order"].price}Kč      
-      \n <a href="tel:${updateOrder["order"].phone}">${
-          updateOrder["order"].phone
+      \n <a href="tel:${updateOrder["order"].phone.replace(" ", "")}">${
+          updateOrder["order"].phone.replace(" ", "")
         } ${updateOrder["order"].name}</a>
       \n ${
         updateOrder["order"].address !== null &&

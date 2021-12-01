@@ -87,7 +87,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       paymentType === "cash" ? "Наличными" : "Картой на месте"
     }
     \n <b>Цена:</b> ${orderPrice}Kč
-    \n <a href="tel:${phone}">${phone} ${name}</a>
+    \n <a href="tel:${phone.replace(" ", "")}">${phone.replace(" ", "")} ${name}</a>
     \n ${address !== null && address.length > 0 ? "" : "Самовывоз"}
     `,
       () => {

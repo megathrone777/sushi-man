@@ -69,7 +69,7 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
       position: "bottom-center",
       showDismissButton: true,
       status: "success",
-      title: `${product.title} добавлен в корзину`,
+      title: `${product.title} přidán do košíku`,
     });
   };
 
