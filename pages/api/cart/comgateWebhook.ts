@@ -110,14 +110,14 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
           ? `\n${updateOrder["order"].note}`
           : ""
       }
-      \n <b>Приборы:</b> ${updateOrder["order"].cutleryAmount}
+      <b>Приборы:</b> ${updateOrder["order"].cutleryAmount}
       \n <b>Доставка:</b> ${
         updateOrder["order"].deliveryPrice >= 50 &&
         updateOrder["order"].deliveryPrice < 100
           ? "Обычная"
           : updateOrder["order"].deliveryPrice >= 100
           ? "Повышенная"
-          : ""
+          : "Бесплатно"
       }
       \n <b>Email:</b> ${updateOrder["order"].email}
       \n <b>Тип оплаты:</b> Картой онлайн
