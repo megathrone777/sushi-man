@@ -196,56 +196,71 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const comgateData = Object.fromEntries(params);
   const { code, message, redirect, transId } = comgateData;
 
+  console.log('transId', transId);
+
   if (!code) {
-    client.mutate({
-      mutation: gql`
-        mutation UpdateOrderMutation($input: updateOrderInput) {
-          updateOrder(input: $input) {
-            order {
-              comgatePaymentStatus
+    console.log('update 1')
+    client
+      .mutate({
+        mutation: gql`
+          mutation UpdateOrderMutation($input: updateOrderInput) {
+            updateOrder(input: $input) {
+              order {
+                comgatePaymentStatus
+              }
             }
           }
-        }
-      `,
-      variables: {
-        input: {
-          data: {
-            comgatePaymentStatus: "CANCELLED",
-          },
-          where: {
-            id: orderId,
+        `,
+        variables: {
+          input: {
+            data: {
+              comgatePaymentStatus: "CANCELLED",
+            },
+            where: {
+              id: orderId,
+            },
           },
         },
-      },
-    });
+      })
+      .catch((error) => {
+        console.log("update", error);
+      });
 
     response.send({ statusCode: 500, message });
   } else {
-    client.mutate({
-      mutation: gql`
-        mutation UpdateOrderMutation($input: updateOrderInput) {
-          updateOrder(input: $input) {
-            order {
-              comgateTransId
-              paymentStatus
+    console.log('update 2')
+    client
+      .mutate({
+        mutation: gql`
+          mutation UpdateOrderMutation($input: updateOrderInput) {
+            updateOrder(input: $input) {
+              order {
+                comgateTransId
+                paymentStatus
+              }
             }
           }
-        }
-      `,
-      variables: {
-        input: {
-          data: {
-            comgateTransId: transId,
-          },
-          where: {
-            id: orderId,
+        `,
+        variables: {
+          input: {
+            data: {
+              comgateTransId: transId,
+            },
+            where: {
+              id: orderId,
+            },
           },
         },
-      },
-    });
+      })
+      .catch((error) => {
+        console.log("update", error);
+      });
+
+      console.log('good');
+      response.send({ redirect, message, statusCode: 0 });
   }
 
-  response.send({ redirect, message, statusCode: 0 });
+  
 };
 
 export { config };

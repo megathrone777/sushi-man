@@ -113,12 +113,16 @@ const Cart: React.FC = () => {
         .then((data) => {
           router.push(JSON.parse(data).redirect);
         })
+        .catch((error) => {
+          console.log(error);
+        })
         .finally(() => {
           toggleSubmitOrderLoading(false);
         });
     },
-    onError: () => {
-      alert("Cannot create order");
+    onError: (error) => {
+      console.log("create", error);
+      alert("Cannot create order card");
     },
   });
 
@@ -314,6 +318,7 @@ const Cart: React.FC = () => {
           phone: customerPhone,
           name,
           note: customerNote,
+          paymentType,
           price,
           products,
         },
@@ -408,7 +413,9 @@ const Cart: React.FC = () => {
             <StyledButtons>
               <StyledBuy
                 isLoading={submitOrderLoading}
-                onClick={() => handleBuyClick("Order", "", totalOrderPrice)}
+                onClick={() =>
+                  handleBuyClick(customerName, "", totalOrderPrice)
+                }
                 type="button"
               >
                 {submitOrderLoading && (

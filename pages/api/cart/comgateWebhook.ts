@@ -6,6 +6,7 @@ import { telegramSendMessage } from "./telegramSendMessage";
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const { refId, status } = request.body;
+  console.log(refId);
   const {
     data: { order },
   } = await client.query({
@@ -21,7 +22,10 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     },
   });
 
+  console.log('order', order);
+
   if (order && Object.keys(order).length) {
+    console.log('updateOrder', 'start');
     const {
       data: { updateOrder },
     } = await client.mutate({
@@ -30,13 +34,14 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
           updateOrder(input: $input) {
             order {
               additionals
-              id
               address
-              phone
-              email
-              name
-              price
               comgatePaymentStatus
+              deliveryPrice
+              email
+              id
+              name
+              phone
+              price
               products
             }
           }
@@ -54,6 +59,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         },
       },
     });
+
+    console.log(updateOrder, 'end');
 
     if (updateOrder["order"] && Object.keys(updateOrder["order"]).length) {
       telegramSendMessage(
