@@ -83,7 +83,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         : "Бесплатная"
     }
     \n <b>Email:</b> ${email}
-    \n <b>Оплаты:</b> ${
+    \n <b>Тип оплаты:</b> ${
       paymentType === "cash" ? "Наличными" : "Картой на месте"
     }
     \n <b>Цена:</b> ${orderPrice}Kč

@@ -110,7 +110,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
           ? `\n${updateOrder["order"].note}`
           : ""
       }
-      <b>Приборы:</b> ${updateOrder["order"].cutleryAmount}
+      \n <b>Приборы:</b> ${updateOrder["order"].cutleryAmount}
       \n <b>Доставка:</b> ${
         updateOrder["order"].deliveryPrice >= 50 &&
         updateOrder["order"].deliveryPrice < 100
@@ -121,8 +121,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       }
       \n <b>Email:</b> ${updateOrder["order"].email}
       \n <b>Тип оплаты:</b> Картой онлайн
-      \n <b>Цена:</b> ${updateOrder["order"].price}Kč
       \n <b>Статус оплаты:</b> ${updateOrder["order"].comgatePaymentStatus === "PAID" ? "Оплачен" : "Отменён"}
+      \n <b>Цена:</b> ${updateOrder["order"].price}Kč      
       \n <a href="tel:${updateOrder["order"].phone}">${
           updateOrder["order"].phone
         } ${updateOrder["order"].name}</a>
