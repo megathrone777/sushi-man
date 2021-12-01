@@ -309,6 +309,7 @@ const Cart: React.FC = () => {
           additionals: selectedAdditionals,
           cutleryAmount,
           comgateTransId,
+          deliveryPrice,
           email: customerEmail,
           phone: customerPhone,
           name,

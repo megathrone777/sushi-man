@@ -6,7 +6,6 @@ import { telegramSendMessage } from "./telegramSendMessage";
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const { refId, status } = request.body;
-
   const {
     data: { order },
   } = await client.query({
@@ -30,12 +29,15 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         mutation UpdateOrderMutation($input: updateOrderInput) {
           updateOrder(input: $input) {
             order {
+              additionals
               id
               address
               phone
               email
+              name
               price
               comgatePaymentStatus
+              products
             }
           }
         }
@@ -55,13 +57,69 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
 
     if (updateOrder["order"] && Object.keys(updateOrder["order"]).length) {
       telegramSendMessage(
-        `Заказ №${updateOrder["order"]["id"]}
-        \n <b>Phone:</b> ${updateOrder["order"]["phone"]} 
-        \n <b>Email:</b> ${updateOrder["order"]["email"]} 
-        \n <b>Price:</b> ${updateOrder["order"]["price"]}Kč 
-        \n <b>Payment status:</b> ${updateOrder["order"]["comgatePaymentStatus"]}`
+        `Заказ №${updateOrder.id}
+      ${updateOrder.products.map(
+        ({
+          product_modifiers,
+          product_submodifiers,
+          title,
+          quantity,
+        }): string => {
+          const modifiers =
+            (product_modifiers &&
+              !!product_modifiers.length &&
+              product_modifiers.map(
+                ({ price, name: modifier_name }, index: number): string => {
+                  const modifier = `\n<b>-${modifier_name} ${price}Kč</b>`;
+                  const modifier_submodifiers = product_submodifiers.filter(
+                    ({ modifierIndex }) => modifierIndex === index
+                  );
+                  const submodifiers = modifier_submodifiers.map(
+                    ({ name: submodifier_name }): string => {
+                      return `\n--<b>${submodifier_name}</b>`;
+                    }
+                  );
+
+                  return modifier + submodifiers;
+                }
+              )) ||
+            "";
+
+          return `\n<b>${title} ${
+            quantity !== 1 ? `x${quantity}` : ""
+          }</b>${modifiers}`;
+        }
+      )}
+      ${
+        updateOrder.additionals && !!updateOrder.additionals.length
+          ? `
+        ${updateOrder.additionals.map(({ title, quantity }): string => {
+          return `\n--<b>${title} x${quantity}</b>`;
+        })}
+      `
+          : ""
+      }
+      ${updateOrder.note && updateOrder.note.length > 0 ? `\n${updateOrder.note}` : ""}
+      \n <b>Приборы:</b> ${updateOrder.cutleryAmount}
+      \n <b>Email:</b> ${updateOrder.email}
+      \n <b>Тип оплаты:</b> Картой
+      \n <b>Цена:</b> ${updateOrder.price}Kč ${
+          updateOrder.deliveryPrice >= 50 && updateOrder.deliveryPrice < 100
+            ? "Д"
+            : updateOrder.deliveryPrice >= 100
+            ? "ДП"
+            : ""
+        }
+      \n <b>Статус оплаты:</b> ${updateOrder.comgatePaymentStatus}
+      \n <a href="tel:${updateOrder.phone}">${updateOrder.phone} ${updateOrder.name}</a>
+      \n ${updateOrder.address !== null && updateOrder.address.length > 0 ? "" : "Самовывоз"}
+      `,
+        () => {
+          if (updateOrder.address) {
+            telegramSendMessage(`${updateOrder.address}`);
+          }
+        }
       );
-      telegramSendMessage(`Address: ${updateOrder["order"]["address"]}`);
     }
 
     return;
