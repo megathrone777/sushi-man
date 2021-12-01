@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useStore, TPayment, setPaymentType } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
-  StyledColumn,
-  StyledHeader,
+  StyledRow,
+  StyledContent,
   StyledImage,
   StyledTitle,
   StyledRadioWrapper,
@@ -18,7 +18,7 @@ const Payment: React.FC = () => {
   const { t } = useTranslation();
   const { dispatch, store } = useStore();
   const { cart } = store;
-  const { paymentType } = cart;
+  const { paymentType, isPickupChecked } = cart;
 
   const handlePaymentChange = ({
     currentTarget,
@@ -26,12 +26,18 @@ const Payment: React.FC = () => {
     dispatch(setPaymentType(currentTarget.value as TPayment));
   };
 
+  useEffect((): void => {
+    if (!isPickupChecked) {
+      dispatch(setPaymentType("card"));
+    }
+  }, [isPickupChecked]);
+
   return (
     <StyledWrapper>
       <StyledTitle>{t("paymentMethods")}</StyledTitle>
 
-      <StyledHeader>
-        <StyledColumn>
+      <StyledContent>
+        <StyledRow>
           <StyledRadioWrapper>
             <StyledRadio
               checked={paymentType === "card"}
@@ -46,9 +52,47 @@ const Payment: React.FC = () => {
               <StyledImage alt="Card" src="/images/payments_img.png" />
             </StyledRadioLabel>
           </StyledRadioWrapper>
-        </StyledColumn>
+        </StyledRow>
 
-        <StyledColumn>
+        {isPickupChecked && (
+          <StyledRow>
+            <StyledRadioWrapper>
+              <StyledRadio
+                checked={paymentType === "cardPickup"}
+                id="input-card-pickup"
+                name="input-payment"
+                onChange={handlePaymentChange}
+                type="radio"
+                value="cardPickup"
+              />
+              <StyledRadioLabel htmlFor="input-card-pickup">
+                <StyledRadioLabelText>
+                  {t("payByCardPickup")}
+                </StyledRadioLabelText>
+                <StyledImage alt="Card" src="/images/payments_img.png" />
+              </StyledRadioLabel>
+            </StyledRadioWrapper>
+          </StyledRow>
+        )}
+
+        {/* <StyledRow>
+          <StyledRadioWrapper>
+            <StyledRadio
+              checked={paymentType === "cardCourier"}
+              id="input-card"
+              name="input-payment"
+              onChange={handlePaymentChange}
+              type="radio"
+              value="cardCourier"
+            />
+            <StyledRadioLabel htmlFor="input-card">
+              <StyledRadioLabelText>{t("payByCardCourier")}</StyledRadioLabelText>
+              <StyledImage alt="Card" src="/images/payments_img.png" />
+            </StyledRadioLabel>
+          </StyledRadioWrapper>
+        </StyledRow> */}
+
+        <StyledRow>
           <StyledRadioWrapper>
             <StyledRadio
               checked={paymentType === "cash"}
@@ -63,8 +107,8 @@ const Payment: React.FC = () => {
               <StyledImage alt="Card" src="/images/cash_img.jpg" />
             </StyledRadioLabel>
           </StyledRadioWrapper>
-        </StyledColumn>
-      </StyledHeader>
+        </StyledRow>
+      </StyledContent>
     </StyledWrapper>
   );
 };

@@ -125,29 +125,16 @@ const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
       });
     },
 
-    [TActionTypes.SET_ADDITIONALS]: (): TStore => ({
-      ...store,
-      cart: {
-        ...store.cart,
-        additionals: payload,
-      },
-    }),
-
-    [TActionTypes.ADD_ADDITIONAL]: (): TStore => {
-      const additionals = [...store.cart.additionals];
-      const foundIndex = additionals.findIndex(
-        (additional: TAdditional) => additional.id === payload.id
-      );
-      additionals[foundIndex].quantity = payload.quantity;
-
-      return setStoreToLocalStorage({
+    [TActionTypes.SET_ADDITIONALS]: (): TStore => {
+      return {
         ...store,
         cart: {
           ...store.cart,
-          additionals,
+          additionals: payload,
         },
-      });
+      };
     },
+
 
     [TActionTypes.SET_SCHEDULE]: (): TStore =>
       setStoreToLocalStorage({

@@ -104,14 +104,6 @@ export const setAdditionals = (additionals: TAdditional[]): TAction => ({
   type: TActionTypes.SET_ADDITIONALS,
 });
 
-export const addAdditional = (id: number, quantity: number): TAction => ({
-  payload: {
-    id,
-    quantity,
-  },
-  type: TActionTypes.ADD_ADDITIONAL,
-});
-
 export const setCutleryAmount = (amount: number): TAction => ({
   payload: amount,
   type: TActionTypes.SET_CUTLERY_AMOUNT,

@@ -11,10 +11,7 @@ export const StyledTitle = styled.h2`
   margin-bottom: ${({ theme }) => theme.rem(15)};
 `;
 
-export const StyledHeader = styled.div`
-  display: flex;
-  justify-content: flex-start;
-`;
+export const StyledContent = styled.div``;
 
 export const StyledImage = styled.img`
   display: block;
@@ -22,7 +19,9 @@ export const StyledImage = styled.img`
   width: auto;
 `;
 
-export const StyledColumn = styled.div``;
+export const StyledRow = styled.div`
+  margin-bottom: ${({ theme }) => theme.rem(15)};
+`;
 
 export const StyledRadioWrapper = styled.div`
   display: flex;

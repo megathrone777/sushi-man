@@ -29,7 +29,7 @@ export interface TCartProduct extends TProduct {
   totalPrice: number;
 }
 
-export type TPayment = "card" | "cash";
+export type TPayment = "card" | "cardPickup" | "cardCourier" | "cash";
 
 export interface TStore {
   cart: {

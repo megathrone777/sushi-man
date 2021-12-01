@@ -33,7 +33,6 @@ interface TProps {
     hero_ru: TBanner;
   };
   products: TProduct[];
-  lengthInKm: string;
   shopSettings: TShopSettings;
   schedule: {
     schedule_cs: TSchedule;
@@ -52,9 +51,15 @@ const CartPage: NextPage<TProps> = ({
   const { dispatch } = useStore();
   const { t } = useTranslation();
   const cartTitle = t("cartTitle");
+  const newAdditionals = additionals.map((additional: TAdditional) => {
+    return {
+      ...additional,
+      quantity: 0,
+    };
+  });
 
   useEffect((): void => {
-    dispatch(setAdditionals(additionals));
+    dispatch(setAdditionals(newAdditionals));
     dispatch(setShopSettings(shopSettings));
   }, [additionals, cutlery.price, schedule, dispatch]);
 
@@ -73,7 +78,7 @@ const CartPage: NextPage<TProps> = ({
   );
 };
 
-export const getServerSideProps = async () => {
+CartPage.getInitialProps = async () => {
   const {
     data: {
       additionals,
@@ -92,19 +97,17 @@ export const getServerSideProps = async () => {
   });
 
   return {
-    props: {
-      additionals,
-      products,
-      hero: {
-        hero_cs,
-        hero_ru,
-      },
-      cutlery,
-      shopSettings: shop,
-      schedule: {
-        schedule_cs,
-        schedule_ru,
-      },
+    additionals,
+    products,
+    hero: {
+      hero_cs,
+      hero_ru,
+    },
+    cutlery,
+    shopSettings: shop,
+    schedule: {
+      schedule_cs,
+      schedule_ru,
     },
   };
 };

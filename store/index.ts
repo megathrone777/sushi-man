@@ -1,5 +1,4 @@
 export {
-  addAdditional,
   addToCart,
   changeAdditionalQuantity,
   clearCart,

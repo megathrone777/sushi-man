@@ -112,6 +112,8 @@ export const LangStrings = {
     cartIsEmpty: "Košík je prázdný",
     payByCash: "Platba v hotovosti",
     payByCard: "Platba kartou on-line",
+    payByCardPickup: "Platba kartou na místě",
+    payByCardCourier: "Platba kartou kuriru",
     paymentMethods: "Způsoby platby",
     addMore: "Přidat navíc",
     priceIncluded:
