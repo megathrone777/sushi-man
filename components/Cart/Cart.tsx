@@ -328,6 +328,15 @@ const Cart: React.FC = () => {
         });
         return;
       }
+      
+      if (paymentType === "cardPickup") {
+        createOrderByCash({
+          variables: {
+            createOrderInput,
+          },
+        });
+        return;
+      }
 
       createOrderByCard({
         variables: {
