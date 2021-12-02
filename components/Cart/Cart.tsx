@@ -82,6 +82,7 @@ const Cart: React.FC = () => {
     paymentType,
     products,
   } = cart;
+  console.log(paymentType);
   const selectedAdditionals = additionals.filter(
     ({ quantity }: TAdditional) => quantity !== undefined && quantity !== 0
   );
