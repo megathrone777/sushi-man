@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { useStore, TPayment, setPaymentType } from "~/store";
 import useTranslation from "~/intl/useTranslation";
@@ -25,12 +25,6 @@ const Payment: React.FC = () => {
   }: React.SyntheticEvent<HTMLInputElement>): void => {
     dispatch(setPaymentType(currentTarget.value as TPayment));
   };
-
-  useEffect((): void => {
-    if (!isPickupChecked) {
-      dispatch(setPaymentType("card"));
-    }
-  }, [isPickupChecked]);
 
   return (
     <StyledWrapper>
