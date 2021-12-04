@@ -18,6 +18,7 @@ import {
   setCustomerNameError,
   setCustomerPhoneError,
   setCustomerEmailError,
+  TPayment,
 } from "~/store";
 import { Additionals } from "./Additionals";
 import { Delivery } from "./Delivery";
@@ -82,7 +83,7 @@ const Cart: React.FC = () => {
     paymentType,
     products,
   } = cart;
-  console.log(paymentType);
+
   const selectedAdditionals = additionals.filter(
     ({ quantity }: TAdditional) => quantity !== undefined && quantity !== 0
   );
@@ -321,7 +322,7 @@ const Cart: React.FC = () => {
         },
       };
 
-      if (paymentType === "cash") {
+      if (paymentType === TPayment.CASH) {
         createOrderByCash({
           variables: {
             createOrderInput,
@@ -330,7 +331,7 @@ const Cart: React.FC = () => {
         return;
       }
       
-      if (paymentType === "cardPickup") {
+      if (paymentType === TPayment.CARDPICKUP) {
         createOrderByCash({
           variables: {
             createOrderInput,

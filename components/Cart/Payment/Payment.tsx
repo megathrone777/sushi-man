@@ -34,12 +34,12 @@ const Payment: React.FC = () => {
         <StyledRow>
           <StyledRadioWrapper>
             <StyledRadio
-              checked={paymentType === "card"}
+              checked={paymentType === TPayment.CARD}
               id="input-card"
               name="input-payment"
               onChange={handlePaymentChange}
               type="radio"
-              value="card"
+              value={TPayment.CARD}
             />
             <StyledRadioLabel htmlFor="input-card">
               <StyledRadioLabelText>{t("payByCard")}</StyledRadioLabelText>
@@ -52,12 +52,12 @@ const Payment: React.FC = () => {
           <StyledRow>
             <StyledRadioWrapper>
               <StyledRadio
-                checked={paymentType === "cardPickup"}
+                checked={paymentType === TPayment.CARDPICKUP}
                 id="input-card-pickup"
                 name="input-payment"
                 onChange={handlePaymentChange}
                 type="radio"
-                value="cardPickup"
+                value={TPayment.CARDPICKUP}
               />
               <StyledRadioLabel htmlFor="input-card-pickup">
                 <StyledRadioLabelText>
@@ -89,12 +89,12 @@ const Payment: React.FC = () => {
         <StyledRow>
           <StyledRadioWrapper>
             <StyledRadio
-              checked={paymentType === "cash"}
+              checked={paymentType === TPayment.CASH}
               id="input-cash"
               name="input-payment"
               onChange={handlePaymentChange}
               type="radio"
-              value="cash"
+              value={TPayment.CASH}
             />
             <StyledRadioLabel htmlFor="input-cash">
               <StyledRadioLabelText>{t("payByCash")}</StyledRadioLabelText>

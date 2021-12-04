@@ -55,19 +55,19 @@ export const StyledItem = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
     flex: 0 1 calc(25% - ${({ theme }) => theme.rem(10)});
-    max-width: calc(25% - ${({ theme }) => theme.rem(10)});
     margin-bottom: ${({ theme }) => theme.rem(10)};
     margin-left: ${({ theme }) => theme.rem(5)};
     margin-right: ${({ theme }) => theme.rem(5)};
+    max-width: calc(25% - ${({ theme }) => theme.rem(10)});
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
     flex: 0 1 100%;
-    max-width: 100%;
     margin-bottom: ${({ theme }) => theme.rem(10)};
     margin-left: ${({ theme }) => theme.rem(5)};
     margin-right: ${({ theme }) => theme.rem(5)};
+    max-width: 100%;
     padding-bottom: 0;
   }
 
@@ -80,6 +80,10 @@ export const StyledItem = styled.div`
     margin-right: 0;
     max-width: 100%;
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
+    flex-direction: column;
+  }
 `;
 
 export const StyledItemLayout = styled.div`
@@ -89,15 +93,26 @@ export const StyledItemLayout = styled.div`
     display: flex;
     flex-direction: column;
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
+    padding-bottom: ${({ theme }) => theme.rem(50)};
+  }
 `;
 
 export const StyledItemImage = styled.img`
-  border-top-left-radius: ${({ theme }) => theme.rem(15)};
-  border-bottom-left-radius: ${({ theme }) => theme.rem(15)};
   height: 100%;
   object-fit: cover;
   transition: 0.5s;
   width: 100%;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    border-top-left-radius: ${({ theme }) => theme.rem(15)};
+    border-bottom-left-radius: ${({ theme }) => theme.rem(15)};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
+    border-bottom-left-radius: 0;
+  }
 `;
 
 export const StyledItemImageHolder = styled.div`

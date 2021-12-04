@@ -31,9 +31,9 @@ export {
 export { useStore, AppContext } from "./context";
 export { reducer } from "./reducer";
 export type {
-  TPayment,
   TCartProduct,
   TAdditional,
   TSchedule,
   TShopSettings,
 } from "./globalStore";
+export { TPayment } from "./globalStore";

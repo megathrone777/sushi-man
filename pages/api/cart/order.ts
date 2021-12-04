@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import fetch from "isomorphic-unfetch";
 import { gql } from "@apollo/client";
 
+import { TAdditional, TPayment } from "~/store";
 import client from "~/apollo-client";
 import { telegramSendMessage } from "./telegramSendMessage";
 
@@ -29,7 +30,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     paymentType,
   } = request.body;
 
-  if (paymentType === "cash") {
+  if (paymentType === TPayment.CASH) {
     telegramSendMessage(
       `Заказ №${orderId}
     ${products.map(
@@ -67,7 +68,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     ${
       additionals && !!additionals.length
         ? `
-      ${additionals.map(({ title, quantity }): string => {
+      ${additionals.map(({ title, quantity }: TAdditional): string => {
         return `\n--<b>${title} x${quantity}</b>`;
       })}
     `
@@ -99,10 +100,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     );
 
     response.send({ redirect: "/orderConfirmed", statusCode: 0 });
-    return;
-  }
-
-  if (paymentType === "cardPickup") {
+  } else if (paymentType === TPayment.CARDPICKUP) {
     telegramSendMessage(
       `Заказ №${orderId}
     ${products.map(
@@ -172,10 +170,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     );
 
     response.send({ redirect: "/orderConfirmed", statusCode: 0 });
-    return;
-  }
-
-  if (paymentType === "card") {
+  } else {
     const comgateResponse = await fetch(
       "https://payments.comgate.cz/v1.0/create",
       {

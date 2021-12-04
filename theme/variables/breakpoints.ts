@@ -3,6 +3,7 @@ export interface TBreakpoints {
   tablet: string;
   mobile: string;
   mobileSm: string;
+  mobileXs: string;
 }
 
 const breakpoints: TBreakpoints = {
@@ -10,6 +11,7 @@ const breakpoints: TBreakpoints = {
   tablet: "1023px",
   mobile: "767px",
   mobileSm: "500px",
+  mobileXs: "480px",
 };
 
 export { breakpoints };

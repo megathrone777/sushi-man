@@ -29,7 +29,12 @@ export interface TCartProduct extends TProduct {
   totalPrice: number;
 }
 
-export type TPayment = "card" | "cardPickup" | "cardCourier" | "cash";
+export enum TPayment {
+  CARD = "CARD",
+  CARDCOURIER = "CARDCOURIER",
+  CARDPICKUP = "CARDPICKUP", 
+  CASH = "CASH",
+}
 
 export interface TStore {
   cart: {
@@ -83,7 +88,7 @@ const initialStore: TStore = {
     customerPhone: "",
     customerPhoneError: false,
     cutleryAmountError: false,
-    paymentType: "card",
+    paymentType: TPayment.CARD,
     modifiers: [],
     products: [],
     totalRollsDiscount: 0,

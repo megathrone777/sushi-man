@@ -17,8 +17,8 @@ export const StyledWrapper = styled.div`
   overflow: hidden;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding-left: ${({ theme }) => theme.rem(10)};
-    padding-right: ${({ theme }) => theme.rem(10)};
+    padding-left: 0;
+    padding-right: 0;
     padding-top: ${({ theme }) => theme.rem(10)};
   }
 `;
