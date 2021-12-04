@@ -12,6 +12,7 @@ const rotate = keyframes`
 
 export const StyledWrapper = styled.div`
   border-bottom: ${({ theme }) => theme.rem(4)} solid #da2628;
+  min-height: ${({ theme }) => theme.rem(310)}; 
   padding: ${({ theme }) =>
     `${theme.rem(30)} ${theme.rem(30)} ${theme.rem(50)}`};
   overflow: hidden;
