@@ -371,15 +371,15 @@ const Cart: React.FC = () => {
                 <Delivery />
                 <StyledTitle>Podmínky</StyledTitle>
                 <StyledText>
-                  Minimální cena objednávky do 3km. -{" "}
+                  Min. cena objednávky do 3km. -{" "}
                   <StyledTextPrice>250 Kč</StyledTextPrice>
                 </StyledText>
                 <StyledText>
-                  Minimální cena objednávky od 3km. -{" "}
+                  Min. cena objednávky od 3km. -{" "}
                   <StyledTextPrice>300 Kč</StyledTextPrice>
                 </StyledText>
                 <StyledText>
-                  Minimální cena objednávky při vyzvednutí -{" "}
+                  Min. cena objednávky při vyzvednutí -{" "}
                   <StyledTextPrice>150 Kč</StyledTextPrice>
                 </StyledText>
               </StyledColumn>

@@ -102,6 +102,7 @@ export const StyledNoteLabel = styled.p`
 export const StyledNote = styled.textarea`
   border: none;
   border-bottom: ${({ theme }) => theme.rem(2)} solid #da2628;
+  border-radius: 0;
   display: block;
   font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontMedium}`};
   height: ${({ theme }) => theme.rem(60)};

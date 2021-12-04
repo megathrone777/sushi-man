@@ -138,6 +138,7 @@ export const StyledCheckbox = styled.input`
   display: inline-block;
   height: ${({ theme }) => theme.rem(25)};
   margin: 0 ${({ theme }) => theme.rem(10)} 0 0;
+  min-width: ${({ theme }) => theme.rem(25)};
   overflow: hidden;
   text-align: center;
   vertical-align: middle;
