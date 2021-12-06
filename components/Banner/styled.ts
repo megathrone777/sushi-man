@@ -15,8 +15,8 @@ export const StyledWrapper = styled.section<{ inner?: boolean }>`
         height: auto;
       }
 
-      @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-        height: ${({ theme }) => theme.rem(200)};
+      @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        height: ${({ theme }) => theme.rem(150)};
       }
     `}
 `;
@@ -32,7 +32,7 @@ export const StyledImage = styled.img<{ inner?: boolean }>`
       top: ${({ theme }) => theme.rem(-60)};
 
       @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        top: 0;
+        top: ${({ theme }) => theme.rem(-20)};
       }
 
       @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
@@ -151,6 +151,10 @@ export const StyledButton = styled.button<{ inner: boolean }>`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
     bottom: ${({ theme }) => theme.rem(20)};
     top: inherit;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
+    display: none;
   }
 
   &:hover {

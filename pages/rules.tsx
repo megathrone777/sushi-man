@@ -2,8 +2,8 @@ import React from "react";
 import { NextPage } from "next";
 import { gql } from "@apollo/client";
 
-import { TBanner, Banner, LayoutSecondary } from "~/components";
 import client from "~/apollo-client";
+import { Banner, Layout, TBanner } from "~/components";
 import { StyledContainer } from "~/components/Layout/styled";
 import { styled } from "~/theme";
 
@@ -17,16 +17,16 @@ interface TProps {
 }
 
 const RulesPage: NextPage<TProps> = ({ hero }) => (
-  <LayoutSecondary title="Zásady ochrany osobních údajů">
+  <Layout title="Všeobecné obchodní podmínky">
     <Banner
       hero={{
-        hero_cs: hero["hero_cs"],
-        hero_ru: hero["hero_ru"],
+        hero_cs: hero.hero_cs,
+        hero_ru: hero.hero_ru,
       }}
-      inner
     />
-    <StyledContainer>
-      <StyledWrapper>
+
+    <StyledWrapper>
+      <StyledContainer>
         <StyledStrong>Vážený zákazníku,</StyledStrong>
 
         <StyledText>
@@ -45,6 +45,8 @@ const RulesPage: NextPage<TProps> = ({ hero }) => (
           Sushi Man.
           <br />
           Můžete se na nás obracet s použitím následujících kontaktních údajů:
+          <br />
+          IČO 09907017
           <br />
           Adresa: Vlkova 532/8, 130 00 Praha 3
           <br />
@@ -566,14 +568,16 @@ const RulesPage: NextPage<TProps> = ({ hero }) => (
         </StyledText>
 
         <StyledText>Poslední aktualizace: srpen 2021</StyledText>
-      </StyledWrapper>
-    </StyledContainer>
-  </LayoutSecondary>
+      </StyledContainer>
+    </StyledWrapper>
+  </Layout>
 );
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.section`
+  border-top: ${({ theme }) => theme.rem(10)} solid #da2628;
   padding-bottom: ${({ theme }) => theme.rem(40)};
   padding-top: ${({ theme }) => theme.rem(40)};
+  text-align: justify;
 `;
 
 const StyledHeading = styled.h3`
@@ -589,7 +593,7 @@ const StyledStrong = styled.strong`
 `;
 
 const StyledLink = styled.a`
-  color: ${({ theme }) => theme.colors.red};
+  color: #da2628;
 
   &:hover {
     text-decoration: none;

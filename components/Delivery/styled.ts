@@ -17,7 +17,7 @@ export const StyledLayout = styled.div`
 export const StyledTitle = styled.h2`
   color: white;
   font: ${({ theme }) => theme.rem(42)} ${({ theme }) => theme.fonts.fontBold};
-  margin-bottom: ${({ theme }) => theme.rem(55)};
+  margin-bottom: ${({ theme }) => theme.rem(10)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: ${({ theme }) => theme.rem(28)};
@@ -29,8 +29,10 @@ export const StyledTitle = styled.h2`
   }
 `;
 
-export const StyledSubtitle = styled.span`
-  font-family: ${({ theme }) => theme.fonts.fontMedium};
+export const StyledSubtitle = styled.p`
+  color: white;
+  font: ${({ theme }) => `${theme.rem(26)} ${theme.fonts.fontBold}`};
+  margin-bottom: ${({ theme }) => theme.rem(55)};
 `;
 
 export const StyledList = styled.div`

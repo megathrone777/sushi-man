@@ -1,4 +1,6 @@
-import { styled } from "~/theme";
+import { TabList, Tab } from "react-tabs";
+
+import { css, styled } from "~/theme";
 
 export const StyledWrapper = styled.section`
   background-image: url("/images/products_bg.jpg");
@@ -27,6 +29,68 @@ export const StyledTitle = styled.h2`
 export const StyledLayout = styled.div`
   margin: 0 auto ${({ theme }) => theme.rem(40)};
   max-width: ${({ theme }) => theme.rem(1200)};
+`;
+
+export const StyledTabsList = styled(TabList)`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: ${({ theme }) => theme.rem(-20)};
+  margin-right: ${({ theme }) => theme.rem(-20)};
+`;
+
+export const StyledTab = styled(Tab)<{
+  isRolls?: boolean;
+  isSets?: boolean;
+  isSalats?: boolean;
+  isPoke?: boolean;
+  isDrinks?: boolean;
+}>`  
+  background-position-x: -1px;
+  background-size: calc(100% + 2px) auto;
+  background-repeat: no-repeat;
+  border-radius: ${({ theme }) => theme.rem(15)};
+  border: ${({ theme }) => `${theme.rem(3)} solid black`};
+  color: white;
+  cursor: pointer;
+  flex: 0 1 calc(33.33333% - ${({ theme }) => theme.rem(20)});
+  font: ${({ theme }) => `${theme.rem(26)} ${theme.fonts.fontBold}`};
+  height: ${({ theme }) => theme.rem(150)};
+  margin: ${({ theme }) => `0 ${theme.rem(10)} ${theme.rem(20)}`};
+  padding: ${({ theme }) => `${theme.rem(20)} 0  0 ${theme.rem(20)}`};
+
+  ${({ isRolls }) =>
+    isRolls &&
+    css`
+      background-image: url("/images/rolls_bg.jpg");
+      background-position-y: -280px;
+    `}
+
+  ${({ isSalats }) =>
+    isSalats &&
+    css`
+      background-image: url("/images/salats_bg.jpg");
+    `}
+
+
+  ${({ isSets }) =>
+    isSets &&
+    css`
+      background-image: url("/images/sets_bg.jpg");
+    `}
+
+  ${({ isPoke }) =>
+    isPoke &&
+    css`
+      background-image: url("/images/poke_bg.jpg");
+      background-position-y: -70px;
+    `}
+
+  ${({ isDrinks }) =>
+    isDrinks &&
+    css`
+      background-image: url("/images/drinks_bg.jpg");
+    `}
 `;
 
 export const StyledList = styled.div`
@@ -146,8 +210,10 @@ export const StyledItemImageHolder = styled.div`
 `;
 
 export const StyledItemLink = styled.a`
+  color: inherit;
   display: block;
   height: 100%;
+  text-decoration: none;
 `;
 
 export const StyledItemContent = styled.div`

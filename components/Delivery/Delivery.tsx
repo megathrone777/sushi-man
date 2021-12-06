@@ -10,6 +10,7 @@ import {
   StyledItem,
   StyledItemTitle,
   StyledItemText,
+  StyledSubtitle
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
@@ -18,13 +19,14 @@ const Delivery: React.FC<TProps> = ({ deliveryItems, deliveryTitle }) => {
   const items = deliveryItems.filter(
     (item: TDeliveryItem) => item.locale === locale
   );
-  const { title } = deliveryTitle[`deliveryTitle_${locale}`];
+  const { text: deliveryTitleText, title } = deliveryTitle[`deliveryTitle_${locale}`];
 
   return (
     <StyledWrapper id="delivery-section">
       <StyledContainer>
         <StyledLayout>
           <StyledTitle dangerouslySetInnerHTML={{ __html: title }} />
+          <StyledSubtitle dangerouslySetInnerHTML={{ __html: deliveryTitleText }} />
 
           {items && (
             <StyledList>

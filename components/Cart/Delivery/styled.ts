@@ -20,7 +20,7 @@ export const StyledHeader = styled.div`
   }
 `;
 
-export const StyledContent = styled.div``;
+export const StyledForm = styled.form``;
 
 export const StyledLayout = styled.div``;
 

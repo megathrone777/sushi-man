@@ -15,6 +15,7 @@ const base = css`
   html {
     font-size: ${({ theme }): number => theme.fonts.initialFontSize}px;
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {

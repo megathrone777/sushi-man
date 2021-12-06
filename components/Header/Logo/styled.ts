@@ -17,6 +17,7 @@ export const StyledWrapper = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    height: ${({ theme }) => theme.rem(80)};
     margin-left: ${({ theme }) => theme.rem(10)};
   }
 `;

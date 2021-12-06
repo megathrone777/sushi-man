@@ -30,7 +30,7 @@ export const StyledLayout = styled.div`
   justify-content: space-between;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 `;
 

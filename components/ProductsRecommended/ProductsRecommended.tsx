@@ -77,6 +77,7 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
     <StyledWrapper>
       <StyledContainer>
         <StyledTitle>{productsTitle}</StyledTitle>
+
         {products && !!products.length && (
           <Slider {...settings}>
             {products.map(
@@ -111,21 +112,37 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
 
                   <StyledItemLayout>
                     <StyledItemTitle>
-                      <StyledItemText>{title}</StyledItemText>
+                      <Link
+                        as={`/product/${id}`}
+                        href={`/product/[${id}]`}
+                        passHref
+                      >
+                        <StyledItemLink>
+                          <StyledItemText>{title}</StyledItemText>
+                        </StyledItemLink>
+                      </Link>
                     </StyledItemTitle>
 
                     <StyledItemContent>
-                      <StyledItemDesc>
-                        <StyledItemText>{weight}</StyledItemText>
-                      </StyledItemDesc>
+                      <Link
+                        as={`/product/${id}`}
+                        href={`/product/[${id}]`}
+                        passHref
+                      >
+                        <StyledItemLink>
+                          <StyledItemDesc>
+                            <StyledItemText>{weight}</StyledItemText>
+                          </StyledItemDesc>
 
-                      <StyledItemDesc>
-                        <StyledItemText>{ingredients}</StyledItemText>
-                      </StyledItemDesc>
+                          <StyledItemDesc>
+                            <StyledItemText>{ingredients}</StyledItemText>
+                          </StyledItemDesc>
 
-                      <StyledItemDesc>
-                        <StyledItemText>{allergeny}</StyledItemText>
-                      </StyledItemDesc>
+                          <StyledItemDesc>
+                            <StyledItemText>{allergeny}</StyledItemText>
+                          </StyledItemDesc>
+                        </StyledItemLink>
+                      </Link>
                     </StyledItemContent>
 
                     <StyledItemFooter>

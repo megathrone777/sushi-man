@@ -11,7 +11,7 @@ const breakpoints: TBreakpoints = {
   tablet: "1023px",
   mobile: "767px",
   mobileSm: "500px",
-  mobileXs: "480px",
+  mobileXs: "400px",
 };
 
 export { breakpoints };

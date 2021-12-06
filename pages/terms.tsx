@@ -2,10 +2,12 @@ import React from "react";
 import { NextPage } from "next";
 import { gql } from "@apollo/client";
 
-import { TBanner, Banner, LayoutSecondary } from "~/components";
 import client from "~/apollo-client";
+import { Layout, TBanner, Banner } from "~/components";
+import { StyledContainer } from "~/components/Layout/styled";
+import { styled } from "~/theme";
 
-import TermsPageQuery from "~/queries/termspage.gql";
+import TermsPageQuery from "~/queries/rulespage.gql";
 
 interface TProps {
   hero: {
@@ -15,534 +17,329 @@ interface TProps {
 }
 
 const TermsPage: NextPage<TProps> = ({ hero }) => (
-  <LayoutSecondary title="Všeobecné obchodní podmínky">
+  <Layout title="Všeobecné obchodní podmínky">
     <Banner
       hero={{
-        hero_cs: hero["hero_cs"],
-        hero_ru: hero["hero_ru"],
+        hero_cs: hero.hero_cs,
+        hero_ru: hero.hero_ru,
       }}
-      inner
     />
-    <p>Vážený zákazníku,</p>
 
-    <p>
-      těší nás, že se zajímáte o ochranu údajů. Chtěli bychom vám poskytnout
-      srozumitelný přehled našeho procesu ochrany údajů.
-    </p>
-
-    <p>&nbsp;</p>
-
-    <h3>
-      <strong>Kdo jsme?</strong>
-    </h3>
-
-    <p>
-      Jsme společnost MSN form s.r.o., ale obvykle používáme pouze označení
-      Sushi Man.
-      <br />
-      Můžete se na nás obracet s použitím následujících kontaktních údajů:
-      <br />
-      Adresa: Vlkova 532/8, 130 00 Praha 3
-      <br />
-      E-mailová adresa: sushimanprague@gmail.com
-    </p>
-
-    <p>
-      Když navštívíte naše webové stránky nebo zadáváte objednávky, souhlasíte s
-      těmito zásadami ochrany osobních údajů.
-    </p>
-
-    <p>
-      Jako správce údajů rozhodujeme o tom, jak vaše osobní údaje zpracováváme,
-      za jakým účelem a s použitím jakých prostředků. Přestože je poskytnutí
-      všech následujících informací vyžadováno zákonem, poskytujeme je primárně
-      proto, že jsme přesvědčeni, že v rámci partnerského vztahu by se vždy mělo
-      jednat čestně a otevřeně.
-    </p>
-
-    <p>
-      Jako správce údajů neseme odpovědnost za to, že veškeré naše činnosti
-      zpracování jsou v souladu s právními požadavky, a toto zpracování vašich
-      osobních údajů můžete rovněž důvodně očekávat.
-    </p>
-
-    <p>
-      S případnými otázkami o ochraně údajů ve sushi-man.cz se můžete rovněž
-      kdykoliv obracet na e-mailové adrese sushimanprague@gmail.com.
-    </p>
-
-    <p>&nbsp;</p>
-
-    <h3>
-      <strong>Soukromí je vaše právo a máte možnost volby</strong>
-    </h3>
-
-    <p>
-      Jako zákazník máte možnost zvolit, jaké informace s námi chcete sdílet.
-      Některé informace samozřejmě potřebujeme k plnění naší smlouvy. Nevyžaduje
-      to však vždy všechny údaje, které nám můžete zpřístupnit.
-    </p>
-
-    <p>
-      Chcete-li omezit rozsah informací, které o sobě poskytujete, můžete
-      přijmout následující opatření:
-    </p>
-
-    <p>
-      <strong>Reklama:</strong> Pokud od nás nechcete dostávat informační
-      e-maliy, můžete odběr kdykoliv zrušit. V tomto případě vám nebudeme
-      schopni zasílat žádné zajímavé nabídky
-    </p>
-
-    <p>
-      <strong>Žádné sdílení údajů:</strong> Pokud s námi nechcete sdílet vůbec
-      žádné informace, je to škoda. V tomto případě vás nemůžeme přesvědčit, jak
-      skvělé naše produkty jsou.
-    </p>
-
-    <p>&nbsp;</p>
-
-    <h3>
-      <strong>Můžete rovněž kdykoliv využít následujících práv:</strong>
-    </h3>
-
-    <p>
-      <strong>Právo na přístup</strong>
-      <br />
-      Máte právo získat informace o tom, jaké údaje o vás uchováváme a jak tyto
-      údaje zpracováváme.
-    </p>
-
-    <p>
-      <strong>Právo na opravu</strong>
-      <br />
-      Pokud zjistíte, že jsou uložené údaje nesprávné, můžete nás vždy požádat o
-      jejich opravu.
-    </p>
-
-    <p>
-      <strong>Právo na výmaz</strong>
-      <br />
-      Můžete nás kdykoliv požádat o vymazání údajů, které o vás uchováváme. Pro
-      uplatnění práva na výmaz nám můžete poslat zprávu na
-      sushimanprague@gmail.com
-    </p>
-
-    <p>
-      <strong>Právo na omezení zpracování</strong>
-      <br />
-      Nechcete-li svoje osobní údaje vymazat, ale nepřejete si, abychom je dále
-      zpracovávali, můžete nás požádat o omezení zpracování vašich osobních
-      údajů. V tomto případě budeme vaše údaje archivovat a do našich provozních
-      systémů je znovu začleníme, pokud si to budete přát. Nicméně po dobu, kdy
-      je zpracování omezeno, nemůžete používat naše služby, protože při jejich
-      používání budeme vaše osobní údaje opět zpracovávat.
-    </p>
-
-    <p>
-      <strong>Právo na přenositelnost údajů</strong>
-      <br />
-      Můžete nás požádat, abychom vám nebo jiné odpovědné osobě předali údaje,
-      které o vás uchováváme.&nbsp;
-    </p>
-
-    <p>
-      <strong>Právo vznést námitku proti zpracování vašich údajů</strong>
-      <br />
-      Svůj souhlas se zpracováním můžete kdykoliv odvolat nebo můžete vznést
-      námitku proti dalšímu zpracování vašich osobních údajů. To zahrnuje i
-      námitku proti zpracování údajů, které zpracováváme bez vašeho souhlasu na
-      základě našeho oprávněného zájmu. Vztahuje se to například na přímý
-      marketing. Můžete kdykoliv vznést námitku proti tomu, že dostáváte další
-      informační e-maily. Pokud nesouhlasíte s některým z našich účelů
-      zpracování na základě našeho oprávněného zájmu nebo pokud proti němu
-      chcete vznést námitku, můžete z důvodů týkajících se vaší konkrétní
-      situace, kdykoliv vznést námitku proti zpracování. V takovém případě
-      zašlete e-mail na adresu sushimanprague@gmail.com. Následně znovu
-      přezkoumáme činnost zpracování, a buď zpracování vašich osobních údajů pro
-      tento účel ukončíme, nebo vám vysvětlíme naše důvody, které si zaslouží
-      ochranu, a proč budeme ve zpracování pokračovat.
-    </p>
-
-    <p>
-      <strong>Automatizované rozhodování</strong>
-      <br />
-      Vaše osobní údaje rovněž zpracováváme v souvislosti s algoritmy, které
-      mají zjednodušit naše procesy. Máte samozřejmě právo nebýt předmětem
-      rozhodnutí vycházejících výhradně z automatizovaného zpracování. Pokud se
-      domníváte, že jsme vám neoprávněně odmítli přístup, můžete se na nás vždy
-      obrátit na adresu sushimanprague@gmail.com. Případ následně zvlášť
-      posoudíme a rozhodneme zvlášť o každém případu.
-    </p>
-
-    <p>&nbsp;</p>
-
-    <h3>
-      <strong>Jaké osobní údaje zpracováváme</strong>
-    </h3>
-
-    <p>
-      V následujícím popisu našich činností zpracování se v jednotlivých
-      případech odkazujeme na kategorie osobních údajů. Kategorie zahrnuje
-      několik osobních údajů, které jsou obvykle pro uvedené účely zpracovávány
-      společně.
-      <br />
-      Osobní údaje jsou informace, na základě kterých vás lze identifikovat nebo
-      dokonce učinit identifikovatelnými.
-      <br />
-      Obecně zpracováváme následující kategorie osobních údajů z následujících
-      důvodů:
-    </p>
-
-    <h3>Kontaktní údaje:</h3>
-
-    <p>Jméno, adresu, telefonní číslo, e-mailová adresa, ičo&nbsp;</p>
-
-    <p>
-      <strong>Důvod:</strong>
-      <br />
-      Když nás kontaktujete, shromažďujeme tyto údaje, protože potřebujeme
-      vědět, s kým hovoříme a o čem hovoříme, abychom vám mohli pomáhat s
-      vyřešením problému, kvůli kterému jste nás kontaktovali. Uvedené platí i v
-      případech, že zanecháte komentář na sociálních sítích.
-      <br />
-      <strong>
-        Váš telefonní hovor může být monitorován a nahráván za účelem zajištění
-        kvality a řádného fungování našich služeb. Záznamy mohou být uchovány až
-        šest měsíců pouze pro interní potřeby.
-      </strong>
-    </p>
-
-    <h3>Lokalizační údaje:</h3>
-
-    <p>Adresa, PSČ, město, stát</p>
-
-    <p>
-      <strong>Důvod:</strong>
-      <br />
-      Tyto údaje potřebujeme k tomu, abychom mohli doručovat vaše
-      objednávky.&nbsp;
-    </p>
-
-    <h3>Komunikační údaje</h3>
-
-    <p>Jméno, e-mailová adresa, telefonní číslo</p>
-
-    <p>
-      <strong>Důvod:</strong>
-      <br />
-      Chcete-li od nás dostávat informační e-maily, SMS zprávu, potřebujeme k
-      zasílání zpráv určité informace. Namísto obecného oslovení dáváme přednost
-      přívětivějšímu oslovení s použitím vašeho jména. Tato kategorie osobních
-      údajů rovněž slouží k tomu, abychom vás mohli kontaktovat například v
-      případě, že produkt nelze doručit a chceme vám namísto toho nabídnout
-      jinou možnost.
-    </p>
-
-    <h3>Platební údaje:</h3>
-
-    <p>Způsob platby</p>
-
-    <p>
-      <strong>Důvod:</strong>
-      <br />
-      Tyto informace potřebujeme, abychom mohli sledovat vaše platby a přiřadit
-      je k vámi zadaným objednávkám. V závislosti na platební metodě, kterou
-      zvolíte v rámci vaší objednávky, v některých případech sdílíme vaše údaje
-      s poskytovatelem této platební metody; tak je tomu například, když se
-      rozhodnete provést platbu přes bankovní účet (Vaše osobní údaje jsou
-      předány společnosti Fakturoid s.r.o. přes jejích aplikaci na fakturoid.cz,
-      se sídlem V Pláni 532/7 Praha – Lhotka 142 00); pokud se rozhodnete
-      provést platbu platební kartou, údaje týkající se takové platby jsou
-      předány společnosti myPOS Europe Ltd, se sídlem The Shard, Level 24, 32
-      London Bridge Street, London, SE1 9SG, United Kingdom
-    </p>
-
-    <h3>Dodací údaje:</h3>
-
-    <p>
-      Jméno, dodací adresa, telefonní číslo, identifikační číslo zákazníka
-      &nbsp;
-    </p>
-
-    <p>
-      <strong>Důvod:</strong>
-      <br />V souladu se zásadou minimalizace údajů poskytujeme našim řidičům
-      pouze informace, které od vás potřebují pro přípravu a doručení vaší
-      objednávky.
-    </p>
-
-    <p>&nbsp;</p>
-
-    <h3>
-      <strong>Pro jaké účely údaje zpracováváme</strong>
-    </h3>
-
-    <p>
-      Vaše osobní údaje zpracováváme pouze v souladu s přísnými právními
-      požadavky. Zvláštní pozornost věnujeme tomu, že se přihlíží ke všem
-      zásadám zpracování osobních údajů. Z tohoto důvodu zpracováváme vaše
-      osobní údaje pouze v případě, že je to v souladu s právními předpisy a
-      můžete důvodně očekávat, že dojde ke zpracování takových údajů. Pokud při
-      posuzování dojdeme k závěru, že zpracování nelze důvodně očekávat,
-      provádíme zpracování pouze s vaším výslovným souhlasem.
-    </p>
-
-    <p>&nbsp;</p>
-
-    <p>Předávání údajů řidičům&nbsp;</p>
-
-    <p>
-      K doručování používáme různé řidiče. Může se jednat o stálé zaměstnance,
-      externí pracovníky nebo třetí strany, které nám poskytují řidiče na
-      základě smlouvy o zpracování osobních údajů při doručování našich
-      objednávek. Ve všech těchto případech zasíláme vaše osobní údaje řidičům,
-      aby mohli vaši objednávku rychle doručit.
-    </p>
-
-    <p>
-      <strong>Kategorie osobních údajů:</strong>
-      <br />
-      Dodací údaje
-    </p>
-
-    <p>
-      <strong>Právní základ:</strong>
-      <br />
-      Čl. 6 odst. 1 písm. b) GDPR, plnění smlouvy
-    </p>
-
-    <p>Reklama a marketing</p>
-
-    <p>&nbsp;</p>
-
-    <p>Přímý marketing</p>
-
-    <p>
-      <strong>Informační e-maily</strong>
-      <br />
-      Pokud nám při nákupu zboží nebo služeb sdělíte svoji e-mailovou adresu,
-      vyhrazujeme si právo zasílat vám prostřednictvím e-mailu pravidelné
-      nabídky podobného zboží nebo služeb z naší nabídky.
-      <br />
-      Liší se nejen obsah našich informačních bulletinů (tzv. newsletterů), ale
-      i technologie a kritéria, která používáme k vytvoření našich informačních
-      bulletinů a rozdělení zákazníků do skupin.
-      <br />
-      Používáme různé informace z vaší historie objednávek a dodací adresy.
-      <br />
-      Jedná se o profilování, při kterém automaticky zpracováváme vaše osobní
-      údaje. Zařazení do konkrétní skupiny zákazníků pro vás může mít právní
-      účinek nebo pro vás může mít jiný významný dopad, kdy dostáváte určité
-      informační bulletiny a nejste zahrnuti do jiných kampaní.
-    </p>
-
-    <p>
-      Pokud na vás má automatizované rozhodování negativní dopad a vy s tím
-      nesouhlasíte, můžete nás kontaktovat na adrese&nbsp;
-      <a href="mailto:sushimanprague@gmail.com">sushimanprague@gmail.com</a>. V
-      tomto případě individuálně posoudíme okolnosti vašeho případu.
-    </p>
-
-    <p>
-      <strong>Kategorie osobních údajů:</strong>
-      <br />
-      Kontaktní údaje
-      <br />
-      Lokalizační údaje
-      <br />
-      Informace o objednávkách
-    </p>
-
-    <p>
-      <strong>Právní základ:</strong>
-      <br />
-      Zpracování údajů v této souvislosti probíhá výhradně na základě našeho
-      oprávněného zájmu, pokud jde o personalizovanou přímou reklamu podle čl. 6
-      odst. 1 písm. f) GDPR. Pokud jste hned zpočátku vznesli námitku proti
-      používání své e-mailové adresy pro tento účel, nebudeme vám e-mailovou
-      zprávu zasílat. Námitku proti používání své e-mailové adresy pro výše
-      uvedené reklamní účely můžete s účinností do budoucna vznést kdykoliv tak,
-      že uvedené oznámíte odpovědné osobě uvedené na začátku textu. V
-      souvislosti s tím vám vznikají pouze náklady na zajištění přenosu
-      informací podle základních tarifů. Po obdržení vaší námitky ihned vaši
-      e-mailovou adresu přestaneme pro reklamní účely používat.
-    </p>
-
-    <p>
-      <strong>SMS zprávy</strong>
-      <br />
-      Kromě jiných způsobů nadále používáme SMS zprávy, abychom vás informovali
-      o nových akčních nabídkách ve vaší oblasti. SMS zprávy od nás budete
-      dostávat pouze v případě, že jste nám k tomu udělili souhlas. Svůj souhlas
-      můžete kdykoliv s účinností do budoucna odvolat. V takovém případě nám
-      zašlete e-mailovou zprávu na adresu&nbsp;
-      <a href="mailto:sushimanprague@gmail.com">sushimanprague@gmail.com</a>.
-      Přihlášení k zasílání SMS zpráv i zrušení jejich zasílání je pro vás
-      bezplatné.
-    </p>
-
-    <p>
-      <strong>Kategorie osobních údajů:</strong>
-      <br />
-      Kontaktní údaje
-      <br />
-      Informace o objednávkách
-    </p>
-
-    <p>
-      <strong>Právní základ:</strong>
-      <br />
-      Čl. 6 odst. 1 písm. a) GDPR, souhlas
-    </p>
-
-    <p>
-      <strong>Cílení (targeting)</strong>
-      <br />
-      Cílení v zásadě znamená přepínání a vypínání reklamních bannerů na
-      webových stránkách přizpůsobených určitým cílovým skupinám. Cílem je
-      zobrazit uživateli a potenciálnímu zákazníkovi co nejatraktivnější bannery
-      co nejindividuálněji. Nejprve určíme cílovou skupinu a následně dáme našim
-      poskytovatelům služeb za úkol zobrazovat naši reklamu určené cílové
-      skupině. Žádné osobní údaje v této souvislosti nezpracováváme, protože
-      uvedené je od počátku prováděno anonymně. Pro lepší vymezení cílové
-      skupiny rozdělujeme různé druhy zákazníků do segmentů a umisťujeme reklamy
-      na různých portálech.
-    </p>
-
-    <p>
-      <strong>Kategorie osobních údajů:</strong>
-      <br />
-      Kontaktní údaje
-    </p>
-
-    <p>
-      <strong>Právní základ:</strong>
-      <br />
-      Čl. 6 odst. 1 písm. f) GDPR, oprávněný zájem.
-      <br />
-      Naším oprávněným zájmem je výše popsaný účel.
-    </p>
-
-    <h3>Třetí strany</h3>
-
-    <p>
-      Spolupracujeme s třetími stranami, kterým rovněž předáváme vaše osobní
-      údaje, ale kteří nejsou vázáni našimi pokyny. Jedná se například o naše
-      poradce, právní poradce nebo daňové poradce, kteří od nás obdrží vaše
-      osobní údaje na základě smlouvy a zpracovávají vaše osobní údaje z
-      právních důvodů nebo za účelem ochrany našich vlastních zájmů.
-      <br />
-      Vaše osobní údaje za žádných okolností neprodáváme ani nepronajímáme
-      třetím stranám. K ničemu takovému nikdy nedojde bez vašeho výslovného
-      souhlasu.
-    </p>
-
-    <h3>Orgány činné v trestním řízení a soudní řízení</h3>
-
-    <p>
-      Může se naneštěstí stát, že pár našich zákazníků a poskytovatelů služeb
-      nejedná čestně a chce nás poškodit. V těchto případech nejenže máme na
-      základě právních předpisů povinnost předat osobní údaje, ale je také v
-      našem zájmu předcházet škodě, vymáhat naše nároky a zamítnout neoprávněné
-      nároky.
-    </p>
-
-    <p>&nbsp;</p>
-
-    <h3>
-      <strong>Stránky na sociálních sítích</strong>
-    </h3>
-
-    <p>
-      Máme profily na různých platformách sociálních médií, kde inzerujeme naše
-      produkty a jsme v kontaktu se zákazníky. Vzhledem k tomu, že tyto profily
-      provozujeme na platformách třetích stran, při každé vaší návštěvě těchto
-      kanálů na sociálních sítích provozovatelé o vás shromažďují různé osobní
-      údaje.
-    </p>
-
-    <p>
-      <strong>Povinnosti</strong>
-      <br />
-      My a příslušní provozovatelé platforem sociálních médií vystupujeme jako
-      společní správci. Pokud účely a prostředky zpracování stanoví společně dva
-      nebo více správců, jsou společnými správci.
-    </p>
-
-    <p>
-      Platformy sociálních médií Facebook a Instagram jsou provozovány
-      společností Facebook Ireland Ltd., 4 Grand Canal Square, Dublin 2, Irsko.
-    </p>
-
-    <p>
-      Neseme odpovědnost za veškeré interakce na našich vlastních stránkách.
-      Sami provozovatelé platforem sociálních médií jsou správci údajů pro
-      obecné interakce a interakce mimo naše stránky.Výjimkou je zpracování
-      údajů popsané níže v případě analýzy využití (přehledů stránek); za to
-      neseme společnou odpovědnost spolu se společností Facebook.
-      <br />S použitím následujících odkazů získáte přesnější informace o tom,
-      jaké údaje jsou příslušnými provozovateli sociálních sítí shromažďovány:
-      <br />
-      <a href="https://www.facebook.com/about/privacy/">
-        Zásady používání dat Facebook
-        <br />
-      </a>
-      <a href="https://help.instagram.com/519522125107875">
-        Zásady používání dat Instagram
-      </a>
-    </p>
-
-    <p>&nbsp;</p>
-
-    <h3>
-      <strong>Jak dlouho vaše osobní údaje uchováváme</strong>
-    </h3>
-
-    <p>
-      Vaše osobní údaje obecně vymazáváme po té, co splní příslušný účel. Platí
-      různá pravidla pro vymazání údajů v závislosti na účelu zpracování.&nbsp;
-    </p>
-
-    <p>
-      Vaše osobní údaje vymažeme na vaši žádost nebo v případě, že je váš profil
-      neaktivní po dobu tří let, vymažeme také váš účet. Než k tomu dojde,
-      obdržíte od nás zvláštní upozornění na e-mailovou adresu.
-    </p>
-
-    <p>
-      Kromě námi stanovených pravidel pro vymazání existují také další zákonné
-      lhůty pro uchovávání údajů, které rovněž musíme dodržovat. Daňové údaje
-      musí být například uchovány po dobu šesti až deseti let nebo v některých
-      případech ještě déle. Tyto zvláštní lhůty pro uchovávání se liší v
-      závislosti na místních právních předpisech.
-    </p>
-
-    <p>
-      Proto i přes vaši žádost o vymazání vašich osobních údajů můžeme kvůli
-      právním předpisům nadále některé z uložených údajů uchovávat. V tomto
-      případě však omezíme další zpracování údajů.
-    </p>
-
-    <p>
-      Dále vaše osobní údaje uchováme, pokud jsme k tomu oprávněni v souladu s
-      čl. 17 odst. 3 GDPR. To platí zejména v případě, že vaše osobní údaje
-      potřebujeme pro určení, výkon nebo obhajobu právních nároků.
-    </p>
-
-    <h3>
-      <strong>Právo na změnu</strong>
-    </h3>
-
-    <p>
-      Vyhrazujeme si právo toto prohlášení o ochraně osobních údajů změnit v
-      souladu s právními předpisy. O případných významných změnách, jako jsou
-      změny účelu nebo nové účely zpracování, vás budeme informovat.
-    </p>
-
-    <p>Poslední aktualizace: srpen 2021</p>
-  </LayoutSecondary>
+    <StyledWrapper>
+      <StyledContainer>
+        <StyledHeading>Všeobecné obchodní podmínky</StyledHeading>
+        <StyledText>
+          Všeobecné obchodní podmínky společnosti MSN form s.r.o. se sídlem
+          Vlkova 532/8, Žižkov, 130 00 Praha 3, IČO 09907017, DIČ CZ09907017
+        </StyledText>
+        <StyledText>
+          Pro účely těchto Všeobecných obchodních podmínek mají níže uvedené
+          termíny následující význam:
+        </StyledText>
+        <StyledText>
+          <StyledStrong>“Prodávající”</StyledStrong> je MSN form s.r.o. se
+          sídlem Vlkova 532/8, Žižkov, 130 00 Praha 3, IČO 09907017, a
+          provozovnou “Sushi Man”, Husitská 187/60, Žižkov, 130 00 Praha 3.
+        </StyledText>
+        <StyledText>
+          <StyledStrong>“Ceník”</StyledStrong> je ceník vydávaný Prodávajícím,
+          kterým jsou určeny ceny jednotlivých druhů Zboží. Ceník je uveřejněn
+          na internetových stránkách Prodávajícího sushi-man.cz.
+        </StyledText>
+        <StyledText>
+          <StyledStrong>“Kupní cena”</StyledStrong> je cena Zboží, vypočítaná
+          Prodávajícím jako násobek Zboží dodaného Kupujícímu a ceny Zboží
+          určené Ceníkem.
+        </StyledText>
+        <StyledText>
+          <StyledStrong>“Kupující”</StyledStrong> je fyzická nebo právnická
+          osoba, která s Prodávajícím uzavře kupní smlouvu na dodávku Zboží
+          prostřednictvím závazné objednávky.
+        </StyledText>
+        <StyledText>
+          <StyledStrong>“Zboží”</StyledStrong> jsou produkty Prodávajícího
+          nabízené na internetových stránkách sushi-man.cz.
+        </StyledText>
+        <StyledHeading>ZBOŽÍ</StyledHeading>
+        <StyledList>
+          <StyledListItem>
+            Prodávající se zavazuje vyrobit Zboží dle objednávky Kupujícího,
+            Zboží Kupujícímu dopravit na své náklady do místa určeného Kupujícím
+            a tam Zboží odevzdat Kupujícímu způsobem uvedeným v odst. 2 tohoto
+            článku.
+          </StyledListItem>
+          <StyledListItem>
+            Prodávající se zavazuje informovat Kupujícího o aktuální nabídce
+            Zboží prostřednictvím jídelníčku uveřejněného na internetových
+            stránkách Prodávajícího sushi-man.cz a dále o aktuální ceně Zboží
+            prostřednictvím Ceníku uveřejněného na internetových stránkách
+            Prodávajícího sushi-man.cz.
+          </StyledListItem>
+          <StyledListItem>
+            Prodávající se zavazuje vyrábět Zboží dle platných norem a předpisů
+            ČR s použitím kvalitních a čerstvých surovin a dále se zavazuje
+            informovat Kupujícího o složení Zboží v souladu s platnými právními
+            předpisy. Tyto informace sdělí Prodávající Kupujícímu
+            prostřednictvím umístěné na internetových stránkách sushi-man.cz.
+          </StyledListItem>
+          <StyledListItem>
+            Zboží je dodáváno v chlazeném a teplem stavu. Zboží musí být až do
+            jeho konzumace udržováno v chladu. Prodávající nenese žádnou
+            odpovědnost za jakost Zboží, pokud po odevzdání Zboží Kupujícímu
+            dojde k porušení skladovacích podmínek. Zboží musí být spotřebováno
+            do 5 hodin po uskutečnění dodávky. Po otevření je nutné Zboží ihned
+            spotřebovat.
+          </StyledListItem>
+        </StyledList>
+        <StyledHeading>PLATBA A DOPRAVA</StyledHeading>
+        <StyledList>
+          <StyledListItem>
+            Platbu Kupující může provést na našem e-shopu přes platební bránu a
+            taky kartou přes platební terminál při vyzvednutí na provozovně.
+            Nebo v hotovosti při vyzvednutí na provozovně nebo kurýrů při dodání
+            zboží.
+          </StyledListItem>
+
+          <StyledListItem>
+            Při jakémkoliv způsobu platby, Kupující dostane od nás účtenku o
+            zaplacení.
+          </StyledListItem>
+
+          <StyledListItem>Možnosti dopravy</StyledListItem>
+
+          <StyledListItem>
+            Doprava zboží kurýrem nebo Vyzvednutí zboží na provozovně Husitská
+            187/60, Žižkov, 130 00 Praha 3.
+          </StyledListItem>
+
+          <StyledListItem>
+            Řidič rozváží Zboží Kupujícímu pravidelně ve večerních hodinách mezi
+            11:00 a 21:00/22:00 hodinami, maximální doba doručení objednávky 120
+            minut od momenta vytvoření objednávky. Po překročení tyto doby
+            dodání, kupující muže požádat o vracení ve výše 50% od ceny zboží.
+            Řidič rozvážející Zboží předá Zboží Kupujícímu, osobě Kupujícím
+            určené nebo jiné osobě přítomné v místě určeném Kupujícím jako místo
+            dodávky Zboží. Pokud není na místě určeném Kupujícím jako místo
+            dodání Zboží žádná osoba, které by mohlo být Zboží předáno, bude
+            Zboží dodáno na odběrové místo na adrese Husitská 187/60, Žižkov,
+            130 00 Praha 3, pro osobní převzetí Kupujícím. Okamžikem odevzdání
+            Zboží Kupujícímu přechází na Kupujícího nebezpečí škody na Zboží.
+          </StyledListItem>
+        </StyledList>
+        <StyledHeading>OBJEDNÁVKA</StyledHeading>
+        <StyledList>
+          <StyledListItem>
+            Objednávku Zboží lze provést následujícím způsobem: a) na telefonním
+            čísle +420 792 745 116, b) prostřednictvím on-line formuláře
+            umístěného na internetových stránkách sushi-man.cz, c)
+            prostřednictvím sociální sítě uvedených na internetových stránkách
+            sushi-man.cz
+          </StyledListItem>
+
+          <StyledListItem>
+            Objednávku Zboží je třeba uskutečnit nejméně do 20:45 nebo 21:45
+            hodin přede dopravou. Každá učiněná objednávka je závazným návrhem
+            na uzavření kupní smlouvy.
+          </StyledListItem>
+        </StyledList>
+        <StyledHeading>REKLAMAČNÍ PODMÍNKY</StyledHeading>
+        <StyledList>
+          <StyledListItem>
+            Změny či zrušení uskutečněné do 10 minut od vytvoření objednávky
+            telefonicky na čísle +420 792 745 116.
+          </StyledListItem>
+          <StyledListItem>
+            Při zrušení objednávky do 10 minut od vytvoření objednávky, Kupující
+            může požádat o vrácení peněz, na účet který musí nám poslat na
+            e-mail sushimanprague@gmail.com, a peníze budou vráceny do 7
+            pracovních dnů, ale v tom případě, Prodávající oprávněn naúčtovat si
+            sankci a to ve výši 100 Kč s DPH za objednávku.
+          </StyledListItem>
+          <StyledListItem>
+            Pokud zboží bylo doručeno nebo vyzvednuto, už není možné ho vrátit.
+          </StyledListItem>
+          <StyledListItem>
+            Pokud zboží ještě nebylo doručeno nebo vyzvednuto, zboží můžete
+            vrátit(nechat) na provozovně nebo u kurýra.
+          </StyledListItem>
+          <StyledListItem>
+            Podle zákona o evidenci tržeb je prodávající povinen vystavit
+            kupujícímu účtenku. Zároveň je povinen zaevidovat přijatou tržbu u
+            správce daně online; v případě technického výpadku pak nejpozději do
+            48 hodin.
+          </StyledListItem>
+        </StyledList>
+
+        <StyledHeading>KUPNÍ CENA</StyledHeading>
+
+        <StyledList>
+          <StyledListItem>
+            Kupující se zavazuje objednané Zboží v místě jím určeném od
+            Prodávajícího převzít, a to i způsobem určeným v čl. II odst. 2
+            těchto podmínek, a uhradit Prodávajícímu za toto Zboží řádně a včas
+            Kupní cenu.
+          </StyledListItem>
+
+          <StyledListItem>
+            Pokud má Kupující IČO je na něj oprávněn zažádat o vystavení faktury
+            pod variabilním symbolem a zaplatit Kupní cenu bezhotovostním
+            převodem na účet Prodávajícího. Prodávající vyúčtuje Kupní cenu
+            Kupujícímu fakturou s datem splatnosti do 4 dnů ode dne vystavení
+            faktury. Prodávající je oprávněn vystavit Kupujícímu fakturu v den,
+            kdy si Klient Zboží objedná a zašle Kupujícímu fakturu e-mailem. V
+            případě platby Kupní ceny bezhotovostním převodem se Kupní cena
+            považuje za uhrazenou okamžikem jejího připsání na bankovní účet
+            Prodávajícího.
+          </StyledListItem>
+
+          <StyledListItem>
+            V případě platby Kupní ceny v hotovosti nebo kartou rozvážejícímu
+            řidiči při převzetí, vystaví řidič Kupujícímu daňový doklad na
+            přijatou částku Kupní ceny s uvedením tarifu, za který Kupující
+            Kupní cenu uhradil.
+          </StyledListItem>
+
+          <StyledListItem>
+            V případě prodlení s úhradou Kupní ceny může Prodávající požadovat
+            po Kupujícím zaplacení úroku z prodlení.
+          </StyledListItem>
+
+          <StyledListItem>
+            V případě prodlení s úhradou Kupní ceny může Prodávající odmítnout
+            dodávku objednaného Zboží až do úplné úhrady Kupní ceny za předchozí
+            dodávky Zboží.
+          </StyledListItem>
+
+          <StyledListItem>
+            V případě prodlení s úhradou Kupní ceny je Prodávající oprávněn
+            předat údaje Kupujícího na zastupující advokátní kancelář za účelem
+            vymáhání částky.
+          </StyledListItem>
+        </StyledList>
+
+        <StyledHeading>OCHRANA OSOBNÍCH ÚDAJŮ A UKLÁDÁNÍ COOKIES</StyledHeading>
+
+        <StyledList>
+          <StyledListItem>
+            Kupující souhlasí se zpracováním těchto svých osobních údajů: jméno
+            a příjmení, adresa bydliště, identifikační číslo, daňové
+            identifikační číslo, adresa elektronické pošty, telefonní číslo a
+            adresy bydliště (dále společně vše jen jako „osobní údaje“).
+          </StyledListItem>
+
+          <StyledListItem>
+            Kupující souhlasí se zpracováním osobních údajů prodávajícím, a to
+            pro účely realizace práv a povinností z kupní smlouvy, pro účely
+            vedení uživatelského účtu a dopravy zboží. Nezvolí-li kupující jinou
+            možnost, souhlasí se zpracováním osobních údajů prodávajícím také
+            pro účely zasílání informací a obchodních sdělení kupujícímu.
+          </StyledListItem>
+
+          <StyledListItem>
+            Kupující bere na vědomí, že je povinen své osobní údaje (při
+            objednávce provedené z webového rozhraní obchodu) uvádět správně a
+            pravdivě a že je povinen bez zbytečného odkladu informovat
+            prodávajícího o změně ve svých osobních údajích.
+          </StyledListItem>
+
+          <StyledListItem>
+            Zpracováním osobních údajů kupujícího může prodávající pověřit třetí
+            osobu, jakožto zpracovatele. Kromě zaměstnanců firmy a osob
+            dopravujících či vydávajících zboží nebudou osobní údaje
+            prodávajícím bez předchozího souhlasu kupujícího předávány třetím
+            osobám.
+          </StyledListItem>
+
+          <StyledListItem>
+            Osobní údaje budou zpracovávány po dobu neurčitou. Osobní údaje
+            budou zpracovávány v elektronické podobě automatizovaným způsobem
+            nebo v tištěné podobě.
+          </StyledListItem>
+
+          <StyledListItem>
+            Kupující potvrzuje, že poskytnuté osobní údaje jsou přesné a že byl
+            poučen o tom, že se jedná o dobrovolné poskytnutí
+          </StyledListItem>
+
+          <StyledListItem>
+            V případě, že by se kupující domníval, že prodávající nebo
+            zpracovatel provádí zpracování jeho osobních údajů, které je v
+            rozporu s ochranou soukromého a osobního života kupujícího nebo v
+            rozporu se zákonem, zejména jsou-li osobní údaje nepřesné s ohledem
+            na účel jejich zpracování, může: o požádat prodávajícího nebo
+            zpracovatele o vysvětlení, o požadovat, aby prodávající nebo
+            zpracovatel odstranil takto vzniklý stav.
+          </StyledListItem>
+        </StyledList>
+
+        <StyledHeading>ZASÍLÁNÍ OBCHODNÍCH SDĚLENÍ</StyledHeading>
+
+        <StyledList>
+          <StyledListItem>
+            Kupující souhlasí se zasíláním informací souvisejících se zbožím,
+            službami nebo podnikem prodávajícího na elektronickou adresu
+            kupujícího a prostřednictvím SMS zpráv a dále souhlasí se zasíláním
+            obchodních sdělení prodávajícím na elektronickou adresu kupujícího a
+            prostřednictvím SMS zpráv.
+          </StyledListItem>
+        </StyledList>
+
+        <StyledHeading>OSTATNÍ</StyledHeading>
+        <StyledList>
+          <StyledListItem>
+            Smluvní strany se dohodly, že jejich vzájemná práva a povinnosti
+            neupravené touto smlouvou se řídí ust. § 2079 a následujícími zákona
+            č. 89/2012 Sb., občanského zákoníku.
+          </StyledListItem>
+
+          <StyledListItem>
+            Kupující a Prodávající shodně uvádějí, že tyto Všeobecné obchodní
+            podmínky jsou součástí kupní smlouvy uzavřené mezi Prodávajícím a
+            Kupujícím. Kupující prohlašuje, že je mu znění těchto Všeobecných
+            obchodních podmínek známo a že je jejich obsah jasný a srozumitelný.
+          </StyledListItem>
+
+          <StyledListItem>
+            Subjektem mimosoudního řešení spotřebitelských sporů z uzavřených
+            kupních smluv je Česká obchodní inspekce. Více informací naleznete
+            na internetových stránkách České obchodní inspekce www.coi.cz. Tyto
+            Všeobecné obchodní podmínky nabývají účinnosti dne 10. 10. 2021.
+          </StyledListItem>
+        </StyledList>
+      </StyledContainer>
+    </StyledWrapper>
+  </Layout>
 );
+
+const StyledWrapper = styled.div`
+  border-top: ${({ theme }) => theme.rem(10)} solid #da2628;
+  padding-bottom: ${({ theme }) => theme.rem(40)};
+  padding-top: ${({ theme }) => theme.rem(40)};
+  text-align: justify;
+`;
+
+const StyledHeading = styled.h2`
+  font: ${({ theme }) => `${theme.rem(22)} ${theme.fonts.fontMedium}`};
+  margin-bottom: ${({ theme }) => theme.rem(10)};
+`;
+
+const StyledText = styled.p`
+  margin-bottom: ${({ theme }) => theme.rem(12)};
+`;
+
+const StyledStrong = styled.strong`
+  font: ${({ theme }) => `${theme.rem(22)} ${theme.fonts.fontMedium}`};
+`;
+
+const StyledList = styled.ul`
+  list-style: disc;
+  margin-bottom: ${({ theme }) => theme.rem(10)};
+  padding-left: ${({ theme }) => theme.rem(17)};
+`;
+
+const StyledListItem = styled.li`
+  margin-bottom: ${({ theme }) => theme.rem(7)};
+`;
 
 TermsPage.getInitialProps = async () => {
   const {
