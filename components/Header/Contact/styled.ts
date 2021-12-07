@@ -29,6 +29,7 @@ export const StyledLink = styled.a`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    color: ${({ theme }) => theme.colors.red};
     font-size: ${({ theme }) => theme.rem(28)};
     padding-left: 0;
   }

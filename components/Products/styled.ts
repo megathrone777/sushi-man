@@ -1,11 +1,22 @@
-import { TabList, Tab } from "react-tabs";
+import { Tabs, TabList, Tab } from "react-tabs";
 
-import { css, styled } from "~/theme";
+import { css, keyframes, styled } from "~/theme";
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg) translateY(-50%);
+  }
+
+  to {
+    transform: rotate(360deg) translateY(-50%);
+  }
+`;
 
 export const StyledWrapper = styled.section`
   background-image: url("/images/products_bg.jpg");
   background-size: 33.3333% auto;
   padding: ${({ theme }) => theme.rem(60)} 0;
+  position: relative;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding-top: ${({ theme }) => theme.rem(30)};
@@ -35,61 +46,100 @@ export const StyledTabsList = styled(TabList)`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-left: ${({ theme }) => theme.rem(-20)};
-  margin-right: ${({ theme }) => theme.rem(-20)};
+  margin-bottom: ${({ theme }) => theme.rem(20)};
+  margin-left: ${({ theme }) => theme.rem(-10)};
+  margin-right: ${({ theme }) => theme.rem(-10)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-left: ${({ theme }) => theme.rem(-5)};
+    margin-right: ${({ theme }) => theme.rem(-5)};
+  }
 `;
 
 export const StyledTab = styled(Tab)<{
-  isRolls?: boolean;
-  isSets?: boolean;
-  isSalats?: boolean;
-  isPoke?: boolean;
-  isDrinks?: boolean;
-}>`  
-  background-position-x: -1px;
-  background-size: calc(100% + 2px) auto;
+  isCollapsed: boolean;
+  isroll?: boolean;
+  isset?: boolean;
+  issalat?: boolean;
+  ispoke?: boolean;
+  isdrink?: boolean;
+}>`
+  background-position-x: ${({ theme }) => theme.rem(-1)};
   background-repeat: no-repeat;
+  background-size: calc(100% + ${({ theme }) => theme.rem(2)}) auto;
   border-radius: ${({ theme }) => theme.rem(15)};
-  border: ${({ theme }) => `${theme.rem(3)} solid black`};
   color: white;
   cursor: pointer;
-  flex: 0 1 calc(33.33333% - ${({ theme }) => theme.rem(20)});
+  flex: 0 1
+    calc(
+      ${({ isCollapsed }) => (isCollapsed ? "20%" : "33.3333%")} -
+        ${({ theme }) => theme.rem(20)}
+    );
   font: ${({ theme }) => `${theme.rem(26)} ${theme.fonts.fontBold}`};
-  height: ${({ theme }) => theme.rem(150)};
+  height: ${({ isCollapsed, theme }) =>
+    isCollapsed ? theme.rem(70) : theme.rem(200)};
   margin: ${({ theme }) => `0 ${theme.rem(10)} ${theme.rem(20)}`};
+  opacity: ${({ isCollapsed }) => (isCollapsed ? "0.7" : 1)};
   padding: ${({ theme }) => `${theme.rem(20)} 0  0 ${theme.rem(20)}`};
+  transition: background-position 0.5s, background-size 0.5s, height 0.5s;
 
-  ${({ isRolls }) =>
-    isRolls &&
+  &.react-tabs__tab--selected {
+    ${({ isCollapsed }) =>
+      isCollapsed &&
+      css`
+        opacity: 1;
+      `}
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    flex: 0 1 calc(50% - ${({ theme }) => theme.rem(10)});
+    margin: ${({ theme }) => `0 ${theme.rem(5)} ${theme.rem(10)}`};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    flex: 0 1 calc(100% - ${({ theme }) => theme.rem(10)});
+  }
+
+  &:hover {
+    background-position-x: ${({ theme }) => theme.rem(-10)};
+    background-size: calc(100% + ${({ theme }) => theme.rem(10)}) auto;
+  }
+
+  ${({ isCollapsed, isroll }) =>
+    isroll &&
     css`
       background-image: url("/images/rolls_bg.jpg");
-      background-position-y: -280px;
+      background-position-y: ${({ theme }) =>
+        isCollapsed ? theme.rem(-200) : theme.rem(-280)};
     `}
 
-  ${({ isSalats }) =>
-    isSalats &&
+  ${({ issalat }) =>
+    issalat &&
     css`
       background-image: url("/images/salats_bg.jpg");
+      background-position-y: ${({ theme }) => theme.rem(-220)};
     `}
 
 
-  ${({ isSets }) =>
-    isSets &&
+  ${({ isset }) =>
+    isset &&
     css`
       background-image: url("/images/sets_bg.jpg");
+      background-position-y: ${({ theme }) => theme.rem(-140)};
     `}
 
-  ${({ isPoke }) =>
-    isPoke &&
+  ${({ ispoke }) =>
+    ispoke &&
     css`
       background-image: url("/images/poke_bg.jpg");
-      background-position-y: -70px;
+      background-position-y: ${({ theme }) => theme.rem(-70)};
     `}
 
-  ${({ isDrinks }) =>
-    isDrinks &&
+  ${({ isdrink }) =>
+    isdrink &&
     css`
       background-image: url("/images/drinks_bg.jpg");
+      background-position-y: ${({ theme }) => theme.rem(-180)};
     `}
 `;
 
@@ -100,6 +150,11 @@ export const StyledList = styled.div`
   margin-right: ${({ theme }) => theme.rem(-10)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    margin-left: ${({ theme }) => theme.rem(-5)};
+    margin-right: ${({ theme }) => theme.rem(-5)};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-left: ${({ theme }) => theme.rem(-5)};
     margin-right: ${({ theme }) => theme.rem(-5)};
   }
@@ -126,13 +181,11 @@ export const StyledItem = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: flex;
-    flex: 0 1 100%;
+    flex: 0 1 calc(50% - ${({ theme }) => theme.rem(10)});
     margin-bottom: ${({ theme }) => theme.rem(10)};
     margin-left: ${({ theme }) => theme.rem(5)};
     margin-right: ${({ theme }) => theme.rem(5)};
-    max-width: 100%;
-    padding-bottom: 0;
+    max-width: calc(50% - ${({ theme }) => theme.rem(10)});
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -140,9 +193,10 @@ export const StyledItem = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-    margin-left: 0;
-    margin-right: 0;
+    display: flex;
+    flex: 0 1 calc(100% - ${({ theme }) => theme.rem(10)});
     max-width: 100%;
+    padding-bottom: 0;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
@@ -153,23 +207,18 @@ export const StyledItem = styled.div`
 export const StyledItemLayout = styled.div`
   position: relative;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: flex;
-    flex-direction: column;
-  }
-
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
-    padding-bottom: ${({ theme }) => theme.rem(50)};
+    padding-bottom: ${({ theme }) => theme.rem(60)};
   }
 `;
 
 export const StyledItemImage = styled.img`
   height: 100%;
   object-fit: cover;
-  transition: 0.5s;
+  transition: transform 0.5s;
   width: 100%;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
     border-top-left-radius: ${({ theme }) => theme.rem(15)};
     border-bottom-left-radius: ${({ theme }) => theme.rem(15)};
   }
@@ -218,6 +267,10 @@ export const StyledItemLink = styled.a`
 
 export const StyledItemContent = styled.div`
   min-height: ${({ theme }) => theme.rem(115)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    min-height: ${({ theme }) => theme.rem(140)};
+  }
 `;
 
 export const StyledItemTitle = styled.div`
@@ -244,16 +297,12 @@ export const StyledItemFooter = styled.div`
   justify-content: space-between;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    justify-content: flex-start;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-    position: absolute;
     bottom: 0;
-    right: 0;
-    left: 0;
     justify-content: space-between;
+    left: 0;
     margin-top: ${({ theme }) => theme.rem(5)};
+    position: absolute;
+    right: 0;
   }
 `;
 
@@ -356,4 +405,19 @@ export const StyledItemButton = styled.button`
       min-width: ${({ theme }) => theme.rem(90)};
     }
   }
+`;
+
+export const StyledLoader = styled.span`
+  align-items: center;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-name: ${rotate};
+  animation-timing-function: linear;
+  color: ${({ theme }) => theme.colors.red};
+  display: flex;
+  height: ${({ theme }) => theme.rem(50)};
+  justify-content: center;
+  margin: auto;
+  transform-origin: center top;
+  width: ${({ theme }) => theme.rem(50)};
 `;

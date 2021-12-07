@@ -12,12 +12,9 @@ export const StyledList = styled.ul`
   display: flex;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    justify-content: center;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 
@@ -32,7 +29,7 @@ export const StyledItem = styled.li`
     margin-right: ${({ theme }) => theme.rem(40)};
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-bottom: ${({ theme }) => theme.rem(15)};
     margin-right: 0;
   }

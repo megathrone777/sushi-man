@@ -67,22 +67,6 @@ query HomePageQuery {
     title
   }
 
-  products(sort: "priority") {
-    allergeny
-    id
-    image {
-      url
-    }
-    ingredients
-    isRoll
-    isSalat
-    isDrink
-    price
-    slug
-    title
-    weight
-  }
-
   reviews {
     image {
       url
