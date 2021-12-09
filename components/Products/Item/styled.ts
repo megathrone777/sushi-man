@@ -95,7 +95,7 @@ export const StyledImageHolder = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
     flex: 0 1 ${({ theme }) => theme.rem(180)};
-    height: ${({ theme }) => theme.rem(250)};
+    height: 100%;
     margin-bottom: 0;
     min-width: ${({ theme }) => theme.rem(180)};
   }
