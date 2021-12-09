@@ -1,33 +1,19 @@
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { useNotifications } from "reapop";
-import { Tabs, TabPanel } from "react-tabs";
-import { gql, useLazyQuery } from "@apollo/client";
 
+import { gql, useLazyQuery } from "@apollo/client";
+import { Item } from "./Item";
 import client from "~/apollo-client";
 import { TProps, TCategory, TCategoryTypes } from "./types";
-import { SvgBuyIcon, SvgLoaderIcon } from "~/icons";
+import { SvgLoaderIcon } from "~/icons";
 import { TProduct, ShopModal } from "~/components";
-import { addToCart, TCartProduct, useStore } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
   StyledTitle,
   StyledList,
-  StyledItem,
-  StyledItemLayout,
-  StyledItemImageHolder,
-  StyledItemContent,
-  StyledItemFooter,
-  StyledItemPrice,
-  StyledItemLink,
-  StyledItemTitle,
-  StyledItemDesc,
-  StyledItemImage,
-  StyledItemText,
-  StyledItemButton,
-  StyledScroller,
+  StyledPanel,
   StyledTabsList,
+  StyledTabs,
   StyledTab,
   StyledLoader,
 } from "./styled";
@@ -60,9 +46,6 @@ const Products: React.FC<TProps> = () => {
   const { t } = useTranslation();
   const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
   const [categoryType, setCategoryType] = useState<TCategoryTypes>(null);
-  const { notify } = useNotifications();
-  const { dispatch, store } = useStore();
-  const { shopSettings } = store;
   const productsTitle = t("productsTitle");
   const [getProducts, { data, loading: productsLoading }] = useLazyQuery(
     gql`
@@ -100,34 +83,12 @@ const Products: React.FC<TProps> = () => {
     }
   );
 
-  const handleScrollTo = (): void => {
-    const deliverySection = document.getElementById("delivery-section");
-
-    deliverySection &&
-      deliverySection.scrollIntoView({
-        behavior: "smooth",
-      });
-  };
-
   const handleCategoryChange = (categoryType: TCategoryTypes): void => {
     setCategoryType(categoryType);
   };
 
-  const handleAddToCart = (product: TCartProduct): void => {
-    if (shopSettings.shopIsClosed || shopSettings.ordersStop) {
-      toggleModalOpened(true);
-      return;
-    }
-
-    dispatch(addToCart(product));
-    notify({
-      dismissAfter: 3000,
-      dismissible: true,
-      position: "bottom-center",
-      showDismissButton: true,
-      status: "success",
-      title: `${product.title} přidán do košíku`,
-    });
+  const handleModalToggle = (modalIsOpened: boolean): void => {
+    toggleModalOpened(modalIsOpened);
   };
 
   const handleModalClose = (): void => {
@@ -135,116 +96,21 @@ const Products: React.FC<TProps> = () => {
   };
 
   const renderTabPanel = (): React.ReactElement => (
-    <TabPanel>
+    <StyledPanel>
       {data?.products && !!data?.products.length && (
         <StyledList>
           {data?.products.map(
-            (
-              {
-                allergeny,
-                id,
-                isRoll,
-                isSalat,
-                isDrink,
-                image,
-                title,
-                weight,
-                ingredients,
-                price,
-                slug,
-              }: TProduct,
-              index: number
-            ): React.ReactElement => (
-              <StyledItem key={index}>
-                <StyledItemImageHolder>
-                  <Link
-                    as={`/product/${id}`}
-                    href={`/product/[${id}]`}
-                    passHref
-                  >
-                    <StyledItemLink>
-                      <StyledItemImage alt="Product" src={image.url} />
-                    </StyledItemLink>
-                  </Link>
-                </StyledItemImageHolder>
-
-                <StyledItemLayout>
-                  <StyledItemTitle>
-                    <Link
-                      as={`/product/${id}`}
-                      href={`/product/[${id}]`}
-                      passHref
-                    >
-                      <StyledItemLink>
-                        <StyledItemText>{title}</StyledItemText>
-                      </StyledItemLink>
-                    </Link>
-                  </StyledItemTitle>
-
-                  <StyledItemContent>
-                    <Link
-                      as={`/product/${id}`}
-                      href={`/product/[${id}]`}
-                      passHref
-                    >
-                      <StyledItemLink>
-                        <StyledItemDesc>
-                          <StyledItemText>{weight}</StyledItemText>
-                        </StyledItemDesc>
-
-                        {ingredients && (
-                          <StyledItemDesc>
-                            <StyledItemText>{ingredients}</StyledItemText>
-                          </StyledItemDesc>
-                        )}
-
-                        {allergeny && (
-                          <StyledItemDesc>
-                            <StyledItemText>{allergeny}</StyledItemText>
-                          </StyledItemDesc>
-                        )}
-                      </StyledItemLink>
-                    </Link>
-                  </StyledItemContent>
-
-                  <StyledItemFooter>
-                    <StyledItemPrice>
-                      <StyledItemText>{price} Kč</StyledItemText>
-                    </StyledItemPrice>
-
-                    <StyledItemButton
-                      onClick={() =>
-                        handleAddToCart({
-                          allergeny,
-                          image: {
-                            url: image.url,
-                          },
-                          id,
-                          isRoll,
-                          isSalat,
-                          isDrink,
-                          ingredients,
-                          price,
-                          product_modifiers: [],
-                          product_submodifiers: [],
-                          quantity: 1,
-                          slug,
-                          title,
-                          weight,
-                          totalPrice: parseInt(price),
-                        })
-                      }
-                    >
-                      <SvgBuyIcon />
-                    </StyledItemButton>
-                  </StyledItemFooter>
-                </StyledItemLayout>
-              </StyledItem>
+            (productsItem: TProduct, index: number): React.ReactElement => (
+              <Item
+                key={`${productsItem.slug}-${index}`}
+                {...productsItem}
+                triggerModal={handleModalToggle}
+              />
             )
           )}
         </StyledList>
       )}
-    </TabPanel>
+    </StyledPanel>
   );
 
   useEffect((): void => {
@@ -258,7 +124,7 @@ const Products: React.FC<TProps> = () => {
       <StyledContainer>
         <StyledTitle>{productsTitle}</StyledTitle>
 
-        <Tabs>
+        <StyledTabs>
           {productsCategories && !!productsCategories.length && (
             <StyledTabsList>
               {productsCategories.map(
@@ -267,14 +133,14 @@ const Products: React.FC<TProps> = () => {
                   index: number
                 ): React.ReactElement => (
                   <StyledTab
-                    isCollapsed={categoryType !== null}
-                    isroll={type === "isRoll" || undefined}
-                    isdrink={type === "isDrink" || undefined}
-                    ispoke={type === "isPoke" || undefined}
-                    issalat={type === "isSalat" || undefined}
-                    isset={type === "isSet" || undefined}
-                    onClick={() => handleCategoryChange(type)}
+                    iscollapsed={categoryType !== null}
+                    isdrink={type === "isDrink"}
+                    ispoke={type === "isPoke"}
+                    isroll={type === "isRoll"}
+                    issalat={type === "isSalat"}
+                    isset={type === "isSet"}
                     key={`${index}-${name}`}
+                    onClick={() => handleCategoryChange(type)}
                   >
                     {name}
                   </StyledTab>
@@ -288,15 +154,14 @@ const Products: React.FC<TProps> = () => {
           {renderTabPanel()}
           {renderTabPanel()}
           {renderTabPanel()}
-        </Tabs>
+        </StyledTabs>
 
         {productsLoading && (
-          <StyledLoader>
+          <StyledLoader iscollapsed={categoryType !== null}>
             <SvgLoaderIcon />
           </StyledLoader>
         )}
 
-        <StyledScroller onClick={handleScrollTo} type="button" />
         <ShopModal isOpened={modalIsOpened} close={handleModalClose} />
       </StyledContainer>
     </StyledWrapper>

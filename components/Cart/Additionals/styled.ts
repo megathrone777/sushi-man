@@ -9,6 +9,15 @@ export const StyledWrapper = styled.div`
   }
 `;
 
+export const StyledLayout = styled.div`
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+`;
+
+export const StyledContent = styled.div``;
+
 export const StyledTitle = styled.h2`
   border-bottom: ${({ theme }) => theme.rem(3)} solid #da2628;
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
@@ -81,6 +90,12 @@ export const StyledQuantityButton = styled.button<{
 `;
 
 export const StyledNoteWrapper = styled.div`
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-bottom: ${({ theme }) => theme.rem(30)};
+  }
+`;
+
+export const StyledNoteContent = styled.div`
   position: relative;
 `;
 

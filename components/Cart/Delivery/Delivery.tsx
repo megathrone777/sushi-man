@@ -260,10 +260,9 @@ const Delivery: React.FC = () => {
 
       <StyledLayout>
         {isPickupChecked ? (
-          <StyledForm autoComplete="on" action="#">
+          <StyledForm action="#">
             <StyledInputWrapper>
               <StyledNameInput
-                autoComplete="on"
                 hasError={customerNameError}
                 onChange={handleNameChange}
                 placeholder={customerNameError ? "Vyplňte jméno" : t("name")}
@@ -279,7 +278,6 @@ const Delivery: React.FC = () => {
 
             <StyledInputWrapper>
               <StyledEmailInput
-                autoComplete="on"
                 hasError={customerEmailError}
                 onChange={handleEmailChange}
                 placeholder={customerEmailError ? "Vyplňte e-mail" : t("email")}
@@ -295,7 +293,6 @@ const Delivery: React.FC = () => {
 
             <StyledInputWrapper>
               <PhoneInput
-                autoComplete="on"
                 inputComponent={StyledPhoneInput}
                 onChange={handlePhoneChange}
                 placeholder={
@@ -324,7 +321,6 @@ const Delivery: React.FC = () => {
           <StyledForm autoComplete="on" action="#">
             <StyledInputWrapper>
               <StyledNameInput
-                autoComplete="on"
                 hasError={customerNameError}
                 onChange={handleNameChange}
                 placeholder={customerNameError ? "Vyplňte jméno" : t("name")}
@@ -340,7 +336,6 @@ const Delivery: React.FC = () => {
 
             <StyledInputWrapper>
               <StyledEmailInput 
-                autoComplete="on"
                 hasError={customerEmailError}
                 onChange={handleEmailChange}
                 placeholder={customerEmailError ? "Vyplňte e-mail" : t("email")}
@@ -356,7 +351,6 @@ const Delivery: React.FC = () => {
 
             <StyledInputWrapper>
               <PhoneInput
-                autoComplete="on"
                 hasError={customerPhoneError}
                 inputComponent={StyledPhoneInput}
                 onChange={handlePhoneChange}
@@ -374,7 +368,6 @@ const Delivery: React.FC = () => {
 
             <StyledInputWrapper>
               <StyledDeliveryInput
-                autoComplete="on"
                 hasError={customerAddressError}
                 onChange={handleAddressChange}
                 ref={addressInputElement}

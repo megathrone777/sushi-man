@@ -12,12 +12,12 @@ const rotate = keyframes`
 
 export const StyledWrapper = styled.div`
   border-bottom: ${({ theme }) => theme.rem(4)} solid #da2628;
-  min-height: ${({ theme }) => theme.rem(310)}; 
+  min-height: ${({ theme }) => theme.rem(310)};
   padding: ${({ theme }) =>
     `${theme.rem(30)} ${theme.rem(30)} ${theme.rem(50)}`};
   overflow: hidden;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding-left: 0;
     padding-right: 0;
     padding-top: ${({ theme }) => theme.rem(10)};
@@ -34,13 +34,20 @@ export const StyledLayout = styled.div`
   }
 `;
 
-export const StyledColumn = styled.div`
-  width: 45%;
+const StyledColumn = styled.div`
+  width: calc(50% - ${({ theme }) => theme.rem(50)});
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    width: calc(50% - ${({ theme }) => theme.rem(20)});
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 100%;
   }
 `;
+
+export const StyledColumnLeft = styled(StyledColumn)``;
+export const StyledColumnRight = styled(StyledColumn)``;
 
 export const StyledTitle = styled.h2`
   border-bottom: ${({ theme }) => theme.rem(3)} solid #da2628;
@@ -179,4 +186,10 @@ export const StyledErrorIcon = styled.span`
   margin-right: ${({ theme }) => theme.rem(5)};
   margin-top: ${({ theme }) => theme.rem(-7)};
   width: ${({ theme }) => theme.rem(20)};
+`;
+
+export const StyledTerms = styled.div`
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-bottom: ${({ theme }) => theme.rem(30)};
+  }
 `;

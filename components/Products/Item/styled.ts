@@ -1,6 +1,5 @@
-import Image from 'next/image';
+import Image from "next/image";
 
-import { TabList, Tab } from "react-tabs";
 import { keyframes, styled } from "~/theme";
 
 const rotate = keyframes`
@@ -13,70 +12,80 @@ const rotate = keyframes`
   }
 `;
 
-export const StyledWrapper = styled.section`
-  background: url("/images/products_bg.jpg") center center/auto 100%;
-  padding: ${({ theme }) => theme.rem(30)} 0 ${({ theme }) => theme.rem(50)};
-`;
-
-export const StyledTitle = styled.h2`
-  margin-bottom: ${({ theme }) => theme.rem(20)};
-  font: ${({ theme }) => theme.rem(40)} ${({ theme }) => theme.fonts.fontBold};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: ${({ theme }) => theme.rem(25)};
-    margin-bottom: ${({ theme }) => theme.rem(20)};
-  }
-`;
-
-export const StyledItem = styled.div`
+export const StyledWrapper = styled.div`
   background-color: white;
   border-radius: ${({ theme }) => theme.rem(15)};
+  flex: 0 1 calc(25% - ${({ theme }) => theme.rem(20)});
+  margin-bottom: ${({ theme }) => theme.rem(20)};
+  margin-left: ${({ theme }) => theme.rem(10)};
+  margin-right: ${({ theme }) => theme.rem(10)};
+  max-width: calc(25% - ${({ theme }) => theme.rem(20)});
   overflow: hidden;
   padding: 0 0 ${({ theme }) => theme.rem(10)} 0;
   position: relative;
-`;
 
-export const StyledTabsList = styled(TabList)`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-left: ${({ theme }) => theme.rem(-20)};
-  margin-right: ${({ theme }) => theme.rem(-20)};
-`;
-
-export const StyledTab = styled(Tab)`
-  border-radius: ${({ theme }) => theme.rem(15)};
-  border: ${({ theme }) => `${theme.rem(3)} solid black`};
-  cursor: pointer;
-  flex: 0 1 calc(33.33333% - ${({ theme }) => theme.rem(20)});
-  height: ${({ theme }) => theme.rem(150)};
-  margin: ${({ theme }) => `0 ${theme.rem(10)} ${theme.rem(20)}`};
-  padding: ${({ theme }) => `${theme.rem(20)} 0  0 ${theme.rem(20)}`};
-  font: ${({ theme }) => `${theme.rem(26)} ${theme.fonts.fontBold}`};
-`;
-
-export const StyledItemLayout = styled.div`
-  position: relative;
+  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    flex: 0 1 calc(25% - ${({ theme }) => theme.rem(10)});
+    margin-bottom: ${({ theme }) => theme.rem(10)};
+    margin-left: ${({ theme }) => theme.rem(5)};
+    margin-right: ${({ theme }) => theme.rem(5)};
+    max-width: calc(25% - ${({ theme }) => theme.rem(10)});
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    flex: 0 1 calc(50% - ${({ theme }) => theme.rem(10)});
+    margin-bottom: ${({ theme }) => theme.rem(10)};
+    margin-left: ${({ theme }) => theme.rem(5)};
+    margin-right: ${({ theme }) => theme.rem(5)};
+    max-width: calc(50% - ${({ theme }) => theme.rem(10)});
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-bottom: ${({ theme }) => theme.rem(10)};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
     display: flex;
+    flex: 0 1 calc(100% - ${({ theme }) => theme.rem(10)});
+    max-width: 100%;
+    padding-bottom: 0;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
     flex-direction: column;
   }
 `;
 
-export const StyledItemImage = styled(Image)`
-  height: 100%;
-  object-fit: cover;
-  transition: 0.5s;
-  width: 100%;
+export const StyledLayout = styled.div`
+  position: relative;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
+    padding-bottom: ${({ theme }) => theme.rem(60)};
+  }
 `;
 
-export const StyledItemImageHolder = styled.div`
+export const StyledImage = styled(Image)`
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+  width: 100%;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    border-top-left-radius: ${({ theme }) => theme.rem(15)};
+    border-bottom-left-radius: ${({ theme }) => theme.rem(15)};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
+    border-bottom-left-radius: 0;
+  }
+`;
+
+export const StyledImageHolder = styled.div`
   height: ${({ theme }) => theme.rem(340)};
   margin-bottom: ${({ theme }) => theme.rem(20)};
   overflow: hidden;
+  position: relative;
   text-align: center;
-  transform: scale(1);
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex: 0 1 ${({ theme }) => theme.rem(230)};
@@ -84,7 +93,14 @@ export const StyledItemImageHolder = styled.div`
     min-width: ${({ theme }) => theme.rem(230)};
   }
 
-  &:hover ${StyledItemImage} {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    flex: 0 1 ${({ theme }) => theme.rem(180)};
+    height: ${({ theme }) => theme.rem(250)};
+    margin-bottom: 0;
+    min-width: ${({ theme }) => theme.rem(180)};
+  }
+
+  &:hover ${StyledImage} {
     transform: scale(1.05);
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -93,50 +109,55 @@ export const StyledItemImageHolder = styled.div`
   }
 `;
 
-export const StyledItemLink = styled.a`
+export const StyledLink = styled.a`
   color: inherit;
   display: block;
   height: 100%;
   text-decoration: none;
 `;
 
-export const StyledItemContent = styled.div`
-  min-height: ${({ theme }) => theme.rem(180)};
+export const StyledContent = styled.div`
+  min-height: ${({ theme }) => theme.rem(115)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    min-height: ${({ theme }) => theme.rem(140)};
+  }
 `;
 
-export const StyledItemTitle = styled.div`
-  font: ${({ theme }) => theme.rem(20)} ${({ theme }) => theme.fonts.fontBold};
+export const StyledTitle = styled.div`
+  font: ${({ theme }) => theme.rem(22)} ${({ theme }) => theme.fonts.fontBold};
   margin-bottom: ${({ theme }) => theme.rem(7)};
-  min-height: ${({ theme }) => theme.rem(48)};
   padding: 0 ${({ theme }) => theme.rem(20)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 0 ${({ theme }) => theme.rem(10)};
     line-height: ${({ theme }) => theme.rem(50)};
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    line-height: 1.2;
+    margin-bottom: ${({ theme }) => theme.rem(9)};
+    margin-top: ${({ theme }) => theme.rem(9)};
+  }
 `;
 
-export const StyledItemFooter = styled.div`
+export const StyledFooter = styled.div`
   align-items: center;
-  bottom: 0;
   display: flex;
   height: ${({ theme }) => theme.rem(47)};
   justify-content: space-between;
-  left: 0;
-  position: absolute;
-  right: 0;
-  width: 100%;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    justify-content: flex-start;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    bottom: 0;
     justify-content: space-between;
+    left: 0;
+    margin-top: ${({ theme }) => theme.rem(5)};
+    position: absolute;
+    right: 0;
   }
 `;
 
-export const StyledItemPrice = styled.div`
+export const StyledPrice = styled.div`
   font: ${({ theme }) => `${theme.rem(25)} ${theme.fonts.fontMedium}`};
   padding-left: ${({ theme }) => theme.rem(20)};
 
@@ -145,7 +166,7 @@ export const StyledItemPrice = styled.div`
   }
 `;
 
-export const StyledItemDesc = styled.div`
+export const StyledDesc = styled.div`
   color: #707171;
   font-size: ${({ theme }) => theme.rem(14)};
   margin-bottom: ${({ theme }) => theme.rem(3)};
@@ -174,9 +195,9 @@ export const StyledItemDesc = styled.div`
   }
 `;
 
-export const StyledItemText = styled.p``;
+export const StyledText = styled.p``;
 
-export const StyledItemButton = styled.button`
+export const StyledButton = styled.button`
   background-color: #da2628;
   border: none;
   border-bottom-left-radius: ${({ theme }) => theme.rem(5)};
@@ -198,6 +219,7 @@ export const StyledItemButton = styled.button`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    border-bottom-left-radius: 0;
     border-top-right-radius: 0;
     height: ${({ theme }) => theme.rem(50)};
     min-width: ${({ theme }) => theme.rem(80)};
@@ -221,7 +243,7 @@ export const StyledLoader = styled.span`
   animation-duration: 0.5s;
   animation-iteration-count: infinite;
   animation-name: ${rotate};
-  animation-timing-function: linear;
+  animation-timing-function: linear;    
   color: ${({ theme }) => theme.colors.red};
   display: flex;
   height: ${({ theme }) => theme.rem(50)};

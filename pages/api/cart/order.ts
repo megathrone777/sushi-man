@@ -170,6 +170,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     );
 
     response.send({ redirect: "/orderConfirmed", statusCode: 0 });
+    return;
   } else {
     const comgateResponse = await fetch(
       "https://payments.comgate.cz/v1.0/create",

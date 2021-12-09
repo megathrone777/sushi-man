@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNotifications } from "reapop";
 import Slider from "react-slick";
 import Link from "next/link";
 
 import { TProps } from "./types";
 import useTranslation from "~/intl/useTranslation";
-import { SvgBuyIcon } from "~/icons";
+import { SvgBuyIcon, SvgLoaderIcon } from "~/icons";
 import { addToCart, TCartProduct, useStore } from "~/store";
 import { TProduct } from "~/components";
 import {
@@ -23,11 +23,13 @@ import {
   StyledItemTitle,
   StyledItem,
   StyledItemButton,
+  StyledLoader,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
 const ProductsRecommended: React.FC<TProps> = ({ products }) => {
   const { dispatch } = useStore();
+  const [imageIsLoading, toggleImageLoading] = useState<boolean>(true);
   const { t } = useTranslation();
   const { notify } = useNotifications();
   const productsTitle = t("recommendedTitle");
@@ -73,6 +75,10 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
     });
   };
 
+  const handleImageLoading = (): void => {
+    toggleImageLoading(false);
+  };
+
   return (
     <StyledWrapper>
       <StyledContainer>
@@ -105,7 +111,21 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
                       passHref
                     >
                       <StyledItemLink>
-                        <StyledItemImage alt="Product" src={image.url} />
+                        {imageIsLoading && (
+                          <StyledLoader>
+                            <SvgLoaderIcon />
+                          </StyledLoader>
+                        )}
+
+                        <StyledItemImage
+                          alt={title}
+                          height={340}
+                          layout="responsive"
+                          objectFit="cover"
+                          onLoadingComplete={handleImageLoading}
+                          src={image.url}
+                          width={285}
+                        />
                       </StyledItemLink>
                     </Link>
                   </StyledItemImageHolder>

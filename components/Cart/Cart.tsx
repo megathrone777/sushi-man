@@ -40,11 +40,13 @@ import {
   StyledAgree,
   StyledLabel,
   StyledLabelLink,
-  StyledColumn,
+  StyledColumnLeft,
+  StyledColumnRight,
   StyledTitle,
   StyledText,
   StyledTextPrice,
   StyledErrorIcon,
+  StyledTerms,
 } from "./styled";
 
 const createOrderMutation = gql`
@@ -330,7 +332,7 @@ const Cart: React.FC = () => {
         });
         return;
       }
-      
+
       if (paymentType === TPayment.CARDPICKUP) {
         createOrderByCash({
           variables: {
@@ -367,28 +369,31 @@ const Cart: React.FC = () => {
             <Products />
 
             <StyledLayout>
-              <StyledColumn>
+              <StyledColumnLeft>
                 <Delivery />
-                <StyledTitle>Podmínky</StyledTitle>
-                <StyledText>
-                  Min. cena objednávky do 3km. -{" "}
-                  <StyledTextPrice>250 Kč</StyledTextPrice>
-                </StyledText>
-                <StyledText>
-                  Min. cena objednávky od 3km. -{" "}
-                  <StyledTextPrice>300 Kč</StyledTextPrice>
-                </StyledText>
-                <StyledText>
-                  Min. cena objednávky při vyzvednutí -{" "}
-                  <StyledTextPrice>150 Kč</StyledTextPrice>
-                </StyledText>
-              </StyledColumn>
 
-              <StyledColumn>
+                <StyledTerms>
+                  <StyledTitle>Podmínky</StyledTitle>
+                  <StyledText>
+                    Min. cena objednávky do 3km. -{" "}
+                    <StyledTextPrice>250 Kč</StyledTextPrice>
+                  </StyledText>
+                  <StyledText>
+                    Min. cena objednávky od 3km. -{" "}
+                    <StyledTextPrice>300 Kč</StyledTextPrice>
+                  </StyledText>
+                  <StyledText>
+                    Min. cena objednávky při vyzvednutí -{" "}
+                    <StyledTextPrice>150 Kč</StyledTextPrice>
+                  </StyledText>
+                </StyledTerms>
+              </StyledColumnLeft>
+
+              <StyledColumnRight>
                 <Persons />
                 <Additionals />
                 <Payment />
-              </StyledColumn>
+              </StyledColumnRight>
             </StyledLayout>
 
             <StyledAgree>

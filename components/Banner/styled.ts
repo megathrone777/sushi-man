@@ -11,10 +11,6 @@ export const StyledWrapper = styled.section<{ inner?: boolean }>`
       height: ${({ theme }) => theme.rem(400)};
       overflow: hidden;
 
-      @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        height: auto;
-      }
-
       @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
         height: ${({ theme }) => theme.rem(150)};
       }
@@ -29,16 +25,20 @@ export const StyledImage = styled.img<{ inner?: boolean }>`
     inner &&
     css`
       position: relative;
-      top: ${({ theme }) => theme.rem(-60)};
 
       @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        top: ${({ theme }) => theme.rem(-20)};
+        height: 100%;
+        object-fit: cover;
+      }
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        height: auto;
       }
 
       @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
         height: ${({ theme }) => theme.rem(350)};
+        top: ${({ theme }) => theme.rem(-20)};
         width: 100%;
-        object-fit: cover;
       }
     `}
 `;

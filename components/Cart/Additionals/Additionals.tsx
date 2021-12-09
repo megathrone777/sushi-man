@@ -10,6 +10,8 @@ import {
 import { SvgPlusIcon, SvgMinusIcon, SvgNoteIcon } from "~/icons";
 import {
   StyledWrapper,
+  StyledLayout,
+  StyledContent,
   StyledTable,
   StyledTitle,
   StyledTableCell,
@@ -20,6 +22,7 @@ import {
   StyledQuantityButton,
   StyledQuantity,
   StyledNoteWrapper,
+  StyledNoteContent,
   StyledNoteIcon,
   StyledNote,
   StyledNoteLabel,
@@ -51,84 +54,92 @@ const Additionals: React.FC = () => {
 
   return (
     <StyledWrapper>
-      <StyledTitle>{t("addMore")}</StyledTitle>
+      <StyledLayout>
+        <StyledContent>
+          <StyledTitle>{t("addMore")}</StyledTitle>
 
-      <StyledTable>
-        {cart.additionals && !!cart.additionals.length && (
-          <tbody>
-            <StyledTableRow>
-              <StyledTableCell colSpan={3}>
-                {t("priceIncluded")}
-              </StyledTableCell>
-            </StyledTableRow>
-            {cart.additionals.map(
-              (
-                {
-                  id: additionalId,
-                  title,
-                  quantity: additionalQuantity = 0,
-                  price,
-                }: TAdditional,
-                index: number
-              ): React.ReactElement => (
-                <StyledTableRow key={`${index}-${title}`}>
-                  <StyledTableCell>
-                    <StyledName>{title}</StyledName>
-                  </StyledTableCell>
-                  <StyledTableCell>
-                    <StyledQuantityWrapper>
-                      <StyledQuantityButton
-                        isDecrease
-                        onClick={() =>
-                          handleQuantityDecrease(
-                            additionalId,
-                            additionalQuantity
-                          )
-                        }
-                        type="button"
-                      >
-                        <SvgMinusIcon />
-                      </StyledQuantityButton>
-                      <StyledQuantity>{additionalQuantity}</StyledQuantity>
-                      <StyledQuantityButton
-                        isIncrease
-                        onClick={() =>
-                          handleQuantityIncrease(
-                            additionalId,
-                            additionalQuantity
-                          )
-                        }
-                        type="button"
-                      >
-                        <SvgPlusIcon />
-                      </StyledQuantityButton>
-                    </StyledQuantityWrapper>
-                  </StyledTableCell>
-
-                  <StyledTableCell>
-                    <StyledPrice>{price * additionalQuantity} Kč</StyledPrice>
+          <StyledTable>
+            {cart.additionals && !!cart.additionals.length && (
+              <tbody>
+                <StyledTableRow>
+                  <StyledTableCell colSpan={3}>
+                    {t("priceIncluded")}
                   </StyledTableCell>
                 </StyledTableRow>
-              )
+                {cart.additionals.map(
+                  (
+                    {
+                      id: additionalId,
+                      title,
+                      quantity: additionalQuantity = 0,
+                      price,
+                    }: TAdditional,
+                    index: number
+                  ): React.ReactElement => (
+                    <StyledTableRow key={`${index}-${title}`}>
+                      <StyledTableCell>
+                        <StyledName>{title}</StyledName>
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <StyledQuantityWrapper>
+                          <StyledQuantityButton
+                            isDecrease
+                            onClick={() =>
+                              handleQuantityDecrease(
+                                additionalId,
+                                additionalQuantity
+                              )
+                            }
+                            type="button"
+                          >
+                            <SvgMinusIcon />
+                          </StyledQuantityButton>
+                          <StyledQuantity>{additionalQuantity}</StyledQuantity>
+                          <StyledQuantityButton
+                            isIncrease
+                            onClick={() =>
+                              handleQuantityIncrease(
+                                additionalId,
+                                additionalQuantity
+                              )
+                            }
+                            type="button"
+                          >
+                            <SvgPlusIcon />
+                          </StyledQuantityButton>
+                        </StyledQuantityWrapper>
+                      </StyledTableCell>
+
+                      <StyledTableCell>
+                        <StyledPrice>
+                          {price * additionalQuantity} Kč
+                        </StyledPrice>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  )
+                )}
+              </tbody>
             )}
-          </tbody>
-        )}
-      </StyledTable>
+          </StyledTable>
+        </StyledContent>
 
-      <StyledNoteLabel>Poznámka</StyledNoteLabel>
+        <StyledNoteWrapper>
+          <StyledNoteLabel>Poznámka</StyledNoteLabel>
 
-      <StyledNoteWrapper>
-        <StyledNoteIcon>
-          <SvgNoteIcon />
-        </StyledNoteIcon>
-      </StyledNoteWrapper>
+          <StyledNoteContent>
+            <StyledNoteIcon>
+              <SvgNoteIcon />
+            </StyledNoteIcon>
+          </StyledNoteContent>
 
-      <StyledNote
-        maxLength={250}
-        onChange={handleNoteChange}
-        placeholder="Pokud si přejete vynechat sezam nebo pálivou omáčku, tak stačí napsat sem.."
-        value={customerNote}
-      />
+          <StyledNote
+            maxLength={250}
+            onChange={handleNoteChange}
+            placeholder="Pokud si přejete vynechat sezam nebo pálivou omáčku, tak stačí napsat sem.."
+            value={customerNote}
+          />
+        </StyledNoteWrapper>
+      </StyledLayout>
     </StyledWrapper>
   );
 };

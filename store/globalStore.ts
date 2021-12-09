@@ -30,10 +30,10 @@ export interface TCartProduct extends TProduct {
 }
 
 export enum TPayment {
-  CARD = "CARD",
-  CARDCOURIER = "CARDCOURIER",
-  CARDPICKUP = "CARDPICKUP", 
-  CASH = "CASH",
+  CARD = "card",
+  CARDCOURIER = "cardCourier",
+  CARDPICKUP = "cardPickup", 
+  CASH = "cash",
 }
 
 export interface TStore {

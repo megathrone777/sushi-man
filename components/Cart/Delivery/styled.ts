@@ -29,7 +29,7 @@ export const StyledInputWrapper = styled.div`
   position: relative;
   width: ${({ theme }) => theme.rem(400)};
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     width: 100%;
   }
 `;
