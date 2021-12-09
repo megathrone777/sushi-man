@@ -115,7 +115,9 @@ const Cart: React.FC = () => {
       })
         .then((response) => response.text())
         .then((data) => {
-          router.push(JSON.parse(data).redirect);
+          if (data) {
+            router.push(JSON.parse(data).redirect);
+          }
         })
         .finally(() => {
           toggleSubmitOrderLoading(false);
@@ -151,7 +153,9 @@ const Cart: React.FC = () => {
       })
         .then((response) => response.text())
         .then((data) => {
-          router.push(JSON.parse(data).redirect);
+          if (data) {
+            router.push(JSON.parse(data).redirect);
+          }
         })
         .finally(() => {
           toggleSubmitOrderLoading(false);
