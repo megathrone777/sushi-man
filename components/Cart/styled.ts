@@ -31,12 +31,16 @@ export const StyledLayout = styled.div`
     "delivery persons"
     "delivery additionals"
     "delivery payment";
-  grid-template-columns: calc(50% - 50px) calc(50% - 50px);
+  grid-template-columns: calc(50% - ${({ theme }) => theme.rem(50)}) calc(
+      50% - ${({ theme }) => theme.rem(50)}
+    );
   justify-content: space-between;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     grid-column-gap: ${({ theme }) => theme.rem(40)};
-    grid-template-columns: calc(50% - 20px) calc(50% - 20px);
+    grid-template-columns: calc(50% - ${({ theme }) => theme.rem(20)}) calc(
+        50% - ${({ theme }) => theme.rem(20)}
+      );
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
