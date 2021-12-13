@@ -1,5 +1,3 @@
-import { TabList, Tab, TabPanel, Tabs } from "react-tabs";
-
 import { css, keyframes, styled } from "~/theme";
 
 const rotate = keyframes`
@@ -43,14 +41,14 @@ export const StyledLayout = styled.div`
   max-width: ${({ theme }) => theme.rem(1200)};
 `;
 
-export const StyledTabs = styled(Tabs)`
+export const StyledTabs = styled.div`
   margin-bottom: ${({ theme }) => theme.rem(20)};
   min-height: ${({ theme }) => theme.rem(440)};
 `;
 
-export const StyledPanel = styled(TabPanel)``;
+export const StyledPanel = styled.div``;
 
-export const StyledTabsList = styled(TabList)`
+export const StyledTabsList = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -64,13 +62,14 @@ export const StyledTabsList = styled(TabList)`
   }
 `;
 
-export const StyledTab = styled(Tab)<{
-  iscollapsed: boolean;
-  isroll: boolean;
-  isset: boolean;
-  issalat: boolean;
-  ispoke: boolean;
-  isdrink: boolean;
+export const StyledTab = styled.div<{
+  isActive: boolean;
+  isCollapsed: boolean;
+  isRoll: boolean;
+  isSet: boolean;
+  isSalat: boolean;
+  isPoke: boolean;
+  isDrink: boolean;
 }>`
   background-position-x: ${({ theme }) => theme.rem(-1)};
   background-repeat: no-repeat;
@@ -80,25 +79,17 @@ export const StyledTab = styled(Tab)<{
   cursor: pointer;
   flex: 0 1
     calc(
-      ${({ iscollapsed }) => (iscollapsed ? "20%" : "33.3333%")} -
+      ${({ isCollapsed }) => (isCollapsed ? "20%" : "33.3333%")} -
         ${({ theme }) => theme.rem(20)}
     );
   font: ${({ theme }) => `${theme.rem(26)} ${theme.fonts.fontBold}`};
-  height: ${({ iscollapsed, theme }) =>
-    iscollapsed ? theme.rem(70) : theme.rem(200)};
+  height: ${({ isCollapsed, theme }) =>
+    isCollapsed ? theme.rem(70) : theme.rem(200)};
   margin: ${({ theme }) => `0 ${theme.rem(10)} ${theme.rem(20)}`};
-  opacity: ${({ iscollapsed }) => (iscollapsed ? "0.7" : 1)};
+  opacity: ${({ isCollapsed }) => (isCollapsed ? "0.7" : 1)};
   overflow: hidden;
   padding: ${({ theme }) => `${theme.rem(20)} 0  0 ${theme.rem(20)}`};
   transition: background-position 0.5s, background-size 0.5s, height 0.5s;
-
-  &.react-tabs__tab--selected {
-    ${({ iscollapsed }) =>
-      iscollapsed &&
-      css`
-        opacity: 1;
-      `}
-  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex: 0 1 calc(50% - ${({ theme }) => theme.rem(10)});
@@ -114,38 +105,44 @@ export const StyledTab = styled(Tab)<{
     background-size: calc(100% + ${({ theme }) => theme.rem(10)}) auto;
   }
 
-  ${({ iscollapsed, isroll }) =>
-    isroll &&
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      opacity: 1;
+    `}
+
+  ${({ isCollapsed, isRoll }) =>
+    isRoll &&
     css`
       background-image: url("/images/rolls_bg.jpg");
       background-position-y: ${({ theme }) =>
-        iscollapsed ? theme.rem(-200) : theme.rem(-280)};
+        isCollapsed ? theme.rem(-200) : theme.rem(-280)};
     `}
 
-  ${({ issalat }) =>
-    issalat &&
+  ${({ isSalat }) =>
+    isSalat &&
     css`
       background-image: url("/images/salats_bg.jpg");
       background-position-y: ${({ theme }) => theme.rem(-220)};
     `}
 
 
-  ${({ isset }) =>
-    isset &&
+  ${({ isSet }) =>
+    isSet &&
     css`
       background-image: url("/images/sets_bg.jpg");
       background-position-y: ${({ theme }) => theme.rem(-140)};
     `}
 
-  ${({ ispoke }) =>
-    ispoke &&
+  ${({ isPoke }) =>
+    isPoke &&
     css`
       background-image: url("/images/poke_bg.jpg");
       background-position-y: ${({ theme }) => theme.rem(-70)};
     `}
 
-  ${({ isdrink }) =>
-    isdrink &&
+  ${({ isDrink }) =>
+    isDrink &&
     css`
       background-image: url("/images/drinks_bg.jpg");
       background-position-y: ${({ theme }) => theme.rem(-180)};

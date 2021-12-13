@@ -103,8 +103,8 @@ const Products: React.FC<TProps> = () => {
             (productsItem: TProduct, index: number): React.ReactElement => (
               <Item
                 key={`${productsItem.slug}-${index}`}
-                {...productsItem}
                 triggerModal={handleModalToggle}
+                {...productsItem}
               />
             )
           )}
@@ -124,8 +124,8 @@ const Products: React.FC<TProps> = () => {
       <StyledContainer>
         <StyledTitle>{productsTitle}</StyledTitle>
 
-        <StyledTabs>
-          {productsCategories && !!productsCategories.length && (
+        {productsCategories && !!productsCategories.length && (
+          <StyledTabs>
             <StyledTabsList>
               {productsCategories.map(
                 (
@@ -133,12 +133,19 @@ const Products: React.FC<TProps> = () => {
                   index: number
                 ): React.ReactElement => (
                   <StyledTab
-                    iscollapsed={categoryType !== null}
-                    isdrink={type === "isDrink"}
-                    ispoke={type === "isPoke"}
-                    isroll={type === "isRoll"}
-                    issalat={type === "isSalat"}
-                    isset={type === "isSet"}
+                    isActive={
+                      (categoryType === "isDrink" && index === 4) ||
+                      (categoryType === "isPoke" && index === 1) ||
+                      (categoryType === "isSet" && index === 2) ||
+                      (categoryType === "isSalat" && index === 3) ||
+                      (categoryType === "isRoll" && index === 0)
+                    }
+                    isCollapsed={categoryType !== null}
+                    isDrink={type === "isDrink"}
+                    isPoke={type === "isPoke"}
+                    isRoll={type === "isRoll"}
+                    isSalat={type === "isSalat"}
+                    isSet={type === "isSet"}
                     key={`${index}-${name}`}
                     onClick={() => handleCategoryChange(type)}
                   >
@@ -147,14 +154,10 @@ const Products: React.FC<TProps> = () => {
                 )
               )}
             </StyledTabsList>
-          )}
 
-          {renderTabPanel()}
-          {renderTabPanel()}
-          {renderTabPanel()}
-          {renderTabPanel()}
-          {renderTabPanel()}
-        </StyledTabs>
+            {renderTabPanel()}
+          </StyledTabs>
+        )}
 
         {productsLoading && (
           <StyledLoader iscollapsed={categoryType !== null}>

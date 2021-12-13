@@ -1,6 +1,5 @@
-import Image from 'next/image';
+import Image from "next/image";
 
-import { TabList, Tab } from "react-tabs";
 import { keyframes, styled } from "~/theme";
 
 const rotate = keyframes`
@@ -34,25 +33,6 @@ export const StyledItem = styled.div`
   overflow: hidden;
   padding: 0 0 ${({ theme }) => theme.rem(10)} 0;
   position: relative;
-`;
-
-export const StyledTabsList = styled(TabList)`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-left: ${({ theme }) => theme.rem(-20)};
-  margin-right: ${({ theme }) => theme.rem(-20)};
-`;
-
-export const StyledTab = styled(Tab)`
-  border-radius: ${({ theme }) => theme.rem(15)};
-  border: ${({ theme }) => `${theme.rem(3)} solid black`};
-  cursor: pointer;
-  flex: 0 1 calc(33.33333% - ${({ theme }) => theme.rem(20)});
-  height: ${({ theme }) => theme.rem(150)};
-  margin: ${({ theme }) => `0 ${theme.rem(10)} ${theme.rem(20)}`};
-  padding: ${({ theme }) => `${theme.rem(20)} 0  0 ${theme.rem(20)}`};
-  font: ${({ theme }) => `${theme.rem(26)} ${theme.fonts.fontBold}`};
 `;
 
 export const StyledItemLayout = styled.div`

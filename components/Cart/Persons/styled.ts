@@ -1,10 +1,10 @@
 import { styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
+  grid-area: persons;
   margin-bottom: ${({ theme }) => theme.rem(20)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    flex-direction: column-reverse;
     margin-bottom: ${({ theme }) => theme.rem(20)};
   }
 `;

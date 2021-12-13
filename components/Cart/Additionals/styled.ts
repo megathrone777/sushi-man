@@ -1,6 +1,7 @@
 import { styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
+  grid-area: additionals;
   margin-bottom: ${({ theme }) => theme.rem(40)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -9,12 +10,7 @@ export const StyledWrapper = styled.div`
   }
 `;
 
-export const StyledLayout = styled.div`
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    display: flex;
-    flex-direction: column-reverse;
-  }
-`;
+export const StyledLayout = styled.div``;
 
 export const StyledContent = styled.div``;
 

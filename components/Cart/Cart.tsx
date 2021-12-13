@@ -40,13 +40,11 @@ import {
   StyledAgree,
   StyledLabel,
   StyledLabelLink,
-  StyledColumnLeft,
-  StyledColumnRight,
-  StyledTitle,
-  StyledText,
-  StyledTextPrice,
+  // StyledTitle,
+  // StyledText,
+  // StyledTextPrice,
   StyledErrorIcon,
-  StyledTerms,
+  // StyledTerms,
 } from "./styled";
 
 const createOrderMutation = gql`
@@ -373,10 +371,9 @@ const Cart: React.FC = () => {
             <Products />
 
             <StyledLayout>
-              <StyledColumnLeft>
-                <Delivery />
+              <Delivery />
 
-                <StyledTerms>
+              {/* <StyledTerms>
                   <StyledTitle>Podmínky</StyledTitle>
                   <StyledText>
                     Min. cena objednávky do 3km. -{" "}
@@ -390,14 +387,11 @@ const Cart: React.FC = () => {
                     Min. cena objednávky při vyzvednutí -{" "}
                     <StyledTextPrice>150 Kč</StyledTextPrice>
                   </StyledText>
-                </StyledTerms>
-              </StyledColumnLeft>
+                </StyledTerms> */}
 
-              <StyledColumnRight>
-                <Persons />
-                <Additionals />
-                <Payment />
-              </StyledColumnRight>
+              <Persons />
+              <Additionals />
+              <Payment />
             </StyledLayout>
 
             <StyledAgree>

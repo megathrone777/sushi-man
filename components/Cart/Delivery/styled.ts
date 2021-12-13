@@ -1,6 +1,7 @@
 import { styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
+  grid-area: delivery;
   margin-bottom: ${({ theme }) => theme.rem(20)};
 `;
 

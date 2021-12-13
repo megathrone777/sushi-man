@@ -25,29 +25,28 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledLayout = styled.div`
-  align-items: flex-start;
-  display: flex;
+  display: grid;
+  grid-column-gap: ${({ theme }) => theme.rem(100)};
+  grid-template-areas:
+    "delivery persons"
+    "delivery additionals"
+    "delivery payment";
+  grid-template-columns: calc(50% - 50px) calc(50% - 50px);
   justify-content: space-between;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    flex-direction: column;
-  }
-`;
-
-const StyledColumn = styled.div`
-  width: calc(50% - ${({ theme }) => theme.rem(50)});
-
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    width: calc(50% - ${({ theme }) => theme.rem(20)});
+    grid-column-gap: ${({ theme }) => theme.rem(40)};
+    grid-template-columns: calc(50% - 20px) calc(50% - 20px);
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 100%;
+    grid-template-areas:
+      "persons persons"
+      "delivery delivery"
+      "additionals additionals"
+      "payment payment";
   }
 `;
-
-export const StyledColumnLeft = styled(StyledColumn)``;
-export const StyledColumnRight = styled(StyledColumn)``;
 
 export const StyledTitle = styled.h2`
   border-bottom: ${({ theme }) => theme.rem(3)} solid #da2628;
