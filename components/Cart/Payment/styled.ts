@@ -1,4 +1,4 @@
-import { styled } from "~/theme";
+import { css, styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
   grid-area: payment;
@@ -20,8 +20,12 @@ export const StyledImage = styled.img`
   width: auto;
 `;
 
-export const StyledRow = styled.div`
+export const StyledRow = styled.div<{ isHidden?: boolean }>`
   margin-bottom: ${({ theme }) => theme.rem(15)};
+
+  ${({ isHidden }) => isHidden && css`
+    display: none;
+  `}
 `;
 
 export const StyledRadioWrapper = styled.div`

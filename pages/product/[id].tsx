@@ -75,6 +75,10 @@ ProductPage.getInitialProps = async ({ query: { id } }) => {
             }
           }
           isRoll
+          isPoke
+          isSet
+          isSalat
+          isDrink
           title
           slug
           weight

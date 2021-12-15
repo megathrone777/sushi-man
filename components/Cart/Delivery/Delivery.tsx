@@ -22,6 +22,8 @@ import {
   setCustomerPhoneError,
   setCustomerNameError,
   setCustomerAddressError,
+  setPaymentType,
+  TPayment,
 } from "~/store";
 import { SvgExclamationIcon } from "~/icons";
 import {
@@ -48,6 +50,9 @@ import {
   StyledDeliveryError,
   StyledErrorIcon,
   StyledDeliveryPriceResult,
+  StyledTerms,
+  StyledText,
+  StyledTextPrice,
 } from "./styled";
 
 const Delivery: React.FC = () => {
@@ -172,7 +177,11 @@ const Delivery: React.FC = () => {
   }, [dispatch, deliveryDistance]);
 
   useEffect((): void => {
-    if (isPickupChecked) return;
+    if (isPickupChecked) {
+      return;
+    } else {
+      dispatch(setPaymentType(TPayment.CARD));
+    }
 
     const map = new google.maps.Map(mapElement.current, {
       center: { lat: 50.08661, lng: 14.448785 },
@@ -335,7 +344,7 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledEmailInput 
+              <StyledEmailInput
                 hasError={customerEmailError}
                 onChange={handleEmailChange}
                 placeholder={customerEmailError ? "Vyplňte e-mail" : t("email")}
@@ -404,6 +413,22 @@ const Delivery: React.FC = () => {
           </StyledForm>
         )}
       </StyledLayout>
+
+      <StyledTerms>
+        <StyledTitle>Podmínky</StyledTitle>
+        <StyledText>
+          Min. cena objednávky do 3km. -{" "}
+          <StyledTextPrice>250 Kč</StyledTextPrice>
+        </StyledText>
+        <StyledText>
+          Min. cena objednávky od 3km. -{" "}
+          <StyledTextPrice>300 Kč</StyledTextPrice>
+        </StyledText>
+        <StyledText>
+          Min. cena objednávky při vyzvednutí -{" "}
+          <StyledTextPrice>600 Kč</StyledTextPrice>
+        </StyledText>
+      </StyledTerms>
     </StyledWrapper>
   );
 };

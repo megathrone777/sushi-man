@@ -18,7 +18,7 @@ const notification = css`
       justify-content: space-between;
       margin-bottom: ${({ theme }) => theme.rem(20)};
       padding: ${({ theme }) => theme.rem(20)} ${({ theme }) => theme.rem(30)};
-      width: ${({ theme }) => theme.rem(470)};
+      width: ${({ theme }) => theme.rem(480)};
 
       &--success {
         background-color: white;

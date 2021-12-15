@@ -27,6 +27,8 @@ query ProductPageQuery {
     isRoll
     isSalat
     isDrink
+    isPoke
+    isSet
     price
     slug
     title

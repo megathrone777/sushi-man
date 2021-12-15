@@ -30,6 +30,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     paymentType,
   } = request.body;
 
+  console.log(paymentType);
+
   if (paymentType === TPayment.CASH) {
     telegramSendMessage(
       `Заказ №${orderId}
@@ -99,7 +101,12 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       }
     );
 
+    response.setHeader(
+      "Cache-Control",
+      "no-cache, no-store, max-age=0, must-revalidate"
+    );
     response.send({ redirect: "/orderConfirmed", statusCode: 0 });
+    return;
   } else if (paymentType === TPayment.CARDPICKUP) {
     telegramSendMessage(
       `Заказ №${orderId}
@@ -169,6 +176,10 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       }
     );
 
+    response.setHeader(
+      "Cache-Control",
+      "no-cache, no-store, max-age=0, must-revalidate"
+    );
     response.send({ redirect: "/orderConfirmed", statusCode: 0 });
     return;
   } else {
@@ -250,6 +261,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       });
 
       response.send({ redirect, message, statusCode: 0 });
+      return;
     }
   }
 };

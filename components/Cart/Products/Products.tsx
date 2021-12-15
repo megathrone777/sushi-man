@@ -149,7 +149,7 @@ const Products: React.FC = () => {
                     {product_modifiers.map(
                       ({ name }: TProductModifier): React.ReactElement => (
                         <StyledModifiersItem key={`${index}-${name}`}>
-                          {name.substring(6, name.length)}
+                          {name}
                         </StyledModifiersItem>
                       )
                     )}

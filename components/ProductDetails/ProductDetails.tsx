@@ -42,6 +42,7 @@ const ProductDetails: React.FC<TProps> = ({
   isRoll,
   isDrink,
   isSalat,
+  isPoke,
   price,
   product_modifiers,
   slug,
@@ -68,7 +69,7 @@ const ProductDetails: React.FC<TProps> = ({
       return;
     }
 
-    if (!!selectedModifiers.length && selectedSubModifiers.length === 0) {
+    if (!isPoke && !!selectedModifiers.length && selectedSubModifiers.length === 0) {
       notify({
         dismissAfter: 3000,
         dismissible: true,
@@ -95,6 +96,18 @@ const ProductDetails: React.FC<TProps> = ({
   };
 
   const handleModifierChange = (modifier: TProductModifier): void => {
+    if (isPoke) {
+      const newModidiers = [...selectedModifiers];
+
+      newModidiers.length = 0;
+      newModidiers.push(modifier);
+      setSelectedModifiers(newModidiers)
+      setTotalPrice((prevTotalPrice: number): number => {
+        return prevTotalPrice + parseInt(modifier.price);
+      });
+      return;
+    }
+
     if (
       selectedModifiers.some(
         (selectedModifier: TProductModifier): boolean =>
@@ -198,12 +211,13 @@ const ProductDetails: React.FC<TProps> = ({
                         <StyledModifiersItem key={`${index}-${modifier.name}`}>
                           <StyledMofifiersCheckbox
                             id={modifier.id}
+                            name="modifier"
                             onChange={() => handleModifierChange(modifier)}
                             checked={selectedModifiers.some(
                               (selectedModifier: TProductModifier) =>
                                 selectedModifier.id === modifier.id
                             )}
-                            type="checkbox"
+                            type={isPoke ? "radio" : "checkbox"}
                           />
                           <StyledModifierLabel htmlFor={modifier.id}>
                             {modifier.name} +{" "}
@@ -255,6 +269,7 @@ const ProductDetails: React.FC<TProps> = ({
                 </StyledModifiers>
               </>
             )}
+
             {product_modifiers && !!product_modifiers.length && (
               <StyledItemPrice>
                 <StyledItemTitle>{t("priceTotal")}:</StyledItemTitle>
@@ -275,6 +290,7 @@ const ProductDetails: React.FC<TProps> = ({
                 isRoll,
                 isDrink,
                 isSalat,
+                isPoke,
                 price,
                 product_modifiers: selectedModifiers,
                 product_submodifiers: selectedSubModifiers,

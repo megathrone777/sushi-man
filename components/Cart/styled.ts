@@ -59,17 +59,6 @@ export const StyledTitle = styled.h2`
   padding: ${({ theme }) => theme.rem(10)};
 `;
 
-export const StyledText = styled.p`
-  font-family: ${({ theme }) => theme.fonts.fontMedium};
-  margin-bottom: ${({ theme }) => theme.rem(12)};
-  padding-left: ${({ theme }) => theme.rem(10)};
-`;
-
-export const StyledTextPrice = styled.span`
-  color: #da2628;
-  font-family: ${({ theme }) => theme.fonts.fontBold};
-`;
-
 export const StyledTotal = styled.div`
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
   margin-bottom: ${({ theme }) => theme.rem(22)};
@@ -189,10 +178,4 @@ export const StyledErrorIcon = styled.span`
   margin-right: ${({ theme }) => theme.rem(5)};
   margin-top: ${({ theme }) => theme.rem(-7)};
   width: ${({ theme }) => theme.rem(20)};
-`;
-
-export const StyledTerms = styled.div`
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-bottom: ${({ theme }) => theme.rem(30)};
-  }
 `;

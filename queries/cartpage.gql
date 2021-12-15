@@ -33,6 +33,8 @@ query CartPageQuery {
     isRoll
     isSalat
     isDrink
+    isSet
+    isPoke
     price
     slug
     title

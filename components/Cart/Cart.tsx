@@ -40,11 +40,7 @@ import {
   StyledAgree,
   StyledLabel,
   StyledLabelLink,
-  // StyledTitle,
-  // StyledText,
-  // StyledTextPrice,
   StyledErrorIcon,
-  // StyledTerms,
 } from "./styled";
 
 const createOrderMutation = gql`
@@ -89,6 +85,44 @@ const Cart: React.FC = () => {
   );
 
   const [createOrderByCard] = useMutation(createOrderMutation, {
+    client,
+    onCompleted: (data) => {
+      fetch("/api/cart/order", {
+        method: "POST",
+        body: JSON.stringify({
+          additionals: selectedAdditionals,
+          address: customerAddress,
+          cutleryAmount,
+          deliveryPrice,
+          name: customerName,
+          phone: customerPhone,
+          email: customerEmail,
+          note: customerNote,
+          orderId: data["createOrder"]["order"]["id"],
+          orderPrice: data["createOrder"]["order"]["price"],
+          paymentType,
+          products,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          if (data) {
+            router.push(JSON.parse(data).redirect);
+          }
+        })
+        .finally(() => {
+          toggleSubmitOrderLoading(false);
+        });
+    },
+    onError: () => {
+      alert("Cannot create order card");
+    },
+  });
+
+  const [createOrderByPickup] = useMutation(createOrderMutation, {
     client,
     onCompleted: (data) => {
       fetch("/api/cart/order", {
@@ -189,17 +223,17 @@ const Cart: React.FC = () => {
     totalRollsDiscount;
 
   const totalOrderPrice =
-    totalPrice - (isPickupChecked && totalPrice > 350 ? 50 : 0);
+    totalPrice - (isPickupChecked && totalPrice > 600 ? 50 : 0);
 
   const checkCartFields = (): boolean => {
-    if (isPickupChecked && totalPrice < 150) {
+    if (isPickupChecked && totalPrice < 600) {
       notify({
         dismissAfter: 3000,
         dismissible: true,
         position: "bottom-center",
         showDismissButton: true,
         status: "error",
-        title: `Min. cena objednávky při vyzvednutí - 150 Kč`,
+        title: `Min. cena objednávky při vyzvednutí - 600 Kč`,
       });
       return;
     }
@@ -326,6 +360,15 @@ const Cart: React.FC = () => {
         },
       };
 
+      if (paymentType === TPayment.CARDPICKUP) {
+        createOrderByPickup({
+          variables: {
+            createOrderInput,
+          },
+        });
+        return;
+      }
+
       if (paymentType === TPayment.CASH) {
         createOrderByCash({
           variables: {
@@ -335,32 +378,22 @@ const Cart: React.FC = () => {
         return;
       }
 
-      if (paymentType === TPayment.CARDPICKUP) {
-        createOrderByCash({
+      if (paymentType === TPayment.CARD) {
+        createOrderByCard({
           variables: {
             createOrderInput,
           },
         });
         return;
       }
-
-      createOrderByCard({
-        variables: {
-          createOrderInput,
-        },
-      });
     }
   };
 
   useEffect((): void => {
-    router.replace(
-      {
-        pathname: location.pathname,
-        query: {},
-      },
-      undefined,
-      { scroll: false }
-    );
+    router.replace({
+      pathname: location.pathname,
+      query: {},
+    });
   }, []);
 
   return (
@@ -372,23 +405,6 @@ const Cart: React.FC = () => {
 
             <StyledLayout>
               <Delivery />
-
-              {/* <StyledTerms>
-                  <StyledTitle>Podmínky</StyledTitle>
-                  <StyledText>
-                    Min. cena objednávky do 3km. -{" "}
-                    <StyledTextPrice>250 Kč</StyledTextPrice>
-                  </StyledText>
-                  <StyledText>
-                    Min. cena objednávky od 3km. -{" "}
-                    <StyledTextPrice>300 Kč</StyledTextPrice>
-                  </StyledText>
-                  <StyledText>
-                    Min. cena objednávky při vyzvednutí -{" "}
-                    <StyledTextPrice>150 Kč</StyledTextPrice>
-                  </StyledText>
-                </StyledTerms> */}
-
               <Persons />
               <Additionals />
               <Payment />

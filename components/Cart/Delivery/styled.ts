@@ -23,7 +23,9 @@ export const StyledHeader = styled.div`
 
 export const StyledForm = styled.form``;
 
-export const StyledLayout = styled.div``;
+export const StyledLayout = styled.div`
+  margin-bottom: ${({ theme }) => theme.rem(20)};
+`;
 
 export const StyledInputWrapper = styled.div`
   margin-bottom: ${({ theme }) => theme.rem(20)};
@@ -222,4 +224,21 @@ export const StyledErrorIcon = styled.span`
   top: 50%;
   transform: translateY(-50%);
   width: ${({ theme }) => theme.rem(20)};
+`;
+
+export const StyledTerms = styled.div`
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-bottom: ${({ theme }) => theme.rem(30)};
+  }
+`;
+
+export const StyledText = styled.p`
+  font-family: ${({ theme }) => theme.fonts.fontMedium};
+  margin-top: ${({ theme }) => theme.rem(12)};
+  padding-left: ${({ theme }) => theme.rem(10)};
+`;
+
+export const StyledTextPrice = styled.span`
+  color: #da2628;
+  font-family: ${({ theme }) => theme.fonts.fontBold};
 `;

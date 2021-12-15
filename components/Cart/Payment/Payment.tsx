@@ -48,26 +48,24 @@ const Payment: React.FC = () => {
           </StyledRadioWrapper>
         </StyledRow>
 
-        {isPickupChecked && (
-          <StyledRow>
-            <StyledRadioWrapper>
-              <StyledRadio
-                checked={paymentType === TPayment.CARDPICKUP}
-                id="input-card-pickup"
-                name="input-payment"
-                onChange={handlePaymentChange}
-                type="radio"
-                value={TPayment.CARDPICKUP}
-              />
-              <StyledRadioLabel htmlFor="input-card-pickup">
-                <StyledRadioLabelText>
-                  {t("payByCardPickup")}
-                </StyledRadioLabelText>
-                <StyledImage alt="Card" src="/images/payments_img.png" />
-              </StyledRadioLabel>
-            </StyledRadioWrapper>
-          </StyledRow>
-        )}
+        <StyledRow isHidden={!isPickupChecked}>
+          <StyledRadioWrapper>
+            <StyledRadio
+              checked={paymentType === TPayment.CARDPICKUP}
+              id="input-card-pickup"
+              name="input-payment"
+              onChange={handlePaymentChange}
+              type="radio"
+              value={TPayment.CARDPICKUP}
+            />
+            <StyledRadioLabel htmlFor="input-card-pickup">
+              <StyledRadioLabelText>
+                {t("payByCardPickup")}
+              </StyledRadioLabelText>
+              <StyledImage alt="Card" src="/images/payments_img.png" />
+            </StyledRadioLabel>
+          </StyledRadioWrapper>
+        </StyledRow>
 
         {/* <StyledRow>
           <StyledRadioWrapper>

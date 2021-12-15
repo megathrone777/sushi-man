@@ -59,13 +59,14 @@ const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
       });
     },
 
-    [TActionTypes.CLEAR_CART]: (): TStore => ({
-      ...store,
-      cart: {
-        ...store.cart,
-        products: [],
-      },
-    }),
+    [TActionTypes.CLEAR_CART]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
+        cart: {
+          ...store.cart,
+          products: [],
+        },
+      }),
 
     [TActionTypes.DECREASE_QUANTITY]: (): TStore => {
       const products = [...store.cart.products];
@@ -125,16 +126,14 @@ const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
       });
     },
 
-    [TActionTypes.SET_ADDITIONALS]: (): TStore => {
-      return {
+    [TActionTypes.SET_ADDITIONALS]: (): TStore =>
+      setStoreToLocalStorage({
         ...store,
         cart: {
           ...store.cart,
           additionals: payload,
         },
-      };
-    },
-
+      }),
 
     [TActionTypes.SET_SCHEDULE]: (): TStore =>
       setStoreToLocalStorage({
