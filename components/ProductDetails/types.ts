@@ -17,6 +17,7 @@ export interface TProduct {
   isSalat: boolean | null;
   isDrink: boolean | null;
   isPoke: boolean | null;
+  isSet: boolean | null;
   id: string;
   image: {
     url: string;

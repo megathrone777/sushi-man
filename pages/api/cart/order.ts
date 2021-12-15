@@ -30,8 +30,6 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     paymentType,
   } = request.body;
 
-  console.log(paymentType);
-
   if (paymentType === TPayment.CASH) {
     telegramSendMessage(
       `Заказ №${orderId}

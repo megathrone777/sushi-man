@@ -43,6 +43,7 @@ const ProductDetails: React.FC<TProps> = ({
   isDrink,
   isSalat,
   isPoke,
+  isSet,
   price,
   product_modifiers,
   slug,
@@ -69,7 +70,11 @@ const ProductDetails: React.FC<TProps> = ({
       return;
     }
 
-    if (!isPoke && !!selectedModifiers.length && selectedSubModifiers.length === 0) {
+    if (
+      !isPoke &&
+      !!selectedModifiers.length &&
+      selectedSubModifiers.length === 0
+    ) {
       notify({
         dismissAfter: 3000,
         dismissible: true,
@@ -101,7 +106,7 @@ const ProductDetails: React.FC<TProps> = ({
 
       newModidiers.length = 0;
       newModidiers.push(modifier);
-      setSelectedModifiers(newModidiers)
+      setSelectedModifiers(newModidiers);
       setTotalPrice((prevTotalPrice: number): number => {
         return prevTotalPrice + parseInt(modifier.price);
       });
@@ -291,6 +296,7 @@ const ProductDetails: React.FC<TProps> = ({
                 isDrink,
                 isSalat,
                 isPoke,
+                isSet,
                 price,
                 product_modifiers: selectedModifiers,
                 product_submodifiers: selectedSubModifiers,
