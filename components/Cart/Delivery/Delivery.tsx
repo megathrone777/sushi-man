@@ -1,9 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import PhoneInput, {
-  isValidPhoneNumber,
-  formatPhoneNumberIntl,
-  Value as PhoneNumberValue,
-} from "react-phone-number-input/input";
 
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -111,24 +106,14 @@ const Delivery: React.FC = () => {
     dispatch(setPickup(name === "pickup"));
   };
 
-  const handlePhoneChange = (value: PhoneNumberValue): void => {
-    const formattedValue = formatPhoneNumberIntl(value);
-
-    if (
-      !isValidPhoneNumber(formattedValue, {
-        defaultCountry: "CZ",
-      })
-    ) {
-      dispatch(setCustomerPhoneError(true));
-    } else {
+  const handlePhoneChange = ({
+    currentTarget,
+  }: React.SyntheticEvent<HTMLInputElement>): void => {
+    if (currentTarget.value.length > 0) {
       dispatch(setCustomerPhoneError(false));
     }
 
-    if (formattedValue.length === 0) {
-      dispatch(setCustomerPhoneError(false));
-    }
-
-    dispatch(setCustomerPhone(formattedValue));
+    dispatch(setCustomerPhone(currentTarget.value));
   };
 
   const handleEmailChange = ({
@@ -301,8 +286,8 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <PhoneInput
-                inputComponent={StyledPhoneInput}
+              <StyledPhoneInput
+                hasError={customerPhoneError}
                 onChange={handlePhoneChange}
                 placeholder={
                   customerPhoneError ? "Vyplňte telefon" : t("phone")
@@ -359,9 +344,8 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <PhoneInput
+              <StyledPhoneInput
                 hasError={customerPhoneError}
-                inputComponent={StyledPhoneInput}
                 onChange={handlePhoneChange}
                 placeholder={
                   customerPhoneError ? "Vyplňte telefon" : t("phone")
