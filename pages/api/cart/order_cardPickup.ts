@@ -87,12 +87,12 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     `,
     () => {
       if (address) {
-        telegramSendMessage(`${address}`);
+        telegramSendMessage(`${address}`, () => {
+          response.send({ redirect: "/orderConfirmed", statusCode: 0 });
+        });
       }
     }
   );
-
-  response.send({ redirect: "/orderConfirmed", statusCode: 0 });
 };
 
 export { config };
