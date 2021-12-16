@@ -18,7 +18,6 @@ import {
   setCustomerNameError,
   setCustomerPhoneError,
   setCustomerEmailError,
-  TPayment,
 } from "~/store";
 import { Additionals } from "./Additionals";
 import { Delivery } from "./Delivery";
@@ -80,123 +79,13 @@ const Cart: React.FC = () => {
     products,
   } = cart;
 
+  const [createOrder] = useMutation(createOrderMutation, {
+    client,
+  });
+
   const selectedAdditionals = additionals.filter(
     ({ quantity }: TAdditional) => quantity !== undefined && quantity !== 0
   );
-
-  const [createOrderByCard] = useMutation(createOrderMutation, {
-    client,
-    onCompleted: (data) => {
-      fetch("/api/cart/order", {
-        method: "POST",
-        body: JSON.stringify({
-          additionals: selectedAdditionals,
-          address: customerAddress,
-          cutleryAmount,
-          deliveryPrice,
-          name: customerName,
-          phone: customerPhone,
-          email: customerEmail,
-          note: customerNote,
-          orderId: data["createOrder"]["order"]["id"],
-          orderPrice: data["createOrder"]["order"]["price"],
-          paymentType,
-          products,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.text())
-        .then((data) => {
-          if (data) {
-            router.push(JSON.parse(data).redirect);
-          }
-        })
-        .finally(() => {
-          toggleSubmitOrderLoading(false);
-        });
-    },
-    onError: () => {
-      alert("Cannot create order card");
-    },
-  });
-
-  const [createOrderByPickup] = useMutation(createOrderMutation, {
-    client,
-    onCompleted: (data) => {
-      fetch("/api/cart/order", {
-        method: "POST",
-        body: JSON.stringify({
-          additionals: selectedAdditionals,
-          address: customerAddress,
-          cutleryAmount,
-          deliveryPrice,
-          name: customerName,
-          phone: customerPhone,
-          email: customerEmail,
-          note: customerNote,
-          orderId: data["createOrder"]["order"]["id"],
-          orderPrice: data["createOrder"]["order"]["price"],
-          paymentType,
-          products,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.text())
-        .then((data) => {
-          if (data) {
-            router.push(JSON.parse(data).redirect);
-          }
-        })
-        .finally(() => {
-          toggleSubmitOrderLoading(false);
-        });
-    },
-    onError: () => {
-      alert("Cannot create order card");
-    },
-  });
-
-  const [createOrderByCash] = useMutation(createOrderMutation, {
-    client,
-    onCompleted: (data) => {
-      fetch("/api/cart/order", {
-        method: "POST",
-        body: JSON.stringify({
-          additionals: selectedAdditionals,
-          address: customerAddress,
-          cutleryAmount,
-          deliveryPrice,
-          name: customerName,
-          phone: customerPhone,
-          email: customerEmail,
-          note: customerNote,
-          orderId: data["createOrder"]["order"]["id"],
-          orderPrice: data["createOrder"]["order"]["price"],
-          paymentType,
-          products,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.text())
-        .then((data) => {
-          if (data) {
-            router.push(JSON.parse(data).redirect);
-          }
-        })
-        .finally(() => {
-          toggleSubmitOrderLoading(false);
-        });
-    },
-    onError: () => {
-      alert("Cannot create order");
-    },
-  });
 
   const addedProductsPrice: number[] = cart.products.map(
     ({ totalPrice }: TCartProduct): number => totalPrice
@@ -235,6 +124,7 @@ const Cart: React.FC = () => {
         status: "error",
         title: `Min. cena objednávky při vyzvednutí - 600 Kč`,
       });
+      document.getElementById("products").scrollIntoView();
       return;
     }
 
@@ -247,6 +137,7 @@ const Cart: React.FC = () => {
         status: "error",
         title: `Min. cena objednávky do 3km. - 250 Kč (bez ceny dopravy)`,
       });
+      document.getElementById("products").scrollIntoView();
       return;
     }
 
@@ -263,6 +154,7 @@ const Cart: React.FC = () => {
         status: "error",
         title: `Min. cena objednávky od 3km. - 300 Kč (bez ceny dopravy)`,
       });
+      document.getElementById("products").scrollIntoView();
       return;
     }
 
@@ -319,6 +211,7 @@ const Cart: React.FC = () => {
         status: "error",
         title: `Vyplňte povinné údaje`,
       });
+      document.getElementById("persons").scrollIntoView();
       return false;
     }
 
@@ -343,49 +236,62 @@ const Cart: React.FC = () => {
     if (checkCartFields()) {
       toggleSubmitOrderLoading(true);
 
-      const createOrderInput = {
-        data: {
-          address: customerAddress,
-          additionals: selectedAdditionals,
-          cutleryAmount,
-          comgateTransId,
-          deliveryPrice,
-          email: customerEmail,
-          phone: customerPhone,
-          name,
-          note: customerNote,
-          paymentType,
-          price,
-          products,
+      createOrder({
+        variables: {
+          createOrderInput: {
+            data: {
+              address: customerAddress,
+              additionals: selectedAdditionals,
+              cutleryAmount,
+              comgateTransId,
+              deliveryPrice,
+              email: customerEmail,
+              phone: customerPhone,
+              name,
+              note: customerNote,
+              paymentType,
+              price,
+              products,
+            },
+          },
         },
-      };
 
-      if (paymentType === TPayment.CARDPICKUP) {
-        createOrderByPickup({
-          variables: {
-            createOrderInput,
-          },
-        });
-        return;
-      }
+        onCompleted: (data) => {
+          fetch(`/api/cart/order_${paymentType}`, {
+            method: "POST",
+            body: JSON.stringify({
+              additionals: selectedAdditionals,
+              address: customerAddress,
+              cutleryAmount,
+              deliveryPrice,
+              name: customerName,
+              phone: customerPhone,
+              email: customerEmail,
+              note: customerNote,
+              orderId: data["createOrder"]["order"]["id"],
+              orderPrice: data["createOrder"]["order"]["price"],
+              paymentType,
+              products,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => response.text())
+            .then((data) => {
+              if (data) {
+                router.push(JSON.parse(data).redirect);
+              }
+            })
+            .finally(() => {
+              toggleSubmitOrderLoading(false);
+            });
+        },
 
-      if (paymentType === TPayment.CASH) {
-        createOrderByCash({
-          variables: {
-            createOrderInput,
-          },
-        });
-        return;
-      }
-
-      if (paymentType === TPayment.CARD) {
-        createOrderByCard({
-          variables: {
-            createOrderInput,
-          },
-        });
-        return;
-      }
+        onError: () => {
+          alert("Cannot create order card");
+        },
+      });
     }
   };
 

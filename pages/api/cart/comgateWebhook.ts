@@ -117,20 +117,17 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
           ? "Обычная"
           : updateOrder["order"].deliveryPrice >= 100
           ? "Повышенная"
-          : "Бесплатно"
+          : "Самовывоз"
       }
       \n <b>Email:</b> ${updateOrder["order"].email}
       \n <b>Тип оплаты:</b> Картой онлайн
       \n <b>Цена:</b> ${updateOrder["order"].price}Kč      
-      \n <a href="tel:${updateOrder["order"].phone.replaceAll(" ", "")}">${
-          updateOrder["order"].phone.replaceAll(" ", "")
-        } ${updateOrder["order"].name}</a>
-      \n ${
-        updateOrder["order"].address !== null &&
-        updateOrder["order"].address.length > 0
-          ? ""
-          : "Самовывоз"
-      }
+      \n <a href="tel:${updateOrder["order"].phone.replace(
+        / /g,
+        ""
+      )}">${updateOrder["order"].phone.replace(/ /g, "")} ${
+          updateOrder["order"].name
+        }</a>
       `,
         () => {
           if (updateOrder["order"].address) {

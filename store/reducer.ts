@@ -294,14 +294,17 @@ const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
         },
       }),
 
-    [TActionTypes.SET_PAYMENT_TYPE]: (): TStore =>
-      setStoreToLocalStorage({
+    [TActionTypes.SET_PAYMENT_TYPE]: (): TStore => {
+      console.log(payload, "reducer");
+
+      return setStoreToLocalStorage({
         ...store,
         cart: {
           ...store.cart,
           paymentType: payload,
         },
-      }),
+      });
+    },
 
     [TActionTypes.SET_CUSTOMER_NOTE]: (): TStore =>
       setStoreToLocalStorage({

@@ -114,7 +114,7 @@ const Persons: React.FC = () => {
   }, [cart.products]);
 
   return (
-    <StyledWrapper>
+    <StyledWrapper id="persons">
       <StyledTitle>{t("cutleryQuantity")}</StyledTitle>
 
       <StyledTable>

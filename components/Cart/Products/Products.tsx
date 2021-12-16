@@ -110,7 +110,7 @@ const Products: React.FC = () => {
   }, [checkRollsAdded]);
 
   return (
-    <StyledWrapper>
+    <StyledWrapper id="products">
       <StyledTitle>{t("order")}</StyledTitle>
 
       <StyledContent>
