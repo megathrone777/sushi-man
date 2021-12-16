@@ -71,9 +71,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     ${note && note.length > 0 ? `\n${note}` : ""}
     \n <b>Приборы:</b> ${cutleryAmount}
     \n <b>Доставка:</b> ${
-      (address !== null || address !== "") &&
-      deliveryPrice >= 50 &&
-      deliveryPrice < 100
+      deliveryPrice >= 50 && deliveryPrice < 100
         ? "Обычная"
         : deliveryPrice >= 100
         ? "Повышенная"
@@ -94,10 +92,6 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     }
   );
 
-  response.setHeader(
-    "Cache-Control",
-    "no-cache, no-store, max-age=0, must-revalidate"
-  );
   response.send({ redirect: "/orderConfirmed", statusCode: 0 });
 };
 
