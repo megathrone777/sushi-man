@@ -276,16 +276,9 @@ const Cart: React.FC = () => {
             headers: {
               "Content-Type": "application/json",
             },
-          })
-            .then((response) => response.text())
-            .then((data) => {
-              if (data) {
-                router.push(JSON.parse(data).redirect);
-              }
-            })
-            .finally(() => {
-              toggleSubmitOrderLoading(false);
-            });
+          }).finally(() => {
+            toggleSubmitOrderLoading(false);
+          });
         },
 
         onError: () => {
