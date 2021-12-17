@@ -279,6 +279,7 @@ const Cart: React.FC = () => {
           })
             .then((response) => response.json())
             .then((data) => {
+              console.log(data)
               if (data) {
                 router.push(data.redirect);
               }
