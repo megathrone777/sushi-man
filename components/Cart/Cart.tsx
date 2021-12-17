@@ -228,10 +228,6 @@ const Cart: React.FC = () => {
     dispatch(setAgree(currentTarget.checked));
   };
 
-  interface TData {
-    redirect: string;
-  }
-
   const handleBuyClick = (
     name: string,
     comgateTransId: string,

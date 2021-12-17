@@ -5,7 +5,6 @@ import { gql } from "@apollo/client";
 import client from "~/apollo-client";
 import { TBanner, Banner, LayoutSecondary, OrderConfirmed } from "~/components";
 
-
 import OrderConfirmedPageQuery from "~/queries/rulespage.gql";
 
 interface TProps {

@@ -6,6 +6,7 @@ export { Delivery } from "./Delivery";
 export { Layout, LayoutSecondary } from "./Layout";
 export { Media } from "./Media";
 export { Modal } from "./Modal";
+export { ModalDay } from "./ModalDay";
 export { OrderConfirmed } from "./OrderConfirmed";
 export { ProductDetails } from "./ProductDetails";
 export { Products } from "./Products";

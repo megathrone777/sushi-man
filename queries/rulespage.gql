@@ -1,4 +1,10 @@
 query TermsPageQuery {
+  days(where: { active: true }) {
+    day
+    schedule
+    title
+  }
+
   hero_cs: hero(locale: "cs") {
     image {
       url

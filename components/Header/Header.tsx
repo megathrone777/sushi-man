@@ -4,7 +4,6 @@ import { Menu, TMenuItem } from "./Menu";
 import { Logo } from "./Logo";
 import { Contact } from "./Contact";
 import { Cart } from "./Cart";
-import { useStore } from "~/store";
 import {
   StyledHeader,
   StyledLayout,
@@ -20,8 +19,6 @@ interface TProps {
 }
 
 const Header: React.FC<TProps> = ({ menuItems, inner }) => {
-  const { store } = useStore();
-  const { shopSettings } = store;
   const [menuIsOpened, toggleMenuIsOpened] = useState<boolean>(false);
 
   const handleMenu = (): void => {
@@ -49,7 +46,7 @@ const Header: React.FC<TProps> = ({ menuItems, inner }) => {
               closeMenu={() => toggleMenuIsOpened(false)}
             />
             <Contact />
-            {!shopSettings.shopIsClosed && <Cart />}
+            <Cart />
           </StyledContent>
           <StyledButton
             isOpened={menuIsOpened}

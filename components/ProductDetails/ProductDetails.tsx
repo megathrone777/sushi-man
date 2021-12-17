@@ -65,7 +65,7 @@ const ProductDetails: React.FC<TProps> = ({
   const { shopSettings } = store;
 
   const handleAddToCart = (product: TCartProduct): void => {
-    if (shopSettings.shopIsClosed) {
+    if (shopSettings.ordersStop) {
       toggleModalOpened(true);
       return;
     }

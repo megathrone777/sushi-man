@@ -5,6 +5,12 @@ query CartPageQuery {
     price
   }
 
+  days(where: { active: true }) {
+    day
+    schedule
+    title
+  }
+
   hero_cs: hero(locale: "cs") {
     image {
       url
@@ -47,7 +53,6 @@ query CartPageQuery {
 
   shop {
     ordersStop
-    shopIsClosed
   }
 
   schedule_cs: schedule(locale: "cs") {

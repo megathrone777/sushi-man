@@ -43,7 +43,7 @@ const Item: React.FC<TProps> = ({
   const { shopSettings } = store;
 
   const handleAddToCart = (product: TCartProduct): void => {
-    if (shopSettings.shopIsClosed || shopSettings.ordersStop) {
+    if (shopSettings.ordersStop) {
       triggerModal(true);
       return;
     }

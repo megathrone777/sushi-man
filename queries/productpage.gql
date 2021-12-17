@@ -1,4 +1,10 @@
 query ProductPageQuery {
+  days(where: { active: true }) {
+    day
+    schedule
+    title
+  }
+
   hero_cs: hero(locale: "cs") {
     image {
       url
@@ -37,6 +43,5 @@ query ProductPageQuery {
 
   shop {
     ordersStop
-    shopIsClosed
   }
 }

@@ -124,6 +124,7 @@ IndexPage.getInitialProps = async () => {
       about_ru,
       banner_ru,
       banner_cs,
+      days,
       deliveryTitle_cs,
       deliveryTitle_ru,
       deliveryItems,
@@ -151,6 +152,7 @@ IndexPage.getInitialProps = async () => {
       banner_cs,
       banner_ru,
     },
+    days,
     delivery: {
       deliveryTitle: {
         deliveryTitle_cs,

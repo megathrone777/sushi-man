@@ -8,19 +8,6 @@ import { StyledButton, StyledWrapper, StyledDivider } from "./styled";
 const Settings: React.FC = () => {
   const { dispatch, store } = useStore();
   const { shopSettings } = store;
-  const [sendShopIsClosed] = useMutation(
-    gql`
-      mutation Mutation($updateShopInput: updateShopInput) {
-        updateShop(input: $updateShopInput) {
-          shop {
-            shopIsClosed
-          }
-        }
-      }
-    `,
-    { client }
-  );
-
   const [sendOrdersStop] = useMutation(
     gql`
       mutation Mutation($updateShopInput: updateShopInput) {
@@ -33,25 +20,6 @@ const Settings: React.FC = () => {
     `,
     { client }
   );
-
-  const handleShopClosedToggle = (): void => {
-    sendShopIsClosed({
-      variables: {
-        updateShopInput: {
-          data: {
-            shopIsClosed: !shopSettings.shopIsClosed,
-          },
-        },
-      },
-    });
-
-    dispatch(
-      setShopSettings({
-        ...shopSettings,
-        shopIsClosed: !shopSettings.shopIsClosed,
-      })
-    );
-  };
 
   const handleOrdersStopToggle = (): void => {
     sendOrdersStop({
@@ -74,10 +42,6 @@ const Settings: React.FC = () => {
 
   return (
     <StyledWrapper>
-      <StyledButton onClick={handleShopClosedToggle} type="button">
-        {shopSettings.shopIsClosed ? "Открыть смену" : "Закрыть смену"}
-      </StyledButton>
-
       <StyledDivider />
 
       <StyledButton onClick={handleOrdersStopToggle} type="button">

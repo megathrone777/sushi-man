@@ -19,7 +19,6 @@ export interface TSchedule {
 
 export interface TShopSettings {
   ordersStop: boolean;
-  shopIsClosed: boolean;
 }
 
 export interface TCartProduct extends TProduct {
@@ -29,10 +28,16 @@ export interface TCartProduct extends TProduct {
   totalPrice: number;
 }
 
+export interface TModalDay {
+  active: boolean;
+  schedule: string;
+  title: string;
+}
+
 export enum TPayment {
   CARD = "card",
   CARDCOURIER = "cardCourier",
-  CARDPICKUP = "cardPickup", 
+  CARDPICKUP = "cardPickup",
   CASH = "cash",
 }
 
@@ -61,6 +66,7 @@ export interface TStore {
     products: TCartProduct[];
     totalRollsDiscount: number;
   };
+  modalDay: boolean;
   schedule: {
     schedule_cs: TSchedule;
     schedule_ru: TSchedule;
@@ -93,6 +99,7 @@ const initialStore: TStore = {
     products: [],
     totalRollsDiscount: 0,
   },
+  modalDay: false,
   schedule: {
     schedule_cs: {
       locale: "",
@@ -109,7 +116,6 @@ const initialStore: TStore = {
   },
   shopSettings: {
     ordersStop: false,
-    shopIsClosed: false,
   },
 };
 
