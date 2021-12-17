@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+import { Cart } from "./Cart";
 import { Modal } from "~/components";
 import { TContactsLink } from "~/components/Modal";
 import useTranslation from "~/intl/useTranslation";
@@ -188,6 +189,8 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
           </StyledCopyLink>
         </StyledCopyText>
       </StyledCopy>
+
+      <Cart />
 
       <StyledScrollButton onClick={handleScrollTop} type="button">
         <SvgArrowTopIcon />
