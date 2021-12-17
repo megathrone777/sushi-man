@@ -14,18 +14,4 @@ module.exports = {
   webpackDevMiddleware: (config) => {
     return config;
   },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: "/api/cart/order_cash",
-  //       destination: "/orderConfirmed",
-  //       permanent: false,
-  //     },
-  //     {
-  //       source: "/api/cart/order_cardPickup",
-  //       destination: "/orderConfirmed",
-  //       permanent: false,
-  //     },
-  //   ];
-  // },
 };

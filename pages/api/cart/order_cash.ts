@@ -89,9 +89,12 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     () => {
       if (address) {
         telegramSendMessage(`${address}`, () => {
-          response.writeHead(302, { Location: "/orderConfirmed" }).end();
+          response.send({ redirect: "/orderConfirmed" });
+          return;
         });
       }
+
+      response.send({ redirect: "/orderConfirmed" });
     }
   );
 };

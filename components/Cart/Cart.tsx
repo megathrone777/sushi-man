@@ -228,6 +228,10 @@ const Cart: React.FC = () => {
     dispatch(setAgree(currentTarget.checked));
   };
 
+  interface TData {
+    redirect: string;
+  }
+
   const handleBuyClick = (
     name: string,
     comgateTransId: string,
@@ -276,9 +280,16 @@ const Cart: React.FC = () => {
             headers: {
               "Content-Type": "application/json",
             },
-          }).finally(() => {
-            toggleSubmitOrderLoading(false);
-          });
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data) {
+                router.push(data.redirect);
+              }
+            })
+            .finally(() => {
+              toggleSubmitOrderLoading(false);
+            });
         },
 
         onError: () => {

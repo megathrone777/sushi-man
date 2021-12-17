@@ -92,7 +92,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       },
     });
 
-    response.redirect(redirect);
+    response.send({ redirect });
   }
 };
 
