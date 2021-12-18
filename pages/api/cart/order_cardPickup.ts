@@ -80,17 +80,15 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   )} ${name}</a>
   `;
 
-  console.log(message);
-
   telegramSendMessage(message, () => {
     if (address) {
       telegramSendMessage(`${address}`, () => {
         response.send({ redirect: "/orderConfirmed" });
         return;
       });
+    } else {
+      response.send({ redirect: "/orderConfirmed" });
     }
-
-    response.send({ redirect: "/orderConfirmed" });
   });
 };
 
