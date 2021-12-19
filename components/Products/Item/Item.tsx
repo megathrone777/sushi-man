@@ -16,7 +16,8 @@ import {
   StyledPrice,
   StyledText,
   StyledTitle,
-  StyledButton,
+  StyledAddButton,
+  StyledAddLink,
   StyledLoader,
   StyledImage,
 } from "./styled";
@@ -123,33 +124,41 @@ const Item: React.FC<TProps> = ({
             <StyledText>{price} Kč</StyledText>
           </StyledPrice>
 
-          <StyledButton
-            onClick={() =>
-              handleAddToCart({
-                allergeny,
-                image: {
-                  url: image.url,
-                },
-                id,
-                isRoll,
-                isSalat,
-                isDrink,
-                isSet,
-                isPoke,
-                ingredients,
-                price,
-                product_modifiers: [],
-                product_submodifiers: [],
-                quantity: 1,
-                slug,
-                title,
-                weight,
-                totalPrice: parseInt(price),
-              })
-            }
-          >
-            <SvgBuyIcon />
-          </StyledButton>
+          {isPoke ? (
+            <Link as={`/product/${id}`} href={`/product/[${id}]`} passHref>
+              <StyledAddLink>
+                <SvgBuyIcon />
+              </StyledAddLink>
+            </Link>
+          ) : (
+            <StyledAddButton
+              onClick={() =>
+                handleAddToCart({
+                  allergeny,
+                  id,
+                  image: {
+                    url: image.url,
+                  },
+                  ingredients,
+                  isDrink,
+                  isPoke,
+                  isRoll,
+                  isSalat,
+                  isSet,
+                  price,
+                  product_modifiers: [],
+                  product_submodifiers: [],
+                  quantity: 1,
+                  slug,
+                  title,
+                  totalPrice: parseInt(price),
+                  weight,
+                })
+              }
+            >
+              <SvgBuyIcon />
+            </StyledAddButton>
+          )}
         </StyledFooter>
       </StyledLayout>
     </StyledWrapper>

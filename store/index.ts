@@ -27,6 +27,7 @@ export {
   setShopSettings,
   setTotalRollsDiscount,
   setPaymentType,
+  setModalDay,
 } from "./actions";
 export { useStore, AppContext } from "./context";
 export { reducer } from "./reducer";
@@ -35,5 +36,6 @@ export type {
   TAdditional,
   TSchedule,
   TShopSettings,
+  TModalDay,
 } from "./globalStore";
 export { TPayment } from "./globalStore";

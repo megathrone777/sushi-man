@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+import { useStore } from "~/store";
 import { Cart } from "./Cart";
-import { Modal } from "~/components";
+import { Modal, ModalDay } from "~/components";
 import { TContactsLink } from "~/components/Modal";
 import useTranslation from "~/intl/useTranslation";
 import { SvgArrowTopIcon, SvgChatIcon } from "~/icons";
@@ -44,7 +45,12 @@ interface TProps {
 
 const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const { t } = useTranslation();
+  const { store } = useStore();
   const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
+  const [modalDayIsOpened, toggleModalDayIsOpened] = useState<boolean>(
+    store.modalDay && !!Object.keys(store.modalDay).length
+  );
+  const { modalDay } = store;
   const allergeny = t("allergeny");
   const allergenyImage = t("allergenyImage");
   const contactsLinks = t("contactsLinks");
@@ -69,6 +75,7 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
 
   const handleModalClose = (): void => {
     toggleModalOpened(false);
+    toggleModalDayIsOpened(false);
   };
 
   return (
@@ -199,6 +206,16 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
       <StyledChatButton onClick={handleModal} type="button">
         <SvgChatIcon />
       </StyledChatButton>
+
+      {modalDay && !!Object.keys(modalDay).length && (
+        <ModalDay
+          close={handleModalClose}
+          contactsLinks={contactsLinks}
+          isOpened={modalDayIsOpened}
+          text={modalText}
+          title={modalTitle}
+        />
+      )}
 
       <Modal
         close={handleModalClose}

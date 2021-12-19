@@ -18,6 +18,11 @@ const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
       shopSettings: payload,
     }),
 
+    [TActionTypes.SET_MODAL_DAY]: (): TStore => ({
+      ...store,
+      modalDay: payload,
+    }),
+
     [TActionTypes.ADD_PRODUCT]: (): TStore => {
       const products = [...store.cart.products];
       const foundIndex = products.findIndex(

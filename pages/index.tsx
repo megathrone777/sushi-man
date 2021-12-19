@@ -7,10 +7,12 @@ import {
   TAdditional,
   TSchedule,
   TShopSettings,
+  TModalDay,
   setAdditionals,
   setShopSettings,
   useStore,
   setSchedule,
+  setModalDay,
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -22,9 +24,9 @@ import {
   Media,
   Products,
   Reviews,
+  TDelivery,
   TReview,
   TAbout,
-  TDelivery,
   TBanner,
   TMedia,
   TProduct,
@@ -42,6 +44,7 @@ interface TProps {
     banner_cs: TMedia;
     banner_ru: TMedia;
   };
+  days: TModalDay[];
   delivery: TDelivery;
   hero: {
     hero_cs: TBanner;
@@ -60,6 +63,7 @@ const IndexPage: NextPage<TProps> = ({
   additionals,
   about,
   banner,
+  days,
   delivery,
   hero,
   products,
@@ -75,7 +79,13 @@ const IndexPage: NextPage<TProps> = ({
     dispatch(setAdditionals(additionals));
     dispatch(setShopSettings(shopSettings));
     dispatch(setSchedule(schedule));
-  }, [additionals, schedule, dispatch]);
+
+    if (days && !!days.length) {
+      dispatch(setModalDay(days[0]));
+    } else {
+      dispatch(setModalDay(null));
+    }
+  }, [additionals, days, schedule, dispatch]);
 
   return (
     <Layout title={mainTitle}>

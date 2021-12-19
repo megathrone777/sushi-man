@@ -10,6 +10,8 @@ import {
   setShopSettings,
   useStore,
   TSchedule,
+  TModalDay,
+  setModalDay
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -28,6 +30,7 @@ interface TProps {
   cutlery: {
     price: number;
   };
+  days: TModalDay[];
   hero: {
     hero_cs: TBanner;
     hero_ru: TBanner;
@@ -43,6 +46,7 @@ interface TProps {
 const CartPage: NextPage<TProps> = ({
   additionals,
   cutlery,
+  days,
   hero,
   products,
   shopSettings,
@@ -61,6 +65,12 @@ const CartPage: NextPage<TProps> = ({
   useEffect((): void => {
     dispatch(setAdditionals(newAdditionals));
     dispatch(setShopSettings(shopSettings));
+
+    if (days && !!days.length) {
+      dispatch(setModalDay(days[0]));
+    } else {
+      dispatch(setModalDay(null));
+    }
   }, [additionals, cutlery.price, schedule, dispatch]);
 
   return (
@@ -82,6 +92,7 @@ CartPage.getInitialProps = async () => {
   const {
     data: {
       additionals,
+      days,
       hero_cs,
       hero_ru,
       products,
@@ -98,6 +109,7 @@ CartPage.getInitialProps = async () => {
 
   return {
     additionals,
+    days,
     products,
     hero: {
       hero_cs,

@@ -17,10 +17,6 @@ export interface TSchedule {
   title: string;
 }
 
-export interface TShopSettings {
-  ordersStop: boolean;
-}
-
 export interface TCartProduct extends TProduct {
   product_modifiers: TProductModifier[];
   product_submodifiers: TProductSubmodifier[];
@@ -32,6 +28,10 @@ export interface TModalDay {
   active: boolean;
   schedule: string;
   title: string;
+}
+
+export interface TShopSettings {
+  ordersStop: boolean;
 }
 
 export enum TPayment {
@@ -66,7 +66,7 @@ export interface TStore {
     products: TCartProduct[];
     totalRollsDiscount: number;
   };
-  modalDay: boolean;
+  modalDay: TModalDay;
   schedule: {
     schedule_cs: TSchedule;
     schedule_ru: TSchedule;
@@ -99,7 +99,7 @@ const initialStore: TStore = {
     products: [],
     totalRollsDiscount: 0,
   },
-  modalDay: false,
+  modalDay: null,
   schedule: {
     schedule_cs: {
       locale: "",

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { keyframes, styled } from "~/theme";
+import { css, keyframes, styled } from "~/theme";
 
 const rotate = keyframes`
   from {
@@ -197,7 +197,7 @@ export const StyledDesc = styled.div`
 
 export const StyledText = styled.p``;
 
-export const StyledButton = styled.button`
+const StyledAdd = css`
   background-color: #da2628;
   border: none;
   border-bottom-left-radius: ${({ theme }) => theme.rem(5)};
@@ -238,12 +238,20 @@ export const StyledButton = styled.button`
   }
 `;
 
+export const StyledAddButton = styled.button`
+  ${StyledAdd};
+`;
+
+export const StyledAddLink = styled.a`
+  ${StyledAdd};
+`;
+
 export const StyledLoader = styled.span`
   align-items: center;
   animation-duration: 0.5s;
   animation-iteration-count: infinite;
   animation-name: ${rotate};
-  animation-timing-function: linear;    
+  animation-timing-function: linear;
   color: ${({ theme }) => theme.colors.red};
   display: flex;
   height: ${({ theme }) => theme.rem(50)};
