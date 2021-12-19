@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { keyframes, styled } from "~/theme";
+import { css, keyframes, styled } from "~/theme";
 
 const rotate = keyframes`
   from {
@@ -156,7 +156,7 @@ export const StyledItemDesc = styled.div`
 
 export const StyledItemText = styled.p``;
 
-export const StyledItemButton = styled.button`
+const StyledAdd = css`
   background-color: #da2628;
   border: none;
   border-bottom-left-radius: ${({ theme }) => theme.rem(5)};
@@ -178,6 +178,7 @@ export const StyledItemButton = styled.button`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    border-bottom-left-radius: 0;
     border-top-right-radius: 0;
     height: ${({ theme }) => theme.rem(50)};
     min-width: ${({ theme }) => theme.rem(80)};
@@ -194,6 +195,14 @@ export const StyledItemButton = styled.button`
       min-width: ${({ theme }) => theme.rem(90)};
     }
   }
+`;
+
+export const StyledAddButton = styled.button`
+  ${StyledAdd};
+`;
+
+export const StyledAddLink = styled.a`
+  ${StyledAdd};
 `;
 
 export const StyledLoader = styled.span`

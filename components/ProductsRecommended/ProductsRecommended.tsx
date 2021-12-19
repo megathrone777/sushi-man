@@ -22,7 +22,8 @@ import {
   StyledItemText,
   StyledItemTitle,
   StyledItem,
-  StyledItemButton,
+  StyledAddButton,
+  StyledAddLink,
   StyledLoader,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
@@ -172,33 +173,45 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
                         <StyledItemText>{price} Kč</StyledItemText>
                       </StyledItemPrice>
 
-                      <StyledItemButton
-                        onClick={() =>
-                          handleAddToCart({
-                            allergeny,
-                            image: {
-                              url: image.url,
-                            },
-                            id,
-                            ingredients,
-                            isRoll,
-                            isDrink,
-                            isSalat,
-                            isSet,
-                            isPoke,
-                            price,
-                            product_modifiers: [],
-                            product_submodifiers: [],
-                            quantity: 1,
-                            slug,
-                            title,
-                            weight,
-                            totalPrice: parseInt(price),
-                          })
-                        }
-                      >
-                        <SvgBuyIcon />
-                      </StyledItemButton>
+                      {isPoke ? (
+                        <Link
+                          as={`/product/${id}`}
+                          href={`/product/[${id}]`}
+                          passHref
+                        >
+                          <StyledAddLink>
+                            <SvgBuyIcon />
+                          </StyledAddLink>
+                        </Link>
+                      ) : (
+                        <StyledAddButton
+                          onClick={() =>
+                            handleAddToCart({
+                              allergeny,
+                              image: {
+                                url: image.url,
+                              },
+                              id,
+                              ingredients,
+                              isRoll,
+                              isDrink,
+                              isSalat,
+                              isSet,
+                              isPoke,
+                              price,
+                              product_modifiers: [],
+                              product_submodifiers: [],
+                              quantity: 1,
+                              slug,
+                              title,
+                              weight,
+                              totalPrice: parseInt(price),
+                            })
+                          }
+                        >
+                          <SvgBuyIcon />
+                        </StyledAddButton>
+                      )}
                     </StyledItemFooter>
                   </StyledItemLayout>
                 </StyledItem>
