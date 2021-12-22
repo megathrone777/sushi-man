@@ -33,15 +33,13 @@ const base = css`
     width: 100%;
   }
 
-  a[href^="http://maps.google.com/maps"],
-  a[href^="https://maps.google.com/maps"],
-  a[href^="https://www.google.com/maps"]
-  {
-    display: none !important;
+  .gm-style-cc {
+    display: none;
   }
 
-  .gmnoprint:not(.gm-bundled-control) {
-    display: none;
+  .pac-container:after {
+    background-image: none;
+    height: 0px;
   }
 `;
 

@@ -81,7 +81,7 @@ const initialStore: TStore = {
     customerAddressError: false,
     customerNote: "",
     cutleryAmount: 0,
-    deliveryPrice: 0,
+    deliveryPrice: null,
     deliveryDistance: 0,
     deliveryError: false,
     isAgreeChecked: false,

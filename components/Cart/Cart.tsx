@@ -40,6 +40,7 @@ import {
   StyledLabel,
   StyledLabelLink,
   StyledErrorIcon,
+  StyledMainPageLink,
 } from "./styled";
 
 const createOrderMutation = gql`
@@ -114,6 +115,12 @@ const Cart: React.FC = () => {
   const totalOrderPrice =
     totalPrice - (isPickupChecked && totalPrice > 600 ? 50 : 0);
 
+  const scrollToError = (elementId: string): void => {
+    if (window.innerWidth > 767) {
+      document.getElementById(elementId).scrollIntoView();
+    }
+  };
+
   const checkCartFields = (): boolean => {
     if (isPickupChecked && totalPrice < 600) {
       notify({
@@ -124,7 +131,7 @@ const Cart: React.FC = () => {
         status: "error",
         title: `Min. cena objednávky při vyzvednutí - 600 Kč`,
       });
-      document.getElementById("products").scrollIntoView();
+      scrollToError("products");
       return;
     }
 
@@ -137,7 +144,7 @@ const Cart: React.FC = () => {
         status: "error",
         title: `Min. cena objednávky do 3km. - 250 Kč (bez ceny dopravy)`,
       });
-      document.getElementById("products").scrollIntoView();
+      scrollToError("persons");
       return;
     }
 
@@ -154,7 +161,7 @@ const Cart: React.FC = () => {
         status: "error",
         title: `Min. cena objednávky od 3km. - 300 Kč (bez ceny dopravy)`,
       });
-      document.getElementById("products").scrollIntoView();
+      scrollToError("persons");
       return;
     }
 
@@ -211,7 +218,8 @@ const Cart: React.FC = () => {
         status: "error",
         title: `Vyplňte povinné údaje`,
       });
-      document.getElementById("persons").scrollIntoView();
+
+      scrollToError("persons");
       return false;
     }
 
@@ -363,6 +371,9 @@ const Cart: React.FC = () => {
           <StyledEmpty>
             <StyledEmptyImage alt="Sushi man" src="/images/sushi-man_img.jpg" />{" "}
             {t("cartIsEmpty")}
+            <Link href="/" passHref>
+              <StyledMainPageLink>Hlavní stránka</StyledMainPageLink>
+            </Link>
           </StyledEmpty>
         )}
       </StyledContainer>

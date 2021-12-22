@@ -39,6 +39,10 @@ export const StyledTableCell = styled.td`
 
 export const StyledName = styled.span`
   font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
+    font-size: ${({ theme }) => theme.rem(16)};
+  }
 `;
 
 export const StyledPrice = styled.span`
@@ -75,10 +79,6 @@ export const StyledQuantityButton = styled.button<{
   justify-content: center;
   padding: 0;
   width: ${({ theme }) => theme.rem(22)};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-top: ${({ theme }) => theme.rem(-4)};
-  }
 
   &:hover {
     opacity: 0.8;

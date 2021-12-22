@@ -113,6 +113,7 @@ export const StyledLink = styled.a`
   color: inherit;
   display: block;
   height: 100%;
+  position: relative;
   text-decoration: none;
 `;
 
@@ -121,6 +122,14 @@ export const StyledContent = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     min-height: ${({ theme }) => theme.rem(140)};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    min-height: ${({ theme }) => theme.rem(200)};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
+    min-height: ${({ theme }) => theme.rem(100)};
   }
 `;
 
@@ -135,6 +144,7 @@ export const StyledTitle = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    font-size: ${({ theme }) => theme.rem(20)};
     line-height: 1.2;
     margin-bottom: ${({ theme }) => theme.rem(9)};
     margin-top: ${({ theme }) => theme.rem(9)};

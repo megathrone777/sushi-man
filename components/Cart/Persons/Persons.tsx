@@ -20,7 +20,6 @@ import {
   StyledTableRow,
   StyledTableCell,
   StyledError,
-  StyledErrorIcon,
 } from "./styled";
 
 const Persons: React.FC = () => {
@@ -123,9 +122,7 @@ const Persons: React.FC = () => {
             <StyledTableCell>
               {cutleryAmountError && (
                 <StyledError>
-                  <StyledErrorIcon>
-                    <SvgExclamationIcon />
-                  </StyledErrorIcon>
+                  <SvgExclamationIcon />
                 </StyledError>
               )}
 

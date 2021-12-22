@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import { useStore } from "~/store";
@@ -8,9 +8,24 @@ import { StyledWrapper, StyledLink, StyledAmount, StyledIcon } from "./styled";
 const Cart: React.FC = () => {
   const { store } = useStore();
   const { cart } = store;
+  const { products } = cart;
+  const [animate, setAnimate] = useState<boolean>(false);
+  const isInitialMount = useRef(true);
+
+  useEffect((): void => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      setAnimate(true);
+
+      setTimeout(() => {
+        setAnimate(false);
+      }, 1000);
+    }
+  }, [products]);
 
   return (
-    <StyledWrapper>
+    <StyledWrapper productsChanged={animate}>
       <Link href="/cart" passHref>
         <StyledLink>
           <StyledIcon>
@@ -19,7 +34,7 @@ const Cart: React.FC = () => {
         </StyledLink>
       </Link>
 
-      <StyledAmount>{cart.products.length}</StyledAmount>
+      <StyledAmount>{products.length}</StyledAmount>
     </StyledWrapper>
   );
 };

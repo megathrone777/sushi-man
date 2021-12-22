@@ -13,9 +13,7 @@ const config = {
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const {
     additionals,
-    address,
     cutleryAmount,
-    deliveryPrice,
     note,
     orderId,
     orderPrice,
@@ -64,13 +62,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   }
   ${note && note.length > 0 ? `\n${note}` : ""}
   \n <b>Приборы:</b> ${cutleryAmount}
-  \n <b>Доставка:</b> ${
-    deliveryPrice >= 50 && deliveryPrice < 100
-      ? "Обычная"
-      : deliveryPrice >= 100
-      ? "Повышенная"
-      : "Самовывоз"
-  }
+  \n <b>Доставка:</b> Самовывоз
   \n <b>Email:</b> ${email}
   \n <b>Тип оплаты:</b> Картой на месте
   \n <b>Цена:</b> ${orderPrice}Kč
@@ -81,14 +73,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   `;
 
   telegramSendMessage(message, () => {
-    if (address) {
-      telegramSendMessage(`${address}`, () => {
-        response.send({ redirect: "/orderConfirmed" });
-        return;
-      });
-    } else {
-      response.send({ redirect: "/orderConfirmed" });
-    }
+    response.send({ redirect: "/orderConfirmed" });
   });
 };
 

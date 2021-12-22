@@ -117,6 +117,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
           ? "Обычная"
           : updateOrder["order"].deliveryPrice >= 100
           ? "Повышенная"
+          : updateOrder["order"].deliveryPrice === 0
+          ? "Бесплатная"
           : "Самовывоз"
       }
       \n <b>Email:</b> ${updateOrder["order"].email}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -20,7 +20,7 @@ import {
   setPaymentType,
   TPayment,
 } from "~/store";
-import { SvgExclamationIcon } from "~/icons";
+import { SvgExclamationIcon, SvgLoaderIcon } from "~/icons";
 import {
   StyledWrapper,
   StyledForm,
@@ -48,6 +48,7 @@ import {
   StyledTerms,
   StyledText,
   StyledTextPrice,
+  StyledAddressLoader,
 } from "./styled";
 
 const Delivery: React.FC = () => {
@@ -56,11 +57,12 @@ const Delivery: React.FC = () => {
   const { cart } = store;
   const addressInputElement = useRef(null);
   const mapElement = useRef(null);
+  const [addressIsLoading, toggleAddressLoading] = useState<boolean>(false);
 
   const {
     additionals,
-    customerAddress,
     customerAddressError,
+    customerAddress,
     customerEmail,
     customerEmailError,
     customerName,
@@ -109,11 +111,13 @@ const Delivery: React.FC = () => {
   const handlePhoneChange = ({
     currentTarget,
   }: React.SyntheticEvent<HTMLInputElement>): void => {
+    if (currentTarget.validity.valid) {
+      dispatch(setCustomerPhone(currentTarget.value));
+    }
+
     if (currentTarget.value.length > 0) {
       dispatch(setCustomerPhoneError(false));
     }
-
-    dispatch(setCustomerPhone(currentTarget.value));
   };
 
   const handleEmailChange = ({
@@ -139,11 +143,11 @@ const Delivery: React.FC = () => {
   const handleAddressChange = ({
     currentTarget,
   }: React.SyntheticEvent<HTMLInputElement>): void => {
-    if (currentTarget.value.length > 0) {
+    if (currentTarget.value !== customerAddress) {
+      dispatch(setCustomerAddressError(true));
+    } else {
       dispatch(setCustomerAddressError(false));
     }
-
-    dispatch(setCustomerAddress(currentTarget.value));
   };
 
   useEffect((): void => {
@@ -163,17 +167,16 @@ const Delivery: React.FC = () => {
 
   useEffect((): void => {
     if (isPickupChecked) {
+      dispatch(setDeliveryPrice(null));
       return;
-    } else {
-      dispatch(setPaymentType(TPayment.CARD));
     }
 
+    dispatch(setPaymentType(TPayment.CARD));
+
     const map = new google.maps.Map(mapElement.current, {
+      disableDefaultUI: true,
       center: { lat: 50.08661, lng: 14.448785 },
       zoom: 13,
-      fullscreenControl: false,
-      mapTypeControl: false,
-      streetViewControl: false,
     });
     const input = addressInputElement.current;
     const autocomplete = new google.maps.places.Autocomplete(input, {
@@ -185,6 +188,8 @@ const Delivery: React.FC = () => {
     });
 
     autocomplete.addListener("place_changed", async () => {
+      toggleAddressLoading(true);
+
       const place = autocomplete.getPlace();
       const response = await fetch("/api/cart/googlemaps", {
         method: "POST",
@@ -194,6 +199,8 @@ const Delivery: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
+      }).finally((): void => {
+        toggleAddressLoading(false);
       });
 
       const data = await response.json();
@@ -209,12 +216,18 @@ const Delivery: React.FC = () => {
         map.setZoom(17);
       }
 
-      dispatch(setDeliveryDistance(data.lengthInKm));
       marker.setPosition(place.geometry.location);
       marker.setVisible(true);
+      dispatch(setDeliveryDistance(data.lengthInKm));
       dispatch(setCustomerAddress(place.name));
+      dispatch(setCustomerAddressError(false));
     });
   }, [isPickupChecked]);
+
+  useEffect((): void => {
+    dispatch(setCustomerAddress(""));
+    dispatch(setDeliveryDistance(null));
+  }, []);
 
   return (
     <StyledWrapper>
@@ -258,6 +271,7 @@ const Delivery: React.FC = () => {
             <StyledInputWrapper>
               <StyledNameInput
                 hasError={customerNameError}
+                name="name"
                 onChange={handleNameChange}
                 placeholder={customerNameError ? "Vyplňte jméno" : t("name")}
                 type="text"
@@ -273,6 +287,7 @@ const Delivery: React.FC = () => {
             <StyledInputWrapper>
               <StyledEmailInput
                 hasError={customerEmailError}
+                name="email"
                 onChange={handleEmailChange}
                 placeholder={customerEmailError ? "Vyplňte e-mail" : t("email")}
                 type="email"
@@ -288,10 +303,13 @@ const Delivery: React.FC = () => {
             <StyledInputWrapper>
               <StyledPhoneInput
                 hasError={customerPhoneError}
+                name="phone"
                 onChange={handlePhoneChange}
+                pattern="[0-9]*"
                 placeholder={
                   customerPhoneError ? "Vyplňte telefon" : t("phone")
                 }
+                type="tel"
                 value={customerPhone}
               />
               {customerPhoneError && (
@@ -312,10 +330,11 @@ const Delivery: React.FC = () => {
             </StyledInfo>
           </StyledForm>
         ) : (
-          <StyledForm autoComplete="on" action="#">
+          <StyledForm action="#">
             <StyledInputWrapper>
               <StyledNameInput
                 hasError={customerNameError}
+                name="name"
                 onChange={handleNameChange}
                 placeholder={customerNameError ? "Vyplňte jméno" : t("name")}
                 type="text"
@@ -331,6 +350,7 @@ const Delivery: React.FC = () => {
             <StyledInputWrapper>
               <StyledEmailInput
                 hasError={customerEmailError}
+                name="email"
                 onChange={handleEmailChange}
                 placeholder={customerEmailError ? "Vyplňte e-mail" : t("email")}
                 type="email"
@@ -346,10 +366,13 @@ const Delivery: React.FC = () => {
             <StyledInputWrapper>
               <StyledPhoneInput
                 hasError={customerPhoneError}
+                name="phone"
                 onChange={handlePhoneChange}
+                pattern="[0-9]*"
                 placeholder={
                   customerPhoneError ? "Vyplňte telefon" : t("phone")
                 }
+                type="tel"
                 value={customerPhone}
               />
               {customerPhoneError && (
@@ -368,7 +391,6 @@ const Delivery: React.FC = () => {
                   customerAddressError ? "Vyplňte adresu" : t("fillAddress")
                 }
                 type="search"
-                value={customerAddress}
               />
               {deliveryDistance !== null &&
                 deliveryDistance > 0 &&
@@ -379,6 +401,11 @@ const Delivery: React.FC = () => {
                 <StyledErrorIcon>
                   <SvgExclamationIcon />
                 </StyledErrorIcon>
+              )}
+              {addressIsLoading && (
+                <StyledAddressLoader>
+                  <SvgLoaderIcon />
+                </StyledAddressLoader>
               )}
             </StyledInputWrapper>
 

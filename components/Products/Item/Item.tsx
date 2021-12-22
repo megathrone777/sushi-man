@@ -77,12 +77,10 @@ const Item: React.FC<TProps> = ({
 
             <StyledImage
               alt={title}
-              height={340}
-              layout="responsive"
+              layout="fill"
               objectFit="cover"
               onLoadingComplete={handleImageLoading}
               src={image.url}
-              width={285}
             />
           </StyledLink>
         </Link>

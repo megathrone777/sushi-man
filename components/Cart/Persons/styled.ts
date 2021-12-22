@@ -69,28 +69,28 @@ export const StyledQuantityButton = styled.button<{
   padding: 0;
   width: ${({ theme }) => theme.rem(22)};
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-top: ${({ theme }) => theme.rem(-4)};
-  }
-
   &:hover {
     opacity: 0.8;
   }
 `;
 
 export const StyledError = styled.span`
-  color: #da2628;
+  color: ${({ theme }) => theme.colors.red};
+  display: inline-block;
   font-family: ${({ theme }) => theme.fonts.fontBold};
+  height: ${({ theme }) => theme.rem(20)};
   left: -${({ theme }) => theme.rem(25)};
   margin-left: ${({ theme }) => theme.rem(10)};
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-`;
-
-export const StyledErrorIcon = styled.span`
-  display: inline-block;
-  color: ${({ theme }) => theme.colors.red};
-  height: ${({ theme }) => theme.rem(20)};
   width: ${({ theme }) => theme.rem(20)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-left: 0;
+    margin-right: ${({ theme }) => theme.rem(10)};
+    position: static; 
+    transform: none;
+    vertical-align: ${({ theme }) => theme.rem(-3)};
+  }
 `;

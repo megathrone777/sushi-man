@@ -12,8 +12,8 @@ const slick = css`
 
   .slick-list {
     display: block;
-    margin-left: -10px;
-    margin-right: -10px;
+    margin-left: ${({ theme }) => theme.rem(-10)};
+    margin-right: ${({ theme }) => theme.rem(-10)};
     overflow: hidden;
     padding: 0;
     position: relative;
@@ -60,10 +60,10 @@ const slick = css`
     display: none;
     float: left;
     height: 100%;
-    min-height: 1px;
+    min-height: ${({ theme }) => theme.rem(1)};
 
     & > div {
-      padding: 0 10px;
+      padding: 0 ${({ theme }) => theme.rem(10)};
     }
 
     &:focus {
@@ -99,7 +99,7 @@ const slick = css`
   .slick-vertical .slick-slide {
     display: block;
     height: auto;
-    border: 1px solid transparent;
+    border: ${({ theme }) => theme.rem(1)} solid transparent;
   }
 
   .slick-arrow.slick-hidden {
@@ -127,27 +127,27 @@ const slick = css`
   }
 
   .slick-prev {
-    left: -80px;
+    left: ${({ theme }) => theme.rem(-80)};
     transform: translateY(-50%);
 
     @media (max-width: 600px) {
-      left: -38px;
+      left: ${({ theme }) => theme.rem(-38)};
     }
   }
 
   .slick-next {
-    right: -80px;
+    right: ${({ theme }) => theme.rem(-80)};
     transform-origin: center top;
     transform: rotate(180deg) translateY(-50%);
 
     @media (max-width: 600px) {
-      right: -38px;
+      right: ${({ theme }) => theme.rem(-38)};
     }
   }
 
   .slick-center {
     transform: scale(1.2);
-    transform-origin: center 415px;
+    transform-origin: center ${({ theme }) => theme.rem(415)};
 
     @media (max-width: 600px) {
       transform-origin: center center;

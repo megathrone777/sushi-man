@@ -1,7 +1,26 @@
-import { styled } from "~/theme";
+import { keyframes, styled } from "~/theme";
 
-export const StyledWrapper = styled.div`
-  background-color: #da2628;
+const cartShake = keyframes`
+  0% {
+    transform: translateY(0);
+  } 
+
+  50% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+`;
+
+export const StyledWrapper = styled.div<{ productsChanged: boolean }>`
+  animation-duration: 0.2s;
+  animation-iteration-count: 2;
+  animation-name: ${({ productsChanged }) =>
+    productsChanged ? cartShake : "none"};
+  animation-timing-function: linear;
+  background-color: ${({ theme }) => theme.colors.red};
   border-radius: 50%;
   border: ${({ theme }) => theme.rem(3)} solid white;
   display: flex;
@@ -10,8 +29,8 @@ export const StyledWrapper = styled.div`
   padding: ${({ theme }) => theme.rem(5)};
   position: fixed;
   right: ${({ theme }) => theme.rem(30)};
-  top: ${({ theme }) => theme.rem(25)};
   text-align: center;
+  top: ${({ theme }) => theme.rem(25)};
   transition: all 0.2s ease-in;
   width: ${({ theme }) => theme.rem(70)};
   z-index: 101;

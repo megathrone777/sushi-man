@@ -68,6 +68,7 @@ export const StyledTotal = styled.div`
 export const StyledEmpty = styled.p`
   align-items: center;
   display: flex;
+  flex-direction: column;
   margin-bottom: ${({ theme }) => theme.rem(20)};
   font: ${({ theme }) => theme.rem(30)} ${({ theme }) => theme.fonts.fontBold};
 
@@ -178,4 +179,42 @@ export const StyledErrorIcon = styled.span`
   margin-right: ${({ theme }) => theme.rem(5)};
   margin-top: ${({ theme }) => theme.rem(-7)};
   width: ${({ theme }) => theme.rem(20)};
+`;
+
+export const StyledMainPageLink = styled.a`
+  background-color: ${({ theme }) => theme.colors.red};
+  color: white;
+  display: inline-block;
+  font: ${({ theme }) => theme.rem(22)} ${({ theme }) => theme.fonts.fontMedium};
+  height: ${({ theme }) => theme.rem(55)};
+  line-height: ${({ theme }) => theme.rem(55)};
+  margin-top: ${({ theme }) => theme.rem(20)};
+  min-width: ${({ theme }) => theme.rem(190)};
+  padding: 0 ${({ theme }) => theme.rem(15)};
+  text-align: center;
+  text-decoration: none;
+  transition: 0.2s ease-in;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    height: ${({ theme }) => theme.rem(45)};
+    line-height: ${({ theme }) => theme.rem(45)};
+    font-size: ${({ theme }) => theme.rem(16)};
+    min-width: ${({ theme }) => theme.rem(140)};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    height: ${({ theme }) => theme.rem(37)};
+    line-height: ${({ theme }) => theme.rem(37)};
+    min-width: ${({ theme }) => theme.rem(110)};
+    position: absolute;
+    top: 40%;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    top: ${({ theme }) => theme.rem(100)};
+  }
+
+  &:hover {
+    box-shadow: 0 0 ${({ theme }) => theme.rem(14)} 0 rgba(218, 38, 40, 0.75);
+  }
 `;

@@ -71,8 +71,8 @@ const ProductDetails: React.FC<TProps> = ({
     }
 
     if (
-      !isPoke &&
-      !!selectedModifiers.length &&
+      isPoke &&
+      selectedModifiers.length === 0 &&
       selectedSubModifiers.length === 0
     ) {
       notify({
@@ -225,10 +225,15 @@ const ProductDetails: React.FC<TProps> = ({
                             type={isPoke ? "radio" : "checkbox"}
                           />
                           <StyledModifierLabel htmlFor={modifier.id}>
-                            {modifier.name} +{" "}
-                            <StyledModifierPrice>
-                              {modifier.price} Kč
-                            </StyledModifierPrice>
+                            {modifier.name}
+                            {!isPoke && (
+                              <>
+                                +{" "}
+                                <StyledModifierPrice>
+                                  {modifier.price} Kč
+                                </StyledModifierPrice>
+                              </>
+                            )}
                           </StyledModifierLabel>
 
                           {selectedModifiers.some(

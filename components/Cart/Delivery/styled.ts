@@ -1,4 +1,14 @@
-import { styled } from "~/theme";
+import { keyframes, styled } from "~/theme";
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg) translateY(-50%);
+  }
+
+  to {
+    transform: rotate(360deg) translateY(-50%);
+  }
+`;
 
 export const StyledWrapper = styled.div`
   grid-area: delivery;
@@ -6,7 +16,7 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledTitle = styled.h2`
-  border-bottom: ${({ theme }) => theme.rem(3)} solid #da2628;
+  border-bottom: ${({ theme }) => `${theme.rem(3)} solid ${theme.colors.red}`};
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
   padding: ${({ theme }) => theme.rem(10)};
 `;
@@ -162,6 +172,7 @@ export const StyledMap = styled.div`
   height: ${({ theme }) => theme.rem(200)};
   margin-bottom: ${({ theme }) => theme.rem(20)};
   margin-top: ${({ theme }) => theme.rem(20)};
+  pointer-events: none;
 `;
 
 export const StyledLengthInKm = styled.p`
@@ -224,6 +235,10 @@ export const StyledErrorIcon = styled.span`
   top: 50%;
   transform: translateY(-50%);
   width: ${({ theme }) => theme.rem(20)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    right: 0;
+  }
 `;
 
 export const StyledTerms = styled.div`
@@ -239,6 +254,24 @@ export const StyledText = styled.p`
 `;
 
 export const StyledTextPrice = styled.span`
-  color: #da2628;
+  color: ${({ theme }) => theme.colors.red};
   font-family: ${({ theme }) => theme.fonts.fontBold};
+`;
+
+export const StyledAddressLoader = styled.span`
+  align-items: center;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-name: ${rotate};
+  animation-timing-function: linear;
+  color: ${({ theme }) => theme.colors.red};
+  display: flex;
+  height: ${({ theme }) => theme.rem(25)};
+  justify-content: center;
+  margin: auto;
+  position: absolute;
+  right: ${({ theme }) => theme.rem(10)};
+  top: 50%;
+  transform-origin: center top;
+  width: ${({ theme }) => theme.rem(25)};
 `;
