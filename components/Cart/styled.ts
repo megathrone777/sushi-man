@@ -11,7 +11,7 @@ const rotate = keyframes`
 `;
 
 export const StyledWrapper = styled.div`
-  border-bottom: ${({ theme }) => theme.rem(4)} solid #da2628;
+  border-bottom: ${({ theme }) => `${theme.rem(4)} solid ${theme.colors.red}`};
   min-height: ${({ theme }) => theme.rem(310)};
   padding: ${({ theme }) =>
     `${theme.rem(30)} ${theme.rem(30)} ${theme.rem(50)}`};
@@ -53,7 +53,7 @@ export const StyledLayout = styled.div`
 `;
 
 export const StyledTitle = styled.h2`
-  border-bottom: ${({ theme }) => theme.rem(3)} solid #da2628;
+  border-bottom: ${({ theme }) => `${theme.rem(3)} solid ${theme.colors.red}`};
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
   margin-bottom: ${({ theme }) => theme.rem(10)};
   padding: ${({ theme }) => theme.rem(10)};
@@ -69,8 +69,8 @@ export const StyledEmpty = styled.p`
   align-items: center;
   display: flex;
   flex-direction: column;
+  font: ${({ theme }) => `${theme.rem(30)} ${theme.fonts.fontBold}`};
   margin-bottom: ${({ theme }) => theme.rem(20)};
-  font: ${({ theme }) => theme.rem(30)} ${({ theme }) => theme.fonts.fontBold};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: ${({ theme }) => theme.rem(25)};
@@ -87,9 +87,9 @@ export const StyledButtons = styled.div`
 `;
 
 export const StyledBuy = styled.button<{ isLoading: boolean }>`
-  background-color: #da2628;
-  border: none;
+  background-color: ${({ theme }) => theme.colors.red};
   border-radius: ${({ theme }) => theme.rem(5)};
+  border: none;
   color: ${({ isLoading }) => (isLoading ? "transparent" : "white")};
   cursor: pointer;
   display: inline-block;
@@ -134,7 +134,7 @@ export const StyledCheckbox = styled.input`
   background-repeat: no-repeat;
   background-size: ${({ theme }) => `${theme.rem(17)} ${theme.rem(17)}`};
   border-radius: 50%;
-  border: ${({ theme }) => theme.rem(2)} solid #da2628;
+  border: ${({ theme }) => `${theme.rem(2)} solid ${theme.colors.red}`};
   cursor: pointer;
   display: inline-block;
   height: ${({ theme }) => theme.rem(25)};
@@ -185,7 +185,7 @@ export const StyledMainPageLink = styled.a`
   background-color: ${({ theme }) => theme.colors.red};
   color: white;
   display: inline-block;
-  font: ${({ theme }) => theme.rem(22)} ${({ theme }) => theme.fonts.fontMedium};
+  font: ${({ theme }) => `${theme.rem(22)} ${theme.fonts.fontMedium}`};
   height: ${({ theme }) => theme.rem(55)};
   line-height: ${({ theme }) => theme.rem(55)};
   margin-top: ${({ theme }) => theme.rem(20)};
@@ -196,9 +196,9 @@ export const StyledMainPageLink = styled.a`
   transition: 0.2s ease-in;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: ${({ theme }) => theme.rem(16)};
     height: ${({ theme }) => theme.rem(45)};
     line-height: ${({ theme }) => theme.rem(45)};
-    font-size: ${({ theme }) => theme.rem(16)};
     min-width: ${({ theme }) => theme.rem(140)};
   }
 

@@ -12,9 +12,14 @@ const rotate = keyframes`
 
 export const StyledWrapper = styled.div`
   background: url("/images/products_bg.jpg") center center/auto 100%;
-  border-bottom: ${({ theme }) => theme.rem(10)} solid #da2628;
-  padding: ${({ theme }) => theme.rem(50)} 0 ${({ theme }) => theme.rem(100)};
+  border-bottom: ${({ theme }) => `${theme.rem(10)} solid ${theme.colors.red}`};
   overflow: hidden;
+  padding: ${({ theme }) => theme.rem(50)} 0 ${({ theme }) => theme.rem(100)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding-bottom: ${({ theme }) => theme.rem(50)};
+    padding-top: ${({ theme }) => theme.rem(20)};
+  }
 `;
 
 export const StyledLayout = styled.div`
@@ -30,6 +35,11 @@ export const StyledLayout = styled.div`
 const StyledContentColumn = styled.div`
   margin: 0 ${({ theme }) => theme.rem(20)};
   position: relative;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-left: ${({ theme }) => theme.rem(10)};
+    margin-right: ${({ theme }) => theme.rem(10)};
+  }
 `;
 
 export const StyledContentLeft = styled(StyledContentColumn)`
@@ -38,8 +48,8 @@ export const StyledContentLeft = styled(StyledContentColumn)`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     flex: 0 1 auto;
-    max-width: 50%;
     margin-bottom: ${({ theme }) => theme.rem(30)};
+    max-width: 50%;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
@@ -72,7 +82,7 @@ export const StyledItem = styled.p`
 `;
 
 export const StyledItemPrice = styled.p`
-  color: #da2629;
+  color: ${({ theme }) => theme.colors.red};
   font: ${({ theme }) => `${theme.rem(23)} ${theme.fonts.fontMedium}`};
   margin-bottom: ${({ theme }) => theme.rem(20)};
 `;
@@ -114,7 +124,7 @@ export const StyledMofifiersCheckbox = styled.input<{ isSecondary?: boolean }>`
   background-repeat: no-repeat;
   background-size: ${({ theme }) => `${theme.rem(17)} ${theme.rem(17)}`};
   border-radius: 50%;
-  border: ${({ theme }) => theme.rem(2)} solid #da2628;
+  border: ${({ theme }) => `${theme.rem(2)} solid ${theme.colors.red}`};
   cursor: pointer;
   display: inline-block;
   height: ${({ theme }) => theme.rem(25)};
@@ -149,7 +159,7 @@ export const StyledSubmodifiersItem = styled.li`
 `;
 
 export const StyledButton = styled.button`
-  background-color: #da2628;
+  background-color: ${({ theme }) => theme.colors.red};
   border: none;
   color: white;
   cursor: pointer;
@@ -164,9 +174,9 @@ export const StyledButton = styled.button`
   transition: 0.2s ease-in;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: ${({ theme }) => theme.rem(16)};
     height: ${({ theme }) => theme.rem(45)};
     line-height: ${({ theme }) => theme.rem(45)};
-    font-size: ${({ theme }) => theme.rem(16)};
     min-width: ${({ theme }) => theme.rem(140)};
   }
 

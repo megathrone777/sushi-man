@@ -21,7 +21,7 @@ export const StyledLayout = styled.div`
 
 export const StyledTitle = styled.h2`
   color: white;
-  font: ${({ theme }) => theme.rem(34)} ${({ theme }) => theme.fonts.fontMedium};
+  font: ${({ theme }) => `${theme.rem(34)} ${theme.fonts.fontMedium}`};
   text-align: center;
   margin-bottom: ${({ theme }) => theme.rem(25)};
 
@@ -33,7 +33,7 @@ export const StyledTitle = styled.h2`
 
 export const StyledText = styled.p`
   color: white;
-  font: ${({ theme }) => theme.rem(18)} ${({ theme }) => theme.fonts.fontMedium};
+  font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontMedium}`};
   text-align: center;
   margin-bottom: ${({ theme }) => theme.rem(20)};
 `;
@@ -122,7 +122,7 @@ export const StyledLink = styled.a`
 
 export const StyledTime = styled.p`
   color: white;
-  font: ${({ theme }) => theme.rem(20)} ${({ theme }) => theme.fonts.fontMedium};
+  font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontMedium}`};
   margin-bottom: ${({ theme }) => theme.rem(25)};
   text-align: center;
 `;

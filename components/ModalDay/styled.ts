@@ -10,8 +10,8 @@ export const StyledLayout = styled.div<{
   left: 0;
   margin: auto;
   max-width: ${({ theme }) => theme.rem(600)};
-  min-width: ${({ theme }) => theme.rem(600)};
   min-height: ${({ theme }) => theme.rem(300)};
+  min-width: ${({ theme }) => theme.rem(600)};
   opacity: 0;
   padding: ${({ theme }) => theme.rem(60)} 0;
   position: fixed;
@@ -38,8 +38,8 @@ export const StyledLayout = styled.div<{
 export const StyledTitle = styled.h2`
   color: white;
   font: ${({ theme }) => theme.rem(30)} ${({ theme }) => theme.fonts.fontMedium};
-  text-align: center;
   margin-bottom: ${({ theme }) => theme.rem(13)};
+  text-align: center;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: ${({ theme }) => theme.rem(26)};
@@ -57,8 +57,8 @@ export const StyledTime = styled.p`
 export const StyledText = styled.p`
   color: white;
   font: ${({ theme }) => theme.rem(18)} ${({ theme }) => theme.fonts.fontMedium};
-  text-align: center;
   margin-bottom: ${({ theme }) => theme.rem(20)};
+  text-align: center;
 `;
 
 export const StyledLinks = styled.div``;

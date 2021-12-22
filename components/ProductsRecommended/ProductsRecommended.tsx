@@ -109,8 +109,8 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
                 <StyledItem key={index}>
                   <StyledItemImageHolder>
                     <Link
-                      as={`/product/${id}`}
-                      href={`/product/[${id}]`}
+                      as={`/product/${slug}`}
+                      href={`/product/[${slug}]`}
                       passHref
                     >
                       <StyledItemLink>
@@ -122,12 +122,10 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
 
                         <StyledItemImage
                           alt={title}
-                          height={340}
-                          layout="responsive"
+                          layout="fill"
                           objectFit="cover"
                           onLoadingComplete={handleImageLoading}
                           src={image.url}
-                          width={285}
                         />
                       </StyledItemLink>
                     </Link>
@@ -136,8 +134,8 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
                   <StyledItemLayout>
                     <StyledItemTitle>
                       <Link
-                        as={`/product/${id}`}
-                        href={`/product/[${id}]`}
+                        as={`/product/${slug}`}
+                        href={`/product/[${slug}]`}
                         passHref
                       >
                         <StyledItemLink>
@@ -148,8 +146,8 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
 
                     <StyledItemContent>
                       <Link
-                        as={`/product/${id}`}
-                        href={`/product/[${id}]`}
+                        as={`/product/${slug}`}
+                        href={`/product/[${slug}]`}
                         passHref
                       >
                         <StyledItemLink>
@@ -175,8 +173,8 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
 
                       {isPoke ? (
                         <Link
-                          as={`/product/${id}`}
-                          href={`/product/[${id}]`}
+                          as={`/product/${slug}`}
+                          href={`/product/[${slug}]`}
                           passHref
                         >
                           <StyledAddLink>

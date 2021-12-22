@@ -52,7 +52,7 @@ export const StyledLink = styled.span`
   }
 
   &:hover {
-    color: #da2628;
+    color: ${({ theme }) => theme.colors.red};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
       color: black;

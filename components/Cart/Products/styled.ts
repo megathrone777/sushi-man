@@ -9,7 +9,7 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledTitle = styled.h2`
-  border-bottom: ${({ theme }) => theme.rem(3)} solid #da2628;
+  border-bottom: ${({ theme }) => `${theme.rem(3)} solid ${theme.colors.red}`};
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
   padding: ${({ theme }) => theme.rem(10)};
   text-align: left;
@@ -94,7 +94,7 @@ export const StyledLink = styled.a`
   text-decoration: none;
 
   &:hover {
-    color: #da2628;
+    color: ${({ theme }) => theme.colors.red};
   }
 `;
 
@@ -155,7 +155,7 @@ export const StyledPrice = styled.span`
 export const StyledRemove = styled.button`
   background: none;
   border: none;
-  color: #da2628;
+  color: ${({ theme }) => theme.colors.red};
   cursor: pointer;
   font-size: ${({ theme }) => theme.rem(16)};
 
@@ -182,6 +182,6 @@ export const StyledText = styled.p`
 `;
 
 export const StyledTextLabel = styled.span`
-  color: #da2628;
+  color: ${({ theme }) => theme.colors.red};
   font-family: ${({ theme }) => theme.fonts.fontBold};
 `;

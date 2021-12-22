@@ -39,7 +39,7 @@ const base = css`
 
   .pac-container:after {
     background-image: none;
-    height: 0px;
+    height: 0;
   }
 `;
 

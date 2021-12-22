@@ -2,10 +2,10 @@ import { styled } from "~/theme";
 
 export const StyledWrapper = styled.section`
   background: url("/images/delivery_bg.jpg") center center/cover no-repeat;
-  padding: ${({ theme }) => theme.rem(90)} 0 ${({ theme }) => theme.rem(50)};
+  padding: ${({ theme }) => `${theme.rem(90)} 0 ${theme.rem(50)}`};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: ${({ theme }) => theme.rem(30)} 0 ${({ theme }) => theme.rem(10)};
+    padding: ${({ theme }) => `${theme.rem(30)} 0 ${theme.rem(10)}`};
   }
 `;
 
@@ -16,7 +16,7 @@ export const StyledLayout = styled.div`
 
 export const StyledTitle = styled.h2`
   color: white;
-  font: ${({ theme }) => theme.rem(42)} ${({ theme }) => theme.fonts.fontBold};
+  font: ${({ theme }) => `${theme.rem(42)} ${theme.fonts.fontBold}`};
   margin-bottom: ${({ theme }) => theme.rem(10)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -93,7 +93,7 @@ export const StyledItem = styled.div`
 
 export const StyledItemTitle = styled.p`
   color: white;
-  font: ${({ theme }) => theme.rem(28)} ${({ theme }) => theme.fonts.fontBold};
+  font: ${({ theme }) => `${theme.rem(28)} ${theme.fonts.fontBold}`};
   margin-bottom: ${({ theme }) => theme.rem(10)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {

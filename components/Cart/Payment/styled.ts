@@ -6,7 +6,7 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledTitle = styled.h2`
-  border-bottom: ${({ theme }) => theme.rem(3)} solid #da2628;
+  border-bottom: ${({ theme }) => `${theme.rem(3)} solid ${theme.colors.red}`};
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
   padding: ${({ theme }) => theme.rem(10)};
   margin-bottom: ${({ theme }) => theme.rem(15)};
@@ -23,9 +23,11 @@ export const StyledImage = styled.img`
 export const StyledRow = styled.div<{ isHidden?: boolean }>`
   margin-bottom: ${({ theme }) => theme.rem(15)};
 
-  ${({ isHidden }) => isHidden && css`
-    display: none;
-  `}
+  ${({ isHidden }) =>
+    isHidden &&
+    css`
+      display: none;
+    `}
 `;
 
 export const StyledRadioWrapper = styled.div`
@@ -40,7 +42,7 @@ export const StyledRadio = styled.input`
   background-repeat: no-repeat;
   background-size: ${({ theme }) => `${theme.rem(17)} ${theme.rem(17)}`};
   border-radius: 50%;
-  border: ${({ theme }) => theme.rem(2)} solid #da2628;
+  border: ${({ theme }) => `${theme.rem(2)} solid ${theme.colors.red}`};
   cursor: pointer;
   display: inline-block;
   height: ${({ theme }) => theme.rem(25)};

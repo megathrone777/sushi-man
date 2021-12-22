@@ -12,8 +12,8 @@ const slick = css`
 
   .slick-list {
     display: block;
-    margin-left: ${({ theme }) => theme.rem(-10)};
-    margin-right: ${({ theme }) => theme.rem(-10)};
+    margin-left: ${({ theme }) => theme.rem(-5)};
+    margin-right: ${({ theme }) => theme.rem(-5)};
     overflow: hidden;
     padding: 0;
     position: relative;
@@ -63,7 +63,7 @@ const slick = css`
     min-height: ${({ theme }) => theme.rem(1)};
 
     & > div {
-      padding: 0 ${({ theme }) => theme.rem(10)};
+      padding: 0 ${({ theme }) => theme.rem(5)};
     }
 
     &:focus {
@@ -113,7 +113,7 @@ const slick = css`
     cursor: pointer;
     height: ${({ theme }) => theme.rem(60)};
     position: absolute;
-    text-indent: -9999px;
+    text-indent: ${({ theme }) => theme.rem(-9999)};
     top: 50%;
     width: ${({ theme }) => theme.rem(40)};
 

@@ -134,11 +134,11 @@ const Products: React.FC<TProps> = () => {
                 ): React.ReactElement => (
                   <StyledTab
                     isActive={
-                      (categoryType === "isDrink" && index === 4) ||
+                      (categoryType === "isRoll" && index === 0) ||
                       (categoryType === "isPoke" && index === 1) ||
                       (categoryType === "isSet" && index === 2) ||
                       (categoryType === "isSalat" && index === 3) ||
-                      (categoryType === "isRoll" && index === 0)
+                      (categoryType === "isDrink" && index === 4)
                     }
                     isCollapsed={categoryType !== null}
                     isDrink={type === "isDrink"}

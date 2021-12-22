@@ -2,7 +2,7 @@ import { css, styled } from "~/theme";
 
 export const StyledFooter = styled.footer`
   background-color: #eaeaed;
-  border-top: ${({ theme }) => theme.rem(4)} solid #da2628;
+  border-top: ${({ theme }) => `${theme.rem(4)} solid ${theme.colors.red}`};
   padding-top: ${({ theme }) => theme.rem(40)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -85,7 +85,7 @@ export const StyledMenuLink = styled.span`
   }
 
   &:hover {
-    color: #da2628;
+    color: ${({ theme }) => theme.colors.red};
   }
 `;
 

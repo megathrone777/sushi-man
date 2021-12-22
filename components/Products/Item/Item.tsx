@@ -28,10 +28,10 @@ const Item: React.FC<TProps> = ({
   image,
   ingredients,
   isDrink,
-  isRoll,
   isPoke,
-  isSet,
+  isRoll,
   isSalat,
+  isSet,
   price,
   slug,
   title,
@@ -67,7 +67,7 @@ const Item: React.FC<TProps> = ({
   return (
     <StyledWrapper>
       <StyledImageHolder>
-        <Link as={`/product/${id}`} href={`/product/[${id}]`} passHref>
+        <Link as={`/product/${slug}`} href={`/product/[${slug}]`} passHref>
           <StyledLink>
             {imageIsLoading && (
               <StyledLoader>
@@ -88,7 +88,7 @@ const Item: React.FC<TProps> = ({
 
       <StyledLayout>
         <StyledTitle>
-          <Link as={`/product/${id}`} href={`/product/[${id}]`} passHref>
+          <Link as={`/product/${slug}`} href={`/product/[${slug}]`} passHref>
             <StyledLink>
               <StyledText>{title}</StyledText>
             </StyledLink>
@@ -96,7 +96,7 @@ const Item: React.FC<TProps> = ({
         </StyledTitle>
 
         <StyledContent>
-          <Link as={`/product/${id}`} href={`/product/[${id}]`} passHref>
+          <Link as={`/product/${slug}`} href={`/product/[${slug}]`} passHref>
             <StyledLink>
               <StyledDesc>
                 <StyledText>{weight}</StyledText>
@@ -123,7 +123,7 @@ const Item: React.FC<TProps> = ({
           </StyledPrice>
 
           {isPoke ? (
-            <Link as={`/product/${id}`} href={`/product/[${id}]`} passHref>
+            <Link as={`/product/${slug}`} href={`/product/[${slug}]`} passHref>
               <StyledAddLink>
                 <SvgBuyIcon />
               </StyledAddLink>

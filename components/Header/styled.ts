@@ -100,4 +100,5 @@ export const StyledButtonHelper = styled.span<{
   transition: transform 330ms cubic-bezier(0.54, -0.81, 0.57, 0.57);
   transform-origin: ${({ isLeft, isRight }) =>
     isLeft ? "right" : isRight ? "left" : "none"};
+  will-change: transform;
 `;

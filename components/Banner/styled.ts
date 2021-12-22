@@ -7,7 +7,8 @@ export const StyledWrapper = styled.section<{ inner?: boolean }>`
   ${({ inner }) =>
     inner &&
     css`
-      border-bottom: ${({ theme }) => theme.rem(4)} solid #da2628;
+      border-bottom: ${({ theme }) =>
+        `${theme.rem(4)} solid ${theme.colors.red}`};
       height: ${({ theme }) => theme.rem(400)};
       overflow: hidden;
 
@@ -60,7 +61,7 @@ export const StyledLayout = styled.div<{ inner?: boolean }>`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    background-color: #da2629;
+    background-color: ${({ theme }) => theme.colors.red};
     position: static;
   }
 `;
@@ -116,7 +117,7 @@ export const StyledText = styled.p`
 `;
 
 export const StyledButton = styled.button<{ inner: boolean }>`
-  background-color: #da2628;
+  background-color: ${({ theme }) => theme.colors.red};
   border: none;
   border-radius: ${({ theme }) => theme.rem(5)};
   color: white;

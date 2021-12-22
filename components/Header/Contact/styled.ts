@@ -38,7 +38,6 @@ export const StyledLink = styled.a`
     content: "";
     background: url("/images/header_contact_bg.png") left center/auto 80%
       no-repeat;
-    display: block;
     display: inline-block;
     height: ${({ theme }) => theme.rem(33)};
     left: 0;
@@ -52,6 +51,6 @@ export const StyledLink = styled.a`
   }
 
   &:hover {
-    color: #da2628;
+    color: ${({ theme }) => theme.colors.red};
   }
 `;

@@ -312,7 +312,7 @@ const TermsPage: NextPage<TProps> = ({ hero }) => (
 );
 
 const StyledWrapper = styled.div`
-  border-top: ${({ theme }) => theme.rem(10)} solid #da2628;
+  border-top: ${({ theme }) => `${theme.rem(10)} solid ${theme.colors.red}`};
   padding-bottom: ${({ theme }) => theme.rem(40)};
   padding-top: ${({ theme }) => theme.rem(40)};
   text-align: justify;

@@ -89,7 +89,9 @@ export const StyledTab = styled.div<{
   opacity: ${({ isCollapsed }) => (isCollapsed ? "0.7" : 1)};
   overflow: hidden;
   padding: ${({ theme }) => `${theme.rem(20)} 0  0 ${theme.rem(20)}`};
-  transition: background-position 0.5s, background-size 0.5s, height 0.5s;
+  transition: background-position 0.3s linear, background-size 0.3s linear,
+    height 0.3s linear;
+  will-change: contents;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex: 0 1 calc(50% - ${({ theme }) => theme.rem(10)});

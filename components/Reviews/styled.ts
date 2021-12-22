@@ -63,7 +63,7 @@ export const StyledItemLink = styled.a`
 `;
 
 export const StyledButton = styled.button`
-  background-color: #da2628;
+  background-color: ${({ theme }) => theme.colors.red};
   border: none;
   border-radius: ${({ theme }) => theme.rem(5)};
   color: white;

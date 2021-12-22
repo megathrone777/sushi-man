@@ -14,7 +14,7 @@ const theme: DefaultTheme = {
   breakpoints,
   colors,
   fonts,
-  rem: (px) => {
+  rem: (px: number) => {
     const baseFontSize = fonts.initialFontSize;
 
     return `${px / baseFontSize}rem`;

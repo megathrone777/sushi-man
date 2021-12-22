@@ -10,7 +10,6 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledTitle = styled.h2`
-  font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
   border-bottom: ${({ theme }) => `${theme.rem(3)} solid ${theme.colors.red}`};
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
   margin-bottom: ${({ theme }) => theme.rem(10)};
@@ -34,7 +33,7 @@ export const StyledTableCell = styled.td`
 `;
 
 export const StyledName = styled.span<{ hasError: boolean }>`
-  color: ${({ hasError }) => (hasError ? "#da2628" : "black")};
+  color: ${({ hasError, theme }) => (hasError ? theme.colors.red : "black")};
   font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
 `;
 
@@ -89,7 +88,7 @@ export const StyledError = styled.span`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin-left: 0;
     margin-right: ${({ theme }) => theme.rem(10)};
-    position: static; 
+    position: static;
     transform: none;
     vertical-align: ${({ theme }) => theme.rem(-3)};
   }

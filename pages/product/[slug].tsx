@@ -23,7 +23,7 @@ import ProductPageQuery from "~/queries/productpage.gql";
 
 interface TProps {
   days: TModalDay[];
-  product: TProduct;
+  productDetails: TProduct;
   products: TProduct[];
   hero: {
     hero_cs: TBanner;
@@ -35,7 +35,7 @@ interface TProps {
 const ProductPage: NextPage<TProps> = ({
   days,
   hero,
-  product,
+  productDetails,
   products,
   shopSettings,
 }) => {
@@ -52,7 +52,7 @@ const ProductPage: NextPage<TProps> = ({
   }, [dispatch]);
 
   return (
-    <LayoutSecondary title={`${product.title} | Rozvoz sushi po Praze`}>
+    <LayoutSecondary title={`${productDetails.title} | Rozvoz sushi po Praze`}>
       <Banner
         hero={{
           hero_cs: hero["hero_cs"],
@@ -60,25 +60,29 @@ const ProductPage: NextPage<TProps> = ({
         }}
         inner
       />
-      <ProductDetails {...product} />
+      <ProductDetails {...productDetails} />
       <ProductsRecommended products={products} />
     </LayoutSecondary>
   );
 };
 
-ProductPage.getInitialProps = async ({ query: { id } }) => {
-  const { data: product } = await client.query({
+ProductPage.getInitialProps = async ({ query: { slug } }) => {
+  const { data } = await client.query({
     query: gql`
-      query ProductQuery {
-        product(id: ${id}) {
+      query ProductsQuery {
+        products(where: { slug: "${slug}" }) {
           allergeny
-          ingredients
-          price
-          weight
           id
           image {
             url
           }
+          ingredients
+          isDrink
+          isPoke
+          isRoll
+          isSalat
+          isSet
+          price
           product_modifiers {
             price
             name
@@ -88,13 +92,8 @@ ProductPage.getInitialProps = async ({ query: { id } }) => {
               name
             }
           }
-          isRoll
-          isPoke
-          isSet
-          isSalat
-          isDrink
-          title
           slug
+          title
           weight
         }
       }
@@ -110,12 +109,12 @@ ProductPage.getInitialProps = async ({ query: { id } }) => {
   });
 
   return {
-    ...product,
     days,
     hero: {
       hero_cs,
       hero_ru,
     },
+    productDetails: data["products"][0],
     products,
     shopSettings: shop,
   };

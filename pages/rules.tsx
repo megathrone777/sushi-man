@@ -574,7 +574,7 @@ const RulesPage: NextPage<TProps> = ({ hero }) => (
 );
 
 const StyledWrapper = styled.section`
-  border-top: ${({ theme }) => theme.rem(10)} solid #da2628;
+  border-top: ${({ theme }) => `${theme.rem(10)} solid ${theme.colors.red}`};
   padding-bottom: ${({ theme }) => theme.rem(40)};
   padding-top: ${({ theme }) => theme.rem(40)};
   text-align: justify;
@@ -593,7 +593,7 @@ const StyledStrong = styled.strong`
 `;
 
 const StyledLink = styled.a`
-  color: #da2628;
+  color: ${({ theme }) => theme.colors.red};
 
   &:hover {
     text-decoration: none;

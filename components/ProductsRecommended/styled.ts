@@ -157,7 +157,7 @@ export const StyledItemDesc = styled.div`
 export const StyledItemText = styled.p``;
 
 const StyledAdd = css`
-  background-color: #da2628;
+  background-color: ${({ theme }) => theme.colors.red};
   border: none;
   border-bottom-left-radius: ${({ theme }) => theme.rem(5)};
   border-top-left-radius: ${({ theme }) => theme.rem(5)};

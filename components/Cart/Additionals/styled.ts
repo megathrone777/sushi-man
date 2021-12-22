@@ -15,7 +15,7 @@ export const StyledLayout = styled.div``;
 export const StyledContent = styled.div``;
 
 export const StyledTitle = styled.h2`
-  border-bottom: ${({ theme }) => theme.rem(3)} solid #da2628;
+  border-bottom: ${({ theme }) => `${theme.rem(3)} solid ${theme.colors.red}`};
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
   padding: ${({ theme }) => theme.rem(10)};
   text-align: left;
@@ -96,7 +96,7 @@ export const StyledNoteContent = styled.div`
 `;
 
 export const StyledNoteIcon = styled.i`
-  color: #da2628;
+  color: ${({ theme }) => theme.colors.red};
   position: absolute;
   display: block;
   top: ${({ theme }) => theme.rem(1)};
@@ -104,7 +104,7 @@ export const StyledNoteIcon = styled.i`
 `;
 
 export const StyledNoteLabel = styled.p`
-  border-bottom: ${({ theme }) => theme.rem(3)} solid #da2628;
+  border-bottom: ${({ theme }) => `${theme.rem(3)} solid ${theme.colors.red}`};
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
   margin-bottom: ${({ theme }) => theme.rem(20)};
   padding: ${({ theme }) => theme.rem(10)};
@@ -112,7 +112,7 @@ export const StyledNoteLabel = styled.p`
 
 export const StyledNote = styled.textarea`
   border: none;
-  border-bottom: ${({ theme }) => theme.rem(2)} solid #da2628;
+  border-bottom: ${({ theme }) => `${theme.rem(2)} solid ${theme.colors.red}`};
   border-radius: 0;
   display: block;
   font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontMedium}`};
