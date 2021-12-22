@@ -91,7 +91,8 @@ export const StyledTab = styled.div<{
   padding: ${({ theme }) => `${theme.rem(20)} 0  0 ${theme.rem(20)}`};
   transition: background-position 0.3s linear, background-size 0.3s linear,
     height 0.3s linear;
-  will-change: contents;
+  will-change: background-position, background-position-y, background-size,
+    height;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex: 0 1 calc(50% - ${({ theme }) => theme.rem(10)});
