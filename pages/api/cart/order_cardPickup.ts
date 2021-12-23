@@ -31,7 +31,9 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
           !!product_modifiers.length &&
           product_modifiers.map(
             ({ price, name: modifier_name }, index: number): string => {
-              const modifier = `\n<b>-${modifier_name} ${price}Kč</b>`;
+              const modifier = `\n<b>-${modifier_name} ${
+                price > 0 ? price + "Kč" : ""
+              }</b>`;
               const modifier_submodifiers = product_submodifiers.filter(
                 ({ modifierIndex }) => modifierIndex === index
               );

@@ -20,6 +20,37 @@ const Settings: React.FC = () => {
     `,
     { client }
   );
+  const [sendShopIsClosed] = useMutation(
+    gql`
+      mutation Mutation($updateShopInput: updateShopInput) {
+        updateShop(input: $updateShopInput) {
+          shop {
+            shopIsClosed
+          }
+        }
+      }
+    `,
+    { client }
+  );
+
+  const handleShopClosedToggle = (): void => {
+    sendShopIsClosed({
+      variables: {
+        updateShopInput: {
+          data: {
+            shopIsClosed: !shopSettings.shopIsClosed,
+          },
+        },
+      },
+    });
+
+    dispatch(
+      setShopSettings({
+        ...shopSettings,
+        shopIsClosed: !shopSettings.shopIsClosed,
+      })
+    );
+  };
 
   const handleOrdersStopToggle = (): void => {
     sendOrdersStop({
@@ -42,6 +73,10 @@ const Settings: React.FC = () => {
 
   return (
     <StyledWrapper>
+      <StyledButton onClick={handleShopClosedToggle} type="button">
+        {shopSettings.shopIsClosed ? "Открыть смену" : "Закрыть смену"}
+      </StyledButton>
+
       <StyledDivider />
 
       <StyledButton onClick={handleOrdersStopToggle} type="button">

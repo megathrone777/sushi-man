@@ -71,9 +71,10 @@ const ProductDetails: React.FC<TProps> = ({
     }
 
     if (
-      isPoke &&
-      selectedModifiers.length === 0 &&
-      selectedSubModifiers.length === 0
+      (isPoke && selectedModifiers.length === 0) ||
+      (!isPoke &&
+        selectedModifiers.length > 0 &&
+        selectedSubModifiers.length === 0)
     ) {
       notify({
         dismissAfter: 3000,
@@ -228,6 +229,7 @@ const ProductDetails: React.FC<TProps> = ({
                             {modifier.name}
                             {!isPoke && (
                               <>
+                                {" "}
                                 +{" "}
                                 <StyledModifierPrice>
                                   {modifier.price} Kč
@@ -292,7 +294,9 @@ const ProductDetails: React.FC<TProps> = ({
             onClick={() =>
               handleAddToCart({
                 allergeny,
-                id: !!selectedModifiers.length ? `${id}-modified` : id,
+                id: !!selectedModifiers.length
+                  ? `${id}-${Math.random().toString(16).slice(2)}`
+                  : id,
                 image: {
                   url: image.url,
                 },

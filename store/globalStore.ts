@@ -32,6 +32,7 @@ export interface TModalDay {
 
 export interface TShopSettings {
   ordersStop: boolean;
+  shopIsClosed: boolean;
 }
 
 export enum TPayment {
@@ -116,6 +117,7 @@ const initialStore: TStore = {
   },
   shopSettings: {
     ordersStop: false,
+    shopIsClosed: false,
   },
 };
 

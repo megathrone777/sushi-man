@@ -202,18 +202,6 @@ export const StyledMainPageLink = styled.a`
     min-width: ${({ theme }) => theme.rem(140)};
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    height: ${({ theme }) => theme.rem(37)};
-    line-height: ${({ theme }) => theme.rem(37)};
-    min-width: ${({ theme }) => theme.rem(110)};
-    position: absolute;
-    top: 40%;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-    top: ${({ theme }) => theme.rem(100)};
-  }
-
   &:hover {
     box-shadow: 0 0 ${({ theme }) => theme.rem(14)} 0 rgba(218, 38, 40, 0.75);
   }

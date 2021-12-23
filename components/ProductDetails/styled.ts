@@ -45,6 +45,7 @@ const StyledContentColumn = styled.div`
 export const StyledContentLeft = styled(StyledContentColumn)`
   flex: 0 1 35%;
   max-width: 35%;
+  position: relative;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     flex: 0 1 auto;

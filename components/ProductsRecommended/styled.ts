@@ -77,6 +77,7 @@ export const StyledItemLink = styled.a`
   color: inherit;
   display: block;
   height: 100%;
+  position: relative;
   text-decoration: none;
 `;
 

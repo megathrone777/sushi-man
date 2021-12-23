@@ -436,8 +436,11 @@ const Delivery: React.FC = () => {
           <StyledTextPrice>300 Kč</StyledTextPrice>
         </StyledText>
         <StyledText>
-          Min. cena objednávky při vyzvednutí -{" "}
+          Min. cena objednávky od 6km. -{" "}
           <StyledTextPrice>600 Kč</StyledTextPrice>
+        </StyledText>
+        <StyledText>
+          Čas dopravy od 30 do 120 minut, závisí na frontě objednávek.
         </StyledText>
       </StyledTerms>
     </StyledWrapper>

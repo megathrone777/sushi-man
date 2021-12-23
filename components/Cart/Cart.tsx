@@ -129,7 +129,7 @@ const Cart: React.FC = () => {
         position: "bottom-center",
         showDismissButton: true,
         status: "error",
-        title: `Min. cena objednávky při vyzvednutí - 600 Kč`,
+        title: `Min. cena objednávky od 6km. - 600 Kč (bez ceny dopravy)`,
       });
       scrollToError("products");
       return;
