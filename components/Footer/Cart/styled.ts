@@ -39,9 +39,10 @@ export const StyledAmount = styled.p`
   bottom: ${({ theme }) => theme.rem(-5)};
   color: black;
   font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontBold}`};
-  line-height: 1.2;
-  min-width: ${({ theme }) => theme.rem(25)};
-  padding: ${({ theme }) => theme.rem(3)};
+  height: ${({ theme }) => theme.rem(21)};
+  line-height: ${({ theme }) => theme.rem(21)};
+  min-width: ${({ theme }) => theme.rem(22)};
+  padding: 0 ${({ theme }) => theme.rem(2)};
   position: absolute;
   right: ${({ theme }) => theme.rem(-5)};
   text-align: center;

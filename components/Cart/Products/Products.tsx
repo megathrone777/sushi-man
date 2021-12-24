@@ -124,6 +124,7 @@ const Products: React.FC = () => {
               price,
               product_modifiers,
               quantity,
+              slug,
               totalPrice,
             }: TCartProduct,
             index: number
@@ -131,8 +132,8 @@ const Products: React.FC = () => {
             <StyledRow key={`${index}-${title}`}>
               <StyledImageArea>
                 <Link
-                  as={`/product/${id.replace("-modified", "")}`}
-                  href={`/product/[${id.replace("-modified", "")}]`}
+                  as={`/product/${slug}`}
+                  href={`/product/[${slug}]`}
                   passHref
                 >
                   <StyledLink>

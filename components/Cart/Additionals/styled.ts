@@ -63,6 +63,10 @@ export const StyledQuantity = styled.p`
   text-align: center;
   vertical-align: middle;
   width: ${({ theme }) => theme.rem(50)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    line-height: ${({ theme }) => theme.rem(26)};
+  }
 `;
 
 export const StyledQuantityButton = styled.button<{
