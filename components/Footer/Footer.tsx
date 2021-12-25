@@ -48,6 +48,7 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const { store } = useStore();
   const { shopSettings } = store;
   const [shopModalIsOpened, toggleShopModalOpened] = useState<boolean>(true);
+  const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
   // const [modalDayIsOpened, toggleModalDayOpened] = useState<boolean>(
   //   store.modalDay && !!Object.keys(store.modalDay).length
   // );
@@ -56,6 +57,7 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const allergenyImage = t("allergenyImage");
   const contactsLinks = t("contactsLinks");
   const shopModalTitle = t("shopModalTitle");
+  const modalTitle = t("modalTitle");
   const modalText = t("modalText");
 
   const handleScroll = (anchor: string): void => {
@@ -71,12 +73,15 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   };
 
   const handleModal = (): void => {
-    toggleShopModalOpened(!shopModalIsOpened);
+    toggleModalOpened(!modalIsOpened);
   };
 
   const handleModalClose = (): void => {
+    toggleModalOpened(false);
+  };
+
+  const handleShopModalClose = (): void => {
     toggleShopModalOpened(false);
-    // toggleModalDayOpened(false);
   };
 
   return (
@@ -218,9 +223,17 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
         />
       )} */}
 
+      <Modal
+        close={handleModalClose}
+        contactsLinks={contactsLinks}
+        isOpened={modalIsOpened}
+        text={modalText}
+        title={modalTitle}
+      />
+
       {shopSettings.shopIsClosed && (
         <Modal
-          close={handleModalClose}
+          close={handleShopModalClose}
           contactsLinks={contactsLinks}
           isOpened={shopModalIsOpened}
           text={modalText}
