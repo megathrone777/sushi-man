@@ -55,7 +55,7 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const allergeny = t("allergeny");
   const allergenyImage = t("allergenyImage");
   const contactsLinks = t("contactsLinks");
-  const modalTitle = t("modalTitle");
+  const shopModalTitle = t("shopModalTitle");
   const modalText = t("modalText");
 
   const handleScroll = (anchor: string): void => {
@@ -224,7 +224,7 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
           contactsLinks={contactsLinks}
           isOpened={shopModalIsOpened}
           text={modalText}
-          title={modalTitle}
+          title={shopModalTitle}
         />
       )}
     </StyledFooter>

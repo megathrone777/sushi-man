@@ -35,7 +35,8 @@ const Item: React.FC<TProps> = ({
   price,
   slug,
   title,
-  triggerModal,
+  triggerShopModal,
+  triggerOrdersStopModal,
   weight,
 }) => {
   const [imageIsLoading, toggleImageLoading] = useState<boolean>(true);
@@ -44,8 +45,13 @@ const Item: React.FC<TProps> = ({
   const { shopSettings } = store;
 
   const handleAddToCart = (product: TCartProduct): void => {
+    if (shopSettings.shopIsClosed) {
+      triggerShopModal(true);
+      return;
+    }
+
     if (shopSettings.ordersStop) {
-      triggerModal(true);
+      triggerOrdersStopModal(true);
       return;
     }
 

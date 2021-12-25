@@ -1,5 +1,6 @@
 import { TProduct } from "~/components";
 
 export interface TProps extends TProduct {
-  triggerModal: (modalIsOpened: boolean) => void;
+  triggerOrdersStopModal: (modalIsOpened: boolean) => void;
+  triggerShopModal: (modalIsOpened: boolean) => void;
 }

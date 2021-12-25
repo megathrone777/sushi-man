@@ -8,7 +8,7 @@ const Logo: React.FC = () => (
   <StyledWrapper>
     <Link href="/" passHref>
       <StyledLink>
-        <Image alt="Logo" loading="lazy" layout="fill" src="/images/logo_img.png" />
+        <Image alt="Logo" layout="fill" src="/images/logo_img.png" />
       </StyledLink>
     </Link>
   </StyledWrapper>

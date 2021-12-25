@@ -5,7 +5,7 @@ import { Item } from "./Item";
 import client from "~/apollo-client";
 import { TProps, TCategory, TCategoryTypes } from "./types";
 import { SvgLoaderIcon } from "~/icons";
-import { TProduct, ShopModal } from "~/components";
+import { TProduct, Modal } from "~/components";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
@@ -44,9 +44,16 @@ const productsCategories: TCategory[] = [
 
 const Products: React.FC<TProps> = () => {
   const { t } = useTranslation();
-  const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
+  const [ordersStopModalIsOpened, toggleOrdersStopModalOpened] =
+    useState<boolean>(false);
+  const [shopModalIsOpened, toggleShopModalOpened] = useState<boolean>(false);
   const [categoryType, setCategoryType] = useState<TCategoryTypes>(null);
   const productsTitle = t("productsTitle");
+  const ordersStopModalTitle = t("ordersStopModalTitle");
+  const ordersStopModalText = t("ordersStopModalText");
+  const shopModalTitle = t("shopModalTitle");
+  const shopModalText = t("modalText");
+  const contactsLinks = t("contactsLinks");
   const [getProducts, { data, loading: productsLoading }] = useLazyQuery(
     gql`
       query ProductsQuery($where: JSON) {
@@ -87,12 +94,20 @@ const Products: React.FC<TProps> = () => {
     setCategoryType(categoryType);
   };
 
-  const handleModalToggle = (modalIsOpened: boolean): void => {
-    toggleModalOpened(modalIsOpened);
+  const handleShopModalToggle = (modalIsOpened: boolean): void => {
+    toggleShopModalOpened(modalIsOpened);
   };
 
-  const handleModalClose = (): void => {
-    toggleModalOpened(false);
+  const handleShopModalClose = (): void => {
+    toggleShopModalOpened(false);
+  };
+
+  const handleOrdersStopModalToggle = (modalIsOpened: boolean): void => {
+    toggleOrdersStopModalOpened(modalIsOpened);
+  };
+
+  const handleOrdersStopModalClose = (): void => {
+    toggleOrdersStopModalOpened(false);
   };
 
   const renderTabPanel = (): React.ReactElement => (
@@ -103,7 +118,8 @@ const Products: React.FC<TProps> = () => {
             (productsItem: TProduct, index: number): React.ReactElement => (
               <Item
                 key={`${productsItem.slug}-${index}`}
-                triggerModal={handleModalToggle}
+                triggerOrdersStopModal={handleOrdersStopModalToggle}
+                triggerShopModal={handleShopModalToggle}
                 {...productsItem}
               />
             )
@@ -165,7 +181,21 @@ const Products: React.FC<TProps> = () => {
           </StyledLoader>
         )}
 
-        <ShopModal isOpened={modalIsOpened} close={handleModalClose} />
+        <Modal
+          close={handleOrdersStopModalClose}
+          contactsLinks={contactsLinks}
+          isOpened={ordersStopModalIsOpened}
+          text={ordersStopModalText}
+          title={ordersStopModalTitle}
+        />
+
+        <Modal
+          close={handleShopModalClose}
+          contactsLinks={contactsLinks}
+          isOpened={shopModalIsOpened}
+          text={shopModalText}
+          title={shopModalTitle}
+        />
       </StyledContainer>
     </StyledWrapper>
   );
