@@ -8,7 +8,7 @@ import { TProps } from "./types";
 import useTranslation from "~/intl/useTranslation";
 import { SvgBuyIcon, SvgLoaderIcon } from "~/icons";
 import { addToCart, TCartProduct, useStore } from "~/store";
-import { TProduct } from "~/components";
+import { TProduct, Modal } from "~/components";
 import {
   StyledWrapper,
   StyledTitle,
@@ -30,9 +30,18 @@ import { StyledContainer } from "~/components/Layout/styled";
 
 const ProductsRecommended: React.FC<TProps> = ({ products }) => {
   const router = useRouter();
-  const { dispatch } = useStore();
+  const { dispatch, store } = useStore();
+  const { shopSettings } = store;
+  const [ordersStopModalIsOpened, toggleOrdersStopModalOpened] =
+    useState<boolean>(false);
+  const [shopModalIsOpened, toggleShopModalOpened] = useState<boolean>(false);
   const [imageIsLoading, toggleImageLoading] = useState<boolean>(true);
   const { t } = useTranslation();
+  const ordersStopModalTitle = t("ordersStopModalTitle");
+  const ordersStopModalText = t("ordersStopModalText");
+  const shopModalTitle = t("shopModalTitle");
+  const shopModalText = t("modalText");
+  const contactsLinks = t("contactsLinks");
   const { notify } = useNotifications();
   const productsTitle = t("recommendedTitle");
   const settings = {
@@ -65,7 +74,25 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
     ],
   };
 
+  const handleShopModalClose = (): void => {
+    toggleShopModalOpened(false);
+  };
+
+  const handleOrdersStopModalClose = (): void => {
+    toggleOrdersStopModalOpened(false);
+  };
+
   const handleAddToCart = (product: TCartProduct): void => {
+    if (shopSettings.shopIsClosed) {
+      toggleShopModalOpened(true);
+      return;
+    }
+
+    if (shopSettings.ordersStop) {
+      toggleOrdersStopModalOpened(true);
+      return;
+    }
+
     if (product.isPoke) {
       router.push(`/product/[${product.slug}]`, `/product/${product.slug}`, {
         scroll: true,
@@ -214,6 +241,22 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
           </Slider>
         )}
       </StyledContainer>
+
+      <Modal
+        close={handleOrdersStopModalClose}
+        contactsLinks={contactsLinks}
+        isOpened={ordersStopModalIsOpened}
+        text={ordersStopModalText}
+        title={ordersStopModalTitle}
+      />
+
+      <Modal
+        close={handleShopModalClose}
+        contactsLinks={contactsLinks}
+        isOpened={shopModalIsOpened}
+        text={shopModalText}
+        title={shopModalTitle}
+      />
     </StyledWrapper>
   );
 };
