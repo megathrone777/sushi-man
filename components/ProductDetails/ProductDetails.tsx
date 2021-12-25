@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { TProps, TProductModifier, TProductSubmodifier } from "./types";
 import useTranslation from "~/intl/useTranslation";
-import { ShopModal } from "~/components";
+import { Modal } from "~/components";
 import { addToCart, TCartProduct, useStore } from "~/store";
 import { SvgLoaderIcon } from "~/icons";
 import {
@@ -53,7 +53,14 @@ const ProductDetails: React.FC<TProps> = ({
   const { dispatch, store } = useStore();
   const { notify } = useNotifications();
   const { t } = useTranslation();
-  const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
+  const ordersStopModalTitle = t("ordersStopModalTitle");
+  const ordersStopModalText = t("ordersStopModalText");
+  const shopModalTitle = t("shopModalTitle");
+  const shopModalText = t("modalText");
+  const contactsLinks = t("contactsLinks");
+  const [ordersStopModalIsOpened, toggleOrdersStopModalOpened] =
+    useState<boolean>(false);
+  const [shopModalIsOpened, toggleShopModalOpened] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(parseInt(price));
   const [selectedModifiers, setSelectedModifiers] = useState<
     TProductModifier[]
@@ -65,8 +72,13 @@ const ProductDetails: React.FC<TProps> = ({
   const { shopSettings } = store;
 
   const handleAddToCart = (product: TCartProduct): void => {
+    if (shopSettings.shopIsClosed) {
+      toggleShopModalOpened(true);
+      return;
+    }
+
     if (shopSettings.ordersStop) {
-      toggleModalOpened(true);
+      toggleOrdersStopModalOpened(true);
       return;
     }
 
@@ -154,8 +166,12 @@ const ProductDetails: React.FC<TProps> = ({
     setSelectedSubmodifiers(newSubModifiers);
   };
 
-  const handleModalClose = (): void => {
-    toggleModalOpened(false);
+  const handleShopModalClose = (): void => {
+    toggleShopModalOpened(false);
+  };
+
+  const handleOrdersStopModalClose = (): void => {
+    toggleOrdersStopModalOpened(false);
   };
 
   const handleImageLoading = (): void => {
@@ -323,7 +339,21 @@ const ProductDetails: React.FC<TProps> = ({
         </StyledContentRight>
       </StyledLayout>
 
-      <ShopModal isOpened={modalIsOpened} close={handleModalClose} />
+      <Modal
+        contactsLinks={contactsLinks}
+        isOpened={shopModalIsOpened}
+        close={handleShopModalClose}
+        text={shopModalText}
+        title={shopModalTitle}
+      />
+
+      <Modal
+        contactsLinks={contactsLinks}
+        isOpened={ordersStopModalIsOpened}
+        close={handleOrdersStopModalClose}
+        text={ordersStopModalText}
+        title={ordersStopModalTitle}
+      />
     </StyledWrapper>
   );
 };
