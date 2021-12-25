@@ -57,7 +57,9 @@ const Item: React.FC<TProps> = ({
     }
 
     if (product.isPoke) {
-      router.push(`/product/${product.slug}`);
+      router.push(`/product/${product.slug}`, `/product/${product.slug}`, {
+        scroll: true,
+      });
       return;
     }
 

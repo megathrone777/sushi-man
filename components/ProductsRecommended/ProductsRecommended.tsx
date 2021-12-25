@@ -67,7 +67,9 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
 
   const handleAddToCart = (product: TCartProduct): void => {
     if (product.isPoke) {
-      router.push(`/product/${product.slug}`);
+      router.push(`/product/${product.slug}`, `/product/${product.slug}`, {
+        scroll: true,
+      });
       return;
     }
 
