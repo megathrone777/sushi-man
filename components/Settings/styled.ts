@@ -1,4 +1,4 @@
-import { styled } from "~/theme";
+import { css, styled } from "~/theme";
 
 export const StyledWrapper = styled.div`
   padding: ${({ theme }) => `${theme.rem(150)} 0`};
@@ -11,8 +11,6 @@ export const StyledDivider = styled.hr`
 `;
 
 export const StyledButton = styled.button<{ isActive: boolean }>`
-  background-color: ${({ isActive, theme }) =>
-    isActive ? "green" : theme.colors.red};
   border: none;
   border-radius: ${({ theme }) => theme.rem(5)};
   color: white;
@@ -26,6 +24,15 @@ export const StyledButton = styled.button<{ isActive: boolean }>`
   text-align: center;
   text-decoration: none;
   transition: 0.2s ease-in;
+
+  ${({ isActive, theme }) =>
+    isActive
+      ? css`
+          background-color: green;
+        `
+      : css`
+          background-color: ${theme.colors.red};
+        `}
 
   &:hover {
     box-shadow: 0 0
