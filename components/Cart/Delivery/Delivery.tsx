@@ -157,7 +157,7 @@ const Delivery: React.FC = () => {
       dispatch(setDeliveryPrice(0));
     } else if (deliveryDistance > 3 && deliveryDistance <= 6) {
       dispatch(setDeliveryPrice(50));
-    } else if (deliveryDistance > 3 && deliveryDistance <= 8) {
+    } else if (deliveryDistance > 6 && deliveryDistance <= 8) {
       dispatch(setDeliveryPrice(100));
     } else {
       dispatch(setDeliveryPrice(null));

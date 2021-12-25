@@ -122,7 +122,7 @@ const Cart: React.FC = () => {
   };
 
   const checkCartFields = (): boolean => {
-    if (isPickupChecked && totalPrice < 600) {
+    if (!isPickupChecked && deliveryPrice === 100 && totalPrice < 600) {
       notify({
         dismissAfter: 3000,
         dismissible: true,

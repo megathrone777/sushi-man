@@ -125,7 +125,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       }
       \n <b>Email:</b> ${updateOrder["order"].email}
       \n <b>Тип оплаты:</b> Картой онлайн
-      \n <b>Цена:</b> ${updateOrder["order"].price}Kč      
+      \n <b>Цена:</b> ${updateOrder["order"].price}Kč
       \n <a href="tel:${updateOrder["order"].phone.replace(
         / /g,
         ""

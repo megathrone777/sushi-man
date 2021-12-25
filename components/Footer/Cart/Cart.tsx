@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import { useStore } from "~/store";
@@ -12,10 +12,25 @@ import {
 const Cart: React.FC = () => {
   const { store } = useStore();
   const { cart } = store;
-  const totalAmount = cart.products.length;
+  const { products } = cart;
+  const [animate, setAnimate] = useState<boolean>(false);
+  const isInitialMount = useRef(true);
+  const totalAmount = products.length;
+
+  useEffect((): void => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      setAnimate(true);
+
+      setTimeout(() => {
+        setAnimate(false);
+      }, 1000);
+    }
+  }, [products]);
 
   return (
-    <StyledWrapper>
+    <StyledWrapper productsChanged={animate}>
       <Link href="/cart" passHref>
         <StyledLink>
           <StyledSvgSymbol

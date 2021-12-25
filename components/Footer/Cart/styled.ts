@@ -1,6 +1,24 @@
-import { styled } from "~/theme";
+import { keyframes, styled } from "~/theme";
 
-export const StyledWrapper = styled.div`
+const cartShake = keyframes`
+  0% {
+    transform: translateY(0);
+  } 
+
+  50% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+`;
+
+export const StyledWrapper = styled.div<{ productsChanged: boolean }>`
+  animation-duration: 0.2s;
+  animation-iteration-count: 2;
+  animation-name: ${({ productsChanged }) =>
+    productsChanged ? cartShake : "none"};
   background-color: ${({ theme }) => theme.colors.red};
   border-radius: 50%;
   border: ${({ theme }) => theme.rem(3)} solid white;
