@@ -46,7 +46,10 @@ interface TProps {
 const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const { t } = useTranslation();
   const { store } = useStore();
-  const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
+  const { shopSettings } = store;
+  const [modalIsOpened, toggleModalOpened] = useState<boolean>(
+    shopSettings.shopIsClosed
+  );
   const [modalDayIsOpened, toggleModalDayIsOpened] = useState<boolean>(
     store.modalDay && !!Object.keys(store.modalDay).length
   );
@@ -197,7 +200,7 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
         </StyledCopyText>
       </StyledCopy>
 
-      <Cart />
+      {!shopSettings.shopIsClosed && <Cart />}
 
       <StyledScrollButton onClick={handleScrollTop} type="button">
         <SvgArrowTopIcon />

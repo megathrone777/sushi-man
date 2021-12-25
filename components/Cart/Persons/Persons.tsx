@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { useNotifications } from "reapop";
 
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -7,6 +6,7 @@ import {
   setCutleryAmount,
   useStore,
   setCutleryAmountError,
+  setCutleryPrice,
 } from "~/store";
 import { SvgPlusIcon, SvgMinusIcon, SvgExclamationIcon } from "~/icons";
 import {
@@ -23,11 +23,10 @@ import {
 } from "./styled";
 
 const Persons: React.FC = () => {
-  const { notify } = useNotifications();
   const { t } = useTranslation();
   const { dispatch, store } = useStore();
   const { cart } = store;
-  const { cutleryAmount, cutleryAmountError, products } = cart;
+  const { cutleryAmount, cutleryAmountError, cutleryPrice, products } = cart;
   const isInitialMount = useRef(true);
 
   const totalRollsAdded = products.filter(
@@ -35,8 +34,7 @@ const Persons: React.FC = () => {
   );
 
   const totalSetsAdded = products.filter(
-    ({ isDrink, isSalat, isRoll }: TCartProduct): boolean =>
-      !isRoll && !isDrink && !isSalat
+    ({ isSet }: TCartProduct): boolean => isSet
   );
 
   const totalDrinksAdded = products.filter(
@@ -45,6 +43,10 @@ const Persons: React.FC = () => {
 
   const totalSalatsAdded = products.filter(
     ({ isSalat }: TCartProduct): boolean => isSalat
+  );
+
+  const totalPokeAdded = products.filter(
+    ({ isPoke }: TCartProduct): boolean => isPoke
   );
 
   const totalRollsAmount = totalRollsAdded.reduce(
@@ -75,23 +77,23 @@ const Persons: React.FC = () => {
     0
   );
 
+  const totalPokeAmount = totalPokeAdded.reduce(
+    (accumulator: number, { quantity }: TCartProduct) => {
+      return accumulator + quantity;
+    },
+    0
+  );
+
   const maxCutleryAmount =
-    totalRollsAmount * 2 +
+    totalRollsAmount +
     totalSetsAmount * 4 +
-    totalDrinksAmount * 1 +
-    totalSalatsAmount * 2;
+    totalDrinksAmount +
+    totalSalatsAmount +
+    totalPokeAmount;
 
   const handleQuantityIncrease = (): void => {
     if (cutleryAmount >= maxCutleryAmount) {
-      notify({
-        dismissAfter: 3000,
-        dismissible: true,
-        position: "bottom-center",
-        showDismissButton: true,
-        status: "error",
-        title: `Maximálně množství  zvolených příboru pro Vaše objednávku ${maxCutleryAmount} kusů.`,
-      });
-      return;
+      dispatch(setCutleryPrice(cutleryPrice + 10));
     }
 
     dispatch(setCutleryAmountError(false));
@@ -100,6 +102,9 @@ const Persons: React.FC = () => {
 
   const handleQuantityDecrease = (): void => {
     if (cutleryAmount === 0) return;
+    if (cutleryAmount >= maxCutleryAmount) {
+      dispatch(setCutleryPrice(cutleryPrice - 10));
+    }
 
     dispatch(setCutleryAmount(cutleryAmount - 1));
   };

@@ -15,7 +15,7 @@ const cartShake = keyframes`
 `;
 
 export const StyledWrapper = styled.div<{ productsChanged: boolean }>`
-  animation-duration: 0.2s;
+  animation-duration: 0.3s;
   animation-iteration-count: 2;
   animation-name: ${({ productsChanged }) =>
     productsChanged ? cartShake : "none"};
@@ -31,7 +31,6 @@ export const StyledWrapper = styled.div<{ productsChanged: boolean }>`
   right: ${({ theme }) => theme.rem(30)};
   text-align: center;
   top: ${({ theme }) => theme.rem(25)};
-  transition: all 0.2s ease-in;
   width: ${({ theme }) => theme.rem(70)};
   z-index: 101;
 

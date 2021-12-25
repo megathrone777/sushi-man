@@ -71,6 +71,7 @@ const Cart: React.FC = () => {
     deliveryPrice,
     deliveryError,
     cutleryAmount,
+    cutleryPrice,
     customerAddress,
     customerName,
     customerPhone,
@@ -109,6 +110,7 @@ const Cart: React.FC = () => {
   const totalPrice =
     totalProductsPrice +
     totalAdditionalsPrice +
+    cutleryPrice +
     deliveryPrice -
     totalRollsDiscount;
 

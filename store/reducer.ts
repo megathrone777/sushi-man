@@ -155,6 +155,15 @@ const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
         },
       }),
 
+    [TActionTypes.SET_CUTLERY_PRICE]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
+        cart: {
+          ...store.cart,
+          cutleryPrice: payload,
+        },
+      }),
+
     [TActionTypes.SET_CUTLERY_AMOUNT_ERROR]: (): TStore =>
       setStoreToLocalStorage({
         ...store,

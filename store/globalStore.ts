@@ -56,14 +56,15 @@ export interface TStore {
     customerPhoneError: boolean;
     cutleryAmount: number;
     cutleryAmountError: boolean;
-    deliveryPrice: number;
+    cutleryPrice: number;
     deliveryDistance: number;
     deliveryError: boolean;
-    paymentType: TPayment;
+    deliveryPrice: number;
     isAgreeChecked: boolean;
     isAgreeCheckedError: boolean;
     isPickupChecked: boolean;
     modifiers: TProductModifier[];
+    paymentType: TPayment;
     products: TCartProduct[];
     totalRollsDiscount: number;
   };
@@ -80,23 +81,24 @@ const initialStore: TStore = {
     additionals: [],
     customerAddress: "",
     customerAddressError: false,
-    customerNote: "",
-    cutleryAmount: 0,
-    deliveryPrice: null,
-    deliveryDistance: 0,
-    deliveryError: false,
-    isAgreeChecked: false,
-    isAgreeCheckedError: false,
-    isPickupChecked: false,
     customerEmail: "",
     customerEmailError: false,
     customerName: "",
     customerNameError: false,
+    customerNote: "",
     customerPhone: "",
     customerPhoneError: false,
+    cutleryAmount: 0,
     cutleryAmountError: false,
-    paymentType: TPayment.CARD,
+    cutleryPrice: 0,
+    deliveryDistance: 0,
+    deliveryError: false,
+    deliveryPrice: null,
+    isAgreeChecked: false,
+    isAgreeCheckedError: false,
+    isPickupChecked: false,
     modifiers: [],
+    paymentType: TPayment.CARD,
     products: [],
     totalRollsDiscount: 0,
   },

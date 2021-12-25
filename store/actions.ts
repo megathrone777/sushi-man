@@ -1,5 +1,3 @@
-import { Value as PhoneNumberValue } from "react-phone-number-input";
-
 import {
   TPayment,
   TAdditional,
@@ -20,6 +18,7 @@ export enum TActionTypes {
   SET_ADDITIONALS = "SET_ADDITIONALS",
   ADD_ADDITIONAL = "ADD_ADDITIONAL",
   SET_CUTLERY_AMOUNT = "SET_CUTLERY_AMOUNT",
+  SET_CUTLERY_PRICE = "SET_CUTLERY_PRICE",
   SET_CUTLERY_AMOUNT_ERROR = "SET_CUTLERY_AMOUNT_ERROR",
   SET_PICKUP = "SET_PICKUP",
   SET_SCHEDULE = "SET_SCHEDULE",
@@ -116,6 +115,11 @@ export const setCutleryAmountError = (error: boolean): TAction => ({
   type: TActionTypes.SET_CUTLERY_AMOUNT_ERROR,
 });
 
+export const setCutleryPrice = (price: number): TAction => ({
+  payload: price,
+  type: TActionTypes.SET_CUTLERY_PRICE,
+});
+
 export const setPickup = (checked: boolean): TAction => ({
   payload: checked,
   type: TActionTypes.SET_PICKUP,
@@ -177,7 +181,7 @@ export const setCustomerAddress = (address: string): TAction => ({
   type: TActionTypes.SET_CUSTOMER_ADDRESS,
 });
 
-export const setCustomerPhone = (phone: PhoneNumberValue): TAction => ({
+export const setCustomerPhone = (phone: string): TAction => ({
   payload: phone,
   type: TActionTypes.SET_CUSTOMER_PHONE,
 });
