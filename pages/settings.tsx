@@ -18,7 +18,6 @@ const SettingsPage: NextPage<TProps> = ({ shopSettings }) => {
 
   useEffect((): void => {
     dispatch(setShopSettings(shopSettings));
-    console.log(shopSettings, 'set');
   }, [shopSettings]);
 
   return (
