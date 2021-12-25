@@ -10,8 +10,6 @@ import {
   setShopSettings,
   useStore,
   TSchedule,
-  TModalDay,
-  setModalDay
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -27,10 +25,6 @@ import CartPageQuery from "~/queries/cartpage.gql";
 
 interface TProps {
   additionals: TAdditional[];
-  cutlery: {
-    price: number;
-  };
-  days: TModalDay[];
   hero: {
     hero_cs: TBanner;
     hero_ru: TBanner;
@@ -45,33 +39,22 @@ interface TProps {
 
 const CartPage: NextPage<TProps> = ({
   additionals,
-  cutlery,
-  days,
   hero,
   products,
   shopSettings,
-  schedule,
 }) => {
   const { dispatch } = useStore();
   const { t } = useTranslation();
   const cartTitle = t("cartTitle");
-  const newAdditionals = additionals.map((additional: TAdditional) => {
-    return {
-      ...additional,
-      quantity: 0,
-    };
-  });
+  const newAdditionals = additionals.map((additional: TAdditional) => ({
+    ...additional,
+    quantity: 0,
+  }));
 
   useEffect((): void => {
     dispatch(setAdditionals(newAdditionals));
     dispatch(setShopSettings(shopSettings));
-
-    if (days && !!days.length) {
-      dispatch(setModalDay(days[0]));
-    } else {
-      dispatch(setModalDay(null));
-    }
-  }, [additionals, cutlery.price, schedule, dispatch]);
+  }, [additionals, shopSettings]);
 
   return (
     <LayoutSecondary title={cartTitle}>
@@ -92,11 +75,9 @@ CartPage.getInitialProps = async () => {
   const {
     data: {
       additionals,
-      days,
       hero_cs,
       hero_ru,
       products,
-      cutlery,
       shop,
       schedule_cs,
       schedule_ru,
@@ -109,13 +90,11 @@ CartPage.getInitialProps = async () => {
 
   return {
     additionals,
-    days,
     products,
     hero: {
       hero_cs,
       hero_ru,
     },
-    cutlery,
     shopSettings: shop,
     schedule: {
       schedule_cs,

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNotifications } from "reapop";
 import Slider from "react-slick";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { TProps } from "./types";
 import useTranslation from "~/intl/useTranslation";
@@ -23,12 +24,12 @@ import {
   StyledItemTitle,
   StyledItem,
   StyledAddButton,
-  StyledAddLink,
   StyledLoader,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 
 const ProductsRecommended: React.FC<TProps> = ({ products }) => {
+  const router = useRouter();
   const { dispatch } = useStore();
   const [imageIsLoading, toggleImageLoading] = useState<boolean>(true);
   const { t } = useTranslation();
@@ -65,6 +66,11 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
   };
 
   const handleAddToCart = (product: TCartProduct): void => {
+    if (product.isPoke) {
+      router.push(`/product/${product.slug}`);
+      return;
+    }
+
     dispatch(addToCart(product));
     notify({
       dismissAfter: 3000,
@@ -171,45 +177,33 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
                         <StyledItemText>{price} Kč</StyledItemText>
                       </StyledItemPrice>
 
-                      {isPoke ? (
-                        <Link
-                          as={`/product/${slug}`}
-                          href={`/product/[${slug}]`}
-                          passHref
-                        >
-                          <StyledAddLink>
-                            <SvgBuyIcon />
-                          </StyledAddLink>
-                        </Link>
-                      ) : (
-                        <StyledAddButton
-                          onClick={() =>
-                            handleAddToCart({
-                              allergeny,
-                              image: {
-                                url: image.url,
-                              },
-                              id,
-                              ingredients,
-                              isRoll,
-                              isDrink,
-                              isSalat,
-                              isSet,
-                              isPoke,
-                              price,
-                              product_modifiers: [],
-                              product_submodifiers: [],
-                              quantity: 1,
-                              slug,
-                              title,
-                              weight,
-                              totalPrice: parseInt(price),
-                            })
-                          }
-                        >
-                          <SvgBuyIcon />
-                        </StyledAddButton>
-                      )}
+                      <StyledAddButton
+                        onClick={() =>
+                          handleAddToCart({
+                            allergeny,
+                            image: {
+                              url: image.url,
+                            },
+                            id,
+                            ingredients,
+                            isRoll,
+                            isDrink,
+                            isSalat,
+                            isSet,
+                            isPoke,
+                            price,
+                            product_modifiers: [],
+                            product_submodifiers: [],
+                            quantity: 1,
+                            slug,
+                            title,
+                            weight,
+                            totalPrice: parseInt(price),
+                          })
+                        }
+                      >
+                        <SvgBuyIcon />
+                      </StyledAddButton>
                     </StyledItemFooter>
                   </StyledItemLayout>
                 </StyledItem>

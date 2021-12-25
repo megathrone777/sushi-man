@@ -4,15 +4,11 @@ import { gql } from "@apollo/client";
 
 import client from "~/apollo-client";
 import {
-  TAdditional,
   TSchedule,
   TShopSettings,
-  TModalDay,
-  setAdditionals,
   setShopSettings,
   useStore,
   setSchedule,
-  setModalDay,
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -35,7 +31,6 @@ import {
 import HomePageQuery from "~/queries/homepage.gql";
 
 interface TProps {
-  additionals: TAdditional[];
   about: {
     about_cs: TAbout;
     about_ru: TAbout;
@@ -44,7 +39,6 @@ interface TProps {
     banner_cs: TMedia;
     banner_ru: TMedia;
   };
-  days: TModalDay[];
   delivery: TDelivery;
   hero: {
     hero_cs: TBanner;
@@ -60,10 +54,8 @@ interface TProps {
 }
 
 const IndexPage: NextPage<TProps> = ({
-  additionals,
   about,
   banner,
-  days,
   delivery,
   hero,
   products,
@@ -76,16 +68,9 @@ const IndexPage: NextPage<TProps> = ({
   const mainTitle = t("mainTitle");
 
   useEffect((): void => {
-    dispatch(setAdditionals(additionals));
     dispatch(setShopSettings(shopSettings));
     dispatch(setSchedule(schedule));
-
-    if (days && !!days.length) {
-      dispatch(setModalDay(days[0]));
-    } else {
-      dispatch(setModalDay(null));
-    }
-  }, [additionals, days, schedule, dispatch]);
+  }, [shopSettings, schedule]);
 
   return (
     <Layout title={mainTitle}>
@@ -129,12 +114,10 @@ const IndexPage: NextPage<TProps> = ({
 IndexPage.getInitialProps = async () => {
   const {
     data: {
-      additionals,
       about_cs,
       about_ru,
       banner_ru,
       banner_cs,
-      days,
       deliveryTitle_cs,
       deliveryTitle_ru,
       deliveryItems,
@@ -153,7 +136,6 @@ IndexPage.getInitialProps = async () => {
   });
 
   return {
-    additionals,
     about: {
       about_cs,
       about_ru,
@@ -162,7 +144,6 @@ IndexPage.getInitialProps = async () => {
       banner_cs,
       banner_ru,
     },
-    days,
     delivery: {
       deliveryTitle: {
         deliveryTitle_cs,

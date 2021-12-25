@@ -207,7 +207,7 @@ export const StyledDesc = styled.div`
 
 export const StyledText = styled.p``;
 
-const StyledAdd = css`
+export const StyledAddButton = styled.button`
   background-color: ${({ theme }) => theme.colors.red};
   border: none;
   border-bottom-left-radius: ${({ theme }) => theme.rem(5)};
@@ -246,14 +246,6 @@ const StyledAdd = css`
       min-width: ${({ theme }) => theme.rem(90)};
     }
   }
-`;
-
-export const StyledAddButton = styled.button`
-  ${StyledAdd};
-`;
-
-export const StyledAddLink = styled.a`
-  ${StyledAdd};
 `;
 
 export const StyledLoader = styled.span`

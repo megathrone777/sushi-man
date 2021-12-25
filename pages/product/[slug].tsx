@@ -3,13 +3,7 @@ import { NextPage } from "next";
 import { gql } from "@apollo/client";
 
 import client from "~/apollo-client";
-import {
-  TShopSettings,
-  setShopSettings,
-  useStore,
-  TModalDay,
-  setModalDay,
-} from "~/store";
+import { TShopSettings, setShopSettings, useStore } from "~/store";
 import {
   Banner,
   LayoutSecondary,
@@ -22,7 +16,6 @@ import {
 import ProductPageQuery from "~/queries/productpage.gql";
 
 interface TProps {
-  days: TModalDay[];
   productDetails: TProduct;
   products: TProduct[];
   hero: {
@@ -33,7 +26,6 @@ interface TProps {
 }
 
 const ProductPage: NextPage<TProps> = ({
-  days,
   hero,
   productDetails,
   products,
@@ -43,13 +35,7 @@ const ProductPage: NextPage<TProps> = ({
 
   useEffect((): void => {
     dispatch(setShopSettings(shopSettings));
-
-    if (days && !!days.length) {
-      dispatch(setModalDay(days[0]));
-    } else {
-      dispatch(setModalDay(null));
-    }
-  }, [dispatch]);
+  }, [shopSettings]);
 
   return (
     <LayoutSecondary title={`${productDetails.title} | Rozvoz sushi po Praze`}>
@@ -101,7 +87,7 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
   });
 
   const {
-    data: { days, products, hero_cs, hero_ru, shop },
+    data: { products, hero_cs, hero_ru, shop },
   } = await client.query({
     query: gql`
       ${ProductPageQuery}
@@ -109,7 +95,6 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
   });
 
   return {
-    days,
     hero: {
       hero_cs,
       hero_ru,

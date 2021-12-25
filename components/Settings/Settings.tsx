@@ -8,6 +8,7 @@ import { StyledButton, StyledWrapper, StyledDivider } from "./styled";
 const Settings: React.FC = () => {
   const { dispatch, store } = useStore();
   const { shopSettings } = store;
+  const { shopIsClosed, ordersStop } = shopSettings;
   const [sendOrdersStop] = useMutation(
     gql`
       mutation Mutation($updateShopInput: updateShopInput) {
@@ -38,7 +39,7 @@ const Settings: React.FC = () => {
       variables: {
         updateShopInput: {
           data: {
-            shopIsClosed: !shopSettings.shopIsClosed,
+            shopIsClosed: !shopIsClosed,
           },
         },
       },
@@ -47,7 +48,7 @@ const Settings: React.FC = () => {
     dispatch(
       setShopSettings({
         ...shopSettings,
-        shopIsClosed: !shopSettings.shopIsClosed,
+        shopIsClosed: !shopIsClosed,
       })
     );
   };
@@ -57,7 +58,7 @@ const Settings: React.FC = () => {
       variables: {
         updateShopInput: {
           data: {
-            ordersStop: !shopSettings.ordersStop,
+            ordersStop: !ordersStop,
           },
         },
       },
@@ -66,7 +67,7 @@ const Settings: React.FC = () => {
     dispatch(
       setShopSettings({
         ...shopSettings,
-        ordersStop: !shopSettings.ordersStop,
+        ordersStop: !ordersStop,
       })
     );
   };
@@ -75,20 +76,20 @@ const Settings: React.FC = () => {
     <StyledWrapper>
       <StyledButton
         onClick={handleShopClosedToggle}
-        isActive={shopSettings.shopIsClosed}
+        isActive={shopIsClosed}
         type="button"
       >
-        {shopSettings.shopIsClosed ? "Открыть смену" : "Закрыть смену"}
+        {shopIsClosed ? "Открыть смену" : "Закрыть смену"}
       </StyledButton>
 
       <StyledDivider />
 
       <StyledButton
         onClick={handleOrdersStopToggle}
-        isActive={shopSettings.ordersStop}
+        isActive={ordersStop}
         type="button"
       >
-        {shopSettings.ordersStop
+        {ordersStop
           ? "Запустить приёмку заказов"
           : "Остановить приёмку заказов"}
       </StyledButton>

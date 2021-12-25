@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { css, keyframes, styled } from "~/theme";
+import { keyframes, styled } from "~/theme";
 
 const rotate = keyframes`
   from {
@@ -157,7 +157,7 @@ export const StyledItemDesc = styled.div`
 
 export const StyledItemText = styled.p``;
 
-const StyledAdd = css`
+export const StyledAddButton = styled.button`
   background-color: ${({ theme }) => theme.colors.red};
   border: none;
   border-bottom-left-radius: ${({ theme }) => theme.rem(5)};
@@ -196,14 +196,6 @@ const StyledAdd = css`
       min-width: ${({ theme }) => theme.rem(90)};
     }
   }
-`;
-
-export const StyledAddButton = styled.button`
-  ${StyledAdd};
-`;
-
-export const StyledAddLink = styled.a`
-  ${StyledAdd};
 `;
 
 export const StyledLoader = styled.span`

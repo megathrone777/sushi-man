@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useNotifications } from "reapop";
 
 import { useStore, TCartProduct, addToCart } from "~/store";
@@ -17,7 +18,6 @@ import {
   StyledText,
   StyledTitle,
   StyledAddButton,
-  StyledAddLink,
   StyledLoader,
   StyledImage,
 } from "./styled";
@@ -39,6 +39,7 @@ const Item: React.FC<TProps> = ({
   triggerOrdersStopModal,
   weight,
 }) => {
+  const router = useRouter();
   const [imageIsLoading, toggleImageLoading] = useState<boolean>(true);
   const { notify } = useNotifications();
   const { dispatch, store } = useStore();
@@ -52,6 +53,11 @@ const Item: React.FC<TProps> = ({
 
     if (shopSettings.ordersStop) {
       triggerOrdersStopModal(true);
+      return;
+    }
+
+    if (product.isPoke) {
+      router.push(`/product/${product.slug}`);
       return;
     }
 
@@ -128,41 +134,33 @@ const Item: React.FC<TProps> = ({
             <StyledText>{price} Kč</StyledText>
           </StyledPrice>
 
-          {isPoke ? (
-            <Link as={`/product/${slug}`} href={`/product/[${slug}]`} passHref>
-              <StyledAddLink>
-                <SvgBuyIcon />
-              </StyledAddLink>
-            </Link>
-          ) : (
-            <StyledAddButton
-              onClick={() =>
-                handleAddToCart({
-                  allergeny,
-                  id,
-                  image: {
-                    url: image.url,
-                  },
-                  ingredients,
-                  isDrink,
-                  isPoke,
-                  isRoll,
-                  isSalat,
-                  isSet,
-                  price,
-                  product_modifiers: [],
-                  product_submodifiers: [],
-                  quantity: 1,
-                  slug,
-                  title,
-                  totalPrice: parseInt(price),
-                  weight,
-                })
-              }
-            >
-              <SvgBuyIcon />
-            </StyledAddButton>
-          )}
+          <StyledAddButton
+            onClick={() =>
+              handleAddToCart({
+                allergeny,
+                id,
+                image: {
+                  url: image.url,
+                },
+                ingredients,
+                isDrink,
+                isPoke,
+                isRoll,
+                isSalat,
+                isSet,
+                price,
+                product_modifiers: [],
+                product_submodifiers: [],
+                quantity: 1,
+                slug,
+                title,
+                totalPrice: parseInt(price),
+                weight,
+              })
+            }
+          >
+            <SvgBuyIcon />
+          </StyledAddButton>
         </StyledFooter>
       </StyledLayout>
     </StyledWrapper>
