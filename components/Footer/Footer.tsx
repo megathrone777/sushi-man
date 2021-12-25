@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { useStore } from "~/store";
 import { Cart } from "./Cart";
-import { Modal, ModalDay } from "~/components";
+import { Modal } from "~/components";
 import { TContactsLink } from "~/components/Modal";
 import useTranslation from "~/intl/useTranslation";
 import { SvgArrowTopIcon, SvgChatIcon } from "~/icons";
@@ -47,13 +47,11 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const { t } = useTranslation();
   const { store } = useStore();
   const { shopSettings } = store;
-  const [modalIsOpened, toggleModalOpened] = useState<boolean>(
-    shopSettings.shopIsClosed
-  );
-  const [modalDayIsOpened, toggleModalDayIsOpened] = useState<boolean>(
-    store.modalDay && !!Object.keys(store.modalDay).length
-  );
-  const { modalDay } = store;
+  const [shopModalIsOpened, toggleShopModalOpened] = useState<boolean>(true);
+  // const [modalDayIsOpened, toggleModalDayOpened] = useState<boolean>(
+  //   store.modalDay && !!Object.keys(store.modalDay).length
+  // );
+  // const { modalDay } = store;
   const allergeny = t("allergeny");
   const allergenyImage = t("allergenyImage");
   const contactsLinks = t("contactsLinks");
@@ -73,12 +71,12 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   };
 
   const handleModal = (): void => {
-    toggleModalOpened(!modalIsOpened);
+    toggleShopModalOpened(!shopModalIsOpened);
   };
 
   const handleModalClose = (): void => {
-    toggleModalOpened(false);
-    toggleModalDayIsOpened(false);
+    toggleShopModalOpened(false);
+    // toggleModalDayOpened(false);
   };
 
   return (
@@ -210,7 +208,7 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
         <SvgChatIcon />
       </StyledChatButton>
 
-      {modalDay && !!Object.keys(modalDay).length && (
+      {/* {modalDay && !!Object.keys(modalDay).length && (
         <ModalDay
           close={handleModalClose}
           contactsLinks={contactsLinks}
@@ -218,15 +216,17 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
           text={modalText}
           title={modalTitle}
         />
-      )}
+      )} */}
 
-      <Modal
-        close={handleModalClose}
-        contactsLinks={contactsLinks}
-        isOpened={modalIsOpened}
-        text={modalText}
-        title={modalTitle}
-      />
+      {shopSettings.shopIsClosed && (
+        <Modal
+          close={handleModalClose}
+          contactsLinks={contactsLinks}
+          isOpened={shopModalIsOpened}
+          text={modalText}
+          title={modalTitle}
+        />
+      )}
     </StyledFooter>
   );
 };
