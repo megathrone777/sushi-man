@@ -114,6 +114,7 @@ const Persons: React.FC = () => {
       isInitialMount.current = false;
     } else {
       dispatch(setCutleryAmount(0));
+      dispatch(setCutleryPrice(0));
     }
   }, [cart.products]);
 
@@ -154,7 +155,11 @@ const Persons: React.FC = () => {
               </StyledQuantityWrapper>
             </StyledTableCell>
 
-            <StyledTableCell />
+            <StyledTableCell>
+              <StyledQuantity>
+                {cutleryAmount > maxCutleryAmount ? `${cutleryPrice} Kč` : ""}
+              </StyledQuantity>
+            </StyledTableCell>
           </StyledTableRow>
         </tbody>
       </StyledTable>
