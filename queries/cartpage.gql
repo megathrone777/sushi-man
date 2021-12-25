@@ -53,6 +53,7 @@ query CartPageQuery {
 
   shop {
     ordersStop
+    shopIsClosed
   }
 
   schedule_cs: schedule(locale: "cs") {

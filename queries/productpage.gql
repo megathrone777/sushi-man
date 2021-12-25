@@ -43,5 +43,6 @@ query ProductPageQuery {
 
   shop {
     ordersStop
+    shopIsClosed
   }
 }

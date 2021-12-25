@@ -2,16 +2,16 @@ import React from "react";
 
 import { SvgCloseIcon } from "~/icons";
 import {
-  StyledWrapper,
+  StyledBackground,
+  StyledClose,
+  StyledItem,
   StyledLayout,
-  StyledTitle,
+  StyledLink,
   StyledLinks,
   StyledList,
-  StyledItem,
-  StyledLink,
-  StyledClose,
-  StyledBackground,
   StyledTime,
+  StyledTitle,
+  StyledWrapper,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
 

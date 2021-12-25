@@ -32,6 +32,7 @@ export const StyledText = styled.div`
   letter-spacing: ${({ theme }) => theme.rem(1)};
   margin: 0 auto;
   max-width: ${({ theme }) => theme.rem(700)};
+  text-rendering: optimizeLegibility;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: ${({ theme }) => theme.rem(16)};
