@@ -201,12 +201,25 @@ const Cart: React.FC = () => {
       dispatch(setCustomerPhoneError(false));
     }
 
+    if (cutleryAmount === 0) {
+      notify({
+        dismissAfter: 3000,
+        dismissible: true,
+        position: "bottom-center",
+        showDismissButton: true,
+        status: "error",
+        title: `Zvolte množství příboru na osobu, minimálně 1`,
+      });
+
+      scrollToError("persons");
+      return false;
+    }
+
     if (
       deliveryError ||
       customerPhone.length === 0 ||
       customerName.length === 0 ||
       customerEmail.length === 0 ||
-      cutleryAmount === 0 ||
       (customerAddress.length === 0 && !isPickupChecked) ||
       !isAgreeChecked
     ) {

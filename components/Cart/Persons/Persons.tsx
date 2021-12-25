@@ -39,6 +39,10 @@ const Persons: React.FC = () => {
       !isRoll && !isDrink && !isSalat
   );
 
+  const totalDrinksAdded = products.filter(
+    ({ isDrink }: TCartProduct): boolean => isDrink
+  );
+
   const totalSalatsAdded = products.filter(
     ({ isSalat }: TCartProduct): boolean => isSalat
   );
@@ -57,6 +61,13 @@ const Persons: React.FC = () => {
     0
   );
 
+  const totalDrinksAmount = totalDrinksAdded.reduce(
+    (accumulator: number, { quantity }: TCartProduct) => {
+      return accumulator + quantity;
+    },
+    0
+  );
+
   const totalSalatsAmount = totalSalatsAdded.reduce(
     (accumulator: number, { quantity }: TCartProduct) => {
       return accumulator + quantity;
@@ -65,7 +76,10 @@ const Persons: React.FC = () => {
   );
 
   const maxCutleryAmount =
-    totalRollsAmount * 2 + totalSetsAmount * 4 + totalSalatsAmount * 2;
+    totalRollsAmount * 2 +
+    totalSetsAmount * 4 +
+    totalDrinksAmount * 1 +
+    totalSalatsAmount * 2;
 
   const handleQuantityIncrease = (): void => {
     if (cutleryAmount >= maxCutleryAmount) {
