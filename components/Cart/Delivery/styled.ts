@@ -274,4 +274,8 @@ export const StyledAddressLoader = styled.span`
   top: 50%;
   transform-origin: center top;
   width: ${({ theme }) => theme.rem(25)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    right: ${({ theme }) => theme.rem(40)};
+  }
 `;
