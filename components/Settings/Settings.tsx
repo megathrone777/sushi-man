@@ -73,13 +73,21 @@ const Settings: React.FC = () => {
 
   return (
     <StyledWrapper>
-      <StyledButton onClick={handleShopClosedToggle} type="button">
+      <StyledButton
+        onClick={handleShopClosedToggle}
+        isActive={shopSettings.shopIsClosed}
+        type="button"
+      >
         {shopSettings.shopIsClosed ? "Открыть смену" : "Закрыть смену"}
       </StyledButton>
 
       <StyledDivider />
 
-      <StyledButton onClick={handleOrdersStopToggle} type="button">
+      <StyledButton
+        onClick={handleOrdersStopToggle}
+        isActive={shopSettings.ordersStop}
+        type="button"
+      >
         {shopSettings.ordersStop
           ? "Запустить приёмку заказов"
           : "Остановить приёмку заказов"}
