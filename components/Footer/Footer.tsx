@@ -48,17 +48,17 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const { store } = useStore();
   const { shopSettings } = store;
   const [shopModalIsOpened, toggleShopModalOpened] = useState<boolean>(true);
+  const [ordersStopModalIsOpened, toggleOrdersStopModalOpened] =
+    useState<boolean>(true);
   const [modalIsOpened, toggleModalOpened] = useState<boolean>(false);
-  // const [modalDayIsOpened, toggleModalDayOpened] = useState<boolean>(
-  //   store.modalDay && !!Object.keys(store.modalDay).length
-  // );
-  // const { modalDay } = store;
   const allergeny = t("allergeny");
   const allergenyImage = t("allergenyImage");
   const contactsLinks = t("contactsLinks");
   const shopModalTitle = t("shopModalTitle");
   const modalTitle = t("modalTitle");
   const modalText = t("modalText");
+  const ordersStopModalTitle = t("ordersStopModalTitle");
+  const ordersStopModalText = t("ordersStopModalText");
 
   const handleScroll = (anchor: string): void => {
     const scrolledSection = document.getElementById(anchor);
@@ -78,6 +78,10 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
 
   const handleModalClose = (): void => {
     toggleModalOpened(false);
+  };
+
+  const handleOrdersStopModalClose = (): void => {
+    toggleOrdersStopModalOpened(false);
   };
 
   const handleShopModalClose = (): void => {
@@ -213,16 +217,6 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
         <SvgChatIcon />
       </StyledChatButton>
 
-      {/* {modalDay && !!Object.keys(modalDay).length && (
-        <ModalDay
-          close={handleModalClose}
-          contactsLinks={contactsLinks}
-          isOpened={modalDayIsOpened}
-          text={modalText}
-          title={modalTitle}
-        />
-      )} */}
-
       <Modal
         close={handleModalClose}
         contactsLinks={contactsLinks}
@@ -230,6 +224,16 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
         text={modalText}
         title={modalTitle}
       />
+
+      {shopSettings.ordersStop && (
+        <Modal
+          close={handleOrdersStopModalClose}
+          contactsLinks={contactsLinks}
+          isOpened={ordersStopModalIsOpened}
+          text={ordersStopModalText}
+          title={ordersStopModalTitle}
+        />
+      )}
 
       {shopSettings.shopIsClosed && (
         <Modal
