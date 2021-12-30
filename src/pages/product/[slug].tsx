@@ -64,7 +64,6 @@ const ProductPage: NextPage<TProps> = ({
 ProductPage.getInitialProps = async ({ query: { slug } }) => {
   const date = new Date();
   const currentDay = date.getDay();
-  const currentHours = date.getHours();
   const { data } = await client.query({
     query: gql`
       query ProductsQuery {
@@ -112,10 +111,22 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
   });
 
   const checkShopIsClosed = (): boolean => {
-    const hoursFrom = days[0].timeFrom.split(":")[0];
-    const hoursTo = days[0].timeTo.split(":")[0];
+    const fromString = days[0].timeFrom;
+    const toString = days[0].timeTo;
 
-    return currentHours < hoursFrom || currentHours > hoursTo;
+    const fromHours = fromString.split(":");
+    const from = new Date();
+    from.setHours(parseInt(fromHours[0]));
+    from.setMinutes(parseInt(fromHours[1]));
+
+    const toHours = toString.split(":");
+    const to = new Date();
+    to.setHours(parseInt(toHours[0]));
+    to.setMinutes(parseInt(toHours[1]));
+
+    const now = new Date();
+
+    return now <= from || now >= to;
   };
 
   return {

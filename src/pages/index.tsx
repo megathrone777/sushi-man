@@ -119,8 +119,6 @@ const IndexPage: NextPage<TProps> = ({
 IndexPage.getInitialProps = async () => {
   const date = new Date();
   const currentDay = date.getDay();
-  const currentHours = date.getHours();
-  // const currentMinutes = date.getMinutes();
   const {
     data: {
       about_cs,
@@ -152,12 +150,22 @@ IndexPage.getInitialProps = async () => {
   });
 
   const checkShopIsClosed = (): boolean => {
-    const hoursFrom = days[0].timeFrom.split(":")[0];
-    const hoursTo = days[0].timeTo.split(":")[0];
-    // const minutesFrom = days[0].timeFrom.split(":")[1];
-    // const minutesTo = days[0].timeTo.split(":")[1];
+    const fromString = days[0].timeFrom;
+    const toString = days[0].timeTo;
 
-    return currentHours < hoursFrom || currentHours > hoursTo;
+    const fromHours = fromString.split(":");
+    const from = new Date();
+    from.setHours(parseInt(fromHours[0]));
+    from.setMinutes(parseInt(fromHours[1]));
+
+    const toHours = toString.split(":");
+    const to = new Date();
+    to.setHours(parseInt(toHours[0]));
+    to.setMinutes(parseInt(toHours[1]));
+
+    const now = new Date();
+
+    return now <= from || now >= to;
   };
 
   return {
