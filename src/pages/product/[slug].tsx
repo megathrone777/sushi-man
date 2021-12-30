@@ -115,7 +115,7 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
     const hoursFrom = days[0].timeFrom.split(":")[0];
     const hoursTo = days[0].timeTo.split(":")[0];
 
-    return currentHours <= hoursFrom || currentHours >= hoursTo;
+    return currentHours < hoursFrom || currentHours > hoursTo;
   };
 
   return {

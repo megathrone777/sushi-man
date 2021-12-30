@@ -110,7 +110,7 @@ CartPage.getInitialProps = async () => {
     // const minutesFrom = days[0].timeFrom.split(":")[1];
     // const minutesTo = days[0].timeTo.split(":")[1];
 
-    return currentHours <= hoursFrom || currentHours >= hoursTo;
+    return currentHours < hoursFrom || currentHours > hoursTo;
   };
 
   return {
