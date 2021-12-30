@@ -3,7 +3,13 @@ import { NextPage } from "next";
 import { gql } from "@apollo/client";
 
 import client from "~/apollo-client";
-import { TShopSettings, setShopSettings, useStore } from "~/store";
+import {
+  TShopSettings,
+  setShopSettings,
+  useStore,
+  TModalDay,
+  setModalDay,
+} from "~/store";
 import {
   Banner,
   LayoutSecondary,
@@ -16,6 +22,7 @@ import {
 import ProductPageQuery from "~/queries/productpage.gql";
 
 interface TProps {
+  modalDay: TModalDay;
   productDetails: TProduct;
   products: TProduct[];
   hero: {
@@ -27,6 +34,7 @@ interface TProps {
 
 const ProductPage: NextPage<TProps> = ({
   hero,
+  modalDay,
   productDetails,
   products,
   shopSettings,
@@ -35,7 +43,8 @@ const ProductPage: NextPage<TProps> = ({
 
   useEffect((): void => {
     dispatch(setShopSettings(shopSettings));
-  }, [shopSettings]);
+    dispatch(setModalDay(modalDay));
+  }, [shopSettings, modalDay]);
 
   return (
     <LayoutSecondary title={`${productDetails.title} | Rozvoz sushi po Praze`}>
@@ -56,7 +65,6 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
   const date = new Date();
   const currentDay = date.getDay();
   const currentHours = date.getHours();
-
   const { data } = await client.query({
     query: gql`
       query ProductsQuery {
@@ -91,7 +99,7 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
   });
 
   const {
-    data: { days, products, hero_cs, hero_ru, shop },
+    data: { days, modalDay, products, hero_cs, hero_ru, shop },
   } = await client.query({
     query: gql`
       ${ProductPageQuery}
@@ -107,7 +115,7 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
     const hoursFrom = days[0].timeFrom.split(":")[0];
     const hoursTo = days[0].timeTo.split(":")[0];
 
-    return currentHours < hoursFrom || currentHours > hoursTo;
+    return currentHours <= hoursFrom || currentHours >= hoursTo;
   };
 
   return {
@@ -115,6 +123,7 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
       hero_cs,
       hero_ru,
     },
+    modalDay,
     productDetails: data["products"][0],
     products,
     shopSettings: {

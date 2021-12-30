@@ -29,6 +29,11 @@ query CartPageQuery($where: JSON) {
     title
   }
 
+  modalDay {
+    title
+    text
+  }
+
   products(sort: "priority") {
     allergeny
     id

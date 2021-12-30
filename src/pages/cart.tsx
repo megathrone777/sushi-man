@@ -10,6 +10,8 @@ import {
   setShopSettings,
   useStore,
   TSchedule,
+  TModalDay,
+  setModalDay,
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -29,6 +31,7 @@ interface TProps {
     hero_cs: TBanner;
     hero_ru: TBanner;
   };
+  modalDay: TModalDay;
   products: TProduct[];
   shopSettings: TShopSettings;
   schedule: {
@@ -40,6 +43,7 @@ interface TProps {
 const CartPage: NextPage<TProps> = ({
   additionals,
   hero,
+  modalDay,
   products,
   shopSettings,
 }) => {
@@ -54,7 +58,8 @@ const CartPage: NextPage<TProps> = ({
   useEffect((): void => {
     dispatch(setAdditionals(newAdditionals));
     dispatch(setShopSettings(shopSettings));
-  }, [additionals, shopSettings]);
+    dispatch(setModalDay(modalDay));
+  }, [additionals, shopSettings, modalDay]);
 
   return (
     <LayoutSecondary title={cartTitle}>
@@ -75,12 +80,14 @@ CartPage.getInitialProps = async () => {
   const date = new Date();
   const currentDay = date.getDay();
   const currentHours = date.getHours();
+  // const currentMinutes = date.getMinutes();
   const {
     data: {
       additionals,
       days,
       hero_cs,
       hero_ru,
+      modalDay,
       products,
       shop,
       schedule_cs,
@@ -100,12 +107,15 @@ CartPage.getInitialProps = async () => {
   const checkShopIsClosed = (): boolean => {
     const hoursFrom = days[0].timeFrom.split(":")[0];
     const hoursTo = days[0].timeTo.split(":")[0];
+    // const minutesFrom = days[0].timeFrom.split(":")[1];
+    // const minutesTo = days[0].timeTo.split(":")[1];
 
-    return currentHours < hoursFrom || currentHours > hoursTo;
+    return currentHours <= hoursFrom || currentHours >= hoursTo;
   };
 
   return {
     additionals,
+    modalDay,
     products,
     hero: {
       hero_cs,
@@ -113,7 +123,7 @@ CartPage.getInitialProps = async () => {
     },
     shopSettings: {
       ...shop,
-      shopIsClosed: checkShopIsClosed,
+      shopIsClosed: checkShopIsClosed(),
     },
     schedule: {
       schedule_cs,

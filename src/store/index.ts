@@ -23,6 +23,7 @@ export {
   setDeliveryDistance,
   setDeliveryError,
   setDeliveryPrice,
+  setModalDay,
   setPaymentType,
   setPickup,
   setSchedule,
@@ -36,5 +37,6 @@ export type {
   TAdditional,
   TSchedule,
   TShopSettings,
+  TModalDay,
 } from "./globalStore";
 export { TPayment } from "./globalStore";

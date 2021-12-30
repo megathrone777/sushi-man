@@ -6,17 +6,24 @@ import { TAction, TActionTypes } from "./actions";
 import { TStore, TAdditional, TCartProduct, initialStore } from "./globalStore";
 
 const setStoreToLocalStorage = (currentStore: TStore): TStore => {
-  setToLocalStorage<TStore>("store", currentStore);
+  setToLocalStorage<TStore>("sushiManStore", currentStore);
 
   return currentStore;
 };
 
 const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
   const actions = {
-    [TActionTypes.SET_SHOP_SETTINGS]: (): TStore => ({
-      ...store,
-      shopSettings: payload,
-    }),
+    [TActionTypes.SET_MODAL_DAY]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
+        modalDay: payload,
+      }),
+
+    [TActionTypes.SET_SHOP_SETTINGS]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
+        shopSettings: payload,
+      }),
 
     [TActionTypes.ADD_PRODUCT]: (): TStore => {
       const products = [...store.cart.products];

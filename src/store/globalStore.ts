@@ -29,6 +29,11 @@ export interface TShopSettings {
   shopIsClosed: boolean;
 }
 
+export interface TModalDay {
+  text: string;
+  title: string;
+}
+
 export enum TPayment {
   CARD = "card",
   CARDCOURIER = "cardCourier",
@@ -62,6 +67,7 @@ export interface TStore {
     products: TCartProduct[];
     totalRollsDiscount: number;
   };
+  modalDay: TModalDay;
   schedule: {
     schedule_cs: TSchedule;
     schedule_ru: TSchedule;
@@ -95,6 +101,10 @@ const initialStore: TStore = {
     products: [],
     totalRollsDiscount: 0,
   },
+  modalDay: {
+    text: "",
+    title: "",
+  },
   schedule: {
     schedule_cs: {
       locale: "",
@@ -115,8 +125,8 @@ const initialStore: TStore = {
   },
 };
 
-const globalStore: TStore = getFromLocalStorage("store")
-  ? getFromLocalStorage<TStore>("store")
+const globalStore: TStore = getFromLocalStorage("sushiManStore")
+  ? getFromLocalStorage<TStore>("sushiManStore")
   : initialStore;
 
 export { globalStore, initialStore };

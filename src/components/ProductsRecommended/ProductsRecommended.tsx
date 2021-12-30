@@ -31,7 +31,7 @@ import { StyledContainer } from "~/components/Layout/styled";
 const ProductsRecommended: React.FC<TProps> = ({ products }) => {
   const router = useRouter();
   const { dispatch, store } = useStore();
-  const { shopSettings } = store;
+  const { modalDay, shopSettings } = store;
   const [ordersStopModalIsOpened, toggleOrdersStopModalOpened] =
     useState<boolean>(false);
   const [shopModalIsOpened, toggleShopModalOpened] = useState<boolean>(false);
@@ -254,8 +254,8 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
         close={handleShopModalClose}
         contactsLinks={contactsLinks}
         isOpened={shopModalIsOpened}
-        text={shopModalText}
-        title={shopModalTitle}
+        text={modalDay.text}
+        title={modalDay.title}
       />
     </StyledWrapper>
   );

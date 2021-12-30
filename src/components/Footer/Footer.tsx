@@ -32,6 +32,7 @@ import {
   StyledContactsLink,
 } from "./styled";
 import { StyledContainer } from "~/components/Layout/styled";
+import { ModalDay } from "../ModalDay";
 
 interface TMenuItem {
   anchor: string;
@@ -46,7 +47,7 @@ interface TProps {
 const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const { t } = useTranslation();
   const { store } = useStore();
-  const { shopSettings } = store;
+  const { modalDay, shopSettings } = store;
   const [shopModalIsOpened, toggleShopModalOpened] = useState<boolean>(true);
   const [ordersStopModalIsOpened, toggleOrdersStopModalOpened] =
     useState<boolean>(true);
@@ -54,7 +55,6 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const allergeny = t("allergeny");
   const allergenyImage = t("allergenyImage");
   const contactsLinks = t("contactsLinks");
-  const shopModalTitle = t("shopModalTitle");
   const modalTitle = t("modalTitle");
   const modalText = t("modalText");
   const ordersStopModalTitle = t("ordersStopModalTitle");
@@ -236,12 +236,12 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
       )}
 
       {shopSettings.shopIsClosed && (
-        <Modal
+        <ModalDay
           close={handleShopModalClose}
           contactsLinks={contactsLinks}
           isOpened={shopModalIsOpened}
-          text={modalText}
-          title={shopModalTitle}
+          text={modalDay.text}
+          title={modalDay.title}
         />
       )}
     </StyledFooter>

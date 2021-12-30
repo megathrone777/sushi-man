@@ -67,6 +67,11 @@ query HomePageQuery($where: JSON) {
     title
   }
 
+  modalDay {
+    title
+    text
+  }
+
   reviews {
     image {
       url

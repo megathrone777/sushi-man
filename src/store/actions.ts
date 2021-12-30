@@ -4,9 +4,11 @@ import {
   TCartProduct,
   TSchedule,
   TShopSettings,
+  TModalDay,
 } from "./globalStore";
 
 export enum TActionTypes {
+  SET_MODAL_DAY = "SET_MODAL_DAY",
   SET_SHOP_SETTINGS = "SET_SHOP_SETTINGS",
   ADD_PRODUCT = "ADD_PRODUCT",
   REMOVE_PRODUCT = "REMOVE_PRODUCT",
@@ -47,6 +49,11 @@ export interface TAction {
   payload: any;
   type: TActionTypes;
 }
+
+export const setModalDay = (data: TModalDay): TAction => ({
+  payload: data,
+  type: TActionTypes.SET_MODAL_DAY,
+});
 
 export const setShopSettings = (settings: TShopSettings): TAction => ({
   payload: settings,

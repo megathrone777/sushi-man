@@ -23,6 +23,11 @@ query ProductPageQuery($where: JSON) {
     title
   }
 
+  modalDay {
+    title
+    text
+  }
+
   products(sort: "priority") {
     allergeny
     id
