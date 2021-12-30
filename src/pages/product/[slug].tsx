@@ -126,7 +126,7 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
 
     const now = new Date();
 
-    return now <= from || now >= to;
+    return now < from || now > to;
   };
 
   return {
