@@ -107,12 +107,16 @@ CartPage.getInitialProps = async () => {
     const toString = days[0].timeTo;
 
     const fromHours = fromString.split(":");
-    const from = new Date();
+    const from = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "Europe/Prague" })
+    );
     from.setHours(parseInt(fromHours[0]));
     from.setMinutes(parseInt(fromHours[1]));
 
     const toHours = toString.split(":");
-    const to = new Date();
+    const to = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "Europe/Prague" })
+    );
     to.setHours(parseInt(toHours[0]));
     to.setMinutes(parseInt(toHours[1]));
 
