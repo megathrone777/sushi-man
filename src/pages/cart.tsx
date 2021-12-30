@@ -72,9 +72,13 @@ const CartPage: NextPage<TProps> = ({
 };
 
 CartPage.getInitialProps = async () => {
+  const date = new Date();
+  const currentDay = date.getDay();
+  const currentHours = date.getHours();
   const {
     data: {
       additionals,
+      days,
       hero_cs,
       hero_ru,
       products,
@@ -86,7 +90,19 @@ CartPage.getInitialProps = async () => {
     query: gql`
       ${CartPageQuery}
     `,
+    variables: {
+      where: {
+        dayOrder: currentDay,
+      },
+    },
   });
+
+  const checkShopIsClosed = (): boolean => {
+    const hoursFrom = days[0].timeFrom.split(":")[0];
+    const hoursTo = days[0].timeTo.split(":")[0];
+
+    return currentHours < hoursFrom || currentHours > hoursTo;
+  };
 
   return {
     additionals,
@@ -95,7 +111,10 @@ CartPage.getInitialProps = async () => {
       hero_cs,
       hero_ru,
     },
-    shopSettings: shop,
+    shopSettings: {
+      ...shop,
+      shopIsClosed: checkShopIsClosed,
+    },
     schedule: {
       schedule_cs,
       schedule_ru,

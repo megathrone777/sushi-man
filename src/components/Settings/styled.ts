@@ -5,14 +5,10 @@ export const StyledWrapper = styled.div`
   text-align: center;
 `;
 
-export const StyledDivider = styled.hr`
-  border: none;
-  height: ${({ theme }) => theme.rem(40)};
-`;
-
 export const StyledButton = styled.button<{ isActive: boolean }>`
-  border: none;
+  background-color: ${({ theme }) => theme.colors.red};
   border-radius: ${({ theme }) => theme.rem(5)};
+  border: none;
   color: white;
   cursor: pointer;
   display: inline-block;
@@ -25,18 +21,17 @@ export const StyledButton = styled.button<{ isActive: boolean }>`
   text-decoration: none;
   transition: 0.2s ease-in;
 
-  ${({ isActive, theme }) =>
-    isActive
-      ? css`
-          background-color: green;
-        `
-      : css`
-          background-color: ${theme.colors.red};
-        `}
-
   &:hover {
-    box-shadow: 0 0
-      ${({ isActive, theme }) =>
-        `${theme.rem(14)} 0 ${isActive ? "green" : "rgba(218, 38, 40, 0.75)"}`};
+    box-shadow: 0 0 ${({ theme }) => theme.rem(14)} 0 rgba(218, 38, 40, 0.75);
   }
+
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      background-color: green;
+
+      &:hover {
+        box-shadow: 0 0 ${({ theme }) => theme.rem(14)} 0 green;
+      }
+    `}
 `;

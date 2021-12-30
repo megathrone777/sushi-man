@@ -53,11 +53,16 @@ const ProductPage: NextPage<TProps> = ({
 };
 
 ProductPage.getInitialProps = async ({ query: { slug } }) => {
+  const date = new Date();
+  const currentDay = date.getDay();
+  const currentHours = date.getHours();
+
   const { data } = await client.query({
     query: gql`
       query ProductsQuery {
         products(where: { slug: "${slug}" }) {
           allergeny
+          days
           id
           image {
             url
@@ -87,12 +92,24 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
   });
 
   const {
-    data: { products, hero_cs, hero_ru, shop },
+    data: { days, products, hero_cs, hero_ru, shop },
   } = await client.query({
     query: gql`
       ${ProductPageQuery}
     `,
+    variables: {
+      where: {
+        dayOrder: currentDay,
+      },
+    },
   });
+
+  const checkShopIsClosed = (): boolean => {
+    const hoursFrom = days[0].timeFrom.split(":")[0];
+    const hoursTo = days[0].timeTo.split(":")[0];
+
+    return currentHours < hoursFrom || currentHours > hoursTo;
+  };
 
   return {
     hero: {
@@ -101,7 +118,10 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
     },
     productDetails: data["products"][0],
     products,
-    shopSettings: shop,
+    shopSettings: {
+      ...shop,
+      shopIsClosed: checkShopIsClosed(),
+    },
   };
 };
 

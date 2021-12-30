@@ -1,6 +1,5 @@
 query SettingsPageQuery {
   shop {
     ordersStop
-    shopIsClosed
   }
 }

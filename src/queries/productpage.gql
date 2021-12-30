@@ -1,10 +1,4 @@
-query CartPageQuery {
-  additionals {
-    id
-    title
-    price
-  }
-
+query ProductPageQuery {
   hero_cs: hero(locale: "cs") {
     image {
       url
@@ -33,8 +27,8 @@ query CartPageQuery {
     isRoll
     isSalat
     isDrink
-    isSet
     isPoke
+    isSet
     price
     slug
     title
@@ -43,20 +37,5 @@ query CartPageQuery {
 
   shop {
     ordersStop
-    shopIsClosed
-  }
-
-  schedule_cs: schedule(locale: "cs") {
-    locale
-    schedule
-    text
-    title
-  }
-
-  schedule_ru: schedule(locale: "ru") {
-    locale
-    schedule
-    text
-    title
   }
 }

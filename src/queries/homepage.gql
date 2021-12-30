@@ -1,4 +1,4 @@
-query HomePageQuery {
+query HomePageQuery($where: JSON) {
   about_cs: about(locale: "cs") {
     locale
     text
@@ -23,6 +23,12 @@ query HomePageQuery {
       url
     }
     locale
+  }
+
+  days(where: $where) {
+    dayOrder
+    timeFrom
+    timeTo
   }
 
   deliveryTitle_cs: deliveryTitle(locale: "cs") {
@@ -83,6 +89,5 @@ query HomePageQuery {
 
   shop {
     ordersStop
-    shopIsClosed
   }
 }

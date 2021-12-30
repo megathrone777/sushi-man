@@ -8,7 +8,7 @@ import { TProps } from "./types";
 import useTranslation from "~/intl/useTranslation";
 import { SvgBuyIcon, SvgLoaderIcon } from "~/icons";
 import { addToCart, TCartProduct, useStore } from "~/store";
-import { TProduct, Modal } from "~/components";
+import { TProduct, Modal, ModalDay } from "~/components";
 import {
   StyledWrapper,
   StyledTitle,
@@ -250,7 +250,7 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
         title={ordersStopModalTitle}
       />
 
-      <Modal
+      <ModalDay
         close={handleShopModalClose}
         contactsLinks={contactsLinks}
         isOpened={shopModalIsOpened}

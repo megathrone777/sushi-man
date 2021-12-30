@@ -13,20 +13,8 @@ import {
   StyledBackground,
   StyledTime,
 } from "./styled";
+import { TProps, TContactsLink } from "./types";
 import { StyledContainer } from "~/components/Layout/styled";
-
-export interface TContactsLink {
-  type: string;
-  url: string;
-}
-
-interface TProps {
-  close: () => void;
-  contactsLinks: TContactsLink[];
-  isOpened: boolean;
-  text: string;
-  title: string;
-}
 
 const ModalDay: React.FC<TProps> = ({
   close,

@@ -24,12 +24,6 @@ export interface TCartProduct extends TProduct {
   totalPrice: number;
 }
 
-export interface TModalDay {
-  active: boolean;
-  schedule: string;
-  title: string;
-}
-
 export interface TShopSettings {
   ordersStop: boolean;
   shopIsClosed: boolean;
@@ -68,7 +62,6 @@ export interface TStore {
     products: TCartProduct[];
     totalRollsDiscount: number;
   };
-  modalDay: TModalDay;
   schedule: {
     schedule_cs: TSchedule;
     schedule_ru: TSchedule;
@@ -102,7 +95,6 @@ const initialStore: TStore = {
     products: [],
     totalRollsDiscount: 0,
   },
-  modalDay: null,
   schedule: {
     schedule_cs: {
       locale: "",

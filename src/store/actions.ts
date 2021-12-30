@@ -4,7 +4,6 @@ import {
   TCartProduct,
   TSchedule,
   TShopSettings,
-  TModalDay,
 } from "./globalStore";
 
 export enum TActionTypes {
@@ -39,7 +38,6 @@ export enum TActionTypes {
   SET_CUSTOMER_ADDRESS_ERROR = "SET_CUSTOMER_ADDRESS_ERROR",
   SET_CUSTOMER_NOTE = "SET_CUSTOMER_NOTE",
   SET_PAYMENT_TYPE = "SET_PAYMENT_TYPE",
-  SET_MODAL_DAY = "SET_MODAL_DAY",
   CLEAR_STORE = "CLEAR_STORE",
 }
 
@@ -214,9 +212,4 @@ export const setCustomerPhoneError = (error: boolean): TAction => ({
 export const setPaymentType = (paymentType: TPayment): TAction => ({
   payload: paymentType,
   type: TActionTypes.SET_PAYMENT_TYPE,
-});
-
-export const setModalDay = (modalDay: TModalDay): TAction => ({
-  payload: modalDay,
-  type: TActionTypes.SET_MODAL_DAY,
 });

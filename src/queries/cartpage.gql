@@ -1,4 +1,16 @@
-query ProductPageQuery {
+query CartPageQuery($where: JSON) {
+  additionals {
+    id
+    title
+    price
+  }
+
+  days(where: $where) {
+    dayOrder
+    timeFrom
+    timeTo
+  }
+
   hero_cs: hero(locale: "cs") {
     image {
       url
@@ -27,8 +39,8 @@ query ProductPageQuery {
     isRoll
     isSalat
     isDrink
-    isPoke
     isSet
+    isPoke
     price
     slug
     title
@@ -37,6 +49,19 @@ query ProductPageQuery {
 
   shop {
     ordersStop
-    shopIsClosed
+  }
+
+  schedule_cs: schedule(locale: "cs") {
+    locale
+    schedule
+    text
+    title
+  }
+
+  schedule_ru: schedule(locale: "ru") {
+    locale
+    schedule
+    text
+    title
   }
 }

@@ -112,15 +112,20 @@ const IndexPage: NextPage<TProps> = ({
 };
 
 IndexPage.getInitialProps = async () => {
+  const date = new Date();
+  const currentDay = date.getDay();
+  const currentHours = date.getHours();
+
   const {
     data: {
       about_cs,
       about_ru,
-      banner_ru,
       banner_cs,
+      banner_ru,
+      days,
+      deliveryItems,
       deliveryTitle_cs,
       deliveryTitle_ru,
-      deliveryItems,
       hero_cs,
       hero_ru,
       products,
@@ -133,7 +138,19 @@ IndexPage.getInitialProps = async () => {
     query: gql`
       ${HomePageQuery}
     `,
+    variables: {
+      where: {
+        dayOrder: currentDay,
+      },
+    },
   });
+
+  const checkShopIsClosed = (): boolean => {
+    const hoursFrom = days[0].timeFrom.split(":")[0];
+    const hoursTo = days[0].timeTo.split(":")[0];
+
+    return currentHours < hoursFrom || currentHours > hoursTo;
+  };
 
   return {
     about: {
@@ -161,7 +178,10 @@ IndexPage.getInitialProps = async () => {
       schedule_cs,
       schedule_ru,
     },
-    shopSettings: shop,
+    shopSettings: {
+      ...shop,
+      shopIsClosed: checkShopIsClosed(),
+    },
   };
 };
 

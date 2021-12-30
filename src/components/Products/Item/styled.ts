@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { css, keyframes, styled } from "~/theme";
+import { keyframes, styled } from "~/theme";
 
 const rotate = keyframes`
   from {
