@@ -1,4 +1,10 @@
-query ProductPageQuery {
+query ProductPageQuery($where: JSON) {
+  days(where: $where) {
+    dayOrder
+    timeFrom
+    timeTo
+  }
+
   hero_cs: hero(locale: "cs") {
     image {
       url

@@ -60,9 +60,8 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
   const { data } = await client.query({
     query: gql`
       query ProductsQuery {
-        products(where: { slug: "${slug}" }) {
+        products(where: { slug: "${slug}"}) {
           allergeny
-          days
           id
           image {
             url
