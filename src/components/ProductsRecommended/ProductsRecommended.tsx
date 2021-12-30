@@ -39,8 +39,6 @@ const ProductsRecommended: React.FC<TProps> = ({ products }) => {
   const { t } = useTranslation();
   const ordersStopModalTitle = t("ordersStopModalTitle");
   const ordersStopModalText = t("ordersStopModalText");
-  const shopModalTitle = t("shopModalTitle");
-  const shopModalText = t("modalText");
   const contactsLinks = t("contactsLinks");
   const { notify } = useNotifications();
   const productsTitle = t("recommendedTitle");
