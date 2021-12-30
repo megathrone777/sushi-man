@@ -1,12 +1,11 @@
 import React from "react";
-
-import { AppPropsType } from "next/dist/next-server/lib/utils";
+import { AppProps } from "next/app";
 import { NotificationsProvider } from "reapop";
 
 import { AppProvider } from "~/store";
 import { LanguageProvider } from "../intl/LanguageProvider";
 
-const App = ({ Component, pageProps, router }: AppPropsType) => (
+const App = ({ Component, pageProps, router }: AppProps) => (
   <NotificationsProvider>
     <AppProvider>
       <LanguageProvider>
