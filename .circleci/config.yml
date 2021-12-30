@@ -13,12 +13,14 @@ jobs:
             - frontend_deps-{{ checksum "yarn.lock" }}
           paths:
             - ~/project/node_modules
+            - ~/project/.next/cache
       - run: 
           command: yarn
       - save_cache:
           key: frontend_deps-{{ checksum ".yarn.lock" }}
           paths:
             - ~/project/node_modules
+            - ~/project/.next/cache
       - persist_to_workspace:
           root: ~/project
           paths:
