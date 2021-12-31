@@ -88,7 +88,7 @@ export const StyledTab = styled.div<{
   margin: ${({ theme }) => `0 ${theme.rem(10)} ${theme.rem(20)}`};
   opacity: ${({ isCollapsed }) => (isCollapsed ? "0.7" : 1)};
   overflow: hidden;
-  padding: ${({ theme }) => `${theme.rem(20)} 0  0 ${theme.rem(20)}`};
+  padding: ${({ theme }) => `${theme.rem(20)} 0 0 ${theme.rem(20)}`};
   transition: background-position 0.3s linear, background-size 0.3s linear,
     height 0.3s linear;
   will-change: background-position, background-position-y, background-size,
@@ -122,11 +122,12 @@ export const StyledTab = styled.div<{
         isCollapsed ? theme.rem(-200) : theme.rem(-280)};
     `}
 
-  ${({ isSalat }) =>
+  ${({ isCollapsed, isSalat }) =>
     isSalat &&
     css`
       background-image: url("/images/salats_bg.jpg");
-      background-position-y: ${({ theme }) => theme.rem(-220)};
+      background-position-y: ${({ theme }) =>
+        isCollapsed ? theme.rem(-200) : theme.rem(-220)};
     `}
 
 
