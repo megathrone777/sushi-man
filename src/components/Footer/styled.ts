@@ -145,6 +145,7 @@ export const StyledScrollButton = styled.button`
   border: none;
   border-radius: ${({ theme }) => theme.rem(4)};
   bottom: ${({ theme }) => theme.rem(110)};
+  color: black;
   cursor: pointer;
   height: ${({ theme }) => theme.rem(45)};
   opacity: 0.7;
@@ -168,6 +169,7 @@ export const StyledChatButton = styled.button`
   border: none;
   border-radius: ${({ theme }) => theme.rem(4)};
   bottom: ${({ theme }) => theme.rem(40)};
+  color: black;
   cursor: pointer;
   height: ${({ theme }) => theme.rem(45)};
   opacity: 0.7;

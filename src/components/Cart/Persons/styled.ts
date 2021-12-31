@@ -86,6 +86,7 @@ export const StyledQuantityButton = styled.button<{
   background: none;
   border-radius: 50%;
   border: ${({ theme }) => theme.rem(2)} solid black;
+  color: black;
   cursor: pointer;
   display: flex;
   height: ${({ theme }) => theme.rem(22)};
