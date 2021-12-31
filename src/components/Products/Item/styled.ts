@@ -88,16 +88,23 @@ export const StyledImageHolder = styled.div`
   text-align: center;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    flex: 0 1 ${({ theme }) => theme.rem(230)};
     margin-bottom: 0;
     min-width: ${({ theme }) => theme.rem(230)};
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-    flex: 0 1 ${({ theme }) => theme.rem(180)};
-    height: 100%;
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    height: ${({ theme }) => theme.rem(280)};
     margin-bottom: 0;
     min-width: ${({ theme }) => theme.rem(180)};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    margin-bottom: 0;
+    min-width: ${({ theme }) => theme.rem(180)};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
+    height: ${({ theme }) => theme.rem(360)};
   }
 
   &:hover ${StyledImage} {

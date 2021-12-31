@@ -21,6 +21,10 @@ export const StyledTable = styled.table`
   table-layout: fixed;
   text-align: left;
   min-width: ${({ theme }) => theme.rem(475)};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    min-width: 100%;
+  }
 `;
 
 export const StyledTableRow = styled.tr``;
@@ -30,10 +34,27 @@ export const StyledTableCell = styled.td`
   position: relative;
   vertical-align: middle;
   width: 33.3333%;
+
+  &:nth-of-type(2) {
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+      text-align: center;
+    }
+  }
+
+  &:last-of-type {
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+      text-align: right;
+    }
+  }
 `;
 
 export const StyledName = styled.span<{ hasError: boolean }>`
   color: ${({ hasError, theme }) => (hasError ? theme.colors.red : "black")};
+  font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
+`;
+
+export const StyledPrice = styled.span`
+  color: black;
   font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
 `;
 

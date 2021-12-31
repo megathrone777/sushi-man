@@ -20,6 +20,7 @@ import {
   StyledTableRow,
   StyledTableCell,
   StyledError,
+  StyledPrice,
 } from "./styled";
 
 const Persons: React.FC = () => {
@@ -156,9 +157,9 @@ const Persons: React.FC = () => {
             </StyledTableCell>
 
             <StyledTableCell>
-              <StyledQuantity>
+              <StyledPrice>
                 {cutleryAmount > maxCutleryAmount ? `${cutleryPrice} Kč` : ""}
-              </StyledQuantity>
+              </StyledPrice>
             </StyledTableCell>
           </StyledTableRow>
         </tbody>
