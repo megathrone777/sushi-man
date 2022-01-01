@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { NextPage } from "next";
 import { gql } from "@apollo/client";
+import { isBefore, isAfter } from "date-fns";
 
 import client from "~/apollo-client";
 import {
@@ -150,27 +151,56 @@ IndexPage.getInitialProps = async () => {
   });
 
   const checkShopIsClosed = (): boolean => {
-    const fromString = days[0].timeFrom;
-    const toString = days[0].timeTo;
-
-    const fromHours = fromString.split(":");
-    const from = new Date(
-      new Date().toLocaleString("en-US", { timeZone: "Europe/Prague" })
+    const hoursFrom = days[0].timeFrom.split(":")[0];
+    const hoursTo = days[0].timeTo.split(":")[0];
+    const minutesFrom = days[0].timeFrom.split(":")[1];
+    const minutesTo = days[0].timeTo.split(":")[1];
+    const timeFrom = new Date(
+      Date.UTC(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        hoursFrom,
+        minutesFrom,
+        0
+      )
     );
-    from.setHours(parseInt(fromHours[0]));
-    from.setMinutes(parseInt(fromHours[1]));
-
-    const toHours = toString.split(":");
-    const to = new Date(
-      new Date().toLocaleString("en-US", { timeZone: "Europe/Prague" })
+    const timeTo = new Date(
+      Date.UTC(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        hoursTo,
+        minutesTo,
+        0
+      )
     );
-    to.setHours(parseInt(toHours[0]));
-    to.setMinutes(parseInt(toHours[1]));
 
-    const now = new Date();
+    const compareResultFrom: boolean = isBefore(
+      Date.UTC(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        date.getHours(),
+        date.getMinutes(),
+        0
+      ),
+      timeFrom
+    );
+    const compareResultAfter: boolean = isAfter(
+      Date.UTC(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        date.getHours(),
+        date.getMinutes(),
+        0
+      ),
+      timeTo
+    );
 
-    return now < from || now > to;
-  };
+    return compareResultFrom || compareResultAfter;
+  }
 
   return {
     about: {
