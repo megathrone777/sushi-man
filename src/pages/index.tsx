@@ -118,7 +118,9 @@ const IndexPage: NextPage<TProps> = ({
 };
 
 IndexPage.getInitialProps = async () => {
-  const date = new Date();
+  const date = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "Europe/Prague" })
+  );
   const currentDay = date.getDay();
   const {
     data: {
@@ -156,51 +158,55 @@ IndexPage.getInitialProps = async () => {
     const minutesFrom = days[0].timeFrom.split(":")[1];
     const minutesTo = days[0].timeTo.split(":")[1];
     const timeFrom = new Date(
-      Date.UTC(
+      new Date(
         date.getFullYear(),
         date.getMonth(),
         date.getDate(),
         hoursFrom,
         minutesFrom,
         0
-      )
+      ).toLocaleString("en-US", { timeZone: "Europe/Prague" })
     );
     const timeTo = new Date(
-      Date.UTC(
+      new Date(
         date.getFullYear(),
         date.getMonth(),
         date.getDate(),
         hoursTo,
         minutesTo,
         0
-      )
+      ).toLocaleString("en-US", { timeZone: "Europe/Prague" })
     );
 
     const compareResultFrom: boolean = isBefore(
-      Date.UTC(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        date.getHours(),
-        date.getMinutes(),
-        0
+      new Date(
+        new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          date.getHours(),
+          date.getMinutes(),
+          0
+        ).toLocaleString("en-US", { timeZone: "Europe/Prague" })
       ),
       timeFrom
     );
     const compareResultAfter: boolean = isAfter(
-      Date.UTC(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        date.getHours(),
-        date.getMinutes(),
-        0
+      new Date(
+        new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          date.getHours(),
+          date.getMinutes(),
+          0
+        ).toLocaleString("en-US", { timeZone: "Europe/Prague" })
       ),
       timeTo
     );
 
     return compareResultFrom || compareResultAfter;
-  }
+  };
 
   return {
     about: {
