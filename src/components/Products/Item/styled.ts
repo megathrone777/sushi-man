@@ -232,7 +232,6 @@ export const StyledAddButton = styled.button`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     border-radius: ${({ theme }) => theme.rem(5)};
-    margin-left: ${({ theme }) => theme.rem(20)};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
