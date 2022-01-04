@@ -16,6 +16,7 @@ const client = new ApolloClient({
   headers: {
     authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
   },
+  credentials: 'include',
   cache: new InMemoryCache(),
   ssrMode: typeof window === "undefined",
   defaultOptions,
