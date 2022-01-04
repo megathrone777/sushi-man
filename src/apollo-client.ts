@@ -1,4 +1,10 @@
-import { ApolloClient, InMemoryCache, DefaultOptions } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  DefaultOptions,
+  createHttpLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 
 const defaultOptions: DefaultOptions = {
   query: {
@@ -11,13 +17,20 @@ const defaultOptions: DefaultOptions = {
   },
 };
 
-const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: "https://sushi-admin.herokuapp.com/graphql",
+});
+
+const authLink = setContext((_, { headers }) => ({
   headers: {
-    "Access-Control-Allow-Origin": "*",
+    ...headers,
     authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
   },
-  credentials: 'include',
+}));
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  credentials: "include",
   cache: new InMemoryCache(),
   ssrMode: typeof window === "undefined",
   defaultOptions,
