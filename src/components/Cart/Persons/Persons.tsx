@@ -107,6 +107,7 @@ const Persons: React.FC = () => {
       dispatch(setCutleryPrice(0));
       return;
     }
+
     if (cutleryAmount >= maxCutleryAmount) {
       dispatch(setCutleryPrice(cutleryPrice - 10));
     }
@@ -162,7 +163,9 @@ const Persons: React.FC = () => {
 
             <StyledTableCell>
               <StyledPrice>
-                {cutleryAmount > maxCutleryAmount ? `${cutleryPrice} Kč` : ""}
+                {cutleryAmount > maxCutleryAmount && cutleryAmount !== 0
+                  ? `${cutleryPrice} Kč`
+                  : ""}
               </StyledPrice>
             </StyledTableCell>
           </StyledTableRow>
