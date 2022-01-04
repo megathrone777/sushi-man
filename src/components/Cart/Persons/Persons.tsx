@@ -108,7 +108,7 @@ const Persons: React.FC = () => {
       return;
     }
 
-    if (cutleryAmount >= maxCutleryAmount) {
+    if (cutleryAmount > maxCutleryAmount) {
       dispatch(setCutleryPrice(cutleryPrice - 10));
     }
 
