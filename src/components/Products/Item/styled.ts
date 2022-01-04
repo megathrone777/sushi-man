@@ -58,6 +58,7 @@ export const StyledWrapper = styled.div`
 
 export const StyledLayout = styled.div`
   position: relative;
+  width: 100%;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
     padding-bottom: ${({ theme }) => theme.rem(60)};
@@ -99,12 +100,13 @@ export const StyledImageHolder = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
+    height: ${({ theme }) => theme.rem(260)};
     margin-bottom: 0;
     min-width: ${({ theme }) => theme.rem(180)};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
-    height: ${({ theme }) => theme.rem(360)};
+    height: ${({ theme }) => theme.rem(320)};
   }
 
   &:hover ${StyledImage} {
@@ -132,7 +134,7 @@ export const StyledContent = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    min-height: ${({ theme }) => theme.rem(200)};
+    min-height: ${({ theme }) => theme.rem(180)};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileXs}) {
@@ -177,6 +179,7 @@ export const StyledFooter = styled.div`
 export const StyledPrice = styled.div`
   font: ${({ theme }) => `${theme.rem(25)} ${theme.fonts.fontMedium}`};
   padding-left: ${({ theme }) => theme.rem(20)};
+  white-space: nowrap;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding-left: ${({ theme }) => theme.rem(10)};

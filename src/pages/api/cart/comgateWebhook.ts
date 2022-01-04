@@ -7,11 +7,15 @@ import { telegramSendMessage } from "./telegramSendMessage";
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const { refId, status } = request.body;
   const {
-    data: { order },
+    data: { order, orders },
   } = await client.query({
     query: gql`
       query OrderQuery($orderId: ID!) {
         order(id: $orderId) {
+          id
+        }
+
+        orders {
           id
         }
       }
@@ -60,7 +64,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
 
     if (updateOrder["order"] && !!Object.keys(updateOrder["order"]).length) {
       telegramSendMessage(
-        `Заказ №${updateOrder["order"].id}
+        `Заказ №${orders.length + 1}
       ${updateOrder["order"].products.map(
         ({
           product_modifiers,

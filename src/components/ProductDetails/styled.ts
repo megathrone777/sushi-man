@@ -12,7 +12,7 @@ const rotate = keyframes`
 
 export const StyledWrapper = styled.div`
   background: url("/images/products_bg.jpg") center center/auto 100%;
-  border-bottom: ${({ theme }) => `${theme.rem(10)} solid ${theme.colors.red}`};
+  border-bottom: ${({ theme }) => `${theme.rem(4)} solid ${theme.colors.red}`};
   overflow: hidden;
   padding: ${({ theme }) => theme.rem(50)} 0 ${({ theme }) => theme.rem(100)};
 

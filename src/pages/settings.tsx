@@ -27,7 +27,7 @@ const SettingsPage: NextPage<TProps> = ({ shopSettings }) => {
   );
 };
 
-SettingsPage.getInitialProps = async () => {
+SettingsPage.getInitialProps = async ({ query, res }) => {
   const {
     data: { shop },
   } = await client.query({
@@ -35,6 +35,15 @@ SettingsPage.getInitialProps = async () => {
       ${SettingsPageQuery}
     `,
   });
+
+  if (query.pin !== "633471") {
+    res
+      .writeHead(302, {
+        Location: "/",
+      })
+      .end();
+    return;
+  }
 
   return {
     shopSettings: shop,
