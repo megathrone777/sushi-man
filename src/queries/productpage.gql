@@ -1,5 +1,5 @@
-query ProductPageQuery($where: JSON) {
-  days(where: $where) {
+query ProductPageQuery($productsWhere: JSON, $daysWhere: JSON) {
+  days(where: $daysWhere) {
     dayOrder
     timeFrom
     timeTo
@@ -28,19 +28,28 @@ query ProductPageQuery($where: JSON) {
     text
   }
 
-  products(sort: "priority") {
+  products(where: $productsWhere) {
     allergeny
     id
     image {
       url
     }
     ingredients
-    isRoll
-    isSalat
     isDrink
     isPoke
+    isRoll
+    isSalat
     isSet
     price
+    product_modifiers {
+      price
+      name
+      id
+      submodifiers {
+        id
+        name
+      }
+    }
     slug
     title
     weight

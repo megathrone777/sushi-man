@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import { gql } from "@apollo/client";
 import { isBefore, isAfter } from "date-fns";
 
+import useTranslation from "~/intl/useTranslation";
 import client from "~/apollo-client";
 import {
   TShopSettings,
@@ -17,7 +18,7 @@ import {
   TBanner,
   ProductDetails,
   TProduct,
-  ProductsRecommended,
+  Products,
 } from "~/components";
 
 import ProductPageQuery from "~/queries/productpage.gql";
@@ -25,7 +26,6 @@ import ProductPageQuery from "~/queries/productpage.gql";
 interface TProps {
   modalDay: TModalDay;
   productDetails: TProduct;
-  products: TProduct[];
   hero: {
     hero_cs: TBanner;
     hero_ru: TBanner;
@@ -37,10 +37,11 @@ const ProductPage: NextPage<TProps> = ({
   hero,
   modalDay,
   productDetails,
-  products,
   shopSettings,
 }) => {
   const { dispatch } = useStore();
+  const { t } = useTranslation();
+  const productsTitle = t("recommendedTitle");
 
   useEffect((): void => {
     dispatch(setShopSettings(shopSettings));
@@ -57,7 +58,7 @@ const ProductPage: NextPage<TProps> = ({
         inner
       />
       <ProductDetails {...productDetails} />
-      <ProductsRecommended products={products} />
+      <Products inner title={productsTitle} />
     </LayoutSecondary>
   );
 };
@@ -67,47 +68,18 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
     new Date().toLocaleString("en-US", { timeZone: "Europe/Prague" })
   );
   const currentDay = date.getDay();
-  const { data } = await client.query({
-    query: gql`
-      query ProductsQuery {
-        products(where: { slug: "${slug}"}) {
-          allergeny
-          id
-          image {
-            url
-          }
-          ingredients
-          isDrink
-          isPoke
-          isRoll
-          isSalat
-          isSet
-          price
-          product_modifiers {
-            price
-            name
-            id
-            submodifiers {
-              id
-              name
-            }
-          }
-          slug
-          title
-          weight
-        }
-      }
-    `,
-  });
 
   const {
-    data: { days, modalDay, products, hero_cs, hero_ru, shop },
+    data: { days, modalDay, hero_cs, hero_ru, shop, products },
   } = await client.query({
     query: gql`
       ${ProductPageQuery}
     `,
     variables: {
-      where: {
+      productsWhere: {
+        slug,
+      },
+      daysWhere: {
         dayOrder: currentDay,
       },
     },
@@ -175,8 +147,7 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
       hero_ru,
     },
     modalDay,
-    productDetails: data["products"][0],
-    products,
+    productDetails: products[0],
     shopSettings: {
       ...shop,
       shopIsClosed: checkShopIsClosed(),

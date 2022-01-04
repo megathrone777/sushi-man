@@ -1,5 +1,3 @@
-import { TProduct } from "~/components";
-
 export type TCategoryTypes =
   | "isPoke"
   | "isRoll"
@@ -13,5 +11,6 @@ export interface TCategory {
 }
 
 export interface TProps {
-  products: TProduct[];
+  inner?: boolean;
+  title: string;
 }

@@ -102,7 +102,11 @@ const Persons: React.FC = () => {
   };
 
   const handleQuantityDecrease = (): void => {
-    if (cutleryAmount === 0) return;
+    if (cutleryAmount === 0) {
+      dispatch(setCutleryAmount(0));
+      dispatch(setCutleryPrice(0));
+      return;
+    }
     if (cutleryAmount >= maxCutleryAmount) {
       dispatch(setCutleryPrice(cutleryPrice - 10));
     }

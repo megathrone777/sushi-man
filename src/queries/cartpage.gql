@@ -34,24 +34,6 @@ query CartPageQuery($where: JSON) {
     text
   }
 
-  products(sort: "priority") {
-    allergeny
-    id
-    image {
-      url
-    }
-    ingredients
-    isRoll
-    isSalat
-    isDrink
-    isSet
-    isPoke
-    price
-    slug
-    title
-    weight
-  }
-
   shop {
     ordersStop
   }

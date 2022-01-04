@@ -22,8 +22,9 @@ export const StyledWrapper = styled.section`
   }
 `;
 
-export const StyledTitle = styled.h2`
-  font: ${({ theme }) => theme.rem(48)} ${({ theme }) => theme.fonts.fontBold};
+export const StyledTitle = styled.h2<{ inner: boolean }>`
+  font: ${({ inner, theme }) => (inner ? theme.rem(40) : theme.rem(48))}
+    ${({ theme }) => theme.fonts.fontBold};
   margin-bottom: ${({ theme }) => theme.rem(15)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {

@@ -15,14 +15,7 @@ import {
   setModalDay,
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";
-import {
-  Banner,
-  Cart,
-  LayoutSecondary,
-  TBanner,
-  TProduct,
-  ProductsRecommended,
-} from "~/components";
+import { Banner, Cart, LayoutSecondary, TBanner, Products } from "~/components";
 
 import CartPageQuery from "~/queries/cartpage.gql";
 
@@ -33,7 +26,6 @@ interface TProps {
     hero_ru: TBanner;
   };
   modalDay: TModalDay;
-  products: TProduct[];
   shopSettings: TShopSettings;
   schedule: {
     schedule_cs: TSchedule;
@@ -45,11 +37,11 @@ const CartPage: NextPage<TProps> = ({
   additionals,
   hero,
   modalDay,
-  products,
   shopSettings,
 }) => {
   const { dispatch } = useStore();
   const { t } = useTranslation();
+  const productsTitle = t("recommendedTitle");
   const cartTitle = t("cartTitle");
   const newAdditionals = additionals.map((additional: TAdditional) => ({
     ...additional,
@@ -72,7 +64,7 @@ const CartPage: NextPage<TProps> = ({
         inner
       />
       <Cart />
-      <ProductsRecommended products={products} />
+      <Products inner title={productsTitle} />
     </LayoutSecondary>
   );
 };
@@ -89,7 +81,6 @@ CartPage.getInitialProps = async () => {
       hero_cs,
       hero_ru,
       modalDay,
-      products,
       shop,
       schedule_cs,
       schedule_ru,
@@ -164,7 +155,6 @@ CartPage.getInitialProps = async () => {
   return {
     additionals,
     modalDay,
-    products,
     hero: {
       hero_cs,
       hero_ru,

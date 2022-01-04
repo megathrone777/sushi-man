@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { gql } from "@apollo/client";
 
+import client from "~/apollo-client";
 import { TAdditional } from "~/store";
 import { telegramSendMessage } from "./telegramSendMessage";
 
@@ -18,16 +20,26 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     cutleryAmount,
     deliveryPrice,
     note,
-    orderId,
     orderPrice,
     email,
     name,
     phone,
     products,
   } = request.body;
+  const {
+    data: { orders },
+  } = await client.query({
+    query: gql`
+      query OrdersQuery {
+        orders {
+          id
+        }
+      }
+    `,
+  });
 
   telegramSendMessage(
-    `Заказ №${orderId}
+    `Заказ №${orders.length + 1}
     ${products.map(
       ({
         product_modifiers,

@@ -10,7 +10,6 @@ export { ModalDay } from "./ModalDay";
 export { OrderConfirmed } from "./OrderConfirmed";
 export { ProductDetails } from "./ProductDetails";
 export { Products } from "./Products";
-export { ProductsRecommended } from "./ProductsRecommended";
 export { Reviews } from "./Reviews";
 export { Settings } from "./Settings";
 

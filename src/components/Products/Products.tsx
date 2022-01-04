@@ -42,13 +42,12 @@ const productsCategories: TCategory[] = [
   },
 ];
 
-const Products: React.FC<TProps> = () => {
+const Products: React.FC<TProps> = ({ title, inner }) => {
   const { t } = useTranslation();
   const [ordersStopModalIsOpened, toggleOrdersStopModalOpened] =
     useState<boolean>(false);
   const [shopModalIsOpened, toggleShopModalOpened] = useState<boolean>(false);
   const [categoryType, setCategoryType] = useState<TCategoryTypes>(null);
-  const productsTitle = t("productsTitle");
   const ordersStopModalTitle = t("ordersStopModalTitle");
   const ordersStopModalText = t("ordersStopModalText");
   const shopModalTitle = t("shopModalTitle");
@@ -138,7 +137,7 @@ const Products: React.FC<TProps> = () => {
   return (
     <StyledWrapper id="products-section">
       <StyledContainer>
-        <StyledTitle>{productsTitle}</StyledTitle>
+        <StyledTitle inner={inner}>{title}</StyledTitle>
 
         {productsCategories && !!productsCategories.length && (
           <StyledTabs>

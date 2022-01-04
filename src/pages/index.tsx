@@ -28,7 +28,6 @@ import {
   TAbout,
   TBanner,
   TMedia,
-  TProduct,
 } from "~/components";
 
 import HomePageQuery from "~/queries/homepage.gql";
@@ -48,7 +47,6 @@ interface TProps {
     hero_ru: TBanner;
   };
   modalDay: TModalDay;
-  products: TProduct[];
   reviews: TReview[];
   schedule: {
     schedule_cs: TSchedule;
@@ -63,13 +61,13 @@ const IndexPage: NextPage<TProps> = ({
   delivery,
   hero,
   modalDay,
-  products,
   reviews,
   schedule,
   shopSettings,
 }) => {
   const { dispatch } = useStore();
   const { t } = useTranslation();
+  const productsTitle = t("productsTitle");
   const mainTitle = t("mainTitle");
 
   useEffect((): void => {
@@ -104,7 +102,7 @@ const IndexPage: NextPage<TProps> = ({
           schedule_ru: schedule["schedule_ru"],
         }}
       />
-      <Products products={products} />
+      <Products title={productsTitle} />
       <Delivery
         deliveryTitle={{
           deliveryTitle_cs: delivery.deliveryTitle["deliveryTitle_cs"],
@@ -135,7 +133,6 @@ IndexPage.getInitialProps = async () => {
       hero_cs,
       hero_ru,
       modalDay,
-      products,
       reviews,
       schedule_cs,
       schedule_ru,
@@ -229,7 +226,6 @@ IndexPage.getInitialProps = async () => {
       hero_ru,
     },
     modalDay,
-    products,
     reviews,
     schedule: {
       schedule_cs,
