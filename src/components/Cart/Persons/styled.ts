@@ -71,6 +71,7 @@ export const StyledQuantity = styled.p`
   line-height: ${({ theme }) => theme.rem(25)};
   text-align: center;
   vertical-align: middle;
+  user-select: none;
   width: ${({ theme }) => theme.rem(50)};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
