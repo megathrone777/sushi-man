@@ -46,8 +46,8 @@ export const StyledLayout = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     grid-template-areas:
       "persons persons"
-      "delivery delivery"
       "additionals additionals"
+      "delivery delivery"
       "payment payment";
   }
 `;
