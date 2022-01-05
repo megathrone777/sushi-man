@@ -60,18 +60,40 @@ const IndexPage: NextPage<TProps> = ({
 
 IndexPage.getInitialProps = async () => {
   const products = await fetch(
-    "https://sushi-admin.herokuapp.com/products?_sort=priority:ASC"
+    "https://sushi-admin.herokuapp.com/products?_sort=priority:ASC",
+    {
+      headers: {
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
+      },
+    }
   );
-  const reviews = await fetch("https://sushi-admin.herokuapp.com/reviews");
+  const reviews = await fetch("https://sushi-admin.herokuapp.com/reviews", {
+    headers: {
+      authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
+    },
+  });
   const delivery = await fetch(
-    "https://sushi-admin.herokuapp.com/delivery-items?_locale=all"
+    "https://sushi-admin.herokuapp.com/delivery-items?_locale=all",
+    {
+      headers: {
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
+      },
+    }
   );
   const productsList = await products.json();
   const reviewsList = await reviews.json();
   const deliveryItems = await delivery.json();
   const about = await Promise.all([
-    fetch("https://sushi-admin.herokuapp.com/about?_locale=cs"),
-    fetch("https://sushi-admin.herokuapp.com/about?_locale=ru"),
+    fetch("https://sushi-admin.herokuapp.com/about?_locale=cs", {
+      headers: {
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
+      },
+    }),
+    fetch("https://sushi-admin.herokuapp.com/about?_locale=ru", {
+      headers: {
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
+      },
+    }),
   ])
     .then(async ([cz, ru]) => {
       const aboutCZ = await cz.json();
@@ -81,8 +103,16 @@ IndexPage.getInitialProps = async () => {
     })
     .then((responseText) => responseText);
   const deliveryTitle = await Promise.all([
-    fetch("https://sushi-admin.herokuapp.com/delivery-title?_locale=cs"),
-    fetch("https://sushi-admin.herokuapp.com/delivery-title?_locale=ru"),
+    fetch("https://sushi-admin.herokuapp.com/delivery-title?_locale=cs", {
+      headers: {
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
+      },
+    }),
+    fetch("https://sushi-admin.herokuapp.com/delivery-title?_locale=ru", {
+      headers: {
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
+      },
+    }),
   ])
     .then(async ([cz, ru]) => {
       const deliveryCZ = await cz.json();
@@ -92,8 +122,16 @@ IndexPage.getInitialProps = async () => {
     })
     .then((responseText) => responseText);
   const schedule = await Promise.all([
-    fetch("https://sushi-admin.herokuapp.com/schedule?_locale=cs"),
-    fetch("https://sushi-admin.herokuapp.com/schedule?_locale=ru"),
+    fetch("https://sushi-admin.herokuapp.com/schedule?_locale=cs", {
+      headers: {
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
+      },
+    }),
+    fetch("https://sushi-admin.herokuapp.com/schedule?_locale=ru", {
+      headers: {
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
+      },
+    }),
   ])
     .then(async ([cz, ru]) => {
       const scheuleCZ = await cz.json();
@@ -103,8 +141,16 @@ IndexPage.getInitialProps = async () => {
     })
     .then((responseText) => responseText);
   const hero = await Promise.all([
-    fetch("https://sushi-admin.herokuapp.com/hero?_locale=cs"),
-    fetch("https://sushi-admin.herokuapp.com/hero?_locale=ru"),
+    fetch("https://sushi-admin.herokuapp.com/hero?_locale=cs", {
+      headers: {
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
+      },
+    }),
+    fetch("https://sushi-admin.herokuapp.com/hero?_locale=ru", {
+      headers: {
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
+      },
+    }),
   ])
     .then(async ([cz, ru]) => {
       const heroCZ = await cz.json();
@@ -114,8 +160,16 @@ IndexPage.getInitialProps = async () => {
     })
     .then((responseText) => responseText);
   const banner = await Promise.all([
-    fetch("https://sushi-admin.herokuapp.com/banner?_locale=cs"),
-    fetch("https://sushi-admin.herokuapp.com/banner?_locale=ru"),
+    fetch("https://sushi-admin.herokuapp.com/banner?_locale=cs", {
+      headers: {
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
+      },
+    }),
+    fetch("https://sushi-admin.herokuapp.com/banner?_locale=ru", {
+      headers: {
+        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
+      },
+    }),
   ])
     .then(async ([cz, ru]) => {
       const bannerCZ = await cz.json();
