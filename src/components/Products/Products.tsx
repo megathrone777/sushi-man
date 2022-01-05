@@ -22,22 +22,22 @@ import { StyledContainer } from "~/components/Layout/styled";
 const productsCategories: TCategory[] = [
   {
     type: "isRoll",
-    name: "Rolls",
+    name: "Rolly",
   },
   {
     name: "Poke",
     type: "isPoke",
   },
   {
-    name: "Sets",
+    name: "Sety",
     type: "isSet",
   },
   {
-    name: "Salats",
+    name: "Salaty",
     type: "isSalat",
   },
   {
-    name: "Drinks",
+    name: "Drinky",
     type: "isDrink",
   },
 ];
