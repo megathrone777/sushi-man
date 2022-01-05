@@ -185,6 +185,7 @@ export const StyledErrorIcon = styled.span`
 export const StyledMainPageLink = styled.a`
   background-color: ${({ theme }) => theme.colors.red};
   box-shadow: 0 0 ${({ theme }) => theme.rem(10)} 0 rgba(0, 0, 0, 0.5);
+  border-radius: ${({ theme }) => theme.rem(5)};
   color: white;
   display: inline-block;
   font: ${({ theme }) => `${theme.rem(22)} ${theme.fonts.fontMedium}`};

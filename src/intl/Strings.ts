@@ -148,6 +148,7 @@ export const LangStrings = {
     fillAddress: "Adresa",
     pickupAddress: "Adresa pro vyzvednutí",
     personsDescription: "Hůlky, ubrousky a misky na sójovku.",
+    promoTitle: "Promo code",
   },
   ru: {
     metaDescription: `По-настоящему вкусные и сочные сеты, которые Вас вдоволь накормят и насладят 

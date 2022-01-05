@@ -91,6 +91,8 @@ export const StyledQuantityButton = styled.button<{
 `;
 
 export const StyledNoteWrapper = styled.div`
+  /* margin-bottom: ${({ theme }) => theme.rem(30)}; */
+
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin-bottom: ${({ theme }) => theme.rem(30)};
   }
@@ -128,5 +130,76 @@ export const StyledNote = styled.textarea`
 
   &:focus {
     outline: none;
+  }
+`;
+
+export const StyledPromo = styled.div`
+  display: flex;
+  margin-top: ${({ theme }) => theme.rem(20)};
+  position: relative;
+`;
+
+export const StyledPromoInput = styled.input`
+  appearance: none;
+  background-color: white;
+  background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='%23da2628' d='M112 224c61.9 0 112-50.1 112-112S173.9 0 112 0 0 50.1 0 112s50.1 112 112 112zm0-160c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48 21.5-48 48-48zm224 224c-61.9 0-112 50.1-112 112s50.1 112 112 112 112-50.1 112-112-50.1-112-112-112zm0 160c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zM392.3.2l31.6-.1c19.4-.1 30.9 21.8 19.7 37.8L77.4 501.6a23.95 23.95 0 0 1-19.6 10.2l-33.4.1c-19.5 0-30.9-21.9-19.7-37.8l368-463.7C377.2 4 384.5.2 392.3.2z'%3E%3C/path%3E%3C/svg%3E");
+  background-position: ${({ theme }) => theme.rem(5)} center;
+  background-repeat: no-repeat;
+  background-size: auto ${({ theme }) => theme.rem(20)};
+  border-radius: 0;
+  border: none;
+  border-bottom: ${({ theme }) => `${theme.rem(2)} solid ${theme.colors.red}`};
+  font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontMedium}`};
+  height: ${({ theme }) => theme.rem(35)};
+  margin-right: ${({ theme }) => theme.rem(20)};
+  padding: 0 ${({ theme }) => theme.rem(30)};
+  width: calc(100% - ${({ theme }) => theme.rem(150)});
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const StyledPromoSuccess = styled.span`
+  color: green;
+  display: block;
+  height: ${({ theme }) => theme.rem(25)};
+  left: calc(100% - ${({ theme }) => theme.rem(180)});
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: ${({ theme }) => theme.rem(25)};
+`;
+
+export const StyledPromoError = styled.span`
+  color: ${({ theme }) => theme.colors.red};
+  display: block;
+  height: ${({ theme }) => theme.rem(25)};
+  left: calc(100% - ${({ theme }) => theme.rem(180)});
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: ${({ theme }) => theme.rem(25)};
+`;
+
+export const StyledPromoButton = styled.button`
+  background-color: ${({ theme }) => theme.colors.red};
+  box-shadow: 0 0 ${({ theme }) => theme.rem(10)} 0 rgba(0, 0, 0, 0.5);
+  border: 0;
+  border-radius: ${({ theme }) => theme.rem(5)};
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontMedium}`};
+  height: ${({ theme }) => theme.rem(35)};
+  line-height: ${({ theme }) => theme.rem(35)};
+  min-width: ${({ theme }) => theme.rem(120)};
+  padding: 0 ${({ theme }) => theme.rem(10)};
+  text-align: center;
+  text-decoration: none;
+  transition: 0.2s ease-in;
+
+  &:hover {
+    box-shadow: 0 0 ${({ theme }) => theme.rem(14)} 0 rgba(218, 38, 40, 0.75);
   }
 `;

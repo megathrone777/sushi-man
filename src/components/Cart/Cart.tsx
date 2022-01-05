@@ -79,6 +79,9 @@ const Cart: React.FC = () => {
     customerNote,
     paymentType,
     products,
+    promoCode,
+    // promoCodeDiscount,
+    promoCodeSuccess,
   } = cart;
 
   const [createOrder] = useMutation(createOrderMutation, {
@@ -297,6 +300,8 @@ const Cart: React.FC = () => {
               orderPrice: data["createOrder"]["order"]["price"],
               paymentType,
               products,
+              promoCodeSuccess,
+              promoCode,
             }),
             headers: {
               "Content-Type": "application/json",

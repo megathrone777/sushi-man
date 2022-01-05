@@ -40,6 +40,10 @@ export enum TActionTypes {
   SET_CUSTOMER_ADDRESS_ERROR = "SET_CUSTOMER_ADDRESS_ERROR",
   SET_CUSTOMER_NOTE = "SET_CUSTOMER_NOTE",
   SET_PAYMENT_TYPE = "SET_PAYMENT_TYPE",
+  SET_PROMO_CODE = "SET_PROMO_CODE",
+  SET_PROMO_SUCCESS = "SET_PROMO_SUCCESS",
+  SET_PROMO_ERROR = "SET_PROMO_ERROR",
+  SET_PROMO_DISCOUNT = "SET_PROMO_DISCOUNT",
   CLEAR_STORE = "CLEAR_STORE",
 }
 
@@ -219,4 +223,24 @@ export const setCustomerPhoneError = (error: boolean): TAction => ({
 export const setPaymentType = (paymentType: TPayment): TAction => ({
   payload: paymentType,
   type: TActionTypes.SET_PAYMENT_TYPE,
+});
+
+export const setPromoCode = (code: string): TAction => ({
+  payload: code,
+  type: TActionTypes.SET_PROMO_CODE,
+});
+
+export const setPromoSuccess = (success: boolean): TAction => ({
+  payload: success,
+  type: TActionTypes.SET_PROMO_SUCCESS,
+});
+
+export const setPromoError = (error: boolean): TAction => ({
+  payload: error,
+  type: TActionTypes.SET_PROMO_ERROR,
+});
+
+export const setPromoDiscount = (discount: number): TAction => ({
+  payload: discount,
+  type: TActionTypes.SET_PROMO_DISCOUNT,
 });

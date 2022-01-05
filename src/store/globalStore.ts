@@ -65,6 +65,10 @@ export interface TStore {
     modifiers: TProductModifier[];
     paymentType: TPayment;
     products: TCartProduct[];
+    promoCode: string;
+    promoCodeDiscount: number;
+    promoCodeError: boolean;
+    promoCodeSuccess: boolean;
     totalRollsDiscount: number;
   };
   modalDay: TModalDay;
@@ -99,6 +103,10 @@ const initialStore: TStore = {
     modifiers: [],
     paymentType: TPayment.CARD,
     products: [],
+    promoCode: "",
+    promoCodeDiscount: 0,
+    promoCodeError: false,
+    promoCodeSuccess: null,
     totalRollsDiscount: 0,
   },
   modalDay: {
