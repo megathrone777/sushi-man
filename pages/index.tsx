@@ -65,12 +65,14 @@ IndexPage.getInitialProps = async () => {
       headers: {
         authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
       },
+      credentials: "include",
     }
   );
   const reviews = await fetch("https://sushi-admin.herokuapp.com/reviews", {
     headers: {
       authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
     },
+    credentials: "include",
   });
   const delivery = await fetch(
     "https://sushi-admin.herokuapp.com/delivery-items?_locale=all",
@@ -78,6 +80,7 @@ IndexPage.getInitialProps = async () => {
       headers: {
         authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
       },
+      credentials: "include",
     }
   );
   const productsList = await products.json();
@@ -88,11 +91,13 @@ IndexPage.getInitialProps = async () => {
       headers: {
         authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
       },
+      credentials: "include",
     }),
     fetch("https://sushi-admin.herokuapp.com/about?_locale=ru", {
       headers: {
         authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
       },
+      credentials: "include",
     }),
   ])
     .then(async ([cz, ru]) => {
@@ -107,11 +112,13 @@ IndexPage.getInitialProps = async () => {
       headers: {
         authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
       },
+      credentials: "include",
     }),
     fetch("https://sushi-admin.herokuapp.com/delivery-title?_locale=ru", {
       headers: {
         authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
       },
+      credentials: "include",
     }),
   ])
     .then(async ([cz, ru]) => {
@@ -126,11 +133,13 @@ IndexPage.getInitialProps = async () => {
       headers: {
         authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
       },
+      credentials: "include",
     }),
     fetch("https://sushi-admin.herokuapp.com/schedule?_locale=ru", {
       headers: {
         authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
       },
+      credentials: "include",
     }),
   ])
     .then(async ([cz, ru]) => {
@@ -145,11 +154,13 @@ IndexPage.getInitialProps = async () => {
       headers: {
         authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
       },
+      credentials: "include",
     }),
     fetch("https://sushi-admin.herokuapp.com/hero?_locale=ru", {
       headers: {
         authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
       },
+      credentials: "include",
     }),
   ])
     .then(async ([cz, ru]) => {
@@ -164,11 +175,13 @@ IndexPage.getInitialProps = async () => {
       headers: {
         authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
       },
+      credentials: "include",
     }),
     fetch("https://sushi-admin.herokuapp.com/banner?_locale=ru", {
       headers: {
         authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMzI5NjI5LCJleHAiOjE2NDM5MjE2Mjl9.oebWp8uDoPzNYd_hi1ZdHUvbbgubtDdWvERBaNpXgkg`,
       },
+      credentials: "include",
     }),
   ])
     .then(async ([cz, ru]) => {
