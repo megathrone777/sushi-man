@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -48,6 +48,7 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const { t } = useTranslation();
   const { store } = useStore();
   const { modalDay, shopSettings } = store;
+  const [pageOffset, setPageOffset] = useState(0);
   const [shopModalIsOpened, toggleShopModalOpened] = useState<boolean>(true);
   const [ordersStopModalIsOpened, toggleOrdersStopModalOpened] =
     useState<boolean>(true);
@@ -63,13 +64,19 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const handleScroll = (anchor: string): void => {
     const scrolledSection = document.getElementById(anchor);
 
-    scrolledSection && scrolledSection.scrollIntoView();
+    scrolledSection &&
+      scrolledSection.scrollIntoView({
+        behavior: "smooth",
+      });
   };
 
   const handleScrollTop = (): void => {
-    window.scrollTo({
-      top: 0,
-    });
+    const scrolledSection = document.getElementById("header");
+
+    scrolledSection &&
+      scrolledSection.scrollIntoView({
+        behavior: "smooth",
+      });
   };
 
   const handleModal = (): void => {
@@ -88,8 +95,14 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
     toggleShopModalOpened(false);
   };
 
+  useEffect(() => {
+    window.onscroll = () => {
+      setPageOffset(window.pageYOffset);
+    };
+  }, []);
+
   return (
-    <StyledFooter>
+    <StyledFooter id="footer">
       <StyledContainer>
         <StyledLayout>
           <StyledLogo>
@@ -209,7 +222,11 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
 
       {!shopSettings.shopIsClosed && <Cart />}
 
-      <StyledScrollButton onClick={handleScrollTop} type="button">
+      <StyledScrollButton
+        onClick={handleScrollTop}
+        isHidden={pageOffset < 800}
+        type="button"
+      >
         <SvgArrowTopIcon />
       </StyledScrollButton>
 

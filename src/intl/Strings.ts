@@ -21,6 +21,10 @@ export const LangStrings = {
         anchor: "reviews-section",
         text: "Recenze",
       },
+      {
+        anchor: "footer",
+        text: "Kontakty",
+      },
     ],
     innerMenu: [
       {
@@ -38,6 +42,10 @@ export const LangStrings = {
       {
         anchor: "/#reviews-section",
         text: "Recenze",
+      },
+      {
+        anchor: "/#footer",
+        text: "Kontakty",
       },
     ],
     phoneNumber: "+420 792 745 116",
@@ -121,7 +129,7 @@ export const LangStrings = {
     paymentMethods: "Způsoby platby",
     addMore: "Přidat navíc",
     priceIncluded:
-      "Pozor na to, že rolly a sety už mají v ceně Vasabi, Zázvor a Soja!",
+      "Pozor na to, že rolly a sety už mají v ceně Vasabi, Zázvor a Sójovku!",
     deliveryLabel: "Doručení kurýrem",
     pickupLabel: "Vyzvednout",
     deliveryPrice: "Cena doručení",
@@ -139,6 +147,7 @@ export const LangStrings = {
     address: "Adresa",
     fillAddress: "Adresa",
     pickupAddress: "Adresa pro vyzvednutí",
+    personsDescription: "Hůlky, ubrousky a misky na sójovku.",
   },
   ru: {
     metaDescription: `По-настоящему вкусные и сочные сеты, которые Вас вдоволь накормят и насладят 
@@ -241,5 +250,6 @@ export const LangStrings = {
     priceTotal: "Итоговая цена",
     modifiers: "Модификаторы",
     ingredients: "Состав",
+    personsDescription: "Hůlky, ubrousky a misky na sójovku.",
   },
 };

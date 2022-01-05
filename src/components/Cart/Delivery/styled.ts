@@ -48,10 +48,12 @@ export const StyledInputWrapper = styled.div`
 `;
 
 const StyledInput = styled.input<{ hasError: boolean }>`
+  appearance: none;
+  background-color: white;
   background-position: ${({ theme }) => theme.rem(5)} center;
   background-repeat: no-repeat;
   background-size: auto ${({ theme }) => theme.rem(20)};
-  border-radius: ${({ theme }) => theme.rem(2)};
+  border-radius: 0;
   border: none;
   border-bottom: ${({ theme }) => `${theme.rem(2)} solid ${theme.colors.red}`};
   font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontMedium}`};
@@ -169,6 +171,7 @@ export const StyledLink = styled.a`
 `;
 
 export const StyledMap = styled.div`
+  box-shadow: 0 0 ${({ theme }) => theme.rem(5)} 0 rgba(0, 0, 0, 0.5);
   height: ${({ theme }) => theme.rem(200)};
   margin-bottom: ${({ theme }) => theme.rem(20)};
   margin-top: ${({ theme }) => theme.rem(20)};

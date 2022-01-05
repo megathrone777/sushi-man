@@ -131,6 +131,12 @@ const Persons: React.FC = () => {
       <StyledTable>
         <tbody>
           <StyledTableRow>
+            <StyledTableCell colSpan={3}>
+              {t("personsDescription")}
+            </StyledTableCell>
+          </StyledTableRow>
+
+          <StyledTableRow>
             <StyledTableCell>
               {cutleryAmountError && (
                 <StyledError>
@@ -141,9 +147,10 @@ const Persons: React.FC = () => {
               <StyledName hasError={cutleryAmountError}>Příbory</StyledName>
             </StyledTableCell>
 
-            <StyledTableCell>
+            <StyledTableCell hasError={cutleryAmountError}>
               <StyledQuantityWrapper>
                 <StyledQuantityButton
+                  hasError={cutleryAmountError}
                   isDecrease
                   onClick={handleQuantityDecrease}
                   type="button"
@@ -152,6 +159,7 @@ const Persons: React.FC = () => {
                 </StyledQuantityButton>
                 <StyledQuantity>{cutleryAmount}</StyledQuantity>
                 <StyledQuantityButton
+                  hasError={cutleryAmountError}
                   isIncrease
                   onClick={handleQuantityIncrease}
                   type="button"

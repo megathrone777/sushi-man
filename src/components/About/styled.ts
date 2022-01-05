@@ -2,7 +2,7 @@ import { styled } from "~/theme";
 
 export const StyledWrapper = styled.section`
   background: url("/images/about_bg.jpg") center center/cover no-repeat;
-  border-top: ${({ theme }) => `${theme.rem(4)} solid ${theme.colors.red}`};
+  border-top: ${({ theme }) => `${theme.rem(3)} solid ${theme.colors.red}`};
   min-height: ${({ theme }) => theme.rem(400)};
   padding: ${({ theme }) => theme.rem(50)} 0;
   text-align: center;

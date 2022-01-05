@@ -1,7 +1,7 @@
 import { styled } from "~/theme";
 
 export const StyledWrapper = styled.section`
-  border-top: ${({ theme }) => `${theme.rem(4)} solid ${theme.colors.red}`};
+  border-top: ${({ theme }) => `${theme.rem(3)} solid ${theme.colors.red}`};
   overflow: hidden;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {

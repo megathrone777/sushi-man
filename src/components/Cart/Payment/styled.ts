@@ -14,9 +14,14 @@ export const StyledTitle = styled.h2`
 
 export const StyledContent = styled.div``;
 
+export const StyledImageHolder = styled.div`
+  display: flex;
+`;
+
 export const StyledImage = styled.img`
-  display: block;
-  height: ${({ theme }) => theme.rem(40)};
+  display: inline-block;
+  height: ${({ theme }) => theme.rem(35)};
+  margin-right: ${({ theme }) => theme.rem(2)};
   width: auto;
 `;
 
@@ -67,9 +72,4 @@ export const StyledRadioLabel = styled.label`
 export const StyledRadioLabelText = styled.span`
   font-family: ${({ theme }) => theme.fonts.fontMedium};
   margin-bottom: ${({ theme }) => theme.rem(10)};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    margin-bottom: ${({ theme }) => theme.rem(5)};
-    min-height: ${({ theme }) => theme.rem(38)};
-  }
 `;

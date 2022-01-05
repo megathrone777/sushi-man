@@ -6,6 +6,7 @@ import {
   StyledWrapper,
   StyledRow,
   StyledContent,
+  StyledImageHolder,
   StyledImage,
   StyledTitle,
   StyledRadioWrapper,
@@ -43,7 +44,10 @@ const Payment: React.FC = () => {
             />
             <StyledRadioLabel htmlFor="input-card">
               <StyledRadioLabelText>{t("payByCard")}</StyledRadioLabelText>
-              <StyledImage alt="Card" src="/images/payments_img.png" />
+              <StyledImageHolder>
+                <StyledImage alt="Apple pay" src="/images/payments_img2.png" />
+                <StyledImage alt="Card" src="/images/payments_img.png" />
+              </StyledImageHolder>
             </StyledRadioLabel>
           </StyledRadioWrapper>
         </StyledRow>
@@ -62,7 +66,10 @@ const Payment: React.FC = () => {
               <StyledRadioLabelText>
                 {t("payByCardPickup")}
               </StyledRadioLabelText>
-              <StyledImage alt="Card" src="/images/payments_img.png" />
+              <StyledImageHolder>
+                <StyledImage alt="Apple pay" src="/images/payments_img2.png" />
+                <StyledImage alt="Card" src="/images/payments_img.png" />
+              </StyledImageHolder>
             </StyledRadioLabel>
           </StyledRadioWrapper>
         </StyledRow>

@@ -38,7 +38,7 @@ const Header: React.FC<TProps> = ({ menuItems, inner }) => {
   }, [menuIsOpened]);
 
   return (
-    <StyledHeader>
+    <StyledHeader id="header">
       <StyledContainer>
         <StyledLayout>
           <Logo />

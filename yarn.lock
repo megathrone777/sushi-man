@@ -511,13 +511,6 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
   integrity sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==
 
-"@types/react-phone-number-input@^3.0.13":
-  version "3.0.13"
-  resolved "https://registry.yarnpkg.com/@types/react-phone-number-input/-/react-phone-number-input-3.0.13.tgz#4eb7dcd278dcf9eb2a8d2ce2cb304657cbf1b4e5"
-  integrity sha512-27k7AvLbzCjpuRORFhehFdRHVan1q6RhSTV7dFiXwZ2ojnS/JMx77wd9OyAU464oN0GIlkfhc0njGzL97/xNcw==
-  dependencies:
-    "@types/react" "*"
-
 "@types/react-slick@^0.23.5":
   version "0.23.8"
   resolved "https://registry.yarnpkg.com/@types/react-slick/-/react-slick-0.23.8.tgz#91654e657158da57f082c7b213e20756d3a37502"
@@ -3386,6 +3379,11 @@ slice-ansi@^4.0.0:
     ansi-styles "^4.0.0"
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
+
+smoothscroll-polyfill@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/smoothscroll-polyfill/-/smoothscroll-polyfill-0.4.4.tgz#3a259131dc6930e6ca80003e1cb03b603b69abf8"
+  integrity sha512-TK5ZA9U5RqCwMpfoMq/l1mrH0JAR7y7KRvOBx0n2869aLxch+gT9GhN3yUfjiw+d/DiF1mKo14+hd62JyMmoBg==
 
 snake-case@^3.0.3:
   version "3.0.4"

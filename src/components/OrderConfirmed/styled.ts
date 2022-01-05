@@ -17,7 +17,7 @@ export const StyledTitle = styled.h2`
 `;
 
 export const StyledImageHolder = styled.div`
-  height: ${({ theme }) => theme.rem(300)};
+  height: ${({ theme }) => theme.rem(240)};
   margin-left: auto;
   margin-right: auto;
   max-width: ${({ theme }) => theme.rem(200)};

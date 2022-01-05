@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { css, keyframes, styled } from "~/theme";
 
 const rotate = keyframes`
@@ -11,7 +13,8 @@ const rotate = keyframes`
 `;
 
 export const StyledWrapper = styled.div`
-  background: url("/images/products_bg.jpg") center center/auto 100%;
+  background-image: url("/images/products_bg.jpg");
+  background-size: 33.3333% auto;
   border-bottom: ${({ theme }) => `${theme.rem(4)} solid ${theme.colors.red}`};
   overflow: hidden;
   padding: ${({ theme }) => theme.rem(50)} 0 ${({ theme }) => theme.rem(100)};
@@ -67,6 +70,16 @@ export const StyledContentRight = styled(StyledContentColumn)`
     max-width: 100%;
   }
 `;
+
+export const StyledImageHolder = styled.div`
+  box-shadow: 0 0 ${({ theme }) => theme.rem(10)} 0 rgba(0, 0, 0, 0.5);
+  border-radius: ${({ theme }) => theme.rem(15)};
+  min-height: ${({ theme }) => theme.rem(400)};
+  overflow: hidden;
+  position: relative;
+`;
+
+export const StyledImage = styled(Image)``;
 
 export const StyledContent = styled.div`
   margin-bottom: ${({ theme }) => theme.rem(40)};
@@ -162,6 +175,8 @@ export const StyledSubmodifiersItem = styled.li`
 export const StyledButton = styled.button`
   background-color: ${({ theme }) => theme.colors.red};
   border: none;
+  border-radius: ${({ theme }) => theme.rem(5)};
+  box-shadow: 0 0 ${({ theme }) => theme.rem(10)} 0 rgba(0, 0, 0, 0.5);
   color: white;
   cursor: pointer;
   display: inline-block;
@@ -202,6 +217,7 @@ export const StyledImageLoader = styled.span`
   justify-content: center;
   left: 0;
   margin: auto;
+  overflow: hidden;
   position: absolute;
   right: 0;
   top: 50%;

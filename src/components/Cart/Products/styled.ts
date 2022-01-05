@@ -27,8 +27,9 @@ export const StyledRow = styled.div`
   grid-template-areas: "image name quantity options";
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    border: ${({ theme }) => theme.rem(2)} solid rgb(239, 239, 239);
+    border: ${({ theme }) => theme.rem(1)} solid rgb(239, 239, 239);
     border-radius: ${({ theme }) => theme.rem(7)};
+    box-shadow: 0 0 ${({ theme }) => theme.rem(5)} 0 rgba(0, 0, 0, 0.5);
     grid-template-columns: 50% 50%;
     grid-template-areas:
       "image name"
@@ -81,6 +82,7 @@ export const StyledOptionsArea = styled(StyledCell)`
 
 export const StyledImage = styled.img`
   border-radius: ${({ theme }) => theme.rem(10)};
+  box-shadow: 0 0 ${({ theme }) => theme.rem(10)} 0 rgba(0, 0, 0, 0.5);
   display: block;
   height: auto;
   margin: 0 auto;

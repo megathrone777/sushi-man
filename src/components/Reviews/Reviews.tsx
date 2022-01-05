@@ -57,10 +57,9 @@ const Reviews: React.FC<TProps> = ({ reviews }) => {
   const handleClick = (): void => {
     const productsSection = document.getElementById("products-section");
 
-    productsSection &&
-      productsSection.scrollIntoView({
-        behavior: "smooth",
-      });
+    productsSection && productsSection.scrollIntoView({
+      behavior: "smooth",
+    });
   };
 
   return (

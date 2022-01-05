@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNotifications } from "reapop";
-import Image from "next/image";
 
 import { TProps, TProductModifier, TProductSubmodifier } from "./types";
 import useTranslation from "~/intl/useTranslation";
@@ -14,7 +13,8 @@ import {
   StyledContentRight,
   StyledTitle,
   StyledContent,
-  StyledImageLoader,
+  StyledImageHolder,
+  StyledImage,
   StyledButton,
   StyledItem,
   StyledItemTitle,
@@ -28,6 +28,7 @@ import {
   StyledModifiersItem,
   StyledSubmodifiersList,
   StyledSubmodifiersItem,
+  StyledImageLoader,
 } from "./styled";
 
 interface TSelectedSubmodifier extends TProductSubmodifier {
@@ -188,15 +189,17 @@ const ProductDetails: React.FC<TProps> = ({
             </StyledImageLoader>
           )}
 
-          <Image
-            alt={title}
-            height={540}
-            layout="responsive"
-            objectFit="cover"
-            onLoadingComplete={handleImageLoading}
-            src={image.url}
-            width={400}
-          />
+          <StyledImageHolder>
+            <StyledImage
+              alt={title}
+              height={540}
+              layout="responsive"
+              objectFit="cover"
+              onLoadingComplete={handleImageLoading}
+              src={image.url}
+              width={400}
+            />
+          </StyledImageHolder>
         </StyledContentLeft>
 
         <StyledContentRight>

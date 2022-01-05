@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
+import smoothscroll from "smoothscroll-polyfill";
 
 import useTranslation from "~/intl/useTranslation";
 
@@ -10,6 +11,10 @@ interface TProps {
 const LayoutHead: React.FC<TProps> = ({ title }) => {
   const { t } = useTranslation();
   const metaDescription = t("metaDescription");
+
+  useEffect((): void => {
+    smoothscroll.polyfill();
+  }, []);
 
   return (
     <Head>

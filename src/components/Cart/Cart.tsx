@@ -119,7 +119,9 @@ const Cart: React.FC = () => {
 
   const scrollToError = (elementId: string): void => {
     if (window.innerWidth > 767) {
-      document.getElementById(elementId).scrollIntoView();
+      document.getElementById(elementId).scrollIntoView({
+        behavior: "smooth",
+      });
     }
   };
 

@@ -2,7 +2,8 @@ import { styled } from "~/theme";
 import { StyledContainer } from "~/components/Layout/styled";
 
 export const StyledWrapper = styled.section`
-  background: url("/images/products_bg.jpg") center center/auto 100%;
+  background-image: url("/images/products_bg.jpg");
+  background-size: 33.3333% auto;
   padding: ${({ theme }) => theme.rem(60)} 0;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
@@ -66,6 +67,7 @@ export const StyledButton = styled.button`
   background-color: ${({ theme }) => theme.colors.red};
   border: none;
   border-radius: ${({ theme }) => theme.rem(5)};
+  box-shadow: 0 0 ${({ theme }) => theme.rem(10)} 0 rgba(0, 0, 0, 0.5);
   color: white;
   cursor: pointer;
   display: inline-block;

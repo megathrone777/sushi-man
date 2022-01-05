@@ -12,7 +12,6 @@ export const StyledWrapper = styled.div`
 export const StyledTitle = styled.h2`
   border-bottom: ${({ theme }) => `${theme.rem(3)} solid ${theme.colors.red}`};
   font: ${({ theme }) => `${theme.rem(20)} ${theme.fonts.fontBold}`};
-  margin-bottom: ${({ theme }) => theme.rem(10)};
   padding: ${({ theme }) => theme.rem(10)};
 `;
 
@@ -29,23 +28,12 @@ export const StyledTable = styled.table`
 
 export const StyledTableRow = styled.tr``;
 
-export const StyledTableCell = styled.td`
+export const StyledTableCell = styled.td<{ hasError?: boolean }>`
+  color: ${({ hasError, theme }) => (hasError ? theme.colors.red : "black")};
   padding: ${({ theme }) => theme.rem(10)};
   position: relative;
   vertical-align: middle;
   width: 33.3333%;
-
-  &:nth-of-type(2) {
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-      text-align: center;
-    }
-  }
-
-  &:last-of-type {
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
-      text-align: right;
-    }
-  }
 `;
 
 export const StyledName = styled.span<{ hasError: boolean }>`
@@ -65,7 +53,7 @@ export const StyledQuantityWrapper = styled.div`
 `;
 
 export const StyledQuantity = styled.p`
-  color: black;
+  color: inherit;
   font: ${({ theme }) => `${theme.rem(18)} ${theme.fonts.fontBold}`};
   height: ${({ theme }) => theme.rem(25)};
   line-height: ${({ theme }) => theme.rem(25)};
@@ -82,12 +70,14 @@ export const StyledQuantity = styled.p`
 export const StyledQuantityButton = styled.button<{
   isIncrease?: boolean;
   isDecrease?: boolean;
+  hasError: boolean;
 }>`
   align-items: center;
   background: none;
   border-radius: 50%;
-  border: ${({ theme }) => theme.rem(2)} solid black;
-  color: black;
+  border: ${({ hasError, theme }) =>
+    `${theme.rem(2)} solid ${hasError ? theme.colors.red : "black"}`};
+  color: inherit;
   cursor: pointer;
   display: flex;
   height: ${({ theme }) => theme.rem(22)};

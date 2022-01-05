@@ -23,14 +23,16 @@ export const StyledWrapper = styled.div<{ productsChanged: boolean }>`
   background-color: ${({ theme }) => theme.colors.red};
   border-radius: 50%;
   border: ${({ theme }) => theme.rem(3)} solid white;
+  box-shadow: 0 0 0px ${({ theme }) => `${theme.rem(3)} ${theme.colors.red}`};
   display: flex;
   height: ${({ theme }) => theme.rem(70)};
   margin-left: ${({ theme }) => theme.rem(70)};
+  outline: ${({ theme }) => `${theme.rem(3)} solid ${theme.colors.red}`};
   padding: ${({ theme }) => theme.rem(5)};
   position: fixed;
   right: ${({ theme }) => theme.rem(30)};
   text-align: center;
-  top: ${({ theme }) => theme.rem(25)};
+  top: ${({ theme }) => theme.rem(24)};
   width: ${({ theme }) => theme.rem(70)};
   z-index: 101;
 

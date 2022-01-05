@@ -120,6 +120,7 @@ export const StyledButton = styled.button<{ inner: boolean }>`
   background-color: ${({ theme }) => theme.colors.red};
   border: none;
   border-radius: ${({ theme }) => theme.rem(5)};
+  box-shadow: 0 0 ${({ theme }) => theme.rem(10)} 0 rgba(0, 0, 0, 0.5);
   color: white;
   cursor: pointer;
   display: ${({ inner }) => (inner ? "none" : "inline-block")};

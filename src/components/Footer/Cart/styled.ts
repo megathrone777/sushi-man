@@ -23,11 +23,12 @@ export const StyledWrapper = styled.div<{ productsChanged: boolean }>`
   border-radius: 50%;
   border: ${({ theme }) => theme.rem(3)} solid white;
   bottom: ${({ theme }) => theme.rem(15)};
+  box-shadow: 0 0 0px ${({ theme }) => `${theme.rem(3)} ${theme.colors.red}`};
   display: none;
   height: ${({ theme }) => theme.rem(70)};
   padding: ${({ theme }) => theme.rem(5)};
   position: fixed;
-  left: ${({ theme }) => theme.rem(15)};
+  right: ${({ theme }) => theme.rem(15)};
   text-align: center;
   width: ${({ theme }) => theme.rem(70)};
   z-index: 101;

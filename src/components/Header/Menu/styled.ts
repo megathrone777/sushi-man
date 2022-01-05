@@ -51,6 +51,11 @@ export const StyledLink = styled.span`
     font-size: ${({ theme }) => theme.rem(28)};
   }
 
+  @media (max-width: ${({ theme }) =>
+      theme.breakpoints.tablet}) and (orientation: landscape) {
+    font-size: ${({ theme }) => theme.rem(25)};
+  }
+
   &:hover {
     color: ${({ theme }) => theme.colors.red};
 

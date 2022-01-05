@@ -15,6 +15,7 @@ const rotate = keyframes`
 export const StyledWrapper = styled.div`
   background-color: white;
   border-radius: ${({ theme }) => theme.rem(15)};
+  box-shadow: 0 0 ${({ theme }) => theme.rem(10)} 0 rgba(0, 0, 0, 0.5);
   flex: 0 1 calc(25% - ${({ theme }) => theme.rem(20)});
   margin-bottom: ${({ theme }) => theme.rem(20)};
   margin-left: ${({ theme }) => theme.rem(10)};

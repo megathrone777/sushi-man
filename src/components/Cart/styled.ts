@@ -79,7 +79,7 @@ export const StyledEmpty = styled.p`
 `;
 
 export const StyledEmptyImage = styled.img`
-  max-width: ${({ theme }) => theme.rem(150)};
+  max-height: ${({ theme }) => theme.rem(240)};
 `;
 
 export const StyledButtons = styled.div`
@@ -90,6 +90,7 @@ export const StyledBuy = styled.button<{ isLoading: boolean }>`
   background-color: ${({ theme }) => theme.colors.red};
   border-radius: ${({ theme }) => theme.rem(5)};
   border: none;
+  box-shadow: 0 0 ${({ theme }) => theme.rem(10)} 0 rgba(0, 0, 0, 0.5);
   color: ${({ isLoading }) => (isLoading ? "transparent" : "white")};
   cursor: pointer;
   display: inline-block;
@@ -183,6 +184,7 @@ export const StyledErrorIcon = styled.span`
 
 export const StyledMainPageLink = styled.a`
   background-color: ${({ theme }) => theme.colors.red};
+  box-shadow: 0 0 ${({ theme }) => theme.rem(10)} 0 rgba(0, 0, 0, 0.5);
   color: white;
   display: inline-block;
   font: ${({ theme }) => `${theme.rem(22)} ${theme.fonts.fontMedium}`};

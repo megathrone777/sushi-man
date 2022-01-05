@@ -76,6 +76,7 @@ export const StyledTab = styled.div<{
   background-repeat: no-repeat;
   background-size: calc(100% + ${({ theme }) => theme.rem(2)}) auto;
   border-radius: ${({ theme }) => theme.rem(15)};
+  box-shadow: 0 0 ${({ theme }) => theme.rem(10)} 0 rgba(0, 0, 0, 0.5);
   color: white;
   cursor: pointer;
   flex: 0 1
