@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
     "jsx": "preserve",
     "lib": [
       "dom",
@@ -22,7 +23,6 @@
         "./*"
       ]
     },
-    "incremental": true
   },
   "include": [
     "next-env.d.ts",
