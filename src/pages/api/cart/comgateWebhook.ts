@@ -148,7 +148,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     }
   }
 
-  response.status(200).send({});
+  response.status(200).json({ refId });
 };
 
 export default handler;
