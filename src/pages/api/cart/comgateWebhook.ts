@@ -142,16 +142,13 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         () => {
           if (updateOrder["order"].address) {
             telegramSendMessage(`${updateOrder["order"].address}`);
-            return;
           }
         }
       );
     }
-
-    return;
   }
 
-  response.send({ statusCode: 200 });
+  response.status(200);
 };
 
 export default handler;
