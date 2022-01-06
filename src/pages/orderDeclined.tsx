@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { gql } from "@apollo/client";
 
 import client from "~/apollo-client";
-import { TBanner, Banner, LayoutSecondary, OrderConfirmed } from "~/components";
+import { TBanner, Banner, LayoutSecondary, OrderDeclined } from "~/components";
 
 import OrderConfirmedPageQuery from "~/queries/rulespage.gql";
 
@@ -14,8 +14,8 @@ interface TProps {
   };
 }
 
-const OrderConfirmedPage: NextPage<TProps> = ({ hero }) => (
-  <LayoutSecondary title="Sushi Man | Order Confirmed">
+const OrderDeclinedPage: NextPage<TProps> = ({ hero }) => (
+  <LayoutSecondary title="Sushi Man | Order Declined">
     <Banner
       hero={{
         hero_cs: hero["hero_cs"],
@@ -23,11 +23,11 @@ const OrderConfirmedPage: NextPage<TProps> = ({ hero }) => (
       }}
       inner
     />
-    <OrderConfirmed />
+    <OrderDeclined />
   </LayoutSecondary>
 );
 
-OrderConfirmedPage.getInitialProps = async () => {
+OrderDeclinedPage.getInitialProps = async () => {
   const {
     data: { hero_cs, hero_ru },
   } = await client.query({
@@ -44,4 +44,4 @@ OrderConfirmedPage.getInitialProps = async () => {
   };
 };
 
-export default OrderConfirmedPage;
+export default OrderDeclinedPage;

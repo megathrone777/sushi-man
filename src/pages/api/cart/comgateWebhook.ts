@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest } from "next";
 import { gql } from "@apollo/client";
 
 import client from "~/apollo-client";
 import { telegramSendMessage } from "./telegramSendMessage";
 
-const handler = async (request: NextApiRequest, response: NextApiResponse) => {
+const handler = async (request: NextApiRequest) => {
   const { refId, status } = request.body;
   const {
     data: { order, orders },
@@ -138,6 +138,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         () => {
           if (updateOrder["order"].address) {
             telegramSendMessage(`${updateOrder["order"].address}`);
+            return;
           }
         }
       );
@@ -145,8 +146,6 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
 
     return;
   }
-
-  response.send({ statusCode: 404 });
 };
 
 export default handler;

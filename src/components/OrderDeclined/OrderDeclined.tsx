@@ -13,7 +13,7 @@ import {
   StyledButton,
 } from "./styled";
 
-const OrderConfirmed: React.FC = () => {
+const OrderDeclined: React.FC = () => {
   const { dispatch } = useStore();
 
   useEffect((): void => {
@@ -27,7 +27,7 @@ const OrderConfirmed: React.FC = () => {
     <StyledWrapper>
       <StyledContainer>
         <StyledLayout>
-          <StyledTitle>Vaše objednávka byla úspěšně přijata</StyledTitle>
+          <StyledTitle>Transakce ne proběhla úspěšně!</StyledTitle>
           <StyledImageHolder>
             <StyledImage alt="Sushi-man" src="/images/sushi-man_img.jpg" />
           </StyledImageHolder>
@@ -40,4 +40,4 @@ const OrderConfirmed: React.FC = () => {
   );
 };
 
-export { OrderConfirmed };
+export { OrderDeclined };

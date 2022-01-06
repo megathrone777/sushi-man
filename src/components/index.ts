@@ -8,6 +8,7 @@ export { Media } from "./Media";
 export { Modal } from "./Modal";
 export { ModalDay } from "./ModalDay";
 export { OrderConfirmed } from "./OrderConfirmed";
+export { OrderDeclined } from "./OrderDeclined";
 export { ProductDetails } from "./ProductDetails";
 export { Products } from "./Products";
 export { Reviews } from "./Reviews";
