@@ -307,7 +307,9 @@ const Cart: React.FC = () => {
               "Content-Type": "application/json",
             },
           })
-            .then((response) => response.json())
+            .then((response) => {
+              return response.json();
+            })
             .then((data) => {
               if (data) {
                 router.push(data.redirect);
