@@ -7,6 +7,10 @@ const notification = css`
       position: fixed;
       right: ${({ theme }) => theme.rem(20)};
       z-index: 999;
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        bottom: ${({ theme }) => theme.rem(60)};
+      }
     }
 
     &__notification {
@@ -35,7 +39,7 @@ const notification = css`
       &-title {
         color: green;
         font-size: ${({ theme }) => theme.rem(18)};
-        text-shadow: 0 0 ${({ theme }) => theme.rem(1)} rgba(0, 0, 0, 0.16);        
+        text-shadow: 0 0 ${({ theme }) => theme.rem(1)} rgba(0, 0, 0, 0.16);
 
         &:first-letter {
           text-transform: uppercase;

@@ -129,14 +129,14 @@ const Cart: React.FC = () => {
   };
 
   const checkCartFields = (): boolean => {
-    if (!isPickupChecked && deliveryPrice === 100 && totalPrice < 600) {
+    if (!isPickupChecked && deliveryPrice === 100 && totalPrice < 400) {
       notify({
         dismissAfter: 3000,
         dismissible: true,
         position: "bottom-center",
         showDismissButton: true,
         status: "error",
-        title: `Min. cena objednávky od 6km. - 600 Kč (bez ceny dopravy)`,
+        title: `Min. cena objednávky od 6km. - 400 Kč (bez ceny dopravy)`,
       });
       scrollToError("products");
       return;

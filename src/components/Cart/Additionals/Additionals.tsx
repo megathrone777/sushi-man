@@ -6,10 +6,10 @@ import {
   changeAdditionalQuantity,
   useStore,
   setCustomerNote,
-  setPromoCode,
-  setPromoSuccess,
-  setPromoError,
-  setPromoDiscount,
+  // setPromoCode,
+  // setPromoSuccess,
+  // setPromoError,
+  // setPromoDiscount,
 } from "~/store";
 import {
   SvgPlusIcon,
