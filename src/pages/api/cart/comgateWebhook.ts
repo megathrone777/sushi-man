@@ -1,10 +1,10 @@
-import { NextApiRequest } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { gql } from "@apollo/client";
 
 import client from "~/apollo-client";
 import { telegramSendMessage } from "./telegramSendMessage";
 
-const handler = async (request: NextApiRequest) => {
+const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const { refId, status } = request.body;
   const {
     data: { order, orders },
@@ -150,6 +150,8 @@ const handler = async (request: NextApiRequest) => {
 
     return;
   }
+
+  response.send({ statusCode: 200 });
 };
 
 export default handler;
