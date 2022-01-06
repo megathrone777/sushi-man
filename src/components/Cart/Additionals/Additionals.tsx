@@ -48,7 +48,7 @@ const Additionals: React.FC = () => {
   const { t } = useTranslation();
   const { dispatch, store } = useStore();
   const { cart } = store;
-  const { customerNote, promoCode } = cart;
+  const { customerNote } = cart;
 
   const handleQuantityIncrease = (id: string, quantity: number): void => {
     dispatch(changeAdditionalQuantity(id, quantity + 1));

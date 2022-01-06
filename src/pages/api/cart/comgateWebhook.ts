@@ -25,7 +25,7 @@ const handler = async (request: NextApiRequest) => {
     },
   });
 
-  if (order && !!Object.keys(order).length) {
+  if (order && !!Object.keys(order).length && !!orders.length) {
     const {
       data: { updateOrder },
     } = await client.mutate({
@@ -62,7 +62,11 @@ const handler = async (request: NextApiRequest) => {
       },
     });
 
-    if (updateOrder["order"] && !!Object.keys(updateOrder["order"]).length) {
+    if (
+      updateOrder["order"] &&
+      !!Object.keys(updateOrder["order"]).length &&
+      updateOrder["order"].comgatePaymentStatus === "PAID"
+    ) {
       telegramSendMessage(
         `Заказ №${orders.length + 1}
       ${updateOrder["order"].products.map(
