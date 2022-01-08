@@ -10,7 +10,7 @@ const rotate = keyframes`
   }
 `;
 
-export const StyledWrapper = styled.div`
+export const StyledForm = styled.form`
   border-bottom: ${({ theme }) => `${theme.rem(4)} solid ${theme.colors.red}`};
   min-height: ${({ theme }) => theme.rem(310)};
   padding: ${({ theme }) =>

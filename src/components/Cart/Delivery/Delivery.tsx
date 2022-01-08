@@ -23,7 +23,7 @@ import {
 import { SvgExclamationIcon, SvgLoaderIcon } from "~/icons";
 import {
   StyledWrapper,
-  StyledForm,
+  StyledContent,
   StyledHeader,
   StyledInfo,
   StyledInfoLabel,
@@ -267,7 +267,7 @@ const Delivery: React.FC = () => {
 
       <StyledLayout>
         {isPickupChecked ? (
-          <StyledForm action="#">
+          <StyledContent>
             <StyledInputWrapper>
               <StyledNameInput
                 hasError={customerNameError}
@@ -328,9 +328,9 @@ const Delivery: React.FC = () => {
                 Husitská 187/60, Praha 3
               </StyledLink>
             </StyledInfo>
-          </StyledForm>
+          </StyledContent>
         ) : (
-          <StyledForm action="#">
+          <StyledContent>
             <StyledInputWrapper>
               <StyledNameInput
                 hasError={customerNameError}
@@ -421,7 +421,7 @@ const Delivery: React.FC = () => {
             )}
 
             <StyledMap ref={mapElement} />
-          </StyledForm>
+          </StyledContent>
         )}
       </StyledLayout>
 
@@ -437,7 +437,7 @@ const Delivery: React.FC = () => {
         </StyledText>
         <StyledText>
           Min. cena objednávky od 6km. -{" "}
-          <StyledTextPrice>600 Kč</StyledTextPrice>
+          <StyledTextPrice>400 Kč</StyledTextPrice>
         </StyledText>
         <StyledText>
           Čas dopravy od 30 do 120 minut, závisí na frontě objednávek.

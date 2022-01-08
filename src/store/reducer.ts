@@ -337,33 +337,6 @@ const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
         },
       }),
 
-    [TActionTypes.SET_PROMO_SUCCESS]: (): TStore =>
-      setStoreToLocalStorage({
-        ...store,
-        cart: {
-          ...store.cart,
-          promoCodeSuccess: payload,
-        },
-      }),
-
-    [TActionTypes.SET_PROMO_ERROR]: (): TStore =>
-      setStoreToLocalStorage({
-        ...store,
-        cart: {
-          ...store.cart,
-          promoCodeError: payload,
-        },
-      }),
-
-    [TActionTypes.SET_PROMO_DISCOUNT]: (): TStore =>
-      setStoreToLocalStorage({
-        ...store,
-        cart: {
-          ...store.cart,
-          promoCodeDiscount: payload,
-        },
-      }),
-
     [TActionTypes.CLEAR_STORE]: (): TStore => initialStore,
 
     DEFAULT: (): TStore => {

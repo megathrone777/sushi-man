@@ -12,7 +12,7 @@ const config = {
 };
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
-  const { promoCode } = request.body;
+  const { code } = request.body;
 
   const {
     data: { promos },
@@ -20,21 +20,23 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     query: gql`
       query PromoCodesQuery($where: JSON) {
         promos(where: $where) {
-          Code
-          Percent
+          id
+          percent
         }
       }
     `,
     variables: {
       where: {
-        Code: promoCode,
+        code: code,
+        isActivated: false,
       },
     },
   });
 
   response.send({
+    id: (promos && !!promos.length && promos[0]?.id) || "",
+    percent: (promos && !!promos.length && promos[0]?.percent) || null,
     statusCode: promos && !!promos.length ? 200 : 403,
-    discount: promos[0]?.Percent,
   });
 };
 

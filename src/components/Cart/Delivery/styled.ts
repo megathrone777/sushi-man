@@ -31,7 +31,7 @@ export const StyledHeader = styled.div`
   }
 `;
 
-export const StyledForm = styled.form``;
+export const StyledContent = styled.div``;
 
 export const StyledLayout = styled.div`
   margin-bottom: ${({ theme }) => theme.rem(20)};

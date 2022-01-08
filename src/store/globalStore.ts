@@ -41,6 +41,14 @@ export enum TPayment {
   CASH = "cash",
 }
 
+export interface TPromo {
+  code: string;
+  id: string;
+  percent: number;
+  promoCodeError: boolean;
+  promoCodeSuccess: boolean;
+}
+
 export interface TStore {
   cart: {
     additionals: TAdditional[];
@@ -65,10 +73,7 @@ export interface TStore {
     modifiers: TProductModifier[];
     paymentType: TPayment;
     products: TCartProduct[];
-    promoCode: string;
-    promoCodeDiscount: number;
-    promoCodeError: boolean;
-    promoCodeSuccess: boolean;
+    promoCode: TPromo;
     totalRollsDiscount: number;
   };
   modalDay: TModalDay;
@@ -103,10 +108,13 @@ const initialStore: TStore = {
     modifiers: [],
     paymentType: TPayment.CARD,
     products: [],
-    promoCode: "",
-    promoCodeDiscount: 0,
-    promoCodeError: false,
-    promoCodeSuccess: null,
+    promoCode: {
+      code: "",
+      id: "",
+      percent: null,
+      promoCodeSuccess: false,
+      promoCodeError: false,
+    },
     totalRollsDiscount: 0,
   },
   modalDay: {

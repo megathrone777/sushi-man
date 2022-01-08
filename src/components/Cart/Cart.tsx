@@ -27,7 +27,7 @@ import { Persons } from "./Persons";
 import { SvgLoaderIcon, SvgExclamationIcon } from "~/icons";
 import { StyledContainer } from "~/components/Layout/styled";
 import {
-  StyledWrapper,
+  StyledForm,
   StyledTotal,
   StyledEmptyImage,
   StyledEmpty,
@@ -49,6 +49,16 @@ const createOrderMutation = gql`
       order {
         id
         price
+      }
+    }
+  }
+`;
+
+const updatePromoMutation = gql`
+  mutation UpdatePromoMutation($updateOrderInput: updatePromoInput) {
+    updatePromo(input: $updateOrderInput) {
+      promo {
+        id
       }
     }
   }
@@ -80,11 +90,13 @@ const Cart: React.FC = () => {
     paymentType,
     products,
     promoCode,
-    // promoCodeDiscount,
-    promoCodeSuccess,
   } = cart;
 
   const [createOrder] = useMutation(createOrderMutation, {
+    client,
+  });
+
+  const [updatePromo] = useMutation(updatePromoMutation, {
     client,
   });
 
@@ -110,12 +122,26 @@ const Cart: React.FC = () => {
     0
   );
 
-  const totalPrice =
-    totalProductsPrice +
-    totalAdditionalsPrice +
-    cutleryPrice +
-    deliveryPrice -
-    totalRollsDiscount;
+  const totalPrice = promoCode.promoCodeSuccess
+    ? Math.round(
+        totalProductsPrice +
+          totalAdditionalsPrice +
+          cutleryPrice +
+          deliveryPrice -
+          totalRollsDiscount -
+          ((totalProductsPrice +
+            totalAdditionalsPrice +
+            cutleryPrice +
+            deliveryPrice -
+            totalRollsDiscount) *
+            promoCode.percent) /
+            100
+      )
+    : totalProductsPrice +
+      totalAdditionalsPrice +
+      cutleryPrice +
+      deliveryPrice -
+      totalRollsDiscount;
 
   const totalOrderPrice =
     totalPrice - (isPickupChecked && totalPrice > 600 ? 50 : 0);
@@ -256,13 +282,31 @@ const Cart: React.FC = () => {
     dispatch(setAgree(currentTarget.checked));
   };
 
-  const handleBuyClick = (
+  const handleBuySubmit = (
+    event: React.SyntheticEvent<HTMLFormElement>,
     name: string,
     comgateTransId: string,
     price: number
   ): void => {
+    event.preventDefault();
+
     if (checkCartFields()) {
       toggleSubmitOrderLoading(true);
+
+      if (promoCode.promoCodeSuccess) {
+        updatePromo({
+          variables: {
+            updateOrderInput: {
+              where: {
+                id: promoCode.id,
+              },
+              data: {
+                isActivated: true,
+              },
+            },
+          },
+        });
+      }
 
       createOrder({
         variables: {
@@ -300,8 +344,8 @@ const Cart: React.FC = () => {
               orderPrice: data["createOrder"]["order"]["price"],
               paymentType,
               products,
-              promoCodeSuccess,
-              promoCode,
+              promoCodeSuccess: promoCode.promoCodeSuccess,
+              promoCodeDiscount: promoCode.percent,
             }),
             headers: {
               "Content-Type": "application/json",
@@ -335,7 +379,13 @@ const Cart: React.FC = () => {
   }, []);
 
   return (
-    <StyledWrapper>
+    <StyledForm
+      action="#"
+      autoComplete="on"
+      onSubmit={(event) =>
+        handleBuySubmit(event, customerName, "", totalOrderPrice)
+      }
+    >
       <StyledContainer>
         {cart && !!cart.products.length ? (
           <>
@@ -375,13 +425,7 @@ const Cart: React.FC = () => {
             </StyledTotal>
 
             <StyledButtons>
-              <StyledBuy
-                isLoading={submitOrderLoading}
-                onClick={() =>
-                  handleBuyClick(customerName, "", totalOrderPrice)
-                }
-                type="button"
-              >
+              <StyledBuy isLoading={submitOrderLoading} type="submit">
                 {submitOrderLoading && (
                   <StyledBuyLoader>
                     <SvgLoaderIcon />
@@ -401,7 +445,7 @@ const Cart: React.FC = () => {
           </StyledEmpty>
         )}
       </StyledContainer>
-    </StyledWrapper>
+    </StyledForm>
   );
 };
 

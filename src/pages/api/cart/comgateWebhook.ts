@@ -5,7 +5,7 @@ import client from "~/apollo-client";
 import { telegramSendMessage } from "./telegramSendMessage";
 
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
-  const { refId, status } = request.body;
+  const { refId, status, promoCodeSuccess, promoCodeDiscount } = request.body;
   const {
     data: { order, orders },
   } = await client.query({
@@ -131,6 +131,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       }
       \n <b>Email:</b> ${updateOrder["order"].email}
       \n <b>Тип оплаты:</b> Картой онлайн
+      ${promoCodeSuccess ? `\n Помокод: ${promoCodeDiscount}%` : ``}
       \n <b>Цена:</b> ${updateOrder["order"].price}Kč
       \n <a href="tel:${updateOrder["order"].phone.replace(
         / /g,

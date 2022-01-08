@@ -25,6 +25,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     name,
     phone,
     products,
+    promoCodeSuccess,
+    promoCodeDiscount,
   } = request.body;
   const {
     data: { orders },
@@ -52,34 +54,39 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
             !!product_modifiers.length &&
             product_modifiers.map(
               ({ name: modifier_name }, index: number): string => {
-                const modifier = `\n<b>-${modifier_name}</b>`;
+                const modifier =
+                  modifier_name && modifier_name.length > 0
+                    ? `\n<b>-${modifier_name}</b>`
+                    : "";
                 const modifier_submodifiers = product_submodifiers.filter(
                   ({ modifierIndex }) => modifierIndex === index
                 );
                 const submodifiers = modifier_submodifiers.map(
                   ({ name: submodifier_name }): string => {
-                    return `\n--<b>${submodifier_name}</b>`;
+                    return submodifier_name && submodifier_name.length > 0
+                      ? `\n--<b>${submodifier_name}</b>`
+                      : "";
                   }
                 );
 
                 return modifier + submodifiers;
               }
             )) ||
-          "";
+          null;
 
         return `\n<b>${title} ${
-          quantity !== 1 ? `x${quantity}` : ""
+          quantity !== 1 && `x${quantity}`
         }</b>${modifiers}`;
       }
     )}
     ${
-      additionals && !!additionals.length
-        ? `
+      additionals &&
+      !!additionals.length &&
+      `
       ${additionals.map(({ title, quantity }: TAdditional): string => {
-        return `\n--<b>${title} x${quantity}</b>`;
+        return title && title.length > 0 && `\n--<b>${title} x${quantity}</b>`;
       })}
     `
-        : ""
     }
     ${note && note.length > 0 ? `\n${note}` : ""}
     \n <b>Приборы:</b> ${cutleryAmount}
@@ -94,6 +101,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     }
     \n <b>Email:</b> ${email}
     \n <b>Тип оплаты:</b> Наличными
+    ${promoCodeSuccess ? `\n Помокод: ${promoCodeDiscount}%` : ``}
     \n <b>Цена:</b> ${orderPrice}Kč
     \n <a href="tel:${phone.replace(/ /g, "")}">${phone.replace(
       / /g,

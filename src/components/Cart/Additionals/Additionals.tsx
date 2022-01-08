@@ -6,18 +6,14 @@ import {
   changeAdditionalQuantity,
   useStore,
   setCustomerNote,
-  // setPromoCode,
-  // setPromoSuccess,
-  // setPromoError,
-  // setPromoDiscount,
+  setPromoCode,
 } from "~/store";
 import {
   SvgPlusIcon,
   SvgMinusIcon,
   SvgNoteIcon,
-  // SvgCheckIcon,
-  // SvgExclamationIcon,
-  // SvgCrossIcon,
+  SvgCheckIcon,
+  SvgCrossIcon,
 } from "~/icons";
 import {
   StyledWrapper,
@@ -37,18 +33,18 @@ import {
   StyledNoteIcon,
   StyledNote,
   StyledNoteLabel,
-  // StyledPromo,
-  // StyledPromoInput,
-  // StyledPromoButton,
-  // StyledPromoSuccess,
-  // StyledPromoError,
+  StyledPromo,
+  StyledPromoInput,
+  StyledPromoButton,
+  StyledPromoSuccess,
+  StyledPromoError,
 } from "./styled";
 
 const Additionals: React.FC = () => {
   const { t } = useTranslation();
   const { dispatch, store } = useStore();
   const { cart } = store;
-  const { customerNote } = cart;
+  const { customerNote, promoCode } = cart;
 
   const handleQuantityIncrease = (id: string, quantity: number): void => {
     dispatch(changeAdditionalQuantity(id, quantity + 1));
@@ -59,35 +55,52 @@ const Additionals: React.FC = () => {
     dispatch(changeAdditionalQuantity(id, quantity - 1));
   };
 
-  // const handlePromoChange = ({
-  //   currentTarget,
-  // }: React.SyntheticEvent<HTMLInputElement>): void => {
-  //   dispatch(setPromoCode(currentTarget.value));
-  // };
+  const handlePromoChange = ({
+    currentTarget,
+  }: React.SyntheticEvent<HTMLInputElement>): void => {
+    dispatch(
+      setPromoCode({
+        ...promoCode,
+        code: currentTarget.value,
+      })
+    );
+  };
 
-  // const handlePromoSubmit = (): void => {
-  //   fetch("/api/cart/promoCode", {
-  //     body: JSON.stringify({
-  //       promoCode,
-  //     }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     method: "POST",
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data.statusCode === 200) {
-  //         dispatch(setPromoSuccess(true));
-  //         dispatch(setPromoDiscount(data.discount));
-  //         dispatch(setPromoError(false));
-  //       } else {
-  //         dispatch(setPromoError(true));
-  //         dispatch(setPromoDiscount(0));
-  //         dispatch(setPromoSuccess(false));
-  //       }
-  //     });
-  // };
+  const handlePromoSubmit = (): void => {
+    fetch("/api/cart/promoCode", {
+      body: JSON.stringify({
+        code: promoCode.code,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.statusCode === 200) {
+          dispatch(
+            setPromoCode({
+              code: data.code,
+              id: data.id,
+              percent: data.percent,
+              promoCodeError: false,
+              promoCodeSuccess: true,
+            })
+          );
+        } else {
+          dispatch(
+            setPromoCode({
+              code: promoCode.code,
+              id: data.id,
+              percent: null,
+              promoCodeError: true,
+              promoCodeSuccess: false,
+            })
+          );
+        }
+      });
+  };
 
   const handleNoteChange = ({
     currentTarget,
@@ -186,22 +199,22 @@ const Additionals: React.FC = () => {
           />
         </StyledNoteWrapper>
 
-        {/* <StyledTitle>{t("promoTitle")}</StyledTitle>
+        <StyledTitle>{t("promoTitle")}</StyledTitle>
         <StyledPromo>
           <StyledPromoInput
             onChange={handlePromoChange}
             placeholder="Promo code"
             type="text"
-            value={promoCode}
+            value={promoCode.code}
           />
 
-          {promoCodeSuccess && (
+          {promoCode.promoCodeSuccess && (
             <StyledPromoSuccess>
               <SvgCheckIcon />
             </StyledPromoSuccess>
           )}
 
-          {promoCodeError && (
+          {promoCode.promoCodeError && (
             <StyledPromoError>
               <SvgCrossIcon />
             </StyledPromoError>
@@ -210,7 +223,7 @@ const Additionals: React.FC = () => {
           <StyledPromoButton onClick={handlePromoSubmit} type="button">
             Použit
           </StyledPromoButton>
-        </StyledPromo> */}
+        </StyledPromo>
       </StyledLayout>
     </StyledWrapper>
   );

@@ -22,6 +22,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     name,
     phone,
     products,
+    promoCodeSuccess,
+    promoCodeDiscount,
   } = request.body;
   const {
     data: { orders },
@@ -77,6 +79,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   \n <b>Доставка:</b> Самовывоз
   \n <b>Email:</b> ${email}
   \n <b>Тип оплаты:</b> Картой на месте
+  ${promoCodeSuccess ? `\n Помокод: ${promoCodeDiscount}%` : ``}
   \n <b>Цена:</b> ${orderPrice}Kč
   \n <a href="tel:${phone.replace(/ /g, "")}">${phone.replace(
     / /g,
