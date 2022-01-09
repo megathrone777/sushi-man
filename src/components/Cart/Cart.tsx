@@ -212,7 +212,7 @@ const Cart: React.FC = () => {
       dispatch(setCutleryAmountError(false));
     }
 
-    if (!/\d/.test(customerAddress)) {
+    if (!/\d/.test(customerAddress) && !isPickupChecked) {
       dispatch(setCustomerAddressError(true));
     } else {
       dispatch(setCustomerAddressError(false));
@@ -256,7 +256,7 @@ const Cart: React.FC = () => {
       return false;
     }
 
-    if (!/\d/.test(customerAddress)) {
+    if (!/\d/.test(customerAddress) && !isPickupChecked) {
       notify({
         dismissAfter: 3000,
         dismissible: true,
