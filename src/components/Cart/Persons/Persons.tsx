@@ -50,6 +50,10 @@ const Persons: React.FC = () => {
     ({ isPoke }: TCartProduct): boolean => isPoke
   );
 
+  const totalCaviarAdded = products.filter(
+    ({ isCaviar }: TCartProduct): boolean => isCaviar
+  );
+
   const totalRollsAmount = totalRollsAdded.reduce(
     (accumulator: number, { quantity }: TCartProduct) => {
       return accumulator + quantity;
@@ -85,12 +89,20 @@ const Persons: React.FC = () => {
     0
   );
 
+  const totalCaviarAmount = totalCaviarAdded.reduce(
+    (accumulator: number, { quantity }: TCartProduct) => {
+      return accumulator + quantity;
+    },
+    0
+  );
+
   const maxCutleryAmount =
     totalRollsAmount +
     totalSetsAmount * 4 +
     totalDrinksAmount +
     totalSalatsAmount +
-    totalPokeAmount;
+    totalPokeAmount +
+    totalCaviarAmount;
 
   const handleQuantityIncrease = (): void => {
     if (cutleryAmount >= maxCutleryAmount) {

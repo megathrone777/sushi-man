@@ -71,6 +71,7 @@ export const StyledTab = styled.div<{
   isSalat: boolean;
   isPoke: boolean;
   isDrink: boolean;
+  isCaviar: boolean;
 }>`
   background-position-x: ${({ theme }) => theme.rem(-1)};
   background-repeat: no-repeat;
@@ -151,6 +152,13 @@ export const StyledTab = styled.div<{
     isDrink &&
     css`
       background-image: url("/images/drinks_bg.jpg");
+      background-position-y: ${({ theme }) => theme.rem(-180)};
+    `}
+
+    ${({ isCaviar }) =>
+    isCaviar &&
+    css`
+      background-image: url("/images/caviar_bg.jpg");
       background-position-y: ${({ theme }) => theme.rem(-180)};
     `}
 `;

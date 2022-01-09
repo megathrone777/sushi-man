@@ -124,6 +124,80 @@ const Cart: React.FC = () => {
     0
   );
 
+  const totalRollsAdded = products.filter(
+    ({ isRoll }: TCartProduct): boolean => isRoll
+  );
+
+  const totalSetsAdded = products.filter(
+    ({ isSet }: TCartProduct): boolean => isSet
+  );
+
+  const totalDrinksAdded = products.filter(
+    ({ isDrink }: TCartProduct): boolean => isDrink
+  );
+
+  const totalSalatsAdded = products.filter(
+    ({ isSalat }: TCartProduct): boolean => isSalat
+  );
+
+  const totalPokeAdded = products.filter(
+    ({ isPoke }: TCartProduct): boolean => isPoke
+  );
+
+  const totalCaviarAdded = products.filter(
+    ({ isCaviar }: TCartProduct): boolean => isCaviar
+  );
+
+  const totalRollsAmount = totalRollsAdded.reduce(
+    (accumulator: number, { quantity }: TCartProduct) => {
+      return accumulator + quantity;
+    },
+    0
+  );
+
+  const totalSetsAmount = totalSetsAdded.reduce(
+    (accumulator: number, { quantity }: TCartProduct) => {
+      return accumulator + quantity;
+    },
+    0
+  );
+
+  const totalDrinksAmount = totalDrinksAdded.reduce(
+    (accumulator: number, { quantity }: TCartProduct) => {
+      return accumulator + quantity;
+    },
+    0
+  );
+
+  const totalSalatsAmount = totalSalatsAdded.reduce(
+    (accumulator: number, { quantity }: TCartProduct) => {
+      return accumulator + quantity;
+    },
+    0
+  );
+
+  const totalPokeAmount = totalPokeAdded.reduce(
+    (accumulator: number, { quantity }: TCartProduct) => {
+      return accumulator + quantity;
+    },
+    0
+  );
+
+  const totalCaviarAmount = totalCaviarAdded.reduce(
+    (accumulator: number, { quantity }: TCartProduct) => {
+      return accumulator + quantity;
+    },
+    0
+  );
+
+  const maxCutleryAmount =
+    totalRollsAmount +
+    totalSetsAmount * 4 +
+    totalDrinksAmount +
+    totalSalatsAmount +
+    totalPokeAmount +
+    totalCaviarAmount;
+
   const totalPrice = promoCode.promoCodeSuccess
     ? Math.round(
         totalProductsPrice +
@@ -206,7 +280,7 @@ const Cart: React.FC = () => {
       dispatch(setAgreeError(false));
     }
 
-    if (cutleryAmount === 0) {
+    if (cutleryAmount === 0 && maxCutleryAmount !== 0) {
       dispatch(setCutleryAmountError(true));
     } else {
       dispatch(setCutleryAmountError(false));
@@ -242,7 +316,7 @@ const Cart: React.FC = () => {
       dispatch(setCustomerPhoneError(false));
     }
 
-    if (cutleryAmount === 0) {
+    if (cutleryAmount === 0 && maxCutleryAmount !== 0) {
       notify({
         dismissAfter: 3000,
         dismissible: true,

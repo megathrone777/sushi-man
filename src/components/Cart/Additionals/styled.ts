@@ -183,8 +183,9 @@ export const StyledPromoError = styled.span`
   width: ${({ theme }) => theme.rem(25)};
 `;
 
-export const StyledPromoButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.red};
+export const StyledPromoButton = styled.button<{ isActivated: boolean }>`
+  background-color: ${({ isActivated, theme }) =>
+    isActivated ? "green" : theme.colors.red};
   box-shadow: 0 0 ${({ theme }) => theme.rem(10)} 0 rgba(0, 0, 0, 0.5);
   border: 0;
   border-radius: ${({ theme }) => theme.rem(5)};

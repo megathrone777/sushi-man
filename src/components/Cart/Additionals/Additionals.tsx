@@ -220,8 +220,12 @@ const Additionals: React.FC = () => {
             </StyledPromoError>
           )}
 
-          <StyledPromoButton onClick={handlePromoSubmit} type="button">
-            Použit
+          <StyledPromoButton
+            onClick={handlePromoSubmit}
+            isActivated={promoCode.promoCodeSuccess}
+            type="button"
+          >
+            {promoCode.promoCodeSuccess ? "Přijato" : "Použit"}
           </StyledPromoButton>
         </StyledPromo>
       </StyledLayout>

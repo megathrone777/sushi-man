@@ -3,7 +3,8 @@ export type TCategoryTypes =
   | "isRoll"
   | "isSet"
   | "isSalat"
-  | "isDrink";
+  | "isDrink"
+  | "isCaviar";
 
 export interface TCategory {
   name: string;

@@ -57,12 +57,16 @@ const StyledInput = styled.input<{ hasError: boolean }>`
   border: none;
   border-bottom: ${({ theme }) => `${theme.rem(2)} solid ${theme.colors.red}`};
   font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontMedium}`};
-  height: ${({ theme }) => theme.rem(35)};
+  height: ${({ theme }) => theme.rem(36)};
   padding: 0 ${({ theme }) => theme.rem(30)};
   width: 100%;
 
   &:focus {
     outline: none;
+  }
+
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
   }
 
   &::-webkit-input-placeholder {
@@ -97,6 +101,17 @@ export const StyledPhoneInput = styled(StyledInput)`
 export const StyledDeliveryInput = styled(StyledInput)`
   appearance: searchfield;
   background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath fill='%23da2628' d='M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z'%3E%3C/path%3E%3C/svg%3E");
+
+  &::-webkit-search-cancel-button {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' %3E%3Cpath d='M0 0h24v24H0V0z' fill='none' /%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z' fill='black' /%3E%3C/svg%3E");
+    background-position: center center;
+    background-size: 100% 100%;
+    position: relative;
+    top: ${({ theme }) => theme.rem(1)};
+    height: ${({ theme }) => theme.rem(24)};
+    width: ${({ theme }) => theme.rem(24)};
+  }
 `;
 
 export const StyledEmailInput = styled(StyledInput)`

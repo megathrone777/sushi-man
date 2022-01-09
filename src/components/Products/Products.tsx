@@ -40,6 +40,10 @@ const productsCategories: TCategory[] = [
     name: "Drinky",
     type: "isDrink",
   },
+  {
+    name: "Kaviár",
+    type: "isCaviar",
+  },
 ];
 
 const Products: React.FC<TProps> = ({ title, inner }) => {
@@ -68,6 +72,7 @@ const Products: React.FC<TProps> = ({ title, inner }) => {
           isDrink
           isSet
           isPoke
+          isCaviar
           price
           slug
           title
@@ -84,6 +89,7 @@ const Products: React.FC<TProps> = ({ title, inner }) => {
           ...(categoryType === "isSalat" && { isSalat: true }),
           ...(categoryType === "isDrink" && { isDrink: true }),
           ...(categoryType === "isSet" && { isSet: true }),
+          ...(categoryType === "isCaviar" && { isCaviar: true }),
         },
       },
     }
@@ -160,6 +166,7 @@ const Products: React.FC<TProps> = ({ title, inner }) => {
                     isPoke={type === "isPoke"}
                     isRoll={type === "isRoll"}
                     isSalat={type === "isSalat"}
+                    isCaviar={type === "isCaviar"}
                     isSet={type === "isSet"}
                     key={`${index}-${name}`}
                     onClick={() => handleCategoryChange(type)}
