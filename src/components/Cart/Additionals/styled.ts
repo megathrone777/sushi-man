@@ -124,6 +124,7 @@ export const StyledNote = styled.textarea`
   display: block;
   font: ${({ theme }) => `${theme.rem(16)} ${theme.fonts.fontMedium}`};
   height: ${({ theme }) => theme.rem(60)};
+  margin-bottom: ${({ theme }) => theme.rem(30)};
   padding: ${({ theme }) => `${theme.rem(5)} ${theme.rem(40)}`};
   resize: none;
   width: 100%;
