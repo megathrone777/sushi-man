@@ -116,9 +116,9 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     \n <b>Email:</b> ${email}
     \n <b>Тип оплаты:</b> Наличными
     ${
-      promoCodeSuccess &&
-      promoCodeSuccess.length > 0 &&
-      `\n Помокод: ${promoCodeDiscount}%`
+      promoCodeSuccess && promoCodeSuccess.length > 0
+        ? `\n Помокод: ${promoCodeDiscount}%`
+        : ""
     }
     \n <b>Цена:</b> ${orderPrice}Kč
     \n <a href="tel:${phone.replace(/ /g, "")}">${phone.replace(
