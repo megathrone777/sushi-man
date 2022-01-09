@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { gql } from "@apollo/client";
+import { format, endOfDay } from "date-fns";
 
 import client from "~/apollo-client";
 import { telegramSendMessage } from "./telegramSendMessage";
@@ -10,18 +11,21 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     data: { order, orders },
   } = await client.query({
     query: gql`
-      query OrderQuery($orderId: ID!) {
+      query OrdersQuery($orderId: ID!, $ordersWhere: JSON) {
         order(id: $orderId) {
           id
         }
 
-        orders {
+        orders(where: $ordersWhere) {
           id
         }
       }
     `,
     variables: {
       orderId: refId,
+      ordersWhere: {
+        dayCreated: format(endOfDay(new Date()), "yyyy-MM-dd"),
+      },
     },
   });
 
@@ -68,7 +72,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       updateOrder["order"].comgatePaymentStatus === "PAID"
     ) {
       telegramSendMessage(
-        `Заказ №${orders.length + 1}
+        `Заказ №${orders.length}
       ${updateOrder["order"].products.map(
         ({
           product_modifiers,

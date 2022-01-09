@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { gql } from "@apollo/client";
+import { format, endOfDay } from "date-fns";
 
 import client from "~/apollo-client";
 import { TAdditional } from "~/store";
@@ -32,12 +33,17 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     data: { orders },
   } = await client.query({
     query: gql`
-      query OrdersQuery {
-        orders {
+      query OrdersQuery($ordersWhere: JSON) {
+        orders(where: $ordersWhere) {
           id
         }
       }
     `,
+    variables: {
+      ordersWhere: {
+        dayCreated: format(endOfDay(new Date()), "yyyy-MM-dd"),
+      },
+    },
   });
 
   telegramSendMessage(
@@ -72,21 +78,23 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
                 return modifier + submodifiers;
               }
             )) ||
-          null;
+          "";
 
         return `\n<b>${title} ${
-          quantity !== 1 && `x${quantity}`
+          quantity !== 1 ? `x${quantity}` : ""
         }</b>${modifiers}`;
       }
     )}
     ${
-      additionals &&
-      !!additionals.length &&
-      `
+      additionals && !!additionals.length
+        ? `
       ${additionals.map(({ title, quantity }: TAdditional): string => {
-        return title && title.length > 0 && `\n--<b>${title} x${quantity}</b>`;
+        return title && title.length > 0
+          ? `\n--<b>${title} x${quantity}</b>`
+          : "";
       })}
     `
+        : ""
     }
     ${note && note.length > 0 ? `\n${note}` : ""}
     \n <b>Приборы:</b> ${cutleryAmount}

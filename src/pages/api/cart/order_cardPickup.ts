@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { gql } from "@apollo/client";
+import { format, endOfDay } from "date-fns";
 
 import client from "~/apollo-client";
 import { telegramSendMessage } from "./telegramSendMessage";
@@ -29,15 +30,20 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     data: { orders },
   } = await client.query({
     query: gql`
-      query OrdersQuery {
-        orders {
+      query OrdersQuery($ordersWhere: JSON) {
+        orders(where: $ordersWhere) {
           id
         }
       }
     `,
+    variables: {
+      ordersWhere: {
+        dayCreated: format(endOfDay(new Date()), "yyyy-MM-dd"),
+      },
+    },
   });
 
-  const message = `Заказ №${orders.length + 1}
+  const message = `Заказ №${orders.length}
   ${products.map(
     ({ product_modifiers, product_submodifiers, title, quantity }): string => {
       const modifiers =

@@ -4,6 +4,7 @@ import { useNotifications } from "reapop";
 import Link from "next/link";
 import { gql, useMutation } from "@apollo/client";
 import fetch from "isomorphic-unfetch";
+import { format, endOfDay } from "date-fns";
 
 import client from "~/apollo-client";
 import useTranslation from "~/intl/useTranslation";
@@ -316,6 +317,7 @@ const Cart: React.FC = () => {
               additionals: selectedAdditionals,
               cutleryAmount,
               comgateTransId,
+              dayCreated: format(endOfDay(new Date()), "yyyy-MM-dd"),
               deliveryPrice,
               email: customerEmail,
               phone: customerPhone,
