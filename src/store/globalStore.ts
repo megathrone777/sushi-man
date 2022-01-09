@@ -141,8 +141,8 @@ const initialStore: TStore = {
   },
 };
 
-const globalStore: TStore = getFromLocalStorage("sushiManStore")
-  ? getFromLocalStorage<TStore>("sushiManStore")
+const globalStore: TStore = getFromLocalStorage("sushiManStorage")
+  ? getFromLocalStorage<TStore>("sushiManStorage")
   : initialStore;
 
 export { globalStore, initialStore };

@@ -17,7 +17,7 @@ const AppProvider: React.FC = ({ children }) => {
   const [store, dispatch] = useReducer(reducer, globalStore);
 
   useEffect((): void => {
-    setToLocalStorage<TStore>("sushiManStore", store);
+    setToLocalStorage<TStore>("sushiManStorage", store);
   }, [store]);
 
   return (
