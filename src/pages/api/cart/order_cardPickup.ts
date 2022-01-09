@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 import { format, endOfDay } from "date-fns";
 
 import client from "~/apollo-client";
+import { TAdditional } from "~/store";
 import { telegramSendMessage } from "./telegramSendMessage";
 
 const config = {
@@ -39,6 +40,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     variables: {
       ordersWhere: {
         dayCreated: format(endOfDay(new Date()), "yyyy-MM-dd"),
+        comgatePaymentStatus: "PAID",
       },
     },
   });
@@ -74,9 +76,16 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   ${
     additionals && !!additionals.length
       ? `
-    ${additionals.map(({ title, quantity }): string => {
-      return `\n--<b>${title} x${quantity}</b>`;
-    })}
+    ${additionals.map(
+      ({
+        title: additional_title,
+        quantity: additional_quantity,
+      }: TAdditional): string => {
+        return additional_title && additional_title.length > 0
+          ? `\n--<b>${additional_title} x${additional_quantity}</b>`
+          : "";
+      }
+    )}
   `
       : ""
   }

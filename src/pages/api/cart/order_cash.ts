@@ -42,12 +42,13 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     variables: {
       ordersWhere: {
         dayCreated: format(endOfDay(new Date()), "yyyy-MM-dd"),
+        comgatePaymentStatus: "PAID",
       },
     },
   });
 
   telegramSendMessage(
-    `Заказ №${orders.length + 1}
+    `Заказ №${orders.length}
     ${products.map(
       ({
         product_modifiers,
@@ -88,11 +89,16 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     ${
       additionals && !!additionals.length
         ? `
-      ${additionals.map(({ title, quantity }: TAdditional): string => {
-        return title && title.length > 0
-          ? `\n--<b>${title} x${quantity}</b>`
-          : "";
-      })}
+      ${additionals.map(
+        ({
+          title: additional_title,
+          quantity: additional_quantity,
+        }: TAdditional): string => {
+          return additional_title && additional_title.length > 0
+            ? `\n--<b>${additional_title} x${additional_quantity}</b>`
+            : "";
+        }
+      )}
     `
         : ""
     }
@@ -109,7 +115,11 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     }
     \n <b>Email:</b> ${email}
     \n <b>Тип оплаты:</b> Наличными
-    ${promoCodeSuccess ? `\n Помокод: ${promoCodeDiscount}%` : ``}
+    ${
+      promoCodeSuccess &&
+      promoCodeSuccess.length > 0 &&
+      `\n Помокод: ${promoCodeDiscount}%`
+    }
     \n <b>Цена:</b> ${orderPrice}Kč
     \n <a href="tel:${phone.replace(/ /g, "")}">${phone.replace(
       / /g,

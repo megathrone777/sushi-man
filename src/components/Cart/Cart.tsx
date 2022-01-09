@@ -19,6 +19,7 @@ import {
   setCustomerNameError,
   setCustomerPhoneError,
   setCustomerEmailError,
+  TPayment,
 } from "~/store";
 import { Additionals } from "./Additionals";
 import { Delivery } from "./Delivery";
@@ -211,6 +212,12 @@ const Cart: React.FC = () => {
       dispatch(setCutleryAmountError(false));
     }
 
+    if (!/\d/.test(customerAddress)) {
+      dispatch(setCustomerAddressError(true));
+    } else {
+      dispatch(setCustomerAddressError(false));
+    }
+
     if (customerAddress.length === 0 && !isPickupChecked) {
       dispatch(setCustomerAddressError(true));
     } else {
@@ -243,6 +250,20 @@ const Cart: React.FC = () => {
         showDismissButton: true,
         status: "error",
         title: `Zvolte množství příboru na osobu, minimálně 1`,
+      });
+
+      scrollToError("persons");
+      return false;
+    }
+
+    if (!/\d/.test(customerAddress)) {
+      notify({
+        dismissAfter: 3000,
+        dismissible: true,
+        position: "bottom-center",
+        showDismissButton: true,
+        status: "error",
+        title: `Napište přesnou adresu s směrovacím číslem`,
       });
 
       scrollToError("persons");
@@ -317,6 +338,11 @@ const Cart: React.FC = () => {
               additionals: selectedAdditionals,
               cutleryAmount,
               comgateTransId,
+              comgatePaymentStatus:
+                paymentType === TPayment.CASH ||
+                paymentType === TPayment.CARDPICKUP
+                  ? "PAID"
+                  : "PENDING",
               dayCreated: format(endOfDay(new Date()), "yyyy-MM-dd"),
               deliveryPrice,
               email: customerEmail,

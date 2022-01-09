@@ -181,6 +181,7 @@ const Delivery: React.FC = () => {
     const input = addressInputElement.current;
     const autocomplete = new google.maps.places.Autocomplete(input, {
       componentRestrictions: { country: "cz" },
+      types: ['address']
     });
     const marker = new google.maps.Marker({
       map,
