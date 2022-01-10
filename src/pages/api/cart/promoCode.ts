@@ -28,7 +28,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     variables: {
       where: {
         code: code,
-        isActivated: false,
+        isApplied: false,
       },
     },
   });
