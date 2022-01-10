@@ -233,7 +233,7 @@ IndexPage.getInitialProps = async () => {
     },
     shopSettings: {
       ...shop,
-      shopIsClosed: checkShopIsClosed(),
+      shopIsClosed: false,
     },
   };
 };

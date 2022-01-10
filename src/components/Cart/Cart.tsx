@@ -144,10 +144,6 @@ const Cart: React.FC = () => {
     ({ isPoke }: TCartProduct): boolean => isPoke
   );
 
-  const totalCaviarAdded = products.filter(
-    ({ isCaviar }: TCartProduct): boolean => isCaviar
-  );
-
   const totalRollsAmount = totalRollsAdded.reduce(
     (accumulator: number, { quantity }: TCartProduct) => {
       return accumulator + quantity;
@@ -183,20 +179,12 @@ const Cart: React.FC = () => {
     0
   );
 
-  const totalCaviarAmount = totalCaviarAdded.reduce(
-    (accumulator: number, { quantity }: TCartProduct) => {
-      return accumulator + quantity;
-    },
-    0
-  );
-
   const maxCutleryAmount =
     totalRollsAmount +
     totalSetsAmount * 4 +
     totalDrinksAmount +
     totalSalatsAmount +
-    totalPokeAmount +
-    totalCaviarAmount;
+    totalPokeAmount;
 
   const totalPrice = promoCode.promoCodeSuccess
     ? Math.round(
@@ -280,7 +268,7 @@ const Cart: React.FC = () => {
       dispatch(setAgreeError(false));
     }
 
-    if (cutleryAmount === 0 && maxCutleryAmount !== 0) {
+    if (cutleryAmount === 0 && maxCutleryAmount > 0) {
       dispatch(setCutleryAmountError(true));
     } else {
       dispatch(setCutleryAmountError(false));
@@ -316,7 +304,7 @@ const Cart: React.FC = () => {
       dispatch(setCustomerPhoneError(false));
     }
 
-    if (cutleryAmount === 0 && maxCutleryAmount !== 0) {
+    if (cutleryAmount === 0 && maxCutleryAmount > 0) {
       notify({
         dismissAfter: 3000,
         dismissible: true,
