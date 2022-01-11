@@ -116,7 +116,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     \n <b>Email:</b> ${email}
     \n <b>Тип оплаты:</b> Наличными
     ${
-      promoCodeSuccess && promoCodeSuccess.length > 0
+      promoCodeSuccess
         ? `\n Помокод: ${promoCodeDiscount}%`
         : ""
     }

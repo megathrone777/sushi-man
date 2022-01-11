@@ -186,7 +186,9 @@ export const StyledPromoError = styled.span`
 export const StyledPromoButton = styled.button<{ isActivated: boolean }>`
   background-color: ${({ isActivated, theme }) =>
     isActivated ? "green" : theme.colors.red};
-  box-shadow: 0 0 ${({ theme }) => theme.rem(10)} 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0
+    ${({ isActivated, theme }) =>
+      `${theme.rem(10)} 0 ${isActivated ? "green" : "rgba(0, 0, 0, 0.5)"}`};
   border: 0;
   border-radius: ${({ theme }) => theme.rem(5)};
   color: white;
@@ -202,6 +204,10 @@ export const StyledPromoButton = styled.button<{ isActivated: boolean }>`
   transition: 0.2s ease-in;
 
   &:hover {
-    box-shadow: 0 0 ${({ theme }) => theme.rem(14)} 0 rgba(218, 38, 40, 0.75);
+    box-shadow: 0 0
+      ${({ isActivated, theme }) =>
+        `${theme.rem(14)} 0 ${
+          isActivated ? "green" : "rgba(218, 38, 40, 0.75)"
+        }`};
   }
 `;
