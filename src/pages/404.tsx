@@ -11,7 +11,13 @@ const Page404: React.FC = () => (
     <GlobalStyle />
 
     <StyledWrapper>
-      <Image alt="Logo" layout="fill" src="/images/logo_img.png" />
+      <Image
+        alt="Logo"
+        layout="fixed"
+        width={100}
+        height={90}
+        src="/images/logo_img.png"
+      />
       <StyledTitle>Page not found</StyledTitle>
 
       <Link href="/" passHref>

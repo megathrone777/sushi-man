@@ -47,64 +47,80 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     },
   });
 
-  telegramSendMessage(
-    `Заказ №${orders.length}
-    ${products.map(
+  const message: string[] = [];
+
+  if (orders) {
+    message.push(`Заказ №${orders.length}`);
+  }
+
+  if (products && !!products.length) {
+    const productsList = products.map(
       ({
         product_modifiers,
         product_submodifiers,
         title,
         quantity,
       }): string => {
-        const modifiers =
-          (product_modifiers &&
-            !!product_modifiers.length &&
-            product_modifiers.map(
-              ({ name: modifier_name }, index: number): string => {
-                const modifier =
-                  modifier_name && modifier_name.length > 0
-                    ? `\n<b>-${modifier_name}</b>`
-                    : "";
-                const modifier_submodifiers = product_submodifiers.filter(
-                  ({ modifierIndex }) => modifierIndex === index
-                );
-                const submodifiers = modifier_submodifiers.map(
-                  ({ name: submodifier_name }): string => {
-                    return submodifier_name && submodifier_name.length > 0
-                      ? `\n--<b>${submodifier_name}</b>`
-                      : "";
-                  }
-                );
+        const modifiers: string[] = [];
 
-                return modifier + submodifiers;
-              }
-            )) ||
-          "";
+        if (product_modifiers && !!product_modifiers.length) {
+          const modifiersList = product_modifiers.map(
+            ({ name: modifier_name }, index: number): string => {
+              const modifier =
+                modifier_name && modifier_name.length > 0
+                  ? `\n<b>-${modifier_name}</b>`
+                  : "";
+              const modifier_submodifiers = product_submodifiers.filter(
+                ({ modifierIndex }) => modifierIndex === index
+              );
+              const submodifiers = modifier_submodifiers.map(
+                ({ name: submodifier_name }): string => {
+                  return submodifier_name && submodifier_name.length > 0
+                    ? `\n--<b>${submodifier_name}</b>`
+                    : "";
+                }
+              );
+
+              return modifier + submodifiers;
+            }
+          );
+
+          modifiers.push(modifiersList);
+        }
 
         return `\n<b>${title} ${
           quantity !== 1 ? `x${quantity}` : ""
         }</b>${modifiers}`;
       }
-    )}
-    ${
-      additionals && !!additionals.length
-        ? `
-      ${additionals.map(
-        ({
-          title: additional_title,
-          quantity: additional_quantity,
-        }: TAdditional): string => {
-          return additional_title && additional_title.length > 0
-            ? `\n--<b>${additional_title} x${additional_quantity}</b>`
-            : "";
-        }
-      )}
-    `
-        : ""
-    }
-    ${note && note.length > 0 ? `\n${note}` : ""}
-    \n <b>Приборы:</b> ${cutleryAmount}
-    \n <b>Доставка:</b> ${
+    );
+
+    message.push(`\n ${productsList}`);
+  }
+
+  if (additionals && !!additionals.length) {
+    const additionalsList = additionals.map(
+      ({
+        title: additional_title,
+        quantity: additional_quantity,
+      }: TAdditional): string => {
+        return additional_title && additional_title.length > 0
+          ? `\n--<b>${additional_title} x${additional_quantity}</b>`
+          : "";
+      }
+    );
+
+    message.push(`\n ${additionalsList} \n`);
+  }
+
+  if (note && note.length > 0) {
+    message.push(`\n${note}`);
+    message.push(`\n`);
+  }
+
+  if (cutleryAmount) {
+    message.push(`\n<b>Приборы:</b> ${cutleryAmount}`);
+    message.push(`
+    \n<b>Доставка:</b> ${
       deliveryPrice >= 50 && deliveryPrice < 100
         ? "Обычная"
         : deliveryPrice >= 100
@@ -112,30 +128,47 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         : deliveryPrice === 0
         ? "Бесплатная"
         : "Самовывоз"
-    }
-    \n <b>Email:</b> ${email}
-    \n <b>Тип оплаты:</b> Наличными
-    ${
-      promoCodeSuccess
-        ? `\n Помокод: ${promoCodeDiscount}%`
-        : ""
-    }
-    \n <b>Цена:</b> ${orderPrice}Kč
-    \n <a href="tel:${phone.replace(/ /g, "")}">${phone.replace(
-      / /g,
-      ""
-    )} ${name}</a>
-    `,
-    () => {
-      if (address) {
-        telegramSendMessage(`${address}`, () => {
-          response.send({ redirect: "/orderConfirmed" });
-        });
-      } else {
+    }`);
+    message.push(`\n`);
+  }
+
+  if (email) {
+    message.push(`\n <b>Email:</b> ${email}`);
+    message.push(`\n`);
+    message.push(`\n <b>Тип оплаты:</b> Наличными`);
+    message.push(`\n`);
+  }
+
+  if (promoCodeSuccess) {
+    message.push(`\n Помокод: ${promoCodeDiscount}%`);
+    message.push("");
+  }
+
+  if (orderPrice) {
+    message.push(`\n <b>Цена:</b> ${orderPrice}Kč`);
+    message.push(`\n`);
+  }
+
+  if (phone) {
+    message.push(
+      `\n <a href="tel:${phone.replace(/ /g, "")}">${phone.replace(
+        / /g,
+        ""
+      )} ${name}</a>`
+    );
+  }
+
+  const result = message.join(" ");
+
+  telegramSendMessage(result, () => {
+    if (address) {
+      telegramSendMessage(`${address}`, () => {
         response.send({ redirect: "/orderConfirmed" });
-      }
+      });
+    } else {
+      response.send({ redirect: "/orderConfirmed" });
     }
-  );
+  });
 };
 
 export { config };

@@ -385,7 +385,7 @@ const Cart: React.FC = () => {
                 id: promoCode.id,
               },
               data: {
-                isActivated: true,
+                isApplied: true,
               },
             },
           },

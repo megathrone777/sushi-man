@@ -82,11 +82,14 @@ const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
       );
 
       products[foundIndex].quantity = payload.quantity;
-      products[foundIndex].totalPrice =
-        (parseInt(products[foundIndex].price) +
-          products[foundIndex].product_modifiers.length *
-            parseInt(products[foundIndex].product_modifiers[0].price)) *
-        payload.quantity;
+
+      if (products[foundIndex].product_modifiers[0]) {
+        products[foundIndex].totalPrice =
+          (parseInt(products[foundIndex].price) +
+            products[foundIndex].product_modifiers.length *
+              parseInt(products[foundIndex].product_modifiers[0].price)) *
+          payload.quantity;
+      }
 
       return setStoreToLocalStorage({
         ...store,
@@ -104,11 +107,14 @@ const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
       );
 
       products[foundIndex].quantity = payload.quantity;
-      products[foundIndex].totalPrice =
-        (parseInt(products[foundIndex].price) +
-          products[foundIndex].product_modifiers.length *
-            parseInt(products[foundIndex].product_modifiers[0].price)) *
-        payload.quantity;
+
+      if (products[foundIndex].product_modifiers[0]) {
+        products[foundIndex].totalPrice =
+          (parseInt(products[foundIndex].price) +
+            products[foundIndex].product_modifiers.length *
+              parseInt(products[foundIndex].product_modifiers[0].price)) *
+          payload.quantity;
+      }
 
       return setStoreToLocalStorage({
         ...store,
