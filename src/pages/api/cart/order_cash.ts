@@ -54,7 +54,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   }
 
   if (products && !!products.length) {
-    const productsList = products.map(
+    const productsList: string[] = products.map(
       ({
         product_modifiers,
         product_submodifiers,
@@ -98,7 +98,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   }
 
   if (additionals && !!additionals.length) {
-    const additionalsList = additionals.map(
+    const additionalsList: string[] = additionals.map(
       ({
         title: additional_title,
         quantity: additional_quantity,

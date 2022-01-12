@@ -73,85 +73,133 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       !!Object.keys(updateOrder["order"]).length &&
       updateOrder["order"].comgatePaymentStatus === "PAID"
     ) {
-      telegramSendMessage(
-        `Заказ №${orders.length}
-      ${updateOrder["order"].products.map(
-        ({
-          product_modifiers,
-          product_submodifiers,
-          title,
-          quantity,
-        }): string => {
-          const modifiers =
-            (product_modifiers &&
-              !!product_modifiers.length &&
-              product_modifiers.map(
+      const message: string[] = [];
+
+      if (orders) {
+        message.push(`Заказ №${orders.length}`);
+      }
+
+      if (
+        updateOrder["order"].products &&
+        !!updateOrder["order"].products.length
+      ) {
+        const productsList: string[] = updateOrder["order"].products.map(
+          ({
+            product_modifiers,
+            product_submodifiers,
+            title,
+            quantity,
+          }): string => {
+            const modifiers: string[] = [];
+
+            if (product_modifiers && !!product_modifiers.length) {
+              const modifiersList = product_modifiers.map(
                 ({ name: modifier_name }, index: number): string => {
-                  const modifier = `\n<b>-${modifier_name}</b>`;
+                  const modifier =
+                    modifier_name && modifier_name.length > 0
+                      ? `\n<b>-${modifier_name}</b>`
+                      : "";
                   const modifier_submodifiers = product_submodifiers.filter(
                     ({ modifierIndex }) => modifierIndex === index
                   );
                   const submodifiers = modifier_submodifiers.map(
                     ({ name: submodifier_name }): string => {
-                      return `\n--<b>${submodifier_name}</b>`;
+                      return submodifier_name && submodifier_name.length > 0
+                        ? `\n--<b>${submodifier_name}</b>`
+                        : "";
                     }
                   );
 
                   return modifier + submodifiers;
                 }
-              )) ||
-            "";
+              );
 
-          return `\n<b>${title} ${
-            quantity !== 1 ? `x${quantity}` : ""
-          }</b>${modifiers}`;
-        }
-      )}
-      ${
+              modifiers.push(modifiersList);
+            }
+
+            return `\n<b>${title} ${
+              quantity !== 1 ? `x${quantity}` : ""
+            }</b>${modifiers}`;
+          }
+        );
+
+        message.push(`\n ${productsList}`);
+      }
+
+      if (
         updateOrder["order"].additionals &&
         !!updateOrder["order"].additionals.length
-          ? `
-        ${updateOrder["order"].additionals.map(
-          ({ title, quantity }: TAdditional): string => {
-            return `\n--<b>${title} x${quantity}</b>`;
+      ) {
+        const additionalsList: string[] = updateOrder["order"].additionals.map(
+          ({
+            title: additional_title,
+            quantity: additional_quantity,
+          }: TAdditional): string => {
+            return additional_title && additional_title.length > 0
+              ? `\n--<b>${additional_title} x${additional_quantity}</b>`
+              : "";
           }
-        )}
-      `
-          : ""
+        );
+
+        message.push(`\n ${additionalsList} \n`);
       }
-      ${
-        updateOrder["order"].note && updateOrder["order"].note.length > 0
-          ? `\n${updateOrder["order"].note}`
-          : ""
+
+      if (updateOrder["order"].note && updateOrder["order"].note.length > 0) {
+        message.push(`\n${updateOrder["order"].note}`);
+        message.push(`\n`);
       }
-      \n <b>Приборы:</b> ${updateOrder["order"].cutleryAmount}
-      \n <b>Доставка:</b> ${
-        updateOrder["order"].deliveryPrice >= 50 &&
-        updateOrder["order"].deliveryPrice < 100
-          ? "Обычная"
-          : updateOrder["order"].deliveryPrice >= 100
-          ? "Повышенная"
-          : updateOrder["order"].deliveryPrice === 0
-          ? "Бесплатная"
-          : "Самовывоз"
+
+      if (updateOrder["order"].cutleryAmount) {
+        message.push(`\n<b>Приборы:</b> ${updateOrder["order"].cutleryAmount}`);
+        message.push(`
+        \n<b>Доставка:</b> ${
+          updateOrder["order"].deliveryPrice >= 50 &&
+          updateOrder["order"].deliveryPrice < 100
+            ? "Обычная"
+            : updateOrder["order"].deliveryPrice >= 100
+            ? "Повышенная"
+            : updateOrder["order"].deliveryPrice === 0
+            ? "Бесплатная"
+            : "Самовывоз"
+        }`);
+        message.push(`\n`);
       }
-      \n <b>Email:</b> ${updateOrder["order"].email}
-      \n <b>Тип оплаты:</b> Картой онлайн
-      ${promoCodeSuccess ? `\n Помокод: ${promoCodeDiscount}%` : ``}
-      \n <b>Цена:</b> ${updateOrder["order"].price}Kč
-      \n <a href="tel:${updateOrder["order"].phone.replace(
-        / /g,
-        ""
-      )}">${updateOrder["order"].phone.replace(/ /g, "")} ${
-          updateOrder["order"].name
-        }</a>
-      `,
-        () => {
-          if (updateOrder["order"].address) {
-            telegramSendMessage(`${updateOrder["order"].address}`);
-          }
+
+      if (updateOrder["order"].email) {
+        message.push(`\n <b>Email:</b> ${updateOrder["order"].email}`);
+        message.push(`\n`);
+        message.push(`\n <b>Тип оплаты:</b> Картой онлайн`);
+        message.push(`\n`);
+      }
+
+      if (promoCodeSuccess) {
+        message.push(`\n Помокод: ${promoCodeDiscount}%`);
+        message.push("");
+      }
+
+      if (updateOrder["order"].orderPrice) {
+        message.push(`\n <b>Цена:</b> ${updateOrder["order"].orderPrice}Kč`);
+        message.push(`\n`);
+      }
+
+      if (updateOrder["order"].phone) {
+        message.push(
+          `\n <a href="tel:${updateOrder["order"].phone.replace(
+            / /g,
+            ""
+          )}">${updateOrder["order"].phone.replace(/ /g, "")} ${
+            updateOrder["order"].name
+          }</a>`
+        );
+      }
+
+      const result = message.join(" ");
+
+      telegramSendMessage(result, () => {
+        if (updateOrder["order"].address) {
+          telegramSendMessage(`${updateOrder["order"].address}`);
         }
-      );
+      });
     }
   }
 
