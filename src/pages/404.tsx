@@ -64,8 +64,6 @@ const StyledButton = styled.a`
     height: ${({ theme }) => theme.rem(37)};
     line-height: ${({ theme }) => theme.rem(37)};
     min-width: ${({ theme }) => theme.rem(110)};
-    position: absolute;
-    top: 40%;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobileSm}) {
