@@ -38,7 +38,7 @@ query ProductPageQuery($productsWhere: JSON, $daysWhere: JSON) {
     isDrink
     isPoke
     isRoll
-    isSalat
+    isStarter
     isSet
     price
     product_modifiers {

@@ -14,7 +14,7 @@ export interface TProduct {
   allergeny: string;
   ingredients: string;
   isRoll: boolean | null;
-  isSalat: boolean | null;
+  isStarter: boolean | null;
   isDrink: boolean | null;
   isPoke: boolean | null;
   isSet: boolean | null;

@@ -2,7 +2,7 @@ export type TCategoryTypes =
   | "isPoke"
   | "isRoll"
   | "isSet"
-  | "isSalat"
+  | "isStarter"
   | "isDrink"
   | "isCaviar";
 

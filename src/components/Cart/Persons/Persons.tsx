@@ -42,8 +42,8 @@ const Persons: React.FC = () => {
     ({ isDrink }: TCartProduct): boolean => isDrink
   );
 
-  const totalSalatsAdded = products.filter(
-    ({ isSalat }: TCartProduct): boolean => isSalat
+  const totalStartersAdded = products.filter(
+    ({ isStarter }: TCartProduct): boolean => isStarter
   );
 
   const totalPokeAdded = products.filter(
@@ -75,7 +75,7 @@ const Persons: React.FC = () => {
     0
   );
 
-  const totalSalatsAmount = totalSalatsAdded.reduce(
+  const totalStartersAmount = totalStartersAdded.reduce(
     (accumulator: number, { quantity }: TCartProduct) => {
       return accumulator + quantity;
     },
@@ -100,7 +100,7 @@ const Persons: React.FC = () => {
     totalRollsAmount +
     totalSetsAmount * 4 +
     totalDrinksAmount +
-    totalSalatsAmount +
+    totalStartersAmount +
     totalPokeAmount +
     totalCaviarAmount;
 

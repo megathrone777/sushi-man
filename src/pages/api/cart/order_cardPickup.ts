@@ -52,7 +52,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   }
 
   if (products && !!products.length) {
-    const productsList = products.map(
+    const productsList: string[] = products.map(
       ({
         product_modifiers,
         product_submodifiers,
@@ -96,7 +96,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   }
 
   if (additionals && !!additionals.length) {
-    const additionalsList = additionals.map(
+    const additionalsList: string[] = additionals.map(
       ({
         title: additional_title,
         quantity: additional_quantity,
@@ -107,15 +107,16 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       }
     );
 
-    message.push(`\n ${additionalsList} \n`);
+    message.push(`\n ${additionalsList}`);
   }
 
   if (note && note.length > 0) {
-    message.push(`\n${note}`);
     message.push(`\n`);
+    message.push(`\n${note}`);
   }
 
   if (cutleryAmount) {
+    message.push(`\n`);
     message.push(`\n<b>Приборы:</b> ${cutleryAmount}`);
     message.push(`
     \n<b>Доставка:</b> Самовывоз`);
@@ -123,19 +124,19 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   }
 
   if (email) {
-    message.push(`\n <b>Email:</b> ${email}`);
+    message.push(`\n<b>Email:</b> ${email}`);
     message.push(`\n`);
-    message.push(`\n <b>Тип оплаты:</b> Картой на месте`);
+    message.push(`\n<b>Тип оплаты:</b> Картой на месте`);
     message.push(`\n`);
   }
 
   if (promoCodeSuccess) {
-    message.push(`\n Помокод: ${promoCodeDiscount}%`);
+    message.push(`\nПомокод: ${promoCodeDiscount}%`);
     message.push("");
   }
 
   if (orderPrice) {
-    message.push(`\n <b>Цена:</b> ${orderPrice}Kč`);
+    message.push(`\n<b>Цена:</b> ${orderPrice}Kč`);
     message.push(`\n`);
   }
 

@@ -141,15 +141,16 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
           }
         );
 
-        message.push(`\n ${additionalsList} \n`);
+        message.push(`\n ${additionalsList}`);
       }
 
       if (updateOrder["order"].note && updateOrder["order"].note.length > 0) {
-        message.push(`\n${updateOrder["order"].note}`);
         message.push(`\n`);
+        message.push(`\n${updateOrder["order"].note}`);
       }
 
       if (updateOrder["order"].cutleryAmount) {
+        message.push(`\n`);
         message.push(`\n<b>Приборы:</b> ${updateOrder["order"].cutleryAmount}`);
         message.push(`
         \n<b>Доставка:</b> ${

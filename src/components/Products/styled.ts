@@ -68,7 +68,7 @@ export const StyledTab = styled.div<{
   isCollapsed: boolean;
   isRoll: boolean;
   isSet: boolean;
-  isSalat: boolean;
+  isStarter: boolean;
   isPoke: boolean;
   isDrink: boolean;
   isCaviar: boolean;
@@ -125,10 +125,10 @@ export const StyledTab = styled.div<{
         isCollapsed ? theme.rem(-200) : theme.rem(-280)};
     `}
 
-  ${({ isCollapsed, isSalat }) =>
-    isSalat &&
+  ${({ isCollapsed, isStarter }) =>
+    isStarter &&
     css`
-      background-image: url("/images/salats_bg.jpg");
+      background-image: url("/images/starters_bg.jpg");
       background-position-y: ${({ theme }) =>
         isCollapsed ? theme.rem(-200) : theme.rem(-220)};
     `}

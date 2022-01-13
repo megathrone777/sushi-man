@@ -109,15 +109,16 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       }
     );
 
-    message.push(`\n ${additionalsList} \n`);
+    message.push(`\n ${additionalsList}`);
   }
 
   if (note && note.length > 0) {
-    message.push(`\n${note}`);
     message.push(`\n`);
+    message.push(`\n${note}`);
   }
 
   if (cutleryAmount) {
+    message.push(`\n`);
     message.push(`\n<b>Приборы:</b> ${cutleryAmount}`);
     message.push(`
     \n<b>Доставка:</b> ${
@@ -133,19 +134,19 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   }
 
   if (email) {
-    message.push(`\n <b>Email:</b> ${email}`);
+    message.push(`\n<b>Email:</b> ${email}`);
     message.push(`\n`);
-    message.push(`\n <b>Тип оплаты:</b> Наличными`);
+    message.push(`\n<b>Тип оплаты:</b> Наличными`);
     message.push(`\n`);
   }
 
   if (promoCodeSuccess) {
-    message.push(`\n Помокод: ${promoCodeDiscount}%`);
+    message.push(`\nПомокод: ${promoCodeDiscount}%`);
     message.push("");
   }
 
   if (orderPrice) {
-    message.push(`\n <b>Цена:</b> ${orderPrice}Kč`);
+    message.push(`\n<b>Цена:</b> ${orderPrice}Kč`);
     message.push(`\n`);
   }
 

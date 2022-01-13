@@ -33,8 +33,8 @@ const productsCategories: TCategory[] = [
     type: "isSet",
   },
   {
-    name: "Salaty",
-    type: "isSalat",
+    name: "Předkrmy",
+    type: "isStarter",
   },
   {
     name: "Drinky",
@@ -68,7 +68,7 @@ const Products: React.FC<TProps> = ({ title, inner }) => {
           }
           ingredients
           isRoll
-          isSalat
+          isStarter
           isDrink
           isSet
           isPoke
@@ -86,7 +86,7 @@ const Products: React.FC<TProps> = ({ title, inner }) => {
         where: {
           ...(categoryType === "isRoll" && { isRoll: true }),
           ...(categoryType === "isPoke" && { isPoke: true }),
-          ...(categoryType === "isSalat" && { isSalat: true }),
+          ...(categoryType === "isStarter" && { isStarter: true }),
           ...(categoryType === "isDrink" && { isDrink: true }),
           ...(categoryType === "isSet" && { isSet: true }),
           ...(categoryType === "isCaviar" && { isCaviar: true }),
@@ -158,14 +158,14 @@ const Products: React.FC<TProps> = ({ title, inner }) => {
                       (categoryType === "isRoll" && index === 0) ||
                       (categoryType === "isPoke" && index === 1) ||
                       (categoryType === "isSet" && index === 2) ||
-                      (categoryType === "isSalat" && index === 3) ||
+                      (categoryType === "isStarter" && index === 3) ||
                       (categoryType === "isDrink" && index === 4)
                     }
                     isCollapsed={categoryType !== null}
                     isDrink={type === "isDrink"}
                     isPoke={type === "isPoke"}
                     isRoll={type === "isRoll"}
-                    isSalat={type === "isSalat"}
+                    isStarter={type === "isStarter"}
                     isCaviar={type === "isCaviar"}
                     isSet={type === "isSet"}
                     key={`${index}-${name}`}
