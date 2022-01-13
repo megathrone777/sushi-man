@@ -411,6 +411,7 @@ const Cart: React.FC = () => {
               address: customerAddress,
               additionals: selectedAdditionals,
               cutleryAmount,
+              cutleryAmountPaid: cutleryAmount - maxCutleryAmount,
               comgateTransId,
               comgatePaymentStatus:
                 paymentType === TPayment.CASH ||
@@ -437,6 +438,7 @@ const Cart: React.FC = () => {
               additionals: selectedAdditionals,
               address: customerAddress,
               cutleryAmount,
+              cutleryAmountPaid: cutleryAmount - maxCutleryAmount,
               deliveryPrice,
               name: customerName,
               phone: customerPhone,
@@ -467,7 +469,7 @@ const Cart: React.FC = () => {
         },
 
         onError: () => {
-          alert("Cannot create order card");
+          alert("Cannot create order");
         },
       });
     }

@@ -42,6 +42,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
               additionals
               address
               comgatePaymentStatus
+              cutleryAmountPaid
               deliveryPrice
               cutleryAmount
               email
@@ -152,7 +153,15 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
 
       if (updateOrder["order"].cutleryAmount) {
         message.push(`\n`);
-        message.push(`\n<b>Приборы:</b> ${updateOrder["order"].cutleryAmount}`);
+        message.push(
+          `\n<b>Приборы:</b> ${updateOrder["order"].cutleryAmount} ${
+            updateOrder["order"].cutleryAmountPaid > 0
+              ? `(${updateOrder["order"].cutleryAmountPaid} из них платны${
+                  updateOrder["order"].cutleryAmountPaid === 1 ? "й" : "е"
+                })`
+              : ``
+          }`
+        );
         message.push(`
         \n<b>Доставка:</b> ${
           updateOrder["order"].deliveryPrice >= 50 &&

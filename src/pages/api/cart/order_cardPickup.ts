@@ -18,6 +18,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const {
     additionals,
     cutleryAmount,
+    cutleryAmountPaid,
     note,
     orderPrice,
     email,
@@ -117,7 +118,15 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
 
   if (cutleryAmount) {
     message.push(`\n`);
-    message.push(`\n<b>Приборы:</b> ${cutleryAmount}`);
+    message.push(
+      `\n<b>Приборы:</b> ${cutleryAmount} ${
+        cutleryAmountPaid > 0
+          ? `(${cutleryAmountPaid} из них платны${
+              cutleryAmountPaid === 1 ? "й" : "е"
+            })`
+          : ``
+      }`
+    );
     message.push(`
     \n<b>Доставка:</b> Самовывоз`);
     message.push(`\n`);

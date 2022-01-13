@@ -202,6 +202,7 @@ const Additionals: React.FC = () => {
         <StyledTitle>{t("promoTitle")}</StyledTitle>
         <StyledPromo>
           <StyledPromoInput
+            autoComplete="off"
             onChange={handlePromoChange}
             placeholder="Promo code"
             type="text"

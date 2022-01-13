@@ -20,12 +20,20 @@ import {
   setPaymentType,
   TPayment,
 } from "~/store";
-import { SvgExclamationIcon, SvgLoaderIcon } from "~/icons";
+import {
+  SvgAddressIcon,
+  SvgEmailIcon,
+  SvgExclamationIcon,
+  SvgLoaderIcon,
+  SvgPhoneIcon,
+  SvgProfileIcon,
+} from "~/icons";
 import {
   StyledWrapper,
   StyledContent,
   StyledHeader,
   StyledInfo,
+  StyledInfoIcon,
   StyledInfoLabel,
   StyledInputWrapper,
   StyledLayout,
@@ -34,9 +42,8 @@ import {
   StyledRadioLabel,
   StyledRadioLabelInfo,
   StyledRadio,
-  StyledPhoneInput,
-  StyledEmailInput,
-  StyledNameInput,
+  StyledInput,
+  StyledInputIcon,
   StyledDeliveryInput,
   StyledLink,
   StyledMap,
@@ -181,7 +188,7 @@ const Delivery: React.FC = () => {
     const input = addressInputElement.current;
     const autocomplete = new google.maps.places.Autocomplete(input, {
       componentRestrictions: { country: "cz" },
-      types: ['address']
+      types: ["address"],
     });
     const marker = new google.maps.Marker({
       map,
@@ -270,7 +277,11 @@ const Delivery: React.FC = () => {
         {isPickupChecked ? (
           <StyledContent>
             <StyledInputWrapper>
-              <StyledNameInput
+              <StyledInputIcon>
+                <SvgProfileIcon />
+              </StyledInputIcon>
+
+              <StyledInput
                 hasError={customerNameError}
                 name="name"
                 onChange={handleNameChange}
@@ -278,6 +289,7 @@ const Delivery: React.FC = () => {
                 type="text"
                 value={customerName}
               />
+
               {customerNameError && (
                 <StyledErrorIcon>
                   <SvgExclamationIcon />
@@ -286,7 +298,11 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledEmailInput
+              <StyledInputIcon>
+                <SvgEmailIcon />
+              </StyledInputIcon>
+
+              <StyledInput
                 hasError={customerEmailError}
                 name="email"
                 onChange={handleEmailChange}
@@ -294,6 +310,7 @@ const Delivery: React.FC = () => {
                 type="email"
                 value={customerEmail}
               />
+
               {customerEmailError && (
                 <StyledErrorIcon>
                   <SvgExclamationIcon />
@@ -302,7 +319,11 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledPhoneInput
+              <StyledInputIcon isSmall>
+                <SvgPhoneIcon />
+              </StyledInputIcon>
+
+              <StyledInput
                 hasError={customerPhoneError}
                 name="phone"
                 onChange={handlePhoneChange}
@@ -313,6 +334,7 @@ const Delivery: React.FC = () => {
                 type="tel"
                 value={customerPhone}
               />
+
               {customerPhoneError && (
                 <StyledErrorIcon>
                   <SvgExclamationIcon />
@@ -321,7 +343,12 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInfo>
-              <StyledInfoLabel>{t("pickupAddress")}:</StyledInfoLabel>
+              <StyledInfoLabel>
+                <StyledInfoIcon>
+                  <SvgAddressIcon />
+                </StyledInfoIcon>
+                {t("pickupAddress")}:
+              </StyledInfoLabel>
               <StyledLink
                 href="https://goo.gl/maps/r6Tf6xHVnu59bD9J9"
                 target="_blank"
@@ -333,7 +360,11 @@ const Delivery: React.FC = () => {
         ) : (
           <StyledContent>
             <StyledInputWrapper>
-              <StyledNameInput
+              <StyledInputIcon>
+                <SvgProfileIcon />
+              </StyledInputIcon>
+
+              <StyledInput
                 hasError={customerNameError}
                 name="name"
                 onChange={handleNameChange}
@@ -341,6 +372,7 @@ const Delivery: React.FC = () => {
                 type="text"
                 value={customerName}
               />
+
               {customerNameError && (
                 <StyledErrorIcon>
                   <SvgExclamationIcon />
@@ -349,7 +381,11 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledEmailInput
+              <StyledInputIcon>
+                <SvgEmailIcon />
+              </StyledInputIcon>
+
+              <StyledInput
                 hasError={customerEmailError}
                 name="email"
                 onChange={handleEmailChange}
@@ -357,6 +393,7 @@ const Delivery: React.FC = () => {
                 type="email"
                 value={customerEmail}
               />
+
               {customerEmailError && (
                 <StyledErrorIcon>
                   <SvgExclamationIcon />
@@ -365,7 +402,11 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInputWrapper>
-              <StyledPhoneInput
+              <StyledInputIcon isSmall>
+                <SvgPhoneIcon />
+              </StyledInputIcon>
+
+              <StyledInput
                 hasError={customerPhoneError}
                 name="phone"
                 onChange={handlePhoneChange}
@@ -376,6 +417,7 @@ const Delivery: React.FC = () => {
                 type="tel"
                 value={customerPhone}
               />
+
               {customerPhoneError && (
                 <StyledErrorIcon>
                   <SvgExclamationIcon />
@@ -384,6 +426,10 @@ const Delivery: React.FC = () => {
             </StyledInputWrapper>
 
             <StyledInputWrapper>
+              <StyledInputIcon>
+                <SvgAddressIcon />
+              </StyledInputIcon>
+
               <StyledDeliveryInput
                 hasError={customerAddressError}
                 onChange={handleAddressChange}
@@ -393,16 +439,19 @@ const Delivery: React.FC = () => {
                 }
                 type="search"
               />
+
               {deliveryDistance !== null &&
                 deliveryDistance > 0 &&
                 !customerAddressError && (
                   <StyledLengthInKm>{deliveryDistance} km</StyledLengthInKm>
                 )}
+
               {customerAddressError && (
                 <StyledErrorIcon>
                   <SvgExclamationIcon />
                 </StyledErrorIcon>
               )}
+
               {addressIsLoading && (
                 <StyledAddressLoader>
                   <SvgLoaderIcon />

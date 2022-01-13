@@ -1,3 +1,4 @@
+export { SvgAddressIcon } from "./SvgAddressIcon";
 export { SvgArrowTopIcon } from "./SvgArrowTopIcon";
 export { SvgBuyIcon } from "./SvgBuyIcon";
 export { SvgCartIcon } from "./SvgCartIcon";
@@ -10,5 +11,7 @@ export { SvgExclamationIcon } from "./SvgExclamationIcon";
 export { SvgLoaderIcon } from "./SvgLoaderIcon";
 export { SvgMinusIcon } from "./SvgMinusIcon";
 export { SvgNoteIcon } from "./SvgNoteIcon";
+export { SvgPhoneIcon } from "./SvgPhoneIcon";
 export { SvgPlusIcon } from "./SvgPlusIcon";
+export { SvgProfileIcon } from "./SvgProfileIcon";
 export { SvgTargetIcon } from "./SvgTargetIcon";
