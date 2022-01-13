@@ -47,6 +47,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
               email
               id
               name
+              note
               phone
               price
               products

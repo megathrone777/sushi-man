@@ -337,8 +337,7 @@ const Cart: React.FC = () => {
       customerPhone.length === 0 ||
       customerName.length === 0 ||
       customerEmail.length === 0 ||
-      (customerAddress.length === 0 && !isPickupChecked) ||
-      !isAgreeChecked
+      (customerAddress.length === 0 && !isPickupChecked)
     ) {
       notify({
         dismissAfter: 3000,
@@ -350,6 +349,19 @@ const Cart: React.FC = () => {
       });
 
       scrollToError("persons");
+      return false;
+    }
+
+    if (!isAgreeChecked) {
+      notify({
+        dismissAfter: 3000,
+        dismissible: true,
+        position: "bottom-center",
+        showDismissButton: true,
+        status: "error",
+        title: `Souhlasíte s zpracováním a uchováním zásady ochrany osobních údajů`,
+      });
+
       return false;
     }
 
