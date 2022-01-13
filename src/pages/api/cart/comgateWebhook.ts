@@ -155,6 +155,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         message.push(`\n`);
         message.push(
           `\n<b>Приборы:</b> ${updateOrder["order"].cutleryAmount} ${
+            updateOrder["order"].cutleryAmountPaid &&
             updateOrder["order"].cutleryAmountPaid > 0
               ? `(${updateOrder["order"].cutleryAmountPaid} из них платны${
                   updateOrder["order"].cutleryAmountPaid === 1 ? "й" : "е"

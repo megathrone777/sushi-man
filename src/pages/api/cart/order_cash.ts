@@ -122,7 +122,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     message.push(`\n`);
     message.push(
       `\n<b>Приборы:</b> ${cutleryAmount} ${
-        cutleryAmountPaid > 0
+        cutleryAmountPaid && cutleryAmountPaid > 0
           ? `(${cutleryAmountPaid} из них платны${
               cutleryAmountPaid === 1 ? "й" : "е"
             })`
