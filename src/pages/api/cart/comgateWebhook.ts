@@ -178,8 +178,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
         message.push("");
       }
 
-      if (updateOrder["order"].orderPrice) {
-        message.push(`\n <b>Цена:</b> ${updateOrder["order"].orderPrice}Kč`);
+      if (updateOrder["order"].price) {
+        message.push(`\n <b>Цена:</b> ${updateOrder["order"].price}Kč`);
         message.push(`\n`);
       }
 
