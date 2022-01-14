@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { gql } from "@apollo/client";
-import { format, endOfDay } from "date-fns";
 
 import client from "~/apollo-client";
 import { TAdditional } from "~/store";
@@ -9,28 +8,21 @@ import { telegramSendMessage } from "./telegramSendMessage";
 const handler = async (request: NextApiRequest, response: NextApiResponse) => {
   const { refId, status, promoCodeSuccess, promoCodeDiscount } = request.body;
   const {
-    data: { order, orders },
+    data: { order },
   } = await client.query({
     query: gql`
-      query OrdersQuery($orderId: ID!, $ordersWhere: JSON) {
+      query OrderQuery($orderId: ID!) {
         order(id: $orderId) {
-          id
-        }
-
-        orders(where: $ordersWhere) {
           id
         }
       }
     `,
     variables: {
       orderId: refId,
-      ordersWhere: {
-        dayCreated: format(endOfDay(new Date()), "yyyy-MM-dd")
-      },
     },
   });
 
-  if (order && !!Object.keys(order).length && !!orders.length) {
+  if (order && !!Object.keys(order).length) {
     const {
       data: { updateOrder },
     } = await client.mutate({
@@ -76,10 +68,8 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     ) {
       const message: string[] = [];
 
-      if (orders) {
-        message.push(`Заказ №${orders.length}`);
-      }
-
+      message.push(`Заказ №${updateOrder["order"].id}`);
+      
       if (
         updateOrder["order"].products &&
         !!updateOrder["order"].products.length
