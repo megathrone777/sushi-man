@@ -26,7 +26,6 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
       orderId: refId,
       ordersWhere: {
         dayCreated: format(endOfDay(new Date()), "yyyy-MM-dd"),
-        comgatePaymentStatus: "PAID",
       },
     },
   });
