@@ -153,7 +153,11 @@ const Delivery: React.FC = () => {
       dispatch(setCustomerNameError(false));
     }
 
-    dispatch(setCustomerName(currentTarget.value));
+    dispatch(
+      setCustomerName(
+        currentTarget.value.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      )
+    );
   };
 
   const handleAddressChange = ({
