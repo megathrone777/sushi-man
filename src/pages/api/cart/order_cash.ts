@@ -1,8 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { gql } from "@apollo/client";
-import { format, endOfDay } from "date-fns";
 
-import client from "~/apollo-client";
 import { TAdditional } from "~/store";
 import { telegramSendMessage } from "./telegramSendMessage";
 
@@ -22,6 +19,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     cutleryAmountPaid,
     deliveryPrice,
     note,
+    orderId,
     orderPrice,
     email,
     name,
@@ -30,28 +28,11 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
     promoCodeSuccess,
     promoCodeDiscount,
   } = request.body;
-  const {
-    data: { orders },
-  } = await client.query({
-    query: gql`
-      query OrdersQuery($ordersWhere: JSON) {
-        orders(where: $ordersWhere) {
-          id
-        }
-      }
-    `,
-    variables: {
-      ordersWhere: {
-        dayCreated: format(endOfDay(new Date()), "yyyy-MM-dd"),
-        comgatePaymentStatus: "PAID",
-      },
-    },
-  });
 
   const message: string[] = [];
 
-  if (orders) {
-    message.push(`Заказ №${orders.length}`);
+  if (orderId) {
+    message.push(`Заказ №${orderId}`);
   }
 
   if (products && !!products.length) {

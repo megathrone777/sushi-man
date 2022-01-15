@@ -143,7 +143,7 @@ export const LangStrings = {
     discountReceived: "Dostal(a) jste Slevu",
     name: "Jméno",
     email: "E-mail",
-    phone: "Telefon (+420 123 456 789)",
+    phone: "Telefon (420 123 456 789)",
     address: "Adresa",
     fillAddress: "Adresa",
     pickupAddress: "Adresa pro vyzvednutí",
