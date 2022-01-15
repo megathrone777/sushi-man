@@ -185,10 +185,10 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
 
       if (updateOrder["order"].phone) {
         message.push(
-          `\n <a href="tel:${updateOrder["order"].phone.replace(
+          `\n <a href="tel:+420${updateOrder["order"].phone.replace(
             / /g,
             ""
-          )}">${updateOrder["order"].phone.replace(/ /g, "")} ${
+          )}">+420${updateOrder["order"].phone.replace(/ /g, "")} ${
             updateOrder["order"].name
           }</a>`
         );

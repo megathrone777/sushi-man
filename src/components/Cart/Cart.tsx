@@ -66,6 +66,13 @@ const updatePromoMutation = gql`
   }
 `;
 
+const validateEmail = (email: string) =>
+  String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+
 const Cart: React.FC = () => {
   const router = useRouter();
   const [submitOrderLoading, toggleSubmitOrderLoading] =
@@ -286,10 +293,10 @@ const Cart: React.FC = () => {
       dispatch(setCustomerAddressError(false));
     }
 
-    if (customerEmail.length === 0) {
-      dispatch(setCustomerEmailError(true));
-    } else {
+    if (validateEmail(customerEmail)) {
       dispatch(setCustomerEmailError(false));
+    } else {
+      dispatch(setCustomerEmailError(true));
     }
 
     if (customerName.length === 0) {

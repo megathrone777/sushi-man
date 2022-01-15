@@ -58,6 +58,13 @@ import {
   StyledAddressLoader,
 } from "./styled";
 
+const validateEmail = (email: string) =>
+  String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+
 const Delivery: React.FC = () => {
   const { t } = useTranslation();
   const { dispatch, store } = useStore();
@@ -130,8 +137,10 @@ const Delivery: React.FC = () => {
   const handleEmailChange = ({
     currentTarget,
   }: React.SyntheticEvent<HTMLInputElement>): void => {
-    if (currentTarget.value.length > 0) {
+    if (validateEmail(currentTarget.value)) {
       dispatch(setCustomerEmailError(false));
+    } else {
+      dispatch(setCustomerEmailError(true));
     }
 
     dispatch(setCustomerEmail(currentTarget.value));
@@ -325,6 +334,7 @@ const Delivery: React.FC = () => {
 
               <StyledInput
                 hasError={customerPhoneError}
+                maxLength={9}
                 name="phone"
                 onChange={handlePhoneChange}
                 pattern="[0-9]*"
@@ -408,6 +418,7 @@ const Delivery: React.FC = () => {
 
               <StyledInput
                 hasError={customerPhoneError}
+                maxLength={9}
                 name="phone"
                 onChange={handlePhoneChange}
                 pattern="[0-9]*"

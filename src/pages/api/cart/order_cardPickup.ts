@@ -132,7 +132,7 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
 
   if (phone) {
     message.push(
-      `\n <a href="tel:${phone.replace(/ /g, "")}">${phone.replace(
+      `\n <a href="tel:+420${phone.replace(/ /g, "")}">+420${phone.replace(
         / /g,
         ""
       )} ${name}</a>`
