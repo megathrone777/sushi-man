@@ -34,6 +34,11 @@ export interface TModalDay {
   title: string;
 }
 
+export interface TModalOrder {
+  text: string;
+  title: string;
+}
+
 export enum TPayment {
   CARD = "card",
   CARDCOURIER = "cardCourier",
@@ -77,6 +82,7 @@ export interface TStore {
     totalRollsDiscount: number;
   };
   modalDay: TModalDay;
+  modalOrder: TModalOrder;
   schedule: {
     schedule_cs: TSchedule;
     schedule_ru: TSchedule;
@@ -118,6 +124,10 @@ const initialStore: TStore = {
     totalRollsDiscount: 0,
   },
   modalDay: {
+    text: "",
+    title: "",
+  },
+  modalOrder: {
     text: "",
     title: "",
   },

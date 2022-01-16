@@ -34,6 +34,11 @@ query CartPageQuery($where: JSON) {
     text
   }
 
+  modalOrder {
+    title
+    text
+  }
+
   shop {
     ordersStop
   }

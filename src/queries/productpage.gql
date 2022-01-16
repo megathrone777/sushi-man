@@ -28,6 +28,11 @@ query ProductPageQuery($productsWhere: JSON, $daysWhere: JSON) {
     text
   }
 
+  modalOrder {
+    title
+    text
+  }
+
   products(where: $productsWhere) {
     allergeny
     id

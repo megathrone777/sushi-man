@@ -19,6 +19,12 @@ const reducer: React.Reducer<TStore, TAction> = (store, { payload, type }) => {
         modalDay: payload,
       }),
 
+    [TActionTypes.SET_MODAL_ORDER]: (): TStore =>
+      setStoreToLocalStorage({
+        ...store,
+        modalOrder: payload,
+      }),
+
     [TActionTypes.SET_SHOP_SETTINGS]: (): TStore =>
       setStoreToLocalStorage({
         ...store,

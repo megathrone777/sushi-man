@@ -24,12 +24,13 @@ export {
   setDeliveryError,
   setDeliveryPrice,
   setModalDay,
+  setModalOrder,
   setPaymentType,
   setPickup,
+  setPromoCode,
   setSchedule,
   setShopSettings,
   setTotalRollsDiscount,
-  setPromoCode,
 } from "./actions";
 export { useStore, AppContext } from "./context";
 export { reducer } from "./reducer";
@@ -39,5 +40,6 @@ export type {
   TSchedule,
   TShopSettings,
   TModalDay,
+  TModalOrder,
 } from "./globalStore";
 export { TPayment } from "./globalStore";

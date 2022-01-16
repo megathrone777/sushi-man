@@ -5,13 +5,15 @@ import { isBefore, isAfter } from "date-fns";
 
 import client from "~/apollo-client";
 import {
+  TModalDay,
+  TModalOrder,
   TSchedule,
   TShopSettings,
+  setModalDay,
+  setModalOrder,
+  setSchedule,
   setShopSettings,
   useStore,
-  setSchedule,
-  TModalDay,
-  setModalDay,
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
@@ -23,11 +25,11 @@ import {
   Media,
   Products,
   Reviews,
-  TDelivery,
-  TReview,
   TAbout,
   TBanner,
+  TDelivery,
   TMedia,
+  TReview,
 } from "~/components";
 
 import HomePageQuery from "~/queries/homepage.gql";
@@ -47,6 +49,7 @@ interface TProps {
     hero_ru: TBanner;
   };
   modalDay: TModalDay;
+  modalOrder: TModalOrder;
   reviews: TReview[];
   schedule: {
     schedule_cs: TSchedule;
@@ -61,6 +64,7 @@ const IndexPage: NextPage<TProps> = ({
   delivery,
   hero,
   modalDay,
+  modalOrder,
   reviews,
   schedule,
   shopSettings,
@@ -70,11 +74,14 @@ const IndexPage: NextPage<TProps> = ({
   const productsTitle = t("productsTitle");
   const mainTitle = t("mainTitle");
 
+  console.log(modalOrder, 'page')
+
   useEffect((): void => {
     dispatch(setShopSettings(shopSettings));
     dispatch(setSchedule(schedule));
     dispatch(setModalDay(modalDay));
-  }, [shopSettings, schedule, modalDay]);
+    dispatch(setModalOrder(modalOrder));
+  }, [shopSettings, schedule, modalDay, modalOrder]);
 
   return (
     <Layout title={mainTitle}>
@@ -133,6 +140,7 @@ IndexPage.getInitialProps = async () => {
       hero_cs,
       hero_ru,
       modalDay,
+      modalOrder,
       reviews,
       schedule_cs,
       schedule_ru,
@@ -226,6 +234,7 @@ IndexPage.getInitialProps = async () => {
       hero_ru,
     },
     modalDay,
+    modalOrder,
     reviews,
     schedule: {
       schedule_cs,

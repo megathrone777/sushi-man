@@ -6,11 +6,13 @@ import { isBefore, isAfter } from "date-fns";
 import useTranslation from "~/intl/useTranslation";
 import client from "~/apollo-client";
 import {
+  TModalDay,
+  TModalOrder,
   TShopSettings,
+  setModalDay,
+  setModalOrder,
   setShopSettings,
   useStore,
-  TModalDay,
-  setModalDay,
 } from "~/store";
 import {
   Banner,
@@ -25,6 +27,7 @@ import ProductPageQuery from "~/queries/productpage.gql";
 
 interface TProps {
   modalDay: TModalDay;
+  modalOrder: TModalOrder;
   productDetails: TProduct;
   hero: {
     hero_cs: TBanner;
@@ -36,6 +39,7 @@ interface TProps {
 const ProductPage: NextPage<TProps> = ({
   hero,
   modalDay,
+  modalOrder,
   productDetails,
   shopSettings,
 }) => {
@@ -46,7 +50,8 @@ const ProductPage: NextPage<TProps> = ({
   useEffect((): void => {
     dispatch(setShopSettings(shopSettings));
     dispatch(setModalDay(modalDay));
-  }, [shopSettings, modalDay]);
+    dispatch(setModalOrder(modalOrder));
+  }, [shopSettings, modalDay, modalOrder]);
 
   return (
     <LayoutSecondary title={`${productDetails.title} | Rozvoz sushi po Praze`}>
@@ -70,7 +75,7 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
   const currentDay = date.getDay();
 
   const {
-    data: { days, modalDay, hero_cs, hero_ru, shop, products },
+    data: { days, modalDay, modalOrder, hero_cs, hero_ru, shop, products },
   } = await client.query({
     query: gql`
       ${ProductPageQuery}
@@ -147,6 +152,7 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
       hero_ru,
     },
     modalDay,
+    modalOrder,
     productDetails: products[0],
     shopSettings: {
       ...shop,

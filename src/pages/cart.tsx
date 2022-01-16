@@ -6,13 +6,15 @@ import { isBefore, isAfter } from "date-fns";
 import client from "~/apollo-client";
 import {
   TAdditional,
+  TModalDay,
+  TModalOrder,
+  TSchedule,
   TShopSettings,
   setAdditionals,
+  setModalDay,
+  setModalOrder,
   setShopSettings,
   useStore,
-  TSchedule,
-  TModalDay,
-  setModalDay,
 } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import { Banner, Cart, LayoutSecondary, TBanner, Products } from "~/components";
@@ -26,6 +28,7 @@ interface TProps {
     hero_ru: TBanner;
   };
   modalDay: TModalDay;
+  modalOrder: TModalOrder;
   shopSettings: TShopSettings;
   schedule: {
     schedule_cs: TSchedule;
@@ -37,6 +40,7 @@ const CartPage: NextPage<TProps> = ({
   additionals,
   hero,
   modalDay,
+  modalOrder,
   shopSettings,
 }) => {
   const { dispatch } = useStore();
@@ -52,7 +56,8 @@ const CartPage: NextPage<TProps> = ({
     dispatch(setAdditionals(newAdditionals));
     dispatch(setShopSettings(shopSettings));
     dispatch(setModalDay(modalDay));
-  }, [additionals, shopSettings, modalDay]);
+    dispatch(setModalOrder(modalOrder));
+  }, [additionals, shopSettings, modalDay, modalOrder]);
 
   return (
     <LayoutSecondary title={cartTitle}>
@@ -81,6 +86,7 @@ CartPage.getInitialProps = async () => {
       hero_cs,
       hero_ru,
       modalDay,
+      modalOrder,
       shop,
       schedule_cs,
       schedule_ru,
@@ -155,6 +161,7 @@ CartPage.getInitialProps = async () => {
   return {
     additionals,
     modalDay,
+    modalOrder,
     hero: {
       hero_cs,
       hero_ru,

@@ -47,7 +47,7 @@ interface TProps {
 const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const { t } = useTranslation();
   const { store } = useStore();
-  const { modalDay, shopSettings } = store;
+  const { modalDay, modalOrder, shopSettings } = store;
   const [pageOffset, setPageOffset] = useState(0);
   const [shopModalIsOpened, toggleShopModalOpened] = useState<boolean>(true);
   const [ordersStopModalIsOpened, toggleOrdersStopModalOpened] =
@@ -58,8 +58,6 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
   const contactsLinks = t("contactsLinks");
   const modalTitle = t("modalTitle");
   const modalText = t("modalText");
-  const ordersStopModalTitle = t("ordersStopModalTitle");
-  const ordersStopModalText = t("ordersStopModalText");
 
   const handleScroll = (anchor: string): void => {
     const scrolledSection = document.getElementById(anchor);
@@ -247,8 +245,8 @@ const Footer: React.FC<TProps> = ({ menuItems, inner }) => {
           close={handleOrdersStopModalClose}
           contactsLinks={contactsLinks}
           isOpened={ordersStopModalIsOpened}
-          text={ordersStopModalText}
-          title={ordersStopModalTitle}
+          text={modalOrder.text}
+          title={modalOrder.title}
         />
       )}
 

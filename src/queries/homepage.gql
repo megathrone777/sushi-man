@@ -72,6 +72,11 @@ query HomePageQuery($where: JSON) {
     text
   }
 
+  modalOrder {
+    title
+    text
+  }
+
   reviews {
     image {
       url
