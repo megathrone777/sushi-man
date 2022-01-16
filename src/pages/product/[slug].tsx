@@ -156,7 +156,7 @@ ProductPage.getInitialProps = async ({ query: { slug } }) => {
     productDetails: products[0],
     shopSettings: {
       ...shop,
-      shopIsClosed: checkShopIsClosed(),
+      shopIsClosed: false,
     },
   };
 };

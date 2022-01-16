@@ -74,8 +74,6 @@ const IndexPage: NextPage<TProps> = ({
   const productsTitle = t("productsTitle");
   const mainTitle = t("mainTitle");
 
-  console.log(modalOrder, 'page')
-
   useEffect((): void => {
     dispatch(setShopSettings(shopSettings));
     dispatch(setSchedule(schedule));
