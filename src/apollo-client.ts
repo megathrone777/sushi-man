@@ -18,7 +18,7 @@ const defaultOptions: DefaultOptions = {
 };
 
 const httpLink = createHttpLink({
-  uri: "https://sushi-admin.herokuapp.com/graphql",
+  uri: "https://sushiman-office.cz/graphql",
 });
 
 const authLink = setContext((_, { headers }) => ({
