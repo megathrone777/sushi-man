@@ -31,6 +31,10 @@ import {
   StyledImageLoader,
 } from "./styled";
 
+interface TSelectedModifier extends TProductModifier {
+  modifierIndex: number;
+}
+
 interface TSelectedSubmodifier extends TProductSubmodifier {
   modifierIndex: number;
 }
@@ -65,7 +69,7 @@ const ProductDetails: React.FC<TProps> = ({
   const [shopModalIsOpened, toggleShopModalOpened] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(parseInt(price));
   const [selectedModifiers, setSelectedModifiers] = useState<
-    TProductModifier[]
+    TSelectedModifier[]
   >([]);
   const [selectedSubModifiers, setSelectedSubmodifiers] = useState<
     TSelectedSubmodifier[]
@@ -88,7 +92,7 @@ const ProductDetails: React.FC<TProps> = ({
       (isPoke && selectedModifiers.length === 0) ||
       (!isPoke &&
         selectedModifiers.length > 0 &&
-        selectedSubModifiers.length === 0)
+        selectedModifiers.length > selectedSubModifiers.length)
     ) {
       notify({
         dismissAfter: 3000,
@@ -115,13 +119,16 @@ const ProductDetails: React.FC<TProps> = ({
     });
   };
 
-  const handleModifierChange = (modifier: TProductModifier): void => {
+  const handleModifierChange = (
+    modifier: TProductModifier,
+    modifierIndex: number
+  ): void => {
     if (isPoke) {
-      const newModidiers = [...selectedModifiers];
+      const newModifiers = [...selectedModifiers];
 
-      newModidiers.length = 0;
-      newModidiers.push(modifier);
-      setSelectedModifiers(newModidiers);
+      newModifiers.length = 0;
+      newModifiers.push({ ...modifier, modifierIndex });
+      setSelectedModifiers(newModifiers);
       setTotalPrice((prevTotalPrice: number): number => {
         return prevTotalPrice + parseInt(modifier.price);
       });
@@ -147,7 +154,7 @@ const ProductDetails: React.FC<TProps> = ({
     } else {
       const newModifiers = [...selectedModifiers];
 
-      newModifiers.push(modifier);
+      newModifiers.push({ ...modifier, modifierIndex });
       setSelectedModifiers(newModifiers);
       setTotalPrice((prevTotalPrice: number): number => {
         return prevTotalPrice + parseInt(modifier.price);
@@ -238,7 +245,9 @@ const ProductDetails: React.FC<TProps> = ({
                           <StyledMofifiersCheckbox
                             id={modifier.id}
                             name="modifier"
-                            onChange={() => handleModifierChange(modifier)}
+                            onChange={() =>
+                              handleModifierChange(modifier, index)
+                            }
                             checked={selectedModifiers.some(
                               (selectedModifier: TProductModifier) =>
                                 selectedModifier.id === modifier.id

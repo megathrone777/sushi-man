@@ -45,14 +45,17 @@ const handler = async (request: NextApiRequest, response: NextApiResponse) => {
 
         if (product_modifiers && !!product_modifiers.length) {
           const modifiersList = product_modifiers.map(
-            ({ name: modifier_name }, index: number): string => {
+            ({ name: modifier_name, modifierIndex }): string => {
               const modifier =
                 modifier_name && modifier_name.length > 0
                   ? `\n<b>-${modifier_name}</b>`
                   : "";
+
               const modifier_submodifiers = product_submodifiers.filter(
-                ({ modifierIndex }) => modifierIndex === index
+                ({ modifierIndex: subModifierIndex }) =>
+                  modifierIndex === subModifierIndex
               );
+
               const submodifiers = modifier_submodifiers.map(
                 ({ name: submodifier_name }): string => {
                   return submodifier_name && submodifier_name.length > 0
