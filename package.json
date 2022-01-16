@@ -9,7 +9,7 @@
     "start": "next start -p 80",
     "export": "next export",
     "lint": "next lint --no-cache",
-    "postbuild": "next-sitemap --config next-sitemap.js"
+    "postbuild": "next-sitemap --config next.sitemap.js"
   },
   "dependencies": {
     "@apollo/client": "^3.4.8",
