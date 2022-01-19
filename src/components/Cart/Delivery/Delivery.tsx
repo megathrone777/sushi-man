@@ -187,6 +187,8 @@ const Delivery: React.FC = () => {
 
   useEffect((): void => {
     if (isPickupChecked) {
+      dispatch(setCustomerAddress(""));
+      dispatch(setDeliveryDistance(null));
       dispatch(setDeliveryPrice(null));
       return;
     }
