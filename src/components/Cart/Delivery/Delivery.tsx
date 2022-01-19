@@ -171,22 +171,9 @@ const Delivery: React.FC = () => {
   };
 
   useEffect((): void => {
-    dispatch(setDeliveryError(false));
-
-    if (deliveryDistance <= 3) {
-      dispatch(setDeliveryPrice(0));
-    } else if (deliveryDistance > 3 && deliveryDistance <= 6) {
-      dispatch(setDeliveryPrice(50));
-    } else if (deliveryDistance > 6 && deliveryDistance <= 8) {
-      dispatch(setDeliveryPrice(100));
-    } else {
-      dispatch(setDeliveryPrice(null));
-      dispatch(setDeliveryError(true));
-    }
-  }, [dispatch, deliveryDistance]);
-
-  useEffect((): void => {
     if (isPickupChecked) {
+      dispatch(setCustomerAddress(""));
+      dispatch(setDeliveryDistance(null));
       dispatch(setDeliveryPrice(null));
       return;
     }
@@ -244,6 +231,23 @@ const Delivery: React.FC = () => {
       dispatch(setCustomerAddressError(false));
     });
   }, [isPickupChecked]);
+
+  useEffect((): void => {
+    dispatch(setDeliveryError(false));
+
+    if (!isPickupChecked) {
+      if (deliveryDistance <= 3) {
+        dispatch(setDeliveryPrice(0));
+      } else if (deliveryDistance > 3 && deliveryDistance <= 6) {
+        dispatch(setDeliveryPrice(50));
+      } else if (deliveryDistance > 6 && deliveryDistance <= 8) {
+        dispatch(setDeliveryPrice(100));
+      } else {
+        dispatch(setDeliveryPrice(null));
+        dispatch(setDeliveryError(true));
+      }
+    }
+  }, [deliveryDistance]);
 
   useEffect((): void => {
     dispatch(setCustomerAddress(""));
