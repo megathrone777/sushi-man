@@ -6,6 +6,7 @@ import client from "~/apollo-client";
 import { TProps, TCategory, TCategoryTypes } from "./types";
 import { SvgLoaderIcon } from "~/icons";
 import { TProduct, Modal } from "~/components";
+import { useStore } from "~/store";
 import useTranslation from "~/intl/useTranslation";
 import {
   StyledWrapper,
@@ -50,10 +51,10 @@ const Products: React.FC<TProps> = ({ title, inner }) => {
   const { t } = useTranslation();
   const [ordersStopModalIsOpened, toggleOrdersStopModalOpened] =
     useState<boolean>(false);
+  const { store } = useStore();
+  const { modalOrder } = store;
   const [shopModalIsOpened, toggleShopModalOpened] = useState<boolean>(false);
   const [categoryType, setCategoryType] = useState<TCategoryTypes>(null);
-  const ordersStopModalTitle = t("ordersStopModalTitle");
-  const ordersStopModalText = t("ordersStopModalText");
   const shopModalTitle = t("shopModalTitle");
   const shopModalText = t("modalText");
   const contactsLinks = t("contactsLinks");
@@ -191,8 +192,8 @@ const Products: React.FC<TProps> = ({ title, inner }) => {
           close={handleOrdersStopModalClose}
           contactsLinks={contactsLinks}
           isOpened={ordersStopModalIsOpened}
-          text={ordersStopModalText}
-          title={ordersStopModalTitle}
+          text={modalOrder.text}
+          title={modalOrder.title}
         />
 
         <Modal
