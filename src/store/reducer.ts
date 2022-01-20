@@ -6,7 +6,7 @@ import { TAction, TActionTypes } from "./actions";
 import { TStore, TAdditional, TCartProduct, initialStore } from "./globalStore";
 
 const setStoreToLocalStorage = (currentStore: TStore): TStore => {
-  setToLocalStorage<TStore>("sushiManGlobalStorage", currentStore);
+  setToLocalStorage<TStore>("sushiManShopStorage", currentStore);
 
   return currentStore;
 };
