@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { getTranslation } from "@/dictionaries";
 import { store } from "@/store";
@@ -259,7 +259,7 @@ const Page: React.FC<PageProps<"/order-confirmed/[id]">> = async ({ params }) =>
     );
   }
 
-  return notFound();
+  redirect("/order-error");
 };
 
 export default Page;
