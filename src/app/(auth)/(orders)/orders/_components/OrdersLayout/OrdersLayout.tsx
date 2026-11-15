@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { useNewOrderAlert, useRealtime } from "@/hooks";
 
@@ -11,13 +11,15 @@ import type { TProps } from "./OrdersLayout.types";
 
 const OrdersLayout: React.FC<TProps> = ({ initialOrders, isAdmin, placeholder }) => {
   const [orders, setOrders] = useState<TOrder[]>(initialOrders);
+  const seenOrderIdsRef = useRef(new Set(initialOrders.map(({ id }) => id)));
   const { notify } = useNewOrderAlert();
 
   useRealtime({
     events: ["newOrder", "orderStatusChanged"],
     onData: ({ data, event }): void => {
       if (event === "newOrder") {
-        if (!data?.order) return;
+        if (!data?.order || seenOrderIdsRef.current.has(data.order.id)) return;
+        seenOrderIdsRef.current.add(data.order.id);
         setOrders((prevOrders: TOrder[]): TOrder[] => [data.order, ...prevOrders]);
         notify(data.id);
 

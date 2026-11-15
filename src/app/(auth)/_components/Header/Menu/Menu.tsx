@@ -28,7 +28,7 @@ const Menu: React.FC<TProps> = ({ role }) => {
 
       {role === "admin" && (
         <>
-          <Link
+          <a
             className={linkClass.default}
             href="/tracker.apk"
           >
@@ -38,7 +38,7 @@ const Menu: React.FC<TProps> = ({ role }) => {
             />
 
             <span>Tracker app</span>
-          </Link>
+          </a>
 
           <Link
             className={linkClass[pathname === "/tracker" ? "active" : "default"]}
