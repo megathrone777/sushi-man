@@ -27,17 +27,31 @@ const Menu: React.FC<TProps> = ({ role }) => {
       </Link>
 
       {role === "admin" && (
-        <Link
-          className={linkClass[pathname === "/tracker" ? "active" : "default"]}
-          href="/tracker"
-        >
-          <Icon
-            className={iconClass}
-            id="locate"
-          />
+        <>
+          <Link
+            className={linkClass.default}
+            href="/tracker.apk"
+          >
+            <Icon
+              className={iconClass}
+              id="locate"
+            />
 
-          <span>Tracker</span>
-        </Link>
+            <span>Tracker app</span>
+          </Link>
+
+          <Link
+            className={linkClass[pathname === "/tracker" ? "active" : "default"]}
+            href="/tracker"
+          >
+            <Icon
+              className={iconClass}
+              id="locate"
+            />
+
+            <span>Tracker</span>
+          </Link>
+        </>
       )}
 
       <Link
