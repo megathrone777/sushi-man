@@ -11,5 +11,4 @@ export interface TProps extends DetailedHTMLProps<
   iconId?: null | TIconID;
   target?: HTMLAnchorElement["target"];
   template?: "normal" | "small";
-  withTransition?: true;
 }

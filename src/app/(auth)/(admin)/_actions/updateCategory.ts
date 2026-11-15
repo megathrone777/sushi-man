@@ -2,7 +2,7 @@
 import { del, put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 
-import { redis, store } from "@/store";
+import { store } from "@/store";
 
 const updateCategory = async (
   _state: null | TActionResult,
@@ -53,7 +53,7 @@ const updateCategory = async (
     .filter((c: TProductCategory) => c.id !== 0 && c.id !== id)
     .sort((a: TProductCategory, b: TProductCategory) => a.id - b.id)[0];
 
-  const pipeline = redis.pipeline();
+  const pipeline = store.redis.pipeline();
 
   pipeline.hset("categories", { [id]: JSON.stringify(updated) });
 

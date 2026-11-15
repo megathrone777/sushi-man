@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 
 import { store } from "@/store";
 import { Icon } from "@/ui";

@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-import { redis } from "@/store/redis";
+import { store } from "@/store";
 import { geoDistance, pragueDay } from "@/utils";
 
 const ex: number = 60 * 60 * 12;
@@ -18,7 +18,9 @@ const toKmh = (speed: null | number): null | number =>
   speed === null ? null : Math.round(speed * 3.6);
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
-  if (request.headers.get("x-api-secret") !== process.env.COURIER_API_SECRET) {
+  const secret = process.env.COURIER_API_SECRET;
+
+  if (!secret || request.headers.get("x-api-secret") !== secret) {
     return NextResponse.json({}, { status: 401 });
   }
 
@@ -36,7 +38,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 
   const speedKmh = toKmh(speed);
 
-  const [previous, currentMax] = await redis
+  const [previous, currentMax] = await store.redis
     .pipeline()
     .get<TCourierRecord>(courierKey)
     .hget<number>(statsKey, "maxSpeed")
@@ -49,7 +51,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 
   const append: boolean = moved === null || moved >= pointDistance || sincePoint >= pointInterval;
 
-  const pipeline = redis.pipeline();
+  const pipeline = store.redis.pipeline();
 
   pipeline.set<TCourierRecord>(
     courierKey,
@@ -84,4 +86,20 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
   await pipeline.exec();
 
   return NextResponse.json({});
+};
+
+export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
+  const secret = process.env.COURIER_API_SECRET;
+
+  if (!secret || request.headers.get("x-api-secret") !== secret) {
+    return NextResponse.json({}, { status: 401 });
+  }
+
+  const id = request.nextUrl.searchParams.get("id")?.trim();
+
+  if (!id || id.length > 128) return NextResponse.json({}, { status: 400 });
+
+  const deleted = await store.redis.del(`courier:${id}`);
+
+  return NextResponse.json({ deleted: deleted > 0 });
 };

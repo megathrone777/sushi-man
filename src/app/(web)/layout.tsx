@@ -1,5 +1,4 @@
 import React from "react";
-import { ViewTransitions } from "next-view-transitions";
 
 import { store } from "@/store";
 import { isShopOpened } from "@/utils";
@@ -31,7 +30,7 @@ const Layout: React.FC<LayoutProps<"/">> = async ({ children }) => {
   const closedText = !scheduleIsOpen ? closedByScheduleText : closedByOverloadText;
 
   return (
-    <ViewTransitions>
+    <>
       <Header {...{ logoUrl, navigation, phone }} />
       <main>{children}</main>
 
@@ -56,7 +55,7 @@ const Layout: React.FC<LayoutProps<"/">> = async ({ children }) => {
         isOpened={shopIsOpen}
         text={closedByScheduleText}
       />
-    </ViewTransitions>
+    </>
   );
 };
 

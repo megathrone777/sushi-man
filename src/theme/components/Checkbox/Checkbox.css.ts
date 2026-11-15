@@ -21,12 +21,14 @@ export const layoutClass = styleVariants(
       minWidth: 25,
       width: 25,
     },
+
     small: {
       height: 21,
       minWidth: 21,
       width: 21,
     },
   },
+
   (template, { colors }) => [
     {
       alignContent: "center",

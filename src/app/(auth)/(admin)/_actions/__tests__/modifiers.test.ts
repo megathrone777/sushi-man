@@ -1,15 +1,15 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { revalidatePath } from "next/cache";
 
-import { redis, store } from "@/store";
+import { store } from "@/store";
 
 import { createModifier } from "../createModifier";
 import { updateModifier } from "../updateModifier";
 
 jest.mock("@/store", () => ({
-  redis: { pipeline: jest.fn() },
   store: {
     modifiers: { set: jest.fn() },
+    redis: { pipeline: jest.fn() },
     sessions: { get: jest.fn() },
   },
 }));
@@ -49,7 +49,7 @@ beforeEach(() => {
   jest.clearAllMocks();
   jest.mocked(store.sessions.get).mockResolvedValue({ role: "admin" } as never);
   jest.mocked(store.modifiers.set).mockResolvedValue(undefined);
-  jest.mocked(redis.pipeline).mockReturnValue(makePipeline() as never);
+  jest.mocked(store.redis.pipeline).mockReturnValue(makePipeline() as never);
 });
 
 describe("createModifier", () => {
@@ -74,7 +74,7 @@ describe("createModifier", () => {
 
   describe("success", () => {
     it("assigns id=1 when there are no existing modifiers", async () => {
-      jest.mocked(redis.pipeline).mockReturnValue(makePipeline([null, null]) as never);
+      jest.mocked(store.redis.pipeline).mockReturnValue(makePipeline([null, null]) as never);
 
       await createModifier(null, makeFormData());
 
@@ -84,7 +84,7 @@ describe("createModifier", () => {
     it("assigns id = max existing id + 1", async () => {
       const existingMap = { "3": { id: 3 }, "7": { id: 7 } };
 
-      jest.mocked(redis.pipeline).mockReturnValue(makePipeline([existingMap, null]) as never);
+      jest.mocked(store.redis.pipeline).mockReturnValue(makePipeline([existingMap, null]) as never);
 
       await createModifier(null, makeFormData());
 
@@ -116,7 +116,7 @@ describe("createModifier", () => {
         "2": { id: 2, title: "Sub B" },
       };
 
-      jest.mocked(redis.pipeline).mockReturnValue(makePipeline([null, subsMap]) as never);
+      jest.mocked(store.redis.pipeline).mockReturnValue(makePipeline([null, subsMap]) as never);
 
       const formData = makeFormData();
 
@@ -159,7 +159,9 @@ describe("updateModifier", () => {
     makeFormData({ id: "5", ...overrides });
 
   beforeEach(() => {
-    jest.mocked(redis.pipeline).mockReturnValue(makePipeline([existingModifier, null]) as never);
+    jest
+      .mocked(store.redis.pipeline)
+      .mockReturnValue(makePipeline([existingModifier, null]) as never);
   });
 
   describe("auth", () => {
@@ -174,7 +176,7 @@ describe("updateModifier", () => {
 
   describe("validation", () => {
     it("returns error when modifier id is not found", async () => {
-      jest.mocked(redis.pipeline).mockReturnValue(makePipeline([null, null]) as never);
+      jest.mocked(store.redis.pipeline).mockReturnValue(makePipeline([null, null]) as never);
 
       const result = await updateModifier(null, formData({ id: "99" }));
 

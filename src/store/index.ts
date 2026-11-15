@@ -12,6 +12,7 @@ import { orders } from "./orders";
 import { products } from "./products";
 import { promocodes } from "./promocodes";
 import { promotion } from "./promotion";
+import { redis } from "./redis";
 import { reviews } from "./reviews";
 import { rules } from "./rules";
 import { sessions } from "./sessions";
@@ -36,6 +37,7 @@ const store = {
   products,
   promocodes,
   promotion,
+  redis,
   reviews,
   rules,
   sessions,
@@ -47,5 +49,4 @@ const store = {
 };
 
 export { realtime, type RealtimeEvents } from "./realtime";
-export { redis } from "./redis";
 export { store };

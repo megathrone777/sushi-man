@@ -36,4 +36,4 @@ Open [https://localhost:3000](https://localhost:3000) with your browser to see t
 
 The page auto-updates as you edit the file.
 
-Please run ```yarn build``` before every commit
+Run `yarn build` before every commit

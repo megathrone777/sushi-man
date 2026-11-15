@@ -1,12 +1,10 @@
 import React from "react";
-import { Link as ViewTransitionLink } from "next-view-transitions";
 import Link, { type LinkProps } from "next/link";
 
 import { Icon } from "@/ui";
 
 import { buttonClass, iconClass } from "./Button.css";
 
-import type { RouteType } from "next/dist/lib/load-custom-routes";
 import type { TProps } from "./Button.types";
 
 const Button: React.FC<TProps> = ({
@@ -21,11 +19,10 @@ const Button: React.FC<TProps> = ({
   title,
   type = "button",
   value,
-  withTransition,
 }) => {
   const renderLink = (): React.ReactElement => {
     if (!href) return <></>;
-    const linkProps: LinkProps<RouteType> = {
+    const linkProps: LinkProps<string> = {
       className: buttonClass[template],
       href,
       target,
@@ -39,10 +36,6 @@ const Button: React.FC<TProps> = ({
     ) : (
       children
     );
-
-    if (withTransition) {
-      return <ViewTransitionLink {...linkProps}>{linkContent}</ViewTransitionLink>;
-    }
 
     return <Link {...linkProps}>{linkContent}</Link>;
   };

@@ -1,18 +1,20 @@
 "use server";
-
 import { store } from "@/store";
-import { redis } from "@/store/redis";
 
-const getCourierPosition = async (
-  orderId: number
-): Promise<{ latitude: number; longitude: number } | null> => {
-  const order = await store.orders.getById(orderId);
-
-  if (!order || order.status !== "took" || order.deliveryType !== "delivery" || !order.courier) {
-    return null;
-  }
-
-  const courier = await redis.get<TCourierRecord>(`courier:${order.courier}`);
+const getCourierPosition = async (): Promise<{
+  latitude: number;
+  longitude: number;
+} | null> => {
+  const keys = await store.redis.keys("courier:*");
+  const couriers = await Promise.all(
+    keys.map((key: string) => store.redis.get<TCourierRecord>(key))
+  );
+  const courier = couriers
+    .filter(
+      (item): item is TCourierRecord =>
+        !!item && Number.isFinite(item.latitude) && Number.isFinite(item.longitude)
+    )
+    .sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0))[0];
 
   if (!courier || !Number.isFinite(courier.latitude) || !Number.isFinite(courier.longitude)) {
     return null;

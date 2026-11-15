@@ -2,7 +2,7 @@ import { tool } from "ai";
 import { object, string } from "zod";
 
 import { getTranslation } from "@/dictionaries";
-import { validateDeliveryAddress } from "@/utils";
+import { cart } from "@/store/cart";
 
 const inputSchema = object({
   deliveryAddress: string().min(1).describe("Full delivery address to check"),
@@ -29,7 +29,7 @@ const checkDeliveryZone = tool({
 
     if (!position) return "Adresa nebyla nalezena. Upřesněte prosím název ulice a číslo popisné.";
 
-    const result = await validateDeliveryAddress(position);
+    const result = await cart.validateDeliveryAddress(position);
 
     if (!result) return "Nepodařilo se vypočítat vzdálenost.";
 

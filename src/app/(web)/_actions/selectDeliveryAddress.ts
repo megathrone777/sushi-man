@@ -2,7 +2,6 @@
 import { revalidatePath } from "next/cache";
 
 import { store } from "@/store";
-import { kitchenCoords, validateDeliveryAddress } from "@/utils/validateDeliveryAddress";
 
 import { saveCart } from "./saveCart";
 
@@ -13,6 +12,8 @@ type TRouteResponse = {
     };
   };
 };
+
+const kitchenCoords: TLatLon = { lat: 50.0861328, lon: 14.4518119 };
 
 const selectDeliveryAddress = async (
   address: string,
@@ -34,7 +35,7 @@ const selectDeliveryAddress = async (
   routeUrl.searchParams.set("routeType", "car_fast_traffic");
 
   const [result, routeResponse] = await Promise.all([
-    validateDeliveryAddress(pos),
+    store.cart.validateDeliveryAddress(pos),
     fetch(routeUrl.toString()),
   ]);
 

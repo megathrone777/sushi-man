@@ -35,7 +35,6 @@ const Page: React.FC<PageProps<"/order-confirmed/[id]">> = async ({ params }) =>
     const {
       additionals,
       clientPhoneNumber,
-      courier,
       cutleryCount,
       deliveryAddress,
       deliveryCoordinates,
@@ -205,7 +204,7 @@ const Page: React.FC<PageProps<"/order-confirmed/[id]">> = async ({ params }) =>
 
               {deliveryType === "delivery" && (
                 <Progress
-                  {...{ courier, deliveryCoordinates, orderId }}
+                  {...{ deliveryCoordinates, orderId }}
                   initialStatus={status}
                 />
               )}

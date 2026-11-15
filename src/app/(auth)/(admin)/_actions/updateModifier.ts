@@ -1,7 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
 
-import { redis, store } from "@/store";
+import { store } from "@/store";
 
 const updateModifier = async (
   _state: null | TActionResult,
@@ -23,7 +23,7 @@ const updateModifier = async (
   const requiredSubModifier = formData.get("requiredSubModifier") === "on";
   const subModifierIds = formData.getAll("subModifierIds").map(Number);
 
-  const [prev, subsMap] = await redis
+  const [prev, subsMap] = await store.redis
     .pipeline()
     .hget<TModifier>("modifiers", `${id}`)
     .hgetall<Record<string, TSubmodifier>>("submodifiers")

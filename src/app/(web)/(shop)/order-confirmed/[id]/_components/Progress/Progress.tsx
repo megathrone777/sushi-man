@@ -30,7 +30,7 @@ const haversine = (lat1: number, lon1: number, lat2: number, lon2: number): numb
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 };
 
-const Progress: React.FC<TProps> = ({ courier, deliveryCoordinates, initialStatus, orderId }) => {
+const Progress: React.FC<TProps> = ({ deliveryCoordinates, initialStatus, orderId }) => {
   const mapRef = useRef<MapRef>(null);
   const [courierPosition, setCourierPosition] = useState<{
     latitude: number;
@@ -43,7 +43,7 @@ const Progress: React.FC<TProps> = ({ courier, deliveryCoordinates, initialStatu
   const deliveryLng = parts[1];
   const hasDelivery =
     deliveryLat != null && deliveryLng != null && !isNaN(deliveryLat) && !isNaN(deliveryLng);
-  const effectiveCourierPosition = status === "took" ? courierPosition : null;
+  const effectiveCourierPosition = courierPosition;
   const isNearby =
     effectiveCourierPosition && hasDelivery
       ? haversine(
@@ -86,14 +86,12 @@ const Progress: React.FC<TProps> = ({ courier, deliveryCoordinates, initialStatu
   useEffect(() => {
     setCourierPosition(null);
 
-    if (status !== "took" || !courier) return;
-
     let active = true;
     let timeout: ReturnType<typeof setTimeout>;
 
     const poll = async (): Promise<void> => {
       try {
-        const position = await getCourierPosition(orderId);
+        const position = await getCourierPosition();
 
         if (active && position) {
           setCourierPosition(position);
@@ -111,7 +109,7 @@ const Progress: React.FC<TProps> = ({ courier, deliveryCoordinates, initialStatu
       active = false;
       clearTimeout(timeout);
     };
-  }, [status, courier, orderId]);
+  }, []);
 
   useEffect((): void => {
     if (!mapRef.current || !effectiveCourierPosition) return;
@@ -122,8 +120,6 @@ const Progress: React.FC<TProps> = ({ courier, deliveryCoordinates, initialStatu
       zoom: 15,
     });
   }, [effectiveCourierPosition]);
-
-  if (status === "placed") return null;
 
   return (
     <div className={wrapperClass}>

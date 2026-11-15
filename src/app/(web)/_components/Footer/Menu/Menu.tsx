@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import { wrapperClass, linkClass, listClass } from "./Menu.css";

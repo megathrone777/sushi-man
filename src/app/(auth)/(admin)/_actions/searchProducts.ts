@@ -1,5 +1,5 @@
 "use server";
-import { redis } from "@/store";
+import { store } from "@/store";
 
 import type { FlatIndexSchema } from "@upstash/redis";
 
@@ -26,7 +26,7 @@ const PRODUCTS_SEARCH_SCHEMA = {
 const searchProducts = async (query: string): Promise<TProductSearchResult["data"][]> => {
   if (!query.trim()) return [];
 
-  const index = redis.search.index({
+  const index = store.redis.search.index({
     name: PRODUCTS_SEARCH_INDEX,
     schema: PRODUCTS_SEARCH_SCHEMA,
   });

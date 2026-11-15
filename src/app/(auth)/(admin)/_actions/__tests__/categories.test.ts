@@ -2,15 +2,15 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 
-import { redis, store } from "@/store";
+import { store } from "@/store";
 
 import { createCategory } from "../createCategory";
 import { updateCategory } from "../updateCategory";
 
 jest.mock("@/store", () => ({
-  redis: { pipeline: jest.fn() },
   store: {
     categories: { getAll: jest.fn(), getById: jest.fn(), set: jest.fn() },
+    redis: { pipeline: jest.fn() },
     sessions: { get: jest.fn() },
   },
 }));
@@ -62,7 +62,7 @@ beforeEach(() => {
   jest.mocked(store.categories.set).mockResolvedValue(undefined);
   jest.mocked(store.categories.getAll).mockResolvedValue([makeExistingCategory()] as never);
   jest.mocked(store.categories.getById).mockResolvedValue(makeExistingCategory());
-  jest.mocked(redis.pipeline).mockReturnValue(makePipeline() as never);
+  jest.mocked(store.redis.pipeline).mockReturnValue(makePipeline() as never);
 });
 
 describe("createCategory", () => {
@@ -174,7 +174,7 @@ describe("updateCategory", () => {
     it("saves the updated title via the pipeline hset", async () => {
       const pipeline = makePipeline();
 
-      jest.mocked(redis.pipeline).mockReturnValue(pipeline as never);
+      jest.mocked(store.redis.pipeline).mockReturnValue(pipeline as never);
       await updateCategory(null, fd({ title: "Nigiri" }));
 
       expect(pipeline.hset).toHaveBeenCalledWith(

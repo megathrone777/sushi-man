@@ -1,7 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 import { store } from "@/store";
-import { redis } from "@/store/redis";
 import { pragueDay, toCourierStats } from "@/utils";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +12,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
   if (!session) return NextResponse.json({}, { status: 401 });
   if (session.role !== "admin") return NextResponse.json({}, { status: 403 });
 
-  const keys = (await redis.keys("courier:*")).sort();
+  const keys = (await store.redis.keys("courier:*")).sort();
 
   if (keys.length === 0) return NextResponse.json([]);
 
@@ -25,8 +24,8 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
         const id: string = key.replace("courier:", "");
 
         const [courier, stats] = await Promise.all([
-          redis.get<TCourier>(key),
-          redis.hgetall<Record<string, unknown>>(`stats:${day}:${id}`),
+          store.redis.get<TCourier>(key),
+          store.redis.hgetall<Record<string, unknown>>(`stats:${day}:${id}`),
         ]);
 
         if (!courier) return null;

@@ -1,5 +1,5 @@
 "use server";
-import { redis, store } from "@/store";
+import { store } from "@/store";
 
 import type { FlatIndexSchema } from "@upstash/redis";
 
@@ -26,7 +26,7 @@ const searchOrders = async (query: string): Promise<TOrderSearchResult["data"][]
     return order ? [order] : [];
   }
 
-  const index = redis.search.index({
+  const index = store.redis.search.index({
     name: ORDER_SEARCH_INDEX,
     schema: ORDER_SEARCH_SCHEMA,
   });

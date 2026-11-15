@@ -1,12 +1,24 @@
 import { randomUUID } from "crypto";
 
+import { deliveryConditions } from "./deliveryConditions";
 import { redis } from "./redis";
 import { shop } from "./shop";
+
+interface TMatrixResponse {
+  matrix: [[{ duration: number; length: number }]];
+}
+
+interface TValidateDeliveryResult {
+  length: number;
+  tier?: TDeliveryCondition;
+}
 
 const COOKIE_MAX_AGE: number = 60 * 60 * 24 * 7;
 const COOKIE_NAME: string = "sid";
 const TTL_SECONDS = 60 * 60 * 24 * 7;
 const LOCK_TTL_SECONDS = 5;
+
+const kitchenCoords: TLatLon = { lat: 50.0861328, lon: 14.4518119 };
 
 const lockKey = (sessionId: string): string => `lock:${sessionId}`;
 
@@ -195,6 +207,33 @@ const cart = {
 
   unlock: async (sessionId: string): Promise<void> => {
     await redis.del(lockKey(sessionId));
+  },
+
+  validateDeliveryAddress: async ({
+    lat,
+    lon,
+  }: TLatLon): Promise<null | TValidateDeliveryResult> => {
+    const apikey = process.env.MAPY_CZ_API_KEY ?? "";
+    const matrixUrl = new URL("https://api.mapy.cz/v1/routing/matrix-m");
+
+    matrixUrl.searchParams.set("apikey", apikey);
+    matrixUrl.searchParams.set("lang", "cs");
+    matrixUrl.searchParams.append("starts", `${kitchenCoords.lon},${kitchenCoords.lat}`);
+    matrixUrl.searchParams.append("ends", [lon, lat].join(","));
+    matrixUrl.searchParams.set("routeType", "car_fast_traffic");
+
+    const matrixResponse = await fetch(matrixUrl.toString());
+
+    if (!matrixResponse.ok) return null;
+
+    const matrixData = (await matrixResponse.json()) as TMatrixResponse;
+    const length = matrixData.matrix?.[0]?.[0]?.length ?? 0;
+    const conditions = await deliveryConditions.getAll();
+    const tier = conditions.find(
+      ({ distanceFrom, distanceTo }) => distanceFrom < length && length <= distanceTo
+    );
+
+    return { length, tier };
   },
 };
 

@@ -1,62 +1,48 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { store } from "@/store";
-import { redis } from "@/store/redis";
 
 import { getCourierPosition } from "../getCourierPosition";
 
-jest.mock("@/store", () => ({ store: { orders: { getById: jest.fn() } } }));
-jest.mock("@/store/redis", () => ({ redis: { get: jest.fn() } }));
+jest.mock("@/store", () => ({
+  store: { redis: { get: jest.fn(), keys: jest.fn() } },
+}));
 
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
 describe("getCourierPosition", () => {
-  it("returns the courier's current coordinates from Redis", async () => {
-    jest.mocked(store.orders.getById).mockResolvedValue({
-      courier: "courier-1",
-      deliveryType: "delivery",
-      status: "took",
-    } as TOrder);
-    jest.mocked(redis.get).mockResolvedValue({
-      heading: null,
-      id: "courier-1",
-      latitude: 50.1,
-      longitude: 14.4,
-      speed: null,
-    });
+  it("returns the latest valid position without an order or courier id", async () => {
+    jest.mocked(store.redis.keys).mockResolvedValue(["courier:device-1", "courier:device-2"]);
+    jest.mocked(store.redis.get).mockImplementation((key: string) =>
+      Promise.resolve({
+        heading: null,
+        id: key.replace("courier:", ""),
+        latitude: key.endsWith("1") ? 50.1 : 50.2,
+        longitude: 14.4,
+        speed: null,
+        updatedAt: key.endsWith("1") ? 100 : 200,
+      })
+    );
 
-    await expect(getCourierPosition(42)).resolves.toEqual({
-      latitude: 50.1,
+    await expect(getCourierPosition()).resolves.toEqual({
+      latitude: 50.2,
       longitude: 14.4,
     });
-    expect(redis.get).toHaveBeenCalledWith("courier:courier-1");
+    expect(store.redis.keys).toHaveBeenCalledWith("courier:*");
   });
 
   it("returns null when no usable courier position is available", async () => {
-    jest.mocked(store.orders.getById).mockResolvedValue(null);
-
-    await expect(getCourierPosition(42)).resolves.toBeNull();
-    expect(redis.get).not.toHaveBeenCalled();
-
-    jest.mocked(store.orders.getById).mockResolvedValue({
-      courier: "courier-1",
-      deliveryType: "delivery",
-      status: "took",
-    } as TOrder);
-    jest.mocked(redis.get).mockResolvedValue(null);
-
-    await expect(getCourierPosition(42)).resolves.toBeNull();
-
-    jest.mocked(redis.get).mockResolvedValue({
+    jest.mocked(store.redis.keys).mockResolvedValue(["courier:device-id"]);
+    jest.mocked(store.redis.get).mockResolvedValue({
       heading: null,
-      id: "courier-1",
+      id: "device-id",
       latitude: Number.NaN,
       longitude: 14.4,
       speed: null,
     });
 
-    await expect(getCourierPosition(42)).resolves.toBeNull();
+    await expect(getCourierPosition()).resolves.toBeNull();
   });
 });

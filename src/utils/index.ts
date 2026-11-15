@@ -10,5 +10,4 @@ export { sortByOrder } from "./sortByOrder";
 export { splitText } from "./splitText";
 export { toCourierStats } from "./toCourierStats";
 export { uuid } from "./uuid";
-export { validateDeliveryAddress } from "./validateDeliveryAddress";
 export { hashPassword, verifyPassword } from "./verifyPassword";

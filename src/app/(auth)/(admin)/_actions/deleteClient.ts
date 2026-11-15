@@ -1,7 +1,7 @@
 "use server";
 import { redirect } from "next/navigation";
 
-import { redis, store } from "@/store";
+import { store } from "@/store";
 
 import type { FlatIndexSchema } from "@upstash/redis";
 
@@ -37,7 +37,7 @@ const deleteClient = async (
 
   await store.clients.delete(phoneNumber);
 
-  const index = redis.search.index({
+  const index = store.redis.search.index({
     name: CLIENT_SEARCH_INDEX,
     schema: CLIENT_SEARCH_SCHEMA,
   });

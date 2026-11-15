@@ -3,6 +3,7 @@ import React from "react";
 import { store } from "@/store";
 import { Button } from "@/ui";
 
+import type { Route } from "next";
 import type { TProps } from "./History.types";
 
 const History: React.FC<TProps> = async ({ phoneNumber }) => {
@@ -13,12 +14,7 @@ const History: React.FC<TProps> = async ({ phoneNumber }) => {
   if (orders && !!orders.length) {
     return (
       <Button
-        href={{
-          pathname: "/archived-orders/[phoneNumber]",
-          query: {
-            phoneNumber,
-          },
-        }}
+        href={`/archived-orders/${phoneNumber}` as Route}
         iconId="history"
         template="small"
         title="Historie objednavek"
