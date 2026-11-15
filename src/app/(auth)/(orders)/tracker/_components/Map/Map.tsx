@@ -6,7 +6,7 @@ import { useRealtime } from "@/hooks";
 import { Icon } from "@/ui";
 
 import { CourierMarker } from "./CourierMarker";
-import { DeliveryMarkers } from "./DeliveryMarkers";
+import { DeliveryMarkers, isPaymentVisible, toDeliveryOrder } from "./DeliveryMarkers";
 import { FitBounds } from "./FitBounds";
 
 import { markerClass } from "./Map.css";
@@ -24,20 +24,20 @@ const Map: React.FC<TProps> = ({ initialOrders }) => {
   const [orders, setOrders] = useState<TOrder[]>(initialOrders);
 
   const getPositions = (): [number, number][] => {
-    // const deliveryPositions = orders
-    //   .map(toDeliveryOrder)
-    //   .filter(
-    //     (order): order is NonNullable<ReturnType<typeof toDeliveryOrder>> =>
-    //       order !== null && isPaymentVisible(order),
-    //   )
-    //   .map<[number, number]>(({ position }) => position);
+    const deliveryPositions = orders
+      .map(toDeliveryOrder)
+      .filter(
+        (order): order is NonNullable<ReturnType<typeof toDeliveryOrder>> =>
+          order !== null && isPaymentVisible(order)
+      )
+      .map<[number, number]>(({ position }) => position);
 
     const courierPositions = couriers.map(({ latitude, longitude }): [number, number] => [
       latitude,
       longitude,
     ]);
 
-    return [[kitchenCoords.lat, kitchenCoords.lon], ...courierPositions];
+    return [[kitchenCoords.lat, kitchenCoords.lon], ...deliveryPositions, ...courierPositions];
   };
 
   useRealtime({
