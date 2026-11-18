@@ -61,11 +61,11 @@ export const POST = async (request: NextRequest): Promise<Response> => {
     return NextResponse.json({}, { headers: cors, status: 400 });
   }
 
-  const { visitorId, ...visit } = payload;
+  const { lang, tz, visitorId, width } = payload;
   const stored = await store.redis.hsetnx(
     "visits",
     visitorId,
-    JSON.stringify({ ...visit, firstSeen: new Date().toISOString() })
+    JSON.stringify({ firstSeen: new Date().toISOString(), lang, tz, width })
   );
 
   return NextResponse.json({ stored: stored === 1 }, { headers: cors });

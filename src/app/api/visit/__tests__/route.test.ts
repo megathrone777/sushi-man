@@ -35,11 +35,24 @@ describe("POST /api/visit", () => {
 
     const response = await POST(request);
 
-    expect(store.redis.hsetnx).toHaveBeenCalledWith(
-      "visits",
-      payload.visitorId,
-      expect.stringContaining("\"lang\":\"en-US\"")
-    );
+    const call = jest.mocked(store.redis.hsetnx).mock.calls[0];
+
+    if (!call) throw new Error("Expected Redis hsetnx to be called");
+
+    const storedValue = call[2];
+
+    if (typeof storedValue !== "string") throw new Error("Expected serialized visit data");
+
+    const storedVisit = JSON.parse(storedValue) as Record<string, unknown>;
+
+    expect(call[0]).toBe("visits");
+    expect(call[1]).toBe(payload.visitorId);
+    expect(storedVisit).toEqual({
+      firstSeen: expect.any(String),
+      lang: payload.lang,
+      tz: payload.tz,
+      width: payload.width,
+    });
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toEqual({ stored: true });
   });
